@@ -1,0 +1,15 @@
+.socials {
+  margin-top: 3rem;
+
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.coming-soon {
+  text-align: center;
+}
+
+.coming-soon svg {
+  width: 42px;
+}
