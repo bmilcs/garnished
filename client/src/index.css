@@ -1,3 +1,4 @@
+@import url("./reset.scss");
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;700&display=swap");
 
 :root {
@@ -6,13 +7,6 @@
   --clr-primary: #eeea19;
   --clr-primary-dark: #8a8a8a;
 
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #111111;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,9 +14,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
-* {
-  margin: 0;
-  padding: 0;
+body {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  font-family: var(--ff-primary);
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #111111;
 }
 
 h1 {
@@ -37,14 +35,6 @@ a {
 
 a:hover {
   color: var(--clr-primary);
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: var(--ff-primary);
-  display: grid;
-  place-items: center;
 }
 
 h1 {
