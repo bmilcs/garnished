@@ -1,22 +1,72 @@
 # Whiteboard Planning
 
-## Business Requirements
+## Business Details
 
-Customers should be able to:
+Services
 
-- ...
+- Bar rental fee: $150 per bar
+- Bartenders: $100/hr
+- Bar backs: $50/hr
 
-Owners should be able to:
+Key Selling Points
 
-- ...
+- Liquor Permit
+- General & Liquor Liability Insurance
+- All tip certified
+- Serve Safe: restaurant world, safe way to serve food, garnish
+  - garnished lemons limes
+  - how long they're good/fresh, etc
+- Flexibility
+- Cater to your individual needs
+- Custom Menus
+
+Target Clients
+
+- New England: Eastern MA/New York
+- Venues: barns, museums, corporate etc.
+- Deal directly w/ venue
+- Send copies of insurance - requirement
+- Seasonal menus
+
+Information Needed from Client:
+
+- client name
+- contact number
+- event date
+- number of hours
+- location
+- type of event
+- number of guests
+- has bar or requires garnished supplies bar
+- supply own alcohol or require it (optional)
+- bar location on premises
+- running water, refrigeration
+
+What they're looking:
+
+- ice
+- beer
+- wine
+- signature cocktails
+- liquor preferences (brands)
+- want to provide disposable drink ware
+- all packages come with customize bar menu sign
+- users should sign up, form, quote
+
+### Payment Details:
+
+- Venmo, square, cash, check
+- 20% down payment before event
+- 80% due the day of event
+- non refundable
+- travel costs: $75 fee over 45 miles
 
 ### Design
 
-- Color scheme:
-  - ...
-- Design preferences:
-  - Sample websites:
-  - ...
+Attire colors:
+
+- black gold white
+- Logo: Update > more formal look
 
 ## First Pitch: Preliminary Big Picture Ideas
 
@@ -29,6 +79,8 @@ Owners should be able to:
       1. explain benefits of signing up
       2. be able to view & modify their orders with a cut off date?
       3. be able to add notes / correspond with owners
+   4. submit payments?
+      1. paypal
 2. Owners should be able to:
    1. Manage inventory & offerings:
       1. Set base prices for individual products (ie: vodka cost of a particular special drink)
