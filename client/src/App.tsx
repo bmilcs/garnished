@@ -1,5 +1,5 @@
+import { ComingSoon } from "@/components/pages/ComingSoon/ComingSoon";
 import "./App.css";
-import { ComingSoon } from "./components/comingSoon/ComingSoon";
 
 function App() {
   return <ComingSoon />;
