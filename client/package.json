@@ -2,7 +2,7 @@
   "name": "client",
   "private": true,
   "version": "1.0.0",
-  "description": "Frontend for Garnished LLC",
+  "description": "Frontend for Garnished LLP",
   "author": "Bryan Miller <bryan@bmilcs.com>",
   "type": "module",
   "scripts": {
