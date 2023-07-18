@@ -9,7 +9,7 @@ const Layout = ({ children }: TProps) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="column">{children}</main>
       <Footer />
     </>
   );
