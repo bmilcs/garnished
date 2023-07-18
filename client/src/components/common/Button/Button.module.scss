@@ -1,0 +1,56 @@
+button {
+  border: 0;
+  outline: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.primary,
+.secondary,
+.outline {
+  padding: 0.65rem 1.2rem;
+  font-weight: bold;
+  border-radius: var(--border-radius-100);
+}
+
+.primary {
+  background: var(--clr-primary);
+  color: var(--clr-neutral-100);
+
+  &:hover {
+    background: var(--clr-primary-dark);
+  }
+}
+
+.secondary {
+  background: var(--clr-neutral-800);
+  color: var(--clr-neutral-100);
+
+  &:hover {
+    background: var(--clr-neutral-600);
+  }
+}
+
+.outline {
+  border: 3px solid var(--clr-primary);
+  color: var(--clr-primary);
+
+  &:hover {
+    background: var(--clr-primary);
+    color: var(--clr-neutral-100);
+  }
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/1;
+  padding: 0;
+  background: none;
+  color: var(--clr-fg);
+
+  &:hover {
+    color: var(--clr-primary);
+  }
+}
