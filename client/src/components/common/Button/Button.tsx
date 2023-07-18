@@ -5,6 +5,7 @@ type TProps = {
   children: React.ReactNode;
   link?: string;
   onClick?: () => void;
+  className?: string;
 };
 
 export const Button = ({
@@ -12,6 +13,7 @@ export const Button = ({
   link,
   onClick,
   children,
+  className,
 }: TProps) => {
   return (
     <>
@@ -19,7 +21,7 @@ export const Button = ({
         // link buttons are used for external links
         <a href={link}>
           <button
-            className={`${styles.button} ${
+            className={`${styles.button} ${className ? className : ""} ${
               type === "primary"
                 ? styles.primary
                 : type === "secondary"
@@ -35,7 +37,7 @@ export const Button = ({
         </a>
       ) : (
         <button
-          className={`${styles.button} ${
+          className={`${styles.button} ${className ? className : ""}  ${
             type === "primary"
               ? styles.primary
               : type === "secondary"
