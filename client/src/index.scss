@@ -1,0 +1,66 @@
+@import url("./reset.scss");
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;700&display=swap");
+
+:root {
+  --ff-title: "Great Vibes", cursive;
+  --ff-primary: "Quicksand", sans-serif;
+
+  --clr-neutral-100: hsl(0, 0%, 96%);
+  --clr-neutral-100-t: hsla(0, 0%, 96%, 50%);
+  --clr-neutral-600: hsl(0, 0%, 25%);
+  --clr-neutral-700: hsl(0, 0%, 18%);
+  --clr-neutral-800: hsl(0, 0%, 13%);
+  --clr-neutral-900: hsl(0, 0%, 8%);
+  --clr-primary: hsl(253, 80%, 60%);
+  --clr-primary-light: hsl(253, 80%, 65%);
+  --clr-primary-dark: hsl(253, 80%, 55%);
+
+  --border-radius-100: 0.25rem;
+  --border-radius-200: 0.5rem;
+
+  --clr-bg: var(--clr-neutral-100);
+  --clr-fg: var(--clr-neutral-900);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  font-family: var(--ff-primary);
+  color: var(--clr-fg);
+  background-color: var(--clr-bg);
+}
+
+#root {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  padding-inline: 1rem;
+}
+
+.column {
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+a {
+  font-weight: 500;
+  color: var(--clr-primary-dark);
+  text-decoration: inherit;
+
+  &:hover {
+    color: var(--clr-primary);
+  }
+}
+
+h1 {
+  color: var(--clr-accent);
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1;
+  font-family: var(--ff-title);
+}
