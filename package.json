@@ -1,0 +1,11 @@
+{
+  "name": "garnished",
+  "version": "1.0.0",
+  "description": "Full stack web app for Garnished LLC",
+  "main": "index.js",
+  "scripts": {
+    "pubclient": "git subtree push --prefix client/dist origin dist"
+  },
+  "author": "Bryan Miller (bryan@bmilcs.com)",
+  "license": "MIT"
+}
