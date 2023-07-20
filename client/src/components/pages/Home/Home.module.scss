@@ -1,2 +1,39 @@
 .home {
+  min-height: 100%;
+  border-radius: var(--border-radius-100);
+}
+
+.hero_img {
+  max-height: 60vh;
+  width: 100%;
+  object-fit: cover;
+}
+
+.hero {
+  margin-block: 2rem;
+  text-align: center;
+}
+
+.title {
+  color: var(--clr-primary);
+}
+
+.subtitle {
+  line-height: 1.5;
+  font-size: 1.1rem;
+  color: var(--clr-fg-light);
+  margin-bottom: 1rem;
+}
+
+.heading {
+  margin-bottom: 1rem;
+}
+
+.description {
+  text-align: left;
+}
+
+.about {
+  background: var(--clr-bg-light);
+  padding-block: 2rem;
 }
