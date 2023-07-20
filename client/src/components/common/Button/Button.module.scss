@@ -15,11 +15,12 @@ button {
 }
 
 .primary {
-  background: var(--clr-primary);
+  background: var(--clr-primary-dark);
   color: var(--clr-neutral-100);
 
   &:hover {
-    background: var(--clr-primary-dark);
+    background: var(--clr-primary);
+    color: var(--clr-neutral-900);
   }
 }
 
@@ -34,11 +35,12 @@ button {
 
 .outline {
   border: 3px solid var(--clr-primary);
+  background: none;
   color: var(--clr-primary);
 
   &:hover {
     background: var(--clr-primary);
-    color: var(--clr-neutral-100);
+    color: var(--clr-neutral-900);
   }
 }
 
