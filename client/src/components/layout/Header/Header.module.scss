@@ -3,10 +3,11 @@
   top: 0;
   background: var(--clr-bg);
   width: 100%;
-  padding-block: 1rem;
+  padding-block: 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
 }
 
 .header a {
@@ -14,14 +15,13 @@
 }
 
 .title {
-  font-size: 1.5rem;
   font-weight: bold;
   line-height: 1;
 }
 
 .hamburger {
   height: 36px;
-  z-index: 2;
+  z-index: 11;
 }
 
 .nav {
@@ -32,15 +32,16 @@
   position: fixed;
   inset: 0;
   display: grid;
-  place-items: center;
+  align-items: center;
   text-align: center;
-  background: var(--clr-neutral-100-t);
+  background: var(--clr-neutral-900-t);
   backdrop-filter: blur(9px);
   font-size: 2rem;
 }
 
 .nav__ul {
   list-style: none;
+  padding: 0;
 
   & > li {
     margin-block: 1rem;

@@ -44,6 +44,9 @@ export const Header = () => {
           <li>
             <a href="/contact">Contact</a>
           </li>
+          <Button type="primary" link="signup">
+            Schedule Event
+          </Button>
         </ul>
       </nav>
     </header>
