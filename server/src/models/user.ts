@@ -3,6 +3,19 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+export type UserDocument = mongoose.Document & {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+  events: string[];
+};
+
 const UserSchema = new Schema({
   firstName: String,
   lastName: String,
