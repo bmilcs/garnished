@@ -118,3 +118,44 @@ p {
   font-weight: bold;
   color: red;
 }
+
+label {
+  color: var(--clr-neutral-200);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  margin-inline: auto;
+  padding: 1rem;
+  margin-block: 1rem;
+  background: var(--clr-neutral-800);
+  width: 100%;
+  border-radius: var(--border-radius-100);
+  max-width: 600px;
+  text-align: left;
+}
+
+input {
+  background: var(--clr-neutral-900);
+  color: var(--clr-neutral-100);
+  padding: 0.25rem 0.5rem;
+  outline: 0;
+  border: 2px solid var(--clr-neutral-600);
+  border-radius: var(--border-radius-100);
+
+  &:focus {
+    border-color: var(--clr-neutral-200);
+  }
+
+  &::placeholder {
+    color: var(--clr-neutral-600);
+  }
+}
+
+.input-group {
+  display: grid;
+  gap: 0.2rem;
+}
