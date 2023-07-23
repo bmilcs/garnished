@@ -1,28 +1,112 @@
 import { Request, Response } from "express";
-import UserModel from "../models/user";
-const { validationResult, body } = require("express-validator");
+import { body, validationResult } from "express-validator";
+import jwt from "jsonwebtoken";
+import { accessTokenSecret } from "../index";
+import { setJwtCookie } from "../middlewares/setJwtCookie.ts";
+import UserModel, { TUserDocument } from "../models/user";
 
+//
 // GET user details request
+//
+
 export const userGet = async (req: Request, res: Response) => {
-  res.json({ action: "user get: get user details" });
+  const accessToken = req.cookies.access_token;
+
+  // no accessToken provided, block access
+  if (!accessToken) {
+    return res.status(401).json({ msg: "Unauthorized." });
+  }
+
+  // missing accessTokenSecret on backend
+  if (!accessTokenSecret) {
+    return res.status(500).json({ msg: "Internal server error." });
+  }
+
+  // verify the accessToken
+  jwt.verify(accessToken, accessTokenSecret, async (err: any, decoded: any) => {
+    // accessToken is invalid
+    if (err) {
+      return res.status(401).json({ msg: "Unauthorized." });
+    }
+
+    // accessToken is valid: get user details, omit password
+    const user: TUserDocument | null = await UserModel.findById(
+      decoded.userId,
+      { password: 0 },
+    );
+
+    res.json({ msg: "successful user get", user });
+  });
 };
 
+//
 // POST user details request
+//
+
 export const userPost = async (req: Request, res: Response) => {
   res.json({ action: "user post: update user details" });
 };
 
-// POST user login request
-export const userLogin = async (req: Request, res: Response) => {
-  res.json({ action: "user login" });
-};
-
+//
 // POST user logout request
+//
+
 export const userLogout = async (req: Request, res: Response) => {
-  res.json({ action: "user logout" });
+  return res
+    .clearCookie("access_token")
+    .status(200)
+    .json({ msg: "successful user logout" });
 };
 
+//
+// POST user login request
+//
+
+export const userLogin = [
+  // sanitize user input
+  body("username").trim().escape(),
+  body("password").trim().escape(),
+
+  // process request after sanitization
+  async (req: Request, res: Response) => {
+    const { username, password } = req.body;
+
+    // retrieve user from database
+    const user: TUserDocument | null = await UserModel.findOne({
+      username: username.toLowerCase(),
+    });
+
+    // email does not exist
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid e-mail address." });
+    }
+
+    // email exists: check if password is correct
+    user.comparePassword(password, (err: any, isMatch: boolean) => {
+      if (err) {
+        console.error("Error comparing passwords:", err);
+        return res.status(500).json({ msg: "Internal server error." });
+      }
+
+      if (!isMatch) {
+        return res.status(400).json({ msg: "Invalid password." });
+      }
+
+      if (!accessTokenSecret) {
+        return res.status(500).json({ msg: "Internal server error." });
+      }
+
+      setJwtCookie(res, user._id.toString());
+
+      res.json({ msg: "successful user login" });
+    });
+  },
+];
+
+//
 // POST user signup request
+//
+
 export const userSignup = [
   // validate and sanitize user input
   body("firstName")
@@ -35,17 +119,18 @@ export const userSignup = [
     .escape()
     .isLength({ min: 1, max: 50 })
     .withMessage("Last name is required."),
-  body("email")
+  body("username")
     .trim()
     .escape()
     .isEmail()
     .withMessage("Email address is invalid.")
+    .toLowerCase()
     .normalizeEmail()
     .isLength({ min: 1, max: 320 })
     .withMessage("Email is required.")
     .custom(async (value: string) => {
       // check if email is already registered
-      return UserModel.findOne({ email: value.toLowerCase() }).then(user => {
+      return UserModel.findOne({ username: value.toLowerCase() }).then(user => {
         if (user) {
           return Promise.reject("Email address already registered.");
         }
@@ -93,13 +178,15 @@ export const userSignup = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log(errors.array());
+      // 400: bad request / client-side input fails validation
       return res.status(400).json({ errors: errors.array() });
     }
 
     const user = new UserModel(req.body);
     await user.save();
 
-    res.json({ action: "user signup", userId: user._id });
+    setJwtCookie(res, user._id.toString());
+
+    res.json({ msg: "successful user signup", userId: user._id });
   },
 ];
