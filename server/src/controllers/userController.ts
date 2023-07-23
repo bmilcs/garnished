@@ -83,15 +83,17 @@ export const userLogin = [
 
     // email exists: check if password is correct
     user.comparePassword(password, (err: any, isMatch: boolean) => {
+      // compare passwords function error
       if (err) {
-        console.error("Error comparing passwords:", err);
         return res.status(500).json({ msg: "Internal server error." });
       }
 
+      // password is incorrect
       if (!isMatch) {
         return res.status(400).json({ msg: "Invalid password." });
       }
 
+      // accessTokenSecret is missing on backend
       if (!accessTokenSecret) {
         return res.status(500).json({ msg: "Internal server error." });
       }
