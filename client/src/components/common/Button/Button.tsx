@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./Button.module.scss";
 
 type TProps = {
@@ -19,7 +20,7 @@ export const Button = ({
     <>
       {link ? (
         // link buttons are used for external links
-        <a href={link}>
+        <Link to={link}>
           <button
             className={`${styles.button} ${className ? className : ""} ${
               type === "primary"
@@ -34,7 +35,7 @@ export const Button = ({
           >
             {children}
           </button>
-        </a>
+        </Link>
       ) : (
         <button
           className={`${styles.button} ${className ? className : ""}  ${

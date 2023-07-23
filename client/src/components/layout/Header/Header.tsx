@@ -1,5 +1,6 @@
 import { Button } from "@/components/common/Button/Button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 export const Header = () => {
@@ -33,16 +34,16 @@ export const Header = () => {
       <nav className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}>
         <ul className={styles.nav__ul}>
           <li>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="/services">Services</a>
+            <Link to="/services">Services</Link>
           </li>
           <li>
-            <a href="/gallery">Gallery</a>
+            <Link to="/gallery">Gallery</Link>
           </li>
           <li>
-            <a href="/contact">Contact</a>
+            <Link to="/contact">Contact</Link>
           </li>
           <Button type="primary" link="signup">
             Schedule Event
