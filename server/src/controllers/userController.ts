@@ -59,7 +59,7 @@ export const userLogout = async (req: Request, res: Response) => {
 };
 
 //
-// POST user login request
+// GET user login request
 //
 
 export const userLogin = [
