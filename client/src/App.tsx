@@ -2,6 +2,7 @@ import Layout from "@/Layout";
 import { Contact } from "@/components/pages/Contact/Contact";
 import { Gallery } from "@/components/pages/Gallery/Gallery";
 import { Home } from "@/components/pages/Home/Home";
+import { RequestQuote } from "@/components/pages/RequestQuote/RequestQuote";
 import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<User />} />
+          <Route path="/quote" element={<RequestQuote />} />
         </Routes>
       </Layout>
     </BrowserRouter>
