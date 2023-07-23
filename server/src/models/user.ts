@@ -15,6 +15,10 @@ export type TUserDocument = mongoose.Document & {
   zip: string;
   phone: string;
   events: string[];
+  comparePassword: (
+    candidatePassword: string,
+    next: (err: any, isMatch: boolean) => void,
+  ) => void;
 };
 
 const UserSchema = new Schema({
@@ -28,7 +32,7 @@ const UserSchema = new Schema({
     required: [true, "Last name is required."],
     length: { min: 1, max: 50 },
   },
-  email: {
+  username: {
     type: String,
     unique: true,
     required: [true, "Email is required."],
