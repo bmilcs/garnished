@@ -4,7 +4,9 @@ import { Gallery } from "@/components/pages/Gallery/Gallery";
 import { Home } from "@/components/pages/Home/Home";
 import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
+import { User } from "@/components/pages/User/User";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Login } from "./components/pages/Login/Login";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/user" element={<User />} />
         </Routes>
       </Layout>
     </BrowserRouter>
