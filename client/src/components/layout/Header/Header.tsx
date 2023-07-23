@@ -34,20 +34,34 @@ export const Header = () => {
       <nav className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}>
         <ul className={styles.nav__ul}>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" onClick={() => setIsNavOpen(false)}>
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="/services">Services</Link>
+            <Link to="/services" onClick={() => setIsNavOpen(false)}>
+              Services
+            </Link>
           </li>
           <li>
-            <Link to="/gallery">Gallery</Link>
+            <Link to="/gallery" onClick={() => setIsNavOpen(false)}>
+              Gallery
+            </Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link to="/contact" onClick={() => setIsNavOpen(false)}>
+              Contact
+            </Link>
           </li>
-          <Button type="primary" link="signup">
-            Schedule Event
-          </Button>
+          <li>
+            <Button
+              type="primary"
+              link="/schedule"
+              onClick={() => setIsNavOpen(false)}
+            >
+              Schedule Event
+            </Button>
+          </li>
         </ul>
       </nav>
     </header>
