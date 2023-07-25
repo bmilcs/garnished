@@ -1,4 +1,6 @@
-export const Facebook = () => {
+import { FC } from "react";
+
+export const Facebook: FC = () => {
   return (
     <a
       href="https://www.facebook.com/garnished.llp"

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Button.module.scss";
 
@@ -9,13 +10,13 @@ type TProps = {
   className?: string;
 };
 
-export const Button = ({
+export const Button: FC<TProps> = ({
   type = "primary",
   link,
   onClick,
   children,
   className,
-}: TProps) => {
+}) => {
   return (
     <>
       {link ? (

@@ -1,4 +1,6 @@
-export const Instagram = () => {
+import { FC } from "react";
+
+export const Instagram: FC = () => {
   return (
     <a
       href="https://www.instagram.com/garnished_events/"
