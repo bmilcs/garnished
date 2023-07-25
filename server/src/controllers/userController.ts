@@ -1,3 +1,4 @@
+import { IAuthRequest, TJWTPayload } from "@/middlewares/authenticate.ts";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
@@ -6,37 +7,44 @@ import { setJwtCookie } from "../middlewares/setJwtCookie.ts";
 import UserModel, { TUserDocument } from "../models/user";
 
 //
-// GET user details request
+// GET user auth status
 //
 
-export const userGet = async (req: Request, res: Response) => {
-  const accessToken = req.cookies.access_token;
-
-  // no accessToken provided, block access
-  if (!accessToken) {
-    return res.status(401).json({ msg: "Unauthorized." });
-  }
-
+export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
   // missing accessTokenSecret on backend
   if (!accessTokenSecret) {
     return res.status(500).json({ msg: "Internal server error." });
   }
 
-  // verify the accessToken
-  jwt.verify(accessToken, accessTokenSecret, async (err: any, decoded: any) => {
-    // accessToken is invalid
-    if (err) {
-      return res.status(401).json({ msg: "Unauthorized." });
-    }
+  const accessToken = req.cookies.access_token;
 
-    // accessToken is valid: get user details, omit password
-    const user: TUserDocument | null = await UserModel.findById(
-      decoded.userId,
-      { password: 0 },
-    );
+  // no accessToken provided, block access
+  if (!accessToken) {
+    return res.status(200).json({ authenticated: false });
+  }
 
-    res.json({ msg: "successful user get", user });
+  // add userId to the request object if the accessToken is valid
+  try {
+    const decoded = jwt.verify(accessToken, accessTokenSecret) as TJWTPayload;
+    req.userId = decoded.userId;
+    return res.status(200).json({ authenticated: true });
+  } catch (error) {
+    return res.status(200).json({ authenticated: false });
+  }
+};
+
+//
+// GET user details request
+//
+
+export const userGet = async (req: IAuthRequest, res: Response) => {
+  // get user details, omit password
+  const user: TUserDocument | null = await UserModel.findById(req.userId, {
+    password: 0,
   });
+
+  // res.json({ msg: "successful user get" });
+  res.json({ msg: "successful user get", user });
 };
 
 //
