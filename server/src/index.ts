@@ -6,6 +6,7 @@ import express from "express";
 import mongoose from "mongoose";
 import * as eventController from "./controllers/eventController";
 import * as userController from "./controllers/userController";
+import authenticate from "./middlewares/authenticate";
 
 //
 // environment variables
@@ -72,15 +73,17 @@ app.use(cookieParser());
 //
 
 // user routes
-app.get("/api/user", userController.userGet);
-app.post("/api/user", userController.userPost);
+app.get("/api/user", authenticate, userController.userGet);
+app.post("/api/user", authenticate, userController.userPost);
+app.get("/api/user/auth-status", userController.userAuthStatus);
 app.post("/api/user/login", userController.userLogin);
 app.post("/api/user/signup", userController.userSignup);
 app.get("/api/user/logout", userController.userLogout);
 
 // event routes
-app.get("/api/event/:id", eventController.eventGet);
-app.post("/api/event/:id", eventController.eventPost);
+app.post("/api/event", authenticate, eventController.eventCreatePost);
+app.get("/api/event/:id", authenticate, eventController.eventGet);
+app.post("/api/event/:id", authenticate, eventController.eventUpdatePost);
 
 //
 // start server
