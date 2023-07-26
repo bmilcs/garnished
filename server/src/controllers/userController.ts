@@ -1,35 +1,45 @@
-import { IAuthRequest, TJWTPayload } from "@/middlewares/authenticate.ts";
+import { accessTokenSecret, refreshTokenSecret } from "@/index";
+import { IAuthRequest, TJwtPayload } from "@/middlewares/authenticate.ts";
+import {
+  setJwtAccessTokenCookie,
+  setJwtRefreshTokenCookie,
+} from "@/middlewares/setJwtCookies.ts";
+import UserModel, { TUserDocument } from "@/models/user";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
-import { accessTokenSecret } from "../index";
-import { setJwtCookie } from "../middlewares/setJwtCookie.ts";
-import UserModel, { TUserDocument } from "../models/user";
 
 //
 // GET user auth status
+// checks if user is authenticated based on jwt cookies
 //
 
 export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
-  // missing accessTokenSecret on backend
-  if (!accessTokenSecret) {
+  // prevent further action if token secrets are missing on backend
+  if (!accessTokenSecret || !refreshTokenSecret) {
     return res.status(500).json({ msg: "Internal server error." });
   }
 
-  const accessToken = req.cookies.access_token;
+  const { accessToken, refreshToken } = req.cookies;
 
-  // no accessToken provided, block access
-  if (!accessToken) {
+  // no tokens were provided, block access
+  if (!accessToken || !refreshToken) {
     return res.status(200).json({ authenticated: false });
   }
 
-  // add userId to the request object if the accessToken is valid
   try {
-    const decoded = jwt.verify(accessToken, accessTokenSecret) as TJWTPayload;
-    req.userId = decoded.userId;
+    jwt.verify(accessToken, accessTokenSecret) as TJwtPayload;
+    // access token is valid / user is authenticated
     return res.status(200).json({ authenticated: true });
-  } catch (error) {
-    return res.status(200).json({ authenticated: false });
+  } catch {
+    // access token is invalid/expired: check if refresh token is valid/expired
+    try {
+      jwt.verify(refreshToken, refreshTokenSecret) as TJwtPayload;
+      // refresh token is valid / user is authenticated
+      return res.status(200).json({ authenticated: true });
+    } catch {
+      return res.status(200).json({ authenticated: false });
+    }
   }
 };
 
@@ -38,13 +48,12 @@ export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
 //
 
 export const userGet = async (req: IAuthRequest, res: Response) => {
-  // get user details, omit password
+  // get user details from the database, omit password
   const user: TUserDocument | null = await UserModel.findById(req.userId, {
     password: 0,
   });
 
-  // res.json({ msg: "successful user get" });
-  res.json({ msg: "successful user get", user });
+  res.json({ msg: "Successful user get", user });
 };
 
 //
@@ -61,9 +70,10 @@ export const userPost = async (req: Request, res: Response) => {
 
 export const userLogout = async (req: Request, res: Response) => {
   return res
-    .clearCookie("access_token")
+    .clearCookie("accessToken")
+    .clearCookie("refreshToken")
     .status(200)
-    .json({ msg: "successful user logout" });
+    .json({ msg: "Successful user logout." });
 };
 
 //
@@ -77,44 +87,61 @@ export const userLogin = [
 
   // process request after sanitization
   async (req: Request, res: Response) => {
-    const { username, password } = req.body;
-
-    // retrieve user from database
-    const user: TUserDocument | null = await UserModel.findOne({
-      username: username.toLowerCase(),
-    });
-
-    // email does not exist
-    if (!user) {
-      return res.status(400).json({ msg: "Invalid e-mail address." });
+    // prevent further action if token secrets are missing on backend
+    if (!accessTokenSecret || !refreshTokenSecret) {
+      return res
+        .status(500)
+        .json({ msg: "Internal server error.", authenticated: false });
     }
 
-    // email exists: check if password is correct
+    // retrieve user from database
+    // user id/password are the only fields necessary to login
+    const { username, password } = req.body;
+    const user: TUserDocument | null = await UserModel.findOne(
+      {
+        username: username.toLowerCase(),
+      },
+      { _id: 1, password: 1 },
+    );
+
+    // user does not exist in database
+    if (!user) {
+      return res
+        .status(400)
+        .json({ msg: "E-mail address not found.", authenticated: false });
+    }
+
+    // user exists: check if password is correct
     user.comparePassword(password, (err: any, isMatch: boolean) => {
       // compare passwords function error
       if (err) {
-        return res.status(500).json({ msg: "Internal server error." });
+        return res
+          .status(500)
+          .json({ msg: "Internal server error.", authenticated: false });
       }
 
       // password is incorrect
       if (!isMatch) {
-        return res.status(400).json({ msg: "Invalid password." });
+        return res
+          .status(400)
+          .json({ msg: "Invalid password.", authenticated: false });
       }
 
-      // accessTokenSecret is missing on backend
-      if (!accessTokenSecret) {
-        return res.status(500).json({ msg: "Internal server error." });
-      }
+      setJwtRefreshTokenCookie(res, user._id.toString());
+      setJwtAccessTokenCookie(res, {
+        userId: user._id.toString(),
+      });
 
-      setJwtCookie(res, user._id.toString());
-
-      res.json({ msg: "successful user login" });
+      res
+        .status(200)
+        .json({ msg: "Successful user login.", authenticated: true });
     });
   },
 ];
 
 //
 // POST user signup request
+// Sanitized & validated with middleware/validateUserData.ts
 //
 
 export const userSignup = [
@@ -187,16 +214,21 @@ export const userSignup = [
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
+    // signup data failed validation checks
     if (!errors.isEmpty()) {
-      // 400: bad request / client-side input fails validation
-      return res.status(400).json({ errors: errors.array() });
+      return res
+        .status(400)
+        .json({ msg: "Failed to validate user data.", errors: errors.array() });
     }
 
     const user = new UserModel(req.body);
     await user.save();
 
-    setJwtCookie(res, user._id.toString());
+    setJwtRefreshTokenCookie(res, user._id.toString());
+    setJwtAccessTokenCookie(res, {
+      userId: user._id.toString(),
+    });
 
-    res.json({ msg: "successful user signup", userId: user._id });
+    res.json({ msg: "Successful user signup.", authenticated: true });
   },
 ];
