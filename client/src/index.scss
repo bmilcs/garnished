@@ -155,6 +155,10 @@ input {
   }
 }
 
+input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
 .input-group {
   display: grid;
   gap: 0.2rem;
