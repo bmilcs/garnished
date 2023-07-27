@@ -1,23 +1,29 @@
 import { Button } from "@/components/common/Button/Button";
-import { IUser } from "@/types/userTypes";
+import { AuthContext } from "@/hooks/useAuthContext";
+import { TUser } from "@/types/userTypes";
 import { getApiEndpoint } from "@/utils/apiConfig";
-import { logout } from "@/utils/logout";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./User.module.scss";
 
-interface IUserApiResponse {
+type TUserApiResponse = {
   msg: string;
-  user: IUser;
-}
+  user: TUser;
+};
 
-export const User = () => {
+export const User: FC = () => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState<IUser | null>(null);
+  const { isLoggedIn, logout } = useContext(AuthContext);
+  const [userData, setUserData] = useState<TUser | null>(null);
   const [error, setError] = useState("");
 
   // retrieve user data on initial page load
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
     getUserData().catch((error: Error) => setError(error.message));
 
     async function getUserData() {
@@ -31,14 +37,12 @@ export const User = () => {
           },
           credentials: "include",
         });
-        const data = (await res.json()) as IUserApiResponse;
+
+        const data = (await res.json()) as TUserApiResponse;
 
         if (data.user) {
           // user is logged in, set user data
           setUserData(data.user);
-        } else {
-          // user is not logged in, redirect to login page
-          navigate("/login");
         }
       } catch (e) {
         throw new Error(
@@ -46,7 +50,7 @@ export const User = () => {
         );
       }
     }
-  }, [navigate]);
+  }, [isLoggedIn, navigate]);
 
   const handleLogout = () => {
     logout()
@@ -74,6 +78,14 @@ export const User = () => {
           <p>{userData.phone}</p>
         </div>
       )}
+
+      {userData &&
+        userData.events.length > 0 &&
+        userData.events.map(event => (
+          <Link to={`/event/${event._id}`} key={event._id}>
+            Event
+          </Link>
+        ))}
 
       {error && <p className="error">{error}</p>}
 
