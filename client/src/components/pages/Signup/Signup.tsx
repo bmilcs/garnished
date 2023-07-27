@@ -1,27 +1,29 @@
 import { Button } from "@/components/common/Button/Button";
-import { IUser } from "@/types/userTypes";
+import { AuthContext } from "@/hooks/useAuthContext";
 import { getApiEndpoint } from "@/utils/apiConfig";
-import { useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Signup.module.scss";
 
-interface ISignupResponse {
-  errors?: IError[];
-  data: IUser;
-}
+type TSignupResponse = {
+  msg: string;
+  authenticated?: boolean;
+  errors?: TError[];
+};
 
-interface IError {
+type TError = {
   type: string;
   value: string;
   msg: string;
   path: string;
   location: string;
-}
+};
 
-export const Signup = () => {
+export const Signup: FC = () => {
   const apiBasePath = getApiEndpoint();
   const navigate = useNavigate();
-  const [errors, setErrors] = useState<IError[]>([]);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const [errors, setErrors] = useState<TError[]>([]);
   const [formData, setFormData] = useState({
     firstName: "Reggie",
     lastName: "Miller",
@@ -31,20 +33,26 @@ export const Signup = () => {
     address: "123 Reggie Lane.",
     city: "Reggieland",
     state: "MA",
-    zip: "121356",
+    zip: "12135",
     phone: "413-413-4133",
   });
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  useEffect(
+    function redirectIfLoggedIn() {
+      if (isLoggedIn) {
+        navigate("/user");
+      }
+    },
+    [isLoggedIn, navigate],
+  );
 
   const signup = async () => {
-    // clear errors
+    // clear previous errors
     setErrors([]);
 
-    // if passwords don't match, prevent api call
+    // prevent api call if passwords don't match
     if (formData.password !== formData.confirmPassword) {
+      // use express-validator error format for consistency
       setErrors(prev => [
         ...prev,
         {
@@ -58,6 +66,8 @@ export const Signup = () => {
       return;
     }
 
+    // signup utilizes an array of express-validator errors, so moving this to authContext would require
+    // a lot of refactoring. For now, we'll just use fetch here.
     const url = `${apiBasePath}/api/user/signup`;
     try {
       const res = await fetch(url, {
@@ -66,31 +76,28 @@ export const Signup = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        credentials: "include",
       });
 
-      const data = (await res.json()) as ISignupResponse;
+      const data = (await res.json()) as TSignupResponse;
 
-      if (data.errors) {
+      if (data.authenticated) {
+        // useEffect will redirect to /user if isLoggedIn is true
+        setIsLoggedIn?.(true);
+      } else if (data.errors) {
         setErrors(data.errors);
-        return;
       }
-
-      navigate("/user");
     } catch (e) {
-      console.error("errors:", e);
+      console.error("Something went wrong. Try again later.");
     }
   };
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signup()
-      .then(() => {
-        console.log("signup complete");
-      })
-      .catch(e => console.error("signup error:", e));
+    signup().catch(e => console.error(e));
   };
 
-  // update form data on input change
+  // update formData state on input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevFormData => ({
@@ -99,7 +106,7 @@ export const Signup = () => {
     }));
   };
 
-  // get field error message
+  // get field error message for a field from errors array, which is in express-validator format
   const getFieldError = (fieldName: string) => {
     if (errors.length === 0) return "";
     return errors
