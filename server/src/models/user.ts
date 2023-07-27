@@ -1,3 +1,4 @@
+import { TEventDocument } from "@/models/event";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
@@ -14,7 +15,7 @@ export type TUserDocument = mongoose.Document & {
   state: string;
   zip: string;
   phone: string;
-  events: string[];
+  events: TEventDocument[];
   comparePassword: (
     candidatePassword: string,
     next: (err: any, isMatch: boolean) => void,
