@@ -1,5 +1,4 @@
 export type TEvent = {
-  _id: string;
   date: string;
   time: string;
   locationDescription: string;
@@ -21,4 +20,8 @@ export type TEvent = {
   wine: boolean;
   specialtyDrinks: boolean;
   liquorPreferences: string;
+};
+
+export type TEventWithId = TEvent & {
+  _id: string;
 };
