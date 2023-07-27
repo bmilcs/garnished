@@ -56,7 +56,7 @@ export const Header: FC = () => {
           <li>
             <Button
               type="primary"
-              link="/schedule"
+              link="/new-event"
               onClick={() => setIsNavOpen(false)}
             >
               Schedule Event
