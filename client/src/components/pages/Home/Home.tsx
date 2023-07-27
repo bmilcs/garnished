@@ -1,6 +1,6 @@
+import backgroundImg from "@/assets/specialtyDrink-21.jpg";
 import { Button } from "@/components/common/Button/Button";
 import { FC } from "react";
-import backgroundImg from "../../../assets/specialtyDrink-21.jpg";
 import styles from "./Home.module.scss";
 
 export const Home: FC = () => {
