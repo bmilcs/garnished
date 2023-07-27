@@ -1,54 +1,34 @@
 import { Button } from "@/components/common/Button/Button";
+import { AuthContext } from "@/hooks/useAuthContext";
 import { getApiEndpoint } from "@/utils/apiConfig";
-import { useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IUser } from "../../../types/userTypes";
 import styles from "./Login.module.scss";
 
-interface ILoginResponse {
-  msg: string;
-  data?: IUser;
-}
-
-export const Login = () => {
+export const Login: FC = () => {
   const navigate = useNavigate();
   const apiBasePath = getApiEndpoint();
-  const [error, setError] = useState("");
+  const { isLoggedIn, login, error } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "reggie@miller.com",
     password: "asdfasdf",
   });
 
-  const login = async () => {
-    const url = `${apiBasePath}/api/user/login`;
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
-
-      // if login successful, redirect to user page
-      if (res.status === 200) {
+  useEffect(
+    function redirectIfLoggedIn() {
+      if (isLoggedIn) {
         navigate("/user");
-        return;
       }
-
-      // login failed, display error message
-      const data = (await res.json()) as ILoginResponse;
-      setError(data.msg);
-    } catch (e) {
-      throw new Error("Something went wrong. Try again later.");
-    }
-  };
+    },
+    [isLoggedIn, navigate],
+  );
 
   // on login form submit
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login().catch((err: Error) => setError(err.message));
+    login(formData).catch(() => {
+      console.error("Something went wrong. Try again later.");
+    });
   };
 
   // update form data on input change
