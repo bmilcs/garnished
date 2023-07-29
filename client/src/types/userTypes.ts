@@ -1,4 +1,4 @@
-import { TEvent } from "@/types/eventTypes";
+import { TEventWithId } from "@/types/eventTypes";
 
 export type TUser = {
   _id: string;
@@ -10,7 +10,7 @@ export type TUser = {
   state: string;
   zip: number;
   phone: number;
-  events: TEvent[];
+  events: TEventWithId[];
 };
 
 export type TUserWithPassword = TUser & {
