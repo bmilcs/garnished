@@ -1,5 +1,6 @@
 import { getApiEndpoint } from "@/utils/apiConfig";
 import { FC, createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 //
 // Authentication Context
@@ -7,7 +8,9 @@ import { FC, createContext, useEffect, useState } from "react";
 
 type TAuthContextValue = {
   isLoggedIn: boolean;
+  isAuthPending: boolean;
   error: string;
+  redirectUnauthorizedUser: () => void;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   login: (formData: TLoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
@@ -40,7 +43,9 @@ type TProps = {
 };
 
 export const AuthProvider: FC<TProps> = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [isAuthPending, setIsAuthPending] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState("");
 
   // on first site load, call api to check if user is logged in
@@ -73,14 +78,32 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
         console.error("Unable to verify login status. Try again later.");
       }
     };
-    setAuthStatus().catch(() => setIsLoggedIn(false));
+
+    setAuthStatus()
+      .catch(() => setIsLoggedIn(false))
+      .finally(() => setIsAuthPending(false));
   }, []);
+
+  //
+  // auto redirect to login page if user is not logged in.
+  // without the isAuthPending check, authorized users will get redirected regardless
+  // of auth status because the auth status check is async
+  //
+
+  const redirectUnauthorizedUser = () => {
+    if (isAuthPending) return;
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+  };
 
   //
   // login function
   //
 
   const login = async (formData: { username: string; password: string }) => {
+    setIsAuthPending(true);
     // clear previous errors
     setError("");
 
@@ -109,6 +132,8 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
       setIsLoggedIn(false);
     } catch {
       setError("Something went wrong. Try again later.");
+    } finally {
+      setIsAuthPending(false);
     }
   };
 
@@ -117,6 +142,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
   //
 
   const logout = async () => {
+    setIsAuthPending(true);
     // clear previous errors
     setError("");
 
@@ -136,12 +162,22 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
       setIsLoggedIn(false);
     } catch {
       setError("Something went wrong. Try again later.");
+    } finally {
+      setIsAuthPending(false);
     }
   };
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, login, logout, error }}
+      value={{
+        isLoggedIn,
+        isAuthPending,
+        setIsLoggedIn,
+        redirectUnauthorizedUser,
+        login,
+        logout,
+        error,
+      }}
     >
       {children}
     </AuthContext.Provider>
