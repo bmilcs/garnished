@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pubclient": "git subtree push --prefix client/dist origin dist",
-    "pubclientpreview": "git subtree push --prefix client/dist test test"
+    "pubclientpreview": "git subtree push --prefix client/dist test dist"
   },
   "author": "Bryan Miller (bryan@bmilcs.com)",
   "license": "MIT"
