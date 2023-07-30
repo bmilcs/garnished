@@ -1,21 +1,23 @@
 .header {
   position: sticky;
   top: 0;
-  background: var(--clr-bg);
+
   width: 100%;
-  padding-block: 0.75rem;
+  padding-block: var(--vertical-spacer-small);
+  z-index: 10;
+
+  background: var(--clr-bg);
+}
+
+.headerContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10;
+  font-family: var(--ff-title);
 }
 
-.header a {
-  color: var(--clr-fg);
-}
-
-.title {
-  font-weight: bold;
+.logo {
+  font-family: var(--ff-logo);
   line-height: 1;
 }
 
@@ -28,6 +30,11 @@
   display: none;
 }
 
+// desktop nav
+.header a {
+  color: var(--clr-fg);
+}
+
 .expanded {
   position: fixed;
   inset: 0;
@@ -37,6 +44,13 @@
   background: var(--clr-neutral-900-t);
   backdrop-filter: blur(9px);
   font-size: 2rem;
+}
+
+.expanded a {
+  color: var(--clr-bg);
+  &:hover {
+    color: var(--clr-bg-light);
+  }
 }
 
 .nav__ul {

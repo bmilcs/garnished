@@ -11,52 +11,59 @@ export const Header: FC = () => {
   };
 
   return (
-    <header className={`column ${styles.header}`}>
-      <h1 className={styles.title}>Garnished</h1>
-
-      <Button type="icon" onClick={toggleNav} className="hamburger">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className={styles.hamburger}
-        >
-          <path fill="none" stroke="currentColor" d="M5 17h14M5 12h14M5 7h14" />
-        </svg>
-      </Button>
-
-      <nav className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}>
-        <ul className={styles.nav__ul}>
-          <li>
-            <Link to="/" onClick={() => setIsNavOpen(false)}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/services" onClick={() => setIsNavOpen(false)}>
-              Services
-            </Link>
-          </li>
-          <li>
-            <Link to="/gallery" onClick={() => setIsNavOpen(false)}>
-              Gallery
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" onClick={() => setIsNavOpen(false)}>
-              Contact
-            </Link>
-          </li>
-          <li>
-            <Button
-              type="primary"
-              link="/new-event"
-              onClick={() => setIsNavOpen(false)}
-            >
-              Schedule Event
-            </Button>
-          </li>
-        </ul>
-      </nav>
+    <header className={`${styles.header}`}>
+      <div className={`column ${styles.headerContent}`}>
+        <h1>
+          <a href="/" className={styles.logo}>
+            Garnished
+          </a>
+        </h1>
+        <Button type="icon" onClick={toggleNav} className="hamburger">
+          <svg
+            className={styles.hamburger}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"
+            />
+          </svg>
+        </Button>
+        <nav className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}>
+          <ul className={styles.nav__ul}>
+            <li>
+              <Link to="/" onClick={() => setIsNavOpen(false)}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" onClick={() => setIsNavOpen(false)}>
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link to="/gallery" onClick={() => setIsNavOpen(false)}>
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" onClick={() => setIsNavOpen(false)}>
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Button
+                type="primary"
+                link="/new-event"
+                onClick={() => setIsNavOpen(false)}
+              >
+                Get Started
+              </Button>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 };
