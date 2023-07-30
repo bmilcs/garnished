@@ -10,12 +10,12 @@ import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
 import { AuthProvider } from "@/hooks/useAuthContext";
 import { FC } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./components/pages/Login/Login";
 
 const App: FC = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <Layout>
           <Routes>
@@ -31,7 +31,7 @@ const App: FC = () => {
           </Routes>
         </Layout>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
