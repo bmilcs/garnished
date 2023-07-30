@@ -4,7 +4,8 @@
   "description": "Full stack web app for Garnished LLC",
   "main": "index.js",
   "scripts": {
-    "pubclient": "git subtree push --prefix client/dist origin dist"
+    "pubclient": "git subtree push --prefix client/dist origin dist",
+    "pubclientpreview": "git subtree push --prefix client/dist test test"
   },
   "author": "Bryan Miller (bryan@bmilcs.com)",
   "license": "MIT"
