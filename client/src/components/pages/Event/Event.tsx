@@ -32,7 +32,7 @@ export const Event: FC = () => {
         return;
       }
 
-      const url = `${apiBasePath}/api/event/${eventId}`;
+      const url = `${apiBasePath}/event/${eventId}`;
       try {
         const res = await fetch(url, {
           method: "GET",

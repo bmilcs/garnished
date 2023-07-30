@@ -68,7 +68,7 @@ export const Signup: FC = () => {
 
     // signup utilizes an array of express-validator errors, so moving this to authContext would require
     // a lot of refactoring. For now, we'll just use fetch here.
-    const url = `${apiBasePath}/api/user/signup`;
+    const url = `${apiBasePath}/user/signup`;
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -120,7 +120,7 @@ export const Signup: FC = () => {
       <Link to="/login">Already have an account? Login here.</Link>
 
       <form
-        action={`${apiBasePath}/api/user/signup`}
+        action={`${apiBasePath}/user/signup`}
         method="POST"
         className={styles.form}
         onSubmit={handleSubmitForm}

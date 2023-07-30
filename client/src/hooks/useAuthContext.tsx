@@ -56,7 +56,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
       setError("");
 
       const apiBasePath = getApiEndpoint();
-      const url = `${apiBasePath}/api/user/auth-status`;
+      const url = `${apiBasePath}/user/auth-status`;
       try {
         const res = await fetch(url, {
           method: "GET",
@@ -108,7 +108,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
     setError("");
 
     const apiBasePath = getApiEndpoint();
-    const url = `${apiBasePath}/api/user/login`;
+    const url = `${apiBasePath}/user/login`;
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -147,7 +147,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
     setError("");
 
     const apiBasePath = getApiEndpoint();
-    const url = `${apiBasePath}/api/user/logout`;
+    const url = `${apiBasePath}/user/logout`;
 
     try {
       await fetch(url, {

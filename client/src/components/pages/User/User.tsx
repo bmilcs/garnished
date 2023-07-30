@@ -13,12 +13,14 @@ type TUserApiResponse = {
 
 export const User: FC = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, logout } = useContext(AuthContext);
+  const { isAuthPending, isLoggedIn, logout } = useContext(AuthContext);
   const [userData, setUserData] = useState<TUser | null>(null);
   const [error, setError] = useState("");
 
   // retrieve user data on initial page load
   useEffect(() => {
+    if (isAuthPending) return;
+
     if (!isLoggedIn) {
       navigate("/login");
       return;
@@ -28,7 +30,7 @@ export const User: FC = () => {
 
     async function getUserData() {
       const apiBasePath = getApiEndpoint();
-      const url = `${apiBasePath}/api/user`;
+      const url = `${apiBasePath}/user`;
       try {
         const res = await fetch(url, {
           method: "GET",
@@ -50,7 +52,7 @@ export const User: FC = () => {
         );
       }
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, isAuthPending, navigate]);
 
   const handleLogout = () => {
     logout()
@@ -79,13 +81,15 @@ export const User: FC = () => {
         </div>
       )}
 
-      {userData &&
-        userData.events.length > 0 &&
-        userData.events.map(event => (
-          <Link to={`/event/${event._id}`} key={event._id}>
-            Event
-          </Link>
-        ))}
+      {userData && userData.events.length > 0 && (
+        <div className={styles.events}>
+          {userData.events.map(event => (
+            <Link to={`/event/${event._id}`} key={event._id}>
+              {event.date}
+            </Link>
+          ))}
+        </div>
+      )}
 
       {error && <p className="error">{error}</p>}
 

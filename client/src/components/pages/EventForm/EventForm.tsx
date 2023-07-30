@@ -55,7 +55,7 @@ export const EventForm: FC = () => {
     // clear errors
     setErrors([]);
 
-    const url = `${apiBasePath}/api/event/`;
+    const url = `${apiBasePath}/event/`;
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -124,7 +124,7 @@ export const EventForm: FC = () => {
         <h2>Request Quote</h2>
 
         <form
-          action={`${apiBasePath}/api/user/signup`}
+          action={`${apiBasePath}/user/signup`}
           method="POST"
           className={styles.form}
           onSubmit={handleSubmitForm}

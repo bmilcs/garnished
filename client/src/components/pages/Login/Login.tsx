@@ -46,7 +46,7 @@ export const Login: FC = () => {
       <Link to="/signup">Need an account? Sign up here.</Link>
 
       <form
-        action={`${apiBasePath}/api/user/login`}
+        action={`${apiBasePath}/user/login`}
         method="POST"
         className={styles.form}
         onSubmit={handleSubmitForm}
