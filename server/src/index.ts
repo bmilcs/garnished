@@ -14,10 +14,11 @@ import authenticate from "./middlewares/authenticate";
 
 dotenv.config();
 const port = process.env.PORT || 3000;
+const productionURL = process.env.PRODUCTION_URL || "";
 const corsOrigin =
   process.env.NODE_ENV === "production"
-    ? process.env.PRODUCTION_URL
-    : `http://localhost:3001`;
+    ? [`https://${productionURL}`, `https://test.${productionURL}`]
+    : `https://localhost:3001`;
 export const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 
