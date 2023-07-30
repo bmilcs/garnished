@@ -1,8 +1,8 @@
-import { IAuthRequest } from "@/middlewares/authenticate";
-import EventModel from "@/models/event";
-import UserModel from "@/models/user";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
+import { IAuthRequest } from "../middlewares/authenticate";
+import EventModel from "../models/event";
+import UserModel from "../models/user";
 
 //
 // GET event details

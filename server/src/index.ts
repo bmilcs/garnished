@@ -72,18 +72,24 @@ app.use(cookieParser());
 // routes
 //
 
+// base route
+app.get("/", (req, res) => {
+  console.log("received / req");
+  res.json("Welcome to Garnished's API!");
+});
+
 // user routes
-app.get("/api/user", authenticate, userController.userGet);
-app.post("/api/user", authenticate, userController.userPost);
-app.get("/api/user/auth-status", userController.userAuthStatus);
-app.post("/api/user/login", userController.userLogin);
-app.post("/api/user/signup", userController.userSignup);
-app.get("/api/user/logout", userController.userLogout);
+app.get("/user", authenticate, userController.userGet);
+app.post("/user", authenticate, userController.userPost);
+app.get("/user/auth-status", userController.userAuthStatus);
+app.post("/user/login", userController.userLogin);
+app.post("/user/signup", userController.userSignup);
+app.get("/user/logout", userController.userLogout);
 
 // event routes
-app.post("/api/event", authenticate, eventController.eventCreatePost);
-app.get("/api/event/:id", authenticate, eventController.eventGet);
-app.post("/api/event/:id", authenticate, eventController.eventUpdatePost);
+app.post("/event", authenticate, eventController.eventCreatePost);
+app.get("/event/:id", authenticate, eventController.eventGet);
+app.post("/event/:id", authenticate, eventController.eventUpdatePost);
 
 //
 // start server

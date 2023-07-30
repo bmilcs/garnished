@@ -1,13 +1,13 @@
-import { accessTokenSecret, refreshTokenSecret } from "@/index";
-import { IAuthRequest, TJwtPayload } from "@/middlewares/authenticate.ts";
-import {
-  setJwtAccessTokenCookie,
-  setJwtRefreshTokenCookie,
-} from "@/middlewares/setJwtCookies.ts";
-import UserModel, { TUserDocument } from "@/models/user";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { accessTokenSecret, refreshTokenSecret } from "../index";
+import { IAuthRequest, TJwtPayload } from "../middlewares/authenticate";
+import {
+  setJwtAccessTokenCookie,
+  setJwtRefreshTokenCookie,
+} from "../middlewares/setJwtCookies";
+import UserModel, { TUserDocument } from "../models/user";
 
 //
 // GET user auth status

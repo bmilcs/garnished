@@ -1,7 +1,7 @@
-import { accessTokenSecret, refreshTokenSecret } from "@/index";
-import { setJwtAccessTokenCookie } from "@/middlewares/setJwtCookies";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { accessTokenSecret, refreshTokenSecret } from "../index";
+import { setJwtAccessTokenCookie } from "../middlewares/setJwtCookies";
 
 export type TJwtPayload = {
   userId: string;

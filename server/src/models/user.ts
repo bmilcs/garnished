@@ -1,6 +1,6 @@
-import { TEventDocument } from "@/models/event";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
+import { TEventDocument } from "../models/event";
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;

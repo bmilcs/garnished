@@ -1,6 +1,6 @@
-import { accessTokenSecret, refreshTokenSecret } from "@/index";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
+import { accessTokenSecret, refreshTokenSecret } from "../index";
 
 //
 // jwt cookie expiration times
