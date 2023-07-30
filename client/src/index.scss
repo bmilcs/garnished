@@ -1,34 +1,85 @@
 @import url("./reset.scss");
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700;900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;700;800&display=swap");
 :root {
-  --ff-title: "Great Vibes", cursive;
-  --ff-primary: "Roboto", sans-serif;
+  --ff-primary: "Libre Baskerville", serif;
+  --ff-title: "Raleway", sans-serif;
+  --ff-logo: "Great Vibes", cursive;
   --fw-normal: 400;
   --fw-bold: 700;
-  --fw-xbold: 900;
-
-  --clr-neutral-100: hsl(0, 0%, 93%);
-  --clr-neutral-100-t: hsla(0, 0%, 96%, 50%);
-  --clr-neutral-200: hsl(0, 0%, 80%);
-  --clr-neutral-500: hsl(60, 2%, 8%);
-  --clr-neutral-600: hsl(60, 2%, 29%);
-  --clr-neutral-700: hsl(60, 2%, 22%);
-  --clr-neutral-800: hsl(60, 2%, 15%);
-  --clr-neutral-850: hsl(60, 2%, 11%);
-  --clr-neutral-900: hsl(60, 2%, 8%);
-  --clr-neutral-900-t: hsla(60, 2%, 8%, 65%);
-  --clr-primary-dark: rgb(49, 104, 21);
-  --clr-primary: rgb(109, 190, 46);
-  --clr-primary-light: hsla(104, 30%, 55%, 1);
-
-  --clr-bg: var(--clr-neutral-900);
-  --clr-bg-light: var(--clr-neutral-850);
-  --clr-fg: var(--clr-neutral-100);
-  --clr-fg-light: var(--clr-neutral-200);
+  --fw-xbold: 800;
 
   --border-radius-100: 0.25rem;
   --border-radius-200: 0.5rem;
+
+  --clr-bg: var(--clr-neutral-100);
+  --clr-bg-light: var(--clr-neutral-200);
+  --clr-fg: var(--clr-neutral-900);
+  --clr-fg-light: var(--clr-neutral-800);
+
+  --clr-neutral-100: hsla(0, 0%, 97%, 100%);
+  --clr-neutral-100-t: hsla(0, 0%, 96%, 50%);
+  --clr-neutral-150: hsla(0, 0%, 94%, 100%);
+  --clr-neutral-200: hsla(0, 0%, 90%, 100%);
+  --clr-neutral-500: hsla(0, 2%, 8%, 100%);
+  --clr-neutral-600: hsla(0, 2%, 29%, 100%);
+  --clr-neutral-700: hsla(0, 2%, 22%, 100%);
+  --clr-neutral-800: hsla(0, 0%, 15%, 100%);
+  --clr-neutral-850: hsla(0, 2%, 11%, 100%);
+  --clr-neutral-900: hsla(0, 2%, 8%, 100%);
+  --clr-neutral-900-t: hsla(0, 0%, 8%, 75%);
+
+  // temporary, until we finalize color scheme
+  --clr-primary: #e2c044;
+  --clr-primary-dark: var(--clr-fg-light);
+  --clr-primary-light: var(--clr-fg-light);
+
+  // --clr-primary-h: 246;
+  // --clr-primary-s: 48%;
+  // --clr-primary-l: 50%;
+
+  // --clr-primary: hsla(
+  //   var(--clr-primary-h),
+  //   var(--clr-primary-s),
+  //   var(--clr-primary-l),
+  //   100%
+  // );
+
+  // --clr-primary-t: hsla(
+  //   --var(--clr-primary-h),
+  //   --var(--clr-primary-s),
+  //   --var(--clr-primary-l),
+  //   75%
+  // );
+
+  // --clr-primary-dark: hsla(
+  //   var(--clr-primary-h),
+  //   var(--clr-primary-s),
+  //   calc(var(--clr-primary-l) * 0.9),
+  //   100%
+  // );
+
+  // --clr-primary-light: hsla(
+  //   var(--clr-primary-h),
+  //   var(--clr-primary-s),
+  //   calc(var(--clr-primary-l) * 1.1),
+  //   100%
+  // );
+
+  --vertical-spacer-small: 0.5rem;
+  --vertical-spacer-medium: 1rem;
+  --vertical-spacer-large: 2rem;
+
+  @media screen and (min-width: 768px) {
+    --vertical-spacer-small: 0.65rem;
+    --vertical-spacer-medium: 2rem;
+    --vertical-spacer-large: 3rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    --vertical-spacer-small: 0.8rem;
+    --vertical-spacer-medium: 3rem;
+    --vertical-spacer-large: 4rem;
+  }
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -43,7 +94,7 @@ body {
   font-family: var(--ff-primary);
   color: var(--clr-fg);
   background-color: var(--clr-bg);
-  font-size: 15px;
+  font-size: 14px;
 }
 
 #root {
@@ -59,21 +110,23 @@ body {
 }
 
 .content-spacer {
-  padding-block: 1rem;
+  padding-block: var(--vertical-spacer-medium);
 }
 
 a {
-  font-weight: 500;
-  color: var(--clr-primary-);
+  font-weight: var(--fw-bold);
+  color: var(--clr-primary);
+  font-family: var(--ff-title);
   text-decoration: inherit;
 
   &:hover {
-    color: var(--clr-primary);
+    color: var(--clr-primary-light);
+    text-decoration: underline;
   }
 }
 
 p {
-  color: var(--clr-neutral-200);
+  color: var(--clr-fg-light);
 }
 
 h1,
@@ -88,14 +141,14 @@ h1 {
   font-size: 1.5rem;
   font-weight: bold;
   line-height: 1;
-  font-family: var(--ff-title);
+  font-family: var(--ff-logo);
 }
 
 h2,
 h3,
 h4,
 h5 {
-  font-family: var(--ff-primary);
+  font-family: var(--ff-title);
   font-weight: var(--fw-xbold);
   letter-spacing: -1px;
 }
@@ -107,7 +160,10 @@ h2 {
 
 h3 {
   font-size: 1.75rem;
-  color: var(--clr-neutral-100);
+}
+
+h4 {
+  font-size: 1.25rem;
 }
 
 p {
@@ -115,14 +171,15 @@ p {
 }
 
 .error {
-  font-weight: bold;
+  font-weight: var(--fw-bold);
   color: red;
 }
 
-label {
-  color: var(--clr-neutral-200);
-  font-weight: bold;
-  font-size: 0.9rem;
+label,
+legend {
+  color: var(--clr-fg-light);
+  font-size: 0.8rem;
+  font-weight: var(--fw-bold);
 }
 
 form {
@@ -131,7 +188,7 @@ form {
   margin-inline: auto;
   padding: 1rem;
   margin-block: 1rem;
-  background: var(--clr-neutral-800);
+  border: 2px solid var(--clr-fg-light);
   width: 100%;
   border-radius: var(--border-radius-100);
   max-width: 600px;
@@ -139,20 +196,28 @@ form {
 }
 
 input {
-  background: var(--clr-neutral-900);
-  color: var(--clr-neutral-100);
+  background: var(--clr-bg);
+  font-family: var(--ff-title);
   padding: 0.25rem 0.5rem;
   outline: 0;
-  border: 2px solid var(--clr-neutral-600);
+  border: 2px solid var(--clr-bg-light);
   border-radius: var(--border-radius-100);
 
   &:focus {
-    border-color: var(--clr-neutral-200);
+    border-color: var(--clr-fg-light);
   }
 
   &::placeholder {
     color: var(--clr-neutral-600);
   }
+}
+
+fieldset {
+  border: 0;
+}
+
+legend {
+  margin: var(--vertical-spacer-small);
 }
 
 input[type="checkbox"] {
@@ -162,4 +227,8 @@ input[type="checkbox"] {
 .input-group {
   display: grid;
   gap: 0.2rem;
+}
+
+img {
+  border-radius: var(--border-radius-100);
 }
