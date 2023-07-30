@@ -1,5 +1,6 @@
 {
   "name": "client",
+  "homepage": "/garnished-test",
   "private": true,
   "version": "1.0.0",
   "description": "Frontend for Garnished LLP",
@@ -7,7 +8,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3001",
-    "build": "tsc && vite build && cp CNAME dist/",
+    "build": "vite build && cp CNAME dist/",
+    "buildtest": "vite build && cp ./CNAMEPREVIEW dist/CNAME",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
