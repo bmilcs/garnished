@@ -2,10 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Backend server for Garnished LLP",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node -r tsconfig-paths/register' src/index.ts"
-
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && node dist/index.js'",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "author": "Bryan Miller <bryan@bmilcs.com>",
   "license": "MIT",
@@ -22,6 +23,7 @@
     "mongoose": "^7.4.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
@@ -30,8 +32,6 @@
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
     "eslint": "^8.45.0",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.2.0"
+    "nodemon": "^3.0.1"
   }
 }
