@@ -3,25 +3,44 @@
   border-radius: var(--border-radius-100);
 }
 
-.hero_img {
-  max-height: 60vh;
-  width: 100%;
-  object-fit: cover;
+.hero {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
+  min-height: 50vh;
+  text-align: center;
+
+  p {
+    color: var(--clr-bg-light);
+  }
+
+  @media screen and (min-width: 768px) {
+    // replicate .column, minus padding
+    max-width: 1392px;
+    margin-inline: auto;
+    width: 100%;
+    border-radius: var(--border-radius-100);
+  }
 }
 
-.hero {
-  margin-block: 2rem;
-  text-align: center;
+.heroContent {
+  display: grid;
+  place-items: center;
+  background: var(--clr-neutral-900-t);
+  padding: 2rem;
+  color: var(--clr-bg);
 }
 
 .title {
-  color: var(--clr-primary);
+  font-family: var(--ff-logo);
+  text-transform: unset;
+  font-size: 4rem;
+  line-height: 1.3;
 }
 
 .subtitle {
   line-height: 1.5;
-  font-size: 1.1rem;
-  color: var(--clr-fg-light);
   margin-bottom: 1rem;
 }
 
@@ -29,11 +48,48 @@
   margin-bottom: 1rem;
 }
 
+.about {
+  background: var(--clr-bg);
+  padding-block: var(--vertical-spacer-large);
+}
+
 .description {
   text-align: left;
 }
 
-.about {
-  background: var(--clr-bg-light);
-  padding-block: 2rem;
+.sellingPoints {
+  margin-block: var(--vertical-spacer-large);
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.sellingPoint {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+}
+
+.sellingPointHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.sellingPointDetails {
+  grid-column: 2/3;
+  margin-block: 1rem;
+}
+
+.checkMark {
+  max-width: 24px;
+  aspect-ratio: 1/1;
+}
+
+.drinkImage {
+  max-width: 80%;
+  max-height: 30vh;
+  aspect-ratio: 1/1;
+  margin-inline: auto;
+  object-fit: cover;
+  border-radius: 50vh;
 }
