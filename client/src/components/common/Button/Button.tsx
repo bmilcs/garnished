@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Button.module.scss";
 
 type TProps = {
-  type: "primary" | "secondary" | "outline" | "icon";
+  type: "primary" | "secondary" | "outline" | "icon" | "hero";
   children: React.ReactNode;
   link?: string;
   onClick?: () => void;
@@ -30,6 +30,8 @@ export const Button: FC<TProps> = ({
                 ? styles.secondary
                 : type === "icon"
                 ? styles.icon
+                : type === "hero"
+                ? styles.hero
                 : styles.outline
             }`}
             onClick={onClick}

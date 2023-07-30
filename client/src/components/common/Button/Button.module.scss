@@ -1,4 +1,4 @@
-button {
+.button {
   border: 0;
   outline: 0;
   font-size: 1rem;
@@ -8,25 +8,27 @@ button {
 
 .primary,
 .secondary,
-.outline {
-  padding: 0.65rem 1.2rem;
-  font-weight: bold;
+.outline,
+.hero {
+  padding: 0.6rem 1.5rem;
+  font-weight: var(--fw-bold);
   border-radius: var(--border-radius-100);
+  font-family: var(--ff-title);
 }
 
 .primary {
-  background: var(--clr-primary-dark);
-  color: var(--clr-neutral-100);
+  background: var(--clr-fg);
+  color: var(--clr-bg);
 
   &:hover {
-    background: var(--clr-primary);
-    color: var(--clr-neutral-900);
+    background: var(--clr-fg-light);
+    color: var(--clr-bg-light);
   }
 }
 
 .secondary {
   background: var(--clr-neutral-800);
-  color: var(--clr-neutral-100);
+  color: var(--clr-bg);
 
   &:hover {
     background: var(--clr-neutral-600);
@@ -34,13 +36,25 @@ button {
 }
 
 .outline {
-  border: 3px solid var(--clr-primary);
+  border: 3px solid var(--clr-fg);
   background: none;
-  color: var(--clr-primary);
+  color: var(--clr-fg);
 
   &:hover {
-    background: var(--clr-primary);
-    color: var(--clr-neutral-900);
+    background: var(--clr-fg);
+    color: var(--clr-primary);
+  }
+}
+
+.hero {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  background: var(--clr-primary);
+  color: var(--clr-fg);
+
+  &:hover {
+    background: var(--clr-fg-light);
+    color: var(--clr-bg-light);
   }
 }
 
