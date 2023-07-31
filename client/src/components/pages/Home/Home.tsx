@@ -1,5 +1,5 @@
-import backgroundImage from "@/assets/specialtyDrink-19.jpg";
 import drinkImage from "@/assets/specialtyDrink-20.jpg";
+import backgroundImage from "@/assets/specialtyDrink-21.jpg";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMark } from "@/components/common/CheckMark/CheckMark";
 import { FC } from "react";
@@ -40,13 +40,13 @@ export const Home: FC = () => {
   ];
 
   return (
-    <section className={styles.home}>
-      <div>
+    <>
+      <section>
         <div
           className={styles.hero}
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-          <div className={styles.heroContent}>
+          <div className={styles.heroOverlay}>
             <div className={styles.heroWrapper}>
               <h2 className={styles.title}>Garnished</h2>
               <p className={styles.subtitle}>The Premium Mobile Bar Service</p>
@@ -56,37 +56,41 @@ export const Home: FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className={`${styles.about} column`}>
-        <h3 className={styles.heading}>About Us</h3>
-        <p className={styles.description}>
-          Welcome to Garnished LLC, your premier mobile bar service offering a
-          truly unforgettable experience for your events. We take great pride in
-          catering to your individual needs and providing exceptional services
-          for various occasions across New England.
-        </p>
-      </div>
+      <section className="column">
+        <div className={`${styles.about}`}>
+          <h3 className={styles.heading}>About Us</h3>
+          <p className={styles.description}>
+            Welcome to Garnished LLC, your premier mobile bar service offering a
+            truly unforgettable experience for your events. We take great pride
+            in catering to your individual needs and providing exceptional
+            services for various occasions across New England.
+          </p>
+        </div>
+        <img
+          src={drinkImage}
+          className={styles.drinkImage}
+          alt="Specialty Drink"
+        />
+      </section>
 
-      <img
-        src={drinkImage}
-        className={styles.drinkImage}
-        alt="Specialty Drink"
-      />
-
-      <div className={`${styles.sellingPoints} column`}>
-        <h3 className={styles.heading}>What Makes Us Different</h3>
-
-        {sellingPoints.map(({ title, description }) => {
-          return (
-            <div className={styles.sellingPoint} key={title}>
-              <CheckMark className={styles.checkMark} />
-              <h4 className={styles.subHeading}>{title}</h4>
-              <p className={styles.sellingPointDetails}>{description}</p>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+      <section className="column">
+        <div className={`${styles.sellingPoints} `}>
+          <h3 className={styles.heading}>What Makes Us Different</h3>
+          <div className={styles.sellingPointsWrapper}>
+            {sellingPoints.map(({ title, description }) => {
+              return (
+                <div className={styles.sellingPoint} key={title}>
+                  <CheckMark className={styles.checkMark} />
+                  <h4 className={styles.subHeading}>{title}</h4>
+                  <p className={styles.sellingPointDetails}>{description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };

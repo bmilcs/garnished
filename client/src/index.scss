@@ -1,6 +1,10 @@
 @import url("./reset.scss");
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;700;800&display=swap");
+
 :root {
+  --content-max-width: 1200px;
+  --content-padding: 1.5rem;
+
   --ff-primary: "Libre Baskerville", serif;
   --ff-title: "Raleway", sans-serif;
   --ff-logo: "Great Vibes", cursive;
@@ -8,6 +12,7 @@
   --fw-bold: 700;
   --fw-xbold: 800;
 
+  --border: 2px solid var(--clr-fg-light);
   --border-radius-100: 0.25rem;
   --border-radius-200: 0.5rem;
 
@@ -23,8 +28,8 @@
   --clr-neutral-500: hsla(0, 2%, 8%, 100%);
   --clr-neutral-600: hsla(0, 2%, 29%, 100%);
   --clr-neutral-700: hsla(0, 2%, 22%, 100%);
-  --clr-neutral-800: hsla(0, 0%, 15%, 100%);
-  --clr-neutral-850: hsla(0, 2%, 11%, 100%);
+  --clr-neutral-800: hsla(0, 0%, 16%, 100%);
+  --clr-neutral-850: hsla(0, 2%, 10%, 100%);
   --clr-neutral-900: hsla(0, 2%, 8%, 100%);
   --clr-neutral-900-t: hsla(0, 0%, 8%, 75%);
 
@@ -103,9 +108,9 @@ body {
 }
 
 .column {
-  max-width: 1440px;
+  max-width: var(--content-max-width);
+  padding-inline: var(--content-padding);
   margin-inline: auto;
-  padding-inline: 1.5rem;
   width: 100%;
 }
 
@@ -188,7 +193,7 @@ form {
   margin-inline: auto;
   padding: 1rem;
   margin-block: 1rem;
-  border: 2px solid var(--clr-fg-light);
+  border: var(--border);
   width: 100%;
   border-radius: var(--border-radius-100);
   max-width: 600px;
@@ -200,7 +205,7 @@ input {
   font-family: var(--ff-title);
   padding: 0.25rem 0.5rem;
   outline: 0;
-  border: 2px solid var(--clr-bg-light);
+  border: var(--border);
   border-radius: var(--border-radius-100);
 
   &:focus {
