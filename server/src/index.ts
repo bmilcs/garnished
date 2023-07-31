@@ -18,7 +18,7 @@ const productionURL = process.env.PRODUCTION_URL || "";
 const corsOrigin =
   process.env.NODE_ENV === "production"
     ? [`https://${productionURL}`, `https://test.${productionURL}`]
-    : `https://localhost:3001`;
+    : `http://localhost:3001`;
 export const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 

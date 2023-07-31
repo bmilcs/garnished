@@ -4,7 +4,7 @@
   "description": "Backend server for Garnished LLP",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && node dist/index.js'",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && npm run start'",
     "build": "tsc",
     "start": "node dist/index.js"
   },

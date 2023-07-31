@@ -15,6 +15,6 @@
     "outDir": "./dist",
     "baseUrl": "./"
   },
-  "exclude": ["node_modules", "<node_internals>/**"],
+  "exclude": ["node_modules", "dist", "<node_internals>/**"],
   "include": ["src/**/*"]
 }
