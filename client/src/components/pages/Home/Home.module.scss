@@ -14,14 +14,6 @@
   p {
     color: var(--clr-bg-light);
   }
-
-  @media screen and (min-width: 768px) {
-    max-width: calc(var(--content-max-width) - 2 * var(--content-padding));
-    margin-inline: auto;
-    width: 100%;
-    border-radius: var(--border-radius-100);
-    overflow: hidden;
-  }
 }
 
 .heroOverlay {
@@ -93,6 +85,7 @@
 .sellingPointDetails {
   grid-column: 2/3;
   margin-block: 1rem;
+  align-self: start;
 }
 
 .checkMark {
@@ -102,10 +95,33 @@
 
 .drinkImage {
   max-width: 80%;
-  max-height: 30vh;
-  aspect-ratio: 1/1;
+  max-height: 40vh;
+  // aspect-ratio: 2/1;
   margin-inline: auto;
   margin-bottom: var(--vertical-spacer-large);
   object-fit: cover;
-  border-radius: 50vh;
+  // border-radius: 50vh;
+}
+
+.alternativeBg {
+  background: var(--clr-neutral-900);
+  padding-block: var(--vertical-spacer-large);
+}
+
+.section {
+  padding-block: var(--vertical-spacer-large);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vertical-spacer-medium);
+  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    max-width: 80%;
+    margin-inline: auto;
+    flex-direction: row;
+  }
+}
+
+.sectionImage {
+  max-width: 50%;
 }
