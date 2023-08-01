@@ -12,6 +12,14 @@
   --fw-bold: 700;
   --fw-xbold: 800;
 
+  --fs-base-small: clamp(13px, 3vw, 15px);
+  --fs-base: clamp(14px, 4vw, 16px);
+  --fs-base-large: clamp(18px, 5vw, 20px);
+
+  --fs-heading-small: clamp(18px, 3vw, 22px);
+  --fs-heading: clamp(25px, 4vw, 36px);
+  --fs-heading-large: clamp(24px, 5vw, 28px);
+
   --border: 2px solid var(--clr-fg-light);
   --border-radius-100: 0.25rem;
   --border-radius-200: 0.5rem;
@@ -31,7 +39,7 @@
   --clr-neutral-800: hsla(0, 0%, 16%, 100%);
   --clr-neutral-850: hsla(0, 2%, 10%, 100%);
   --clr-neutral-900: hsla(0, 2%, 8%, 100%);
-  --clr-neutral-900-t: hsla(0, 0%, 8%, 75%);
+  --clr-neutral-900-t: hsla(0, 0%, 8%, 45%);
 
   // temporary, until we finalize color scheme
   --clr-primary: #e2c044;
@@ -159,19 +167,20 @@ h5 {
 }
 
 h2 {
-  font-size: 2.5rem;
   text-transform: uppercase;
+  font-size: var(--fs-heading-large);
 }
 
 h3 {
-  font-size: 1.75rem;
+  font-size: var(--fs-heading);
 }
 
 h4 {
-  font-size: 1.25rem;
+  font-size: var(--fs-heading-small);
 }
 
 p {
+  font-size: var(--fs-base);
   line-height: 1.7;
 }
 
