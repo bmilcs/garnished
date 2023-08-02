@@ -9,6 +9,7 @@ import drinkImage8 from "@/assets/specialtyDrink-16.jpg";
 import drinkImage9 from "@/assets/specialtyDrink-17.jpg";
 import drinkImage10 from "@/assets/specialtyDrink-18.jpg";
 import backgroundImage from "@/assets/specialtyDrink-21.jpg";
+import AnimateIn from "@/components/common/AnimateIn/AnimateIn";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMark } from "@/components/common/CheckMark/CheckMark";
 import { FC } from "react";
@@ -56,19 +57,25 @@ export const Home: FC = () => {
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
           <div className={styles.heroOverlay}>
-            <div className={styles.heroWrapper}>
-              <h2 className={styles.title}>Garnished</h2>
-              <p className={styles.subtitle}>The Premium Mobile Bar Service</p>
+            <AnimateIn className={styles.heroWrapper}>
+              <h2 className={styles.heroTitle}>Garnished</h2>
+              <p className={styles.heroSubtitle}>
+                The Premium Mobile Bar Service
+              </p>
               <Button type="hero" link="/signup">
                 Get Started
               </Button>
-            </div>
+            </AnimateIn>
           </div>
         </div>
       </section>
 
       <section className="column">
-        <div className={`${styles.about}`}>
+        <AnimateIn
+          animationType="FADE_IN"
+          delay={0.2}
+          className={`${styles.about}`}
+        >
           <h3 className={styles.heading}>Elevate Your Events with Garnished</h3>
           <p className={styles.description}>
             Create unforgettable memories with Garnished, New England's premier
@@ -76,12 +83,14 @@ export const Home: FC = () => {
             wedding, or any other celebration, Garnished is here to turn it into
             an extraordinary experience.
           </p>
-        </div>
-        <img
-          src={drinkImage}
-          className={styles.drinkImage}
-          alt="Specialty Drink"
-        />
+        </AnimateIn>
+        <AnimateIn animationType="SLIDE_UP" delay={0.4}>
+          <img
+            src={drinkImage}
+            className={styles.drinkImage}
+            alt="Specialty Drink"
+          />
+        </AnimateIn>
       </section>
 
       <section className="column">

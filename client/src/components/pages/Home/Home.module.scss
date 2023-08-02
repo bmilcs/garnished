@@ -24,14 +24,14 @@
   color: var(--clr-bg);
 }
 
-.title {
+.heroTitle {
   font-family: var(--ff-logo);
   text-transform: unset;
   font-size: clamp(4rem, 10vw, 6rem);
   line-height: 1.3;
 }
 
-.subtitle {
+.heroSubtitle {
   line-height: 1.5;
   margin-bottom: 1rem;
 }
