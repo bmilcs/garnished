@@ -1,4 +1,3 @@
-import drinkImage from "@/assets/specialtyDrink-03.jpg";
 import drinkImage2 from "@/assets/specialtyDrink-10.jpg";
 import drinkImage3 from "@/assets/specialtyDrink-11.jpg";
 import drinkImage4 from "@/assets/specialtyDrink-12.jpg";
@@ -9,93 +8,107 @@ import drinkImage8 from "@/assets/specialtyDrink-16.jpg";
 import drinkImage9 from "@/assets/specialtyDrink-17.jpg";
 import drinkImage10 from "@/assets/specialtyDrink-18.jpg";
 import backgroundImage from "@/assets/specialtyDrink-21.jpg";
-import AnimateIn from "@/components/common/AnimateIn/AnimateIn";
+import drinkImage from "@/assets/specialtyDrink-22.jpg";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMark } from "@/components/common/CheckMark/CheckMark";
+import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC } from "react";
 import styles from "./Home.module.scss";
 
-export const Home: FC = () => {
-  const sellingPoints = [
-    {
-      title: "Fully Compliant and Licensed",
-      description:
-        "We hold a valid liquor permit and have all the necessary general and liquor liability insurance. When you choose Garnished Mobile Bar, you can rest assured that your event is in safe and capable hands.",
-    },
-    {
-      title: "Highly Trained Staff",
-      description:
-        "Our team is comprised of professionals who are all tip certified. This means that every member of our staff is well-trained in responsible alcohol service, ensuring a safe and enjoyable atmosphere for your guests.",
-    },
-    {
-      title: "Top-notch Hygiene Standards",
-      description:
-        "At Garnished, we take food safety seriously. Our staff is Serve Safe certified, following best practices from the restaurant world to maintain the highest standards of hygiene while preparing and serving food and garnishes.",
-    },
-    {
-      title: "Exquisite Garnishes",
-      description:
-        "We believe that presentation is key to an unforgettable experience. Our mobile bar comes equipped with an array of fresh garnishes, including lemons and limes, adding a touch of elegance to every beverage we serve.",
-    },
-    {
-      title: "Flexibility to Suit Your Needs",
-      description:
-        "No two events are the same, and we understand the importance of catering to your unique requirements. Whether it's a corporate function, wedding, or private celebration, we tailor our services to fit seamlessly into your vision.",
-    },
-    {
-      title: "Crafting Custom Menus",
-      description:
-        "Our skilled mixologists are masters at creating custom drink menus. From signature cocktails to classic favorites, we curate a selection that perfectly complements the theme and style of your event.",
-    },
-  ];
+const sellingPoints = [
+  {
+    title: "Fully Compliant and Licensed",
+    description:
+      "We hold a valid liquor permit and have all the necessary general and liquor liability insurance. When you choose Garnished Mobile Bar, you can rest assured that your event is in safe and capable hands.",
+  },
+  {
+    title: "Highly Trained Staff",
+    description:
+      "Our team is comprised of professionals who are all tip certified. This means that every member of our staff is well-trained in responsible alcohol service, ensuring a safe and enjoyable atmosphere for your guests.",
+  },
+  {
+    title: "Top-notch Hygiene Standards",
+    description:
+      "At Garnished, we take food safety seriously. Our staff is Serve Safe certified, following best practices from the restaurant world to maintain the highest standards of hygiene while preparing and serving drinks and garnishes.",
+  },
+  {
+    title: "Exquisite Garnishes",
+    description:
+      "We believe that presentation is key to an unforgettable experience. Our mobile bar comes equipped with an array of fresh garnishes, including lemons and limes, adding a touch of elegance to every beverage we serve.",
+  },
+  {
+    title: "Flexibility to Suit Your Needs",
+    description:
+      "No two events are the same, and we understand the importance of catering to your unique requirements. Whether it's a corporate function, wedding, or private celebration, we tailor our services to fit seamlessly into your vision.",
+  },
+  {
+    title: "Crafting Custom Menus",
+    description:
+      "Our skilled mixologists are masters at creating custom drink menus. From signature cocktails to classic favorites, we curate a selection that perfectly complements the theme and style of your event.",
+  },
+];
 
+export const Home: FC = () => {
   return (
     <>
       <section>
-        <div
+        <ScrollAnimator
+          type="FADE_IN"
+          delay={0.2}
           className={styles.hero}
           style={{ backgroundImage: `url(${backgroundImage})` }}
         >
           <div className={styles.heroOverlay}>
-            <AnimateIn className={styles.heroWrapper}>
-              <h2 className={styles.heroTitle}>Garnished</h2>
+            <ScrollAnimator
+              type="SLIDE_RIGHT"
+              delay={0.4}
+              className={styles.heroWrapper}
+            >
+              <h2 className={styles.heroTitle}>
+                Elevate Your Events With <span>Garnished</span>
+              </h2>
               <p className={styles.heroSubtitle}>
                 The Premium Mobile Bar Service
               </p>
               <Button type="hero" link="/signup">
                 Get Started
               </Button>
-            </AnimateIn>
+            </ScrollAnimator>
           </div>
-        </div>
+        </ScrollAnimator>
       </section>
 
       <section className="column">
-        <AnimateIn
-          animationType="FADE_IN"
-          delay={0.2}
+        <ScrollAnimator
+          type="FADE_IN"
+          delay={0.6}
           className={`${styles.about}`}
         >
-          <h3 className={styles.heading}>Elevate Your Events with Garnished</h3>
+          <h3 className={styles.heading}>Lorem Ipsum Dolor Sit</h3>
           <p className={styles.description}>
             Create unforgettable memories with Garnished, New England's premier
             mobile bar service. Whether you're hosting a corporate event, dream
             wedding, or any other celebration, Garnished is here to turn it into
             an extraordinary experience.
           </p>
-        </AnimateIn>
-        <AnimateIn animationType="SLIDE_UP" delay={0.4}>
+        </ScrollAnimator>
+
+        <ScrollAnimator type="SLIDE_UP" delay={0.8}>
           <img
             src={drinkImage}
             className={styles.drinkImage}
             alt="Specialty Drink"
           />
-        </AnimateIn>
+        </ScrollAnimator>
       </section>
 
-      <section className="column">
-        <div className={`${styles.sellingPoints} `}>
-          <h3 className={styles.heading}>What Makes Us Different</h3>
+      <section
+        className={`content-spacer-large ${styles.sellingPointsSection}`}
+      >
+        <div className={`${styles.sellingPoints} column`}>
+          <h3 className={styles.sellingPointHeading}>
+            What Makes Us Different
+          </h3>
           <div className={styles.sellingPointsWrapper}>
             {sellingPoints.map(({ title, description }) => {
               return (
@@ -110,7 +123,7 @@ export const Home: FC = () => {
         </div>
       </section>
 
-      <section className="column alternativeBg">
+      <section className="column">
         <div className={styles.section}>
           <div className={`${styles.sectionContent}`}>
             <h3 className={styles.heading}>
