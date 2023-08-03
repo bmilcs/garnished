@@ -1,28 +1,31 @@
-import { FC } from "react";
+import { motion } from "framer-motion";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Button.module.scss";
 
-type TProps = {
+interface IProps {
   type: "primary" | "secondary" | "outline" | "icon" | "hero";
   children: React.ReactNode;
   link?: string;
   onClick?: () => void;
   className?: string;
-};
+}
 
-export const Button: FC<TProps> = ({
+export const Button: FC<IProps> = ({
   type = "primary",
   link,
   onClick,
   children,
   className,
+  ...rest
 }) => {
   return (
     <>
       {link ? (
         // link buttons are used for external links
         <Link to={link}>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             className={`${styles.button} ${className ? className : ""} ${
               type === "primary"
                 ? styles.primary
@@ -35,9 +38,10 @@ export const Button: FC<TProps> = ({
                 : styles.outline
             }`}
             onClick={onClick}
+            {...rest}
           >
             {children}
-          </button>
+          </motion.button>
         </Link>
       ) : (
         <button
