@@ -3,7 +3,7 @@
 
 :root {
   --content-max-width: 1200px;
-  --content-padding: 1.5rem;
+  --content-padding: max(1.5rem, 5vw);
 
   --ff-primary: "Libre Baskerville", serif;
   --ff-title: "Raleway", sans-serif;
@@ -17,8 +17,9 @@
   --fs-base-large: clamp(18px, 5vw, 20px);
 
   --fs-heading-small: clamp(18px, 3vw, 22px);
-  --fs-heading: clamp(25px, 4vw, 36px);
-  --fs-heading-large: clamp(24px, 5vw, 28px);
+  --fs-heading: clamp(24px, 4vw, 48px);
+  --fs-heading-large: clamp(30px, 5vw, 42px);
+  --fs-heading-hero: clamp(48px, 10vw, 80px);
 
   --border: 2px solid var(--clr-fg-light);
   --border-radius-100: 0.25rem;
@@ -30,7 +31,7 @@
   --clr-fg-light: var(--clr-neutral-800);
 
   --clr-neutral-100: hsla(0, 0%, 97%, 100%);
-  --clr-neutral-100-t: hsla(0, 0%, 96%, 50%);
+  --clr-neutral-100-t: hsla(0, 0%, 96%, 25%);
   --clr-neutral-150: hsla(0, 0%, 94%, 100%);
   --clr-neutral-200: hsla(0, 0%, 90%, 100%);
   --clr-neutral-500: hsla(0, 2%, 8%, 100%);
@@ -39,12 +40,12 @@
   --clr-neutral-800: hsla(0, 0%, 16%, 100%);
   --clr-neutral-850: hsla(0, 2%, 10%, 100%);
   --clr-neutral-900: hsla(0, 2%, 8%, 100%);
-  --clr-neutral-900-t: hsla(0, 0%, 8%, 45%);
+  --clr-neutral-900-t: hsla(0, 0%, 8%, 75%);
 
   // temporary, until we finalize color scheme
-  --clr-primary: #e2c044;
+  --clr-primary: hsl(47, 73%, 58%);
+  --clr-primary-light: hsl(47, 73%, 68%);
   --clr-primary-dark: var(--clr-fg-light);
-  --clr-primary-light: var(--clr-fg-light);
 
   // --clr-primary-h: 246;
   // --clr-primary-s: 48%;
@@ -80,18 +81,18 @@
 
   --vertical-spacer-small: 0.5rem;
   --vertical-spacer-medium: 1rem;
-  --vertical-spacer-large: 2rem;
+  --vertical-spacer-large: 3rem;
 
   @media screen and (min-width: 768px) {
     --vertical-spacer-small: 0.65rem;
     --vertical-spacer-medium: 2rem;
-    --vertical-spacer-large: 3rem;
+    --vertical-spacer-large: 4rem;
   }
 
   @media screen and (min-width: 1024px) {
     --vertical-spacer-small: 0.8rem;
     --vertical-spacer-medium: 3rem;
-    --vertical-spacer-large: 4rem;
+    --vertical-spacer-large: 6rem;
   }
 
   font-synthesis: none;
@@ -108,6 +109,7 @@ body {
   color: var(--clr-fg);
   background-color: var(--clr-bg);
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 #root {
@@ -124,6 +126,10 @@ body {
 
 .content-spacer {
   padding-block: var(--vertical-spacer-medium);
+}
+
+.content-spacer-large {
+  padding-block: calc(3 * var(--vertical-spacer-medium));
 }
 
 a {
