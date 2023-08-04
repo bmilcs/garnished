@@ -67,10 +67,12 @@ export const Home: FC = () => {
               <h2 className={styles.heroTitle}>
                 Elevate Your Events With <span>Garnished</span>
               </h2>
+
               <p className={styles.heroSubtitle}>
                 The Premium Mobile Bar Service
               </p>
-              <Button type="hero" link="/signup">
+
+              <Button className={styles.heroButton} type="hero" link="/signup">
                 Get Started
               </Button>
             </ScrollAnimator>

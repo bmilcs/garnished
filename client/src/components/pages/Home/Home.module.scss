@@ -3,6 +3,10 @@
   border-radius: var(--border-radius-100);
 }
 
+//
+// hero section
+//
+
 .hero {
   background-position: center;
   background-size: cover;
@@ -44,6 +48,14 @@
   margin-block: var(--vertical-spacer-small);
   text-transform: uppercase;
 }
+
+.heroButton {
+  margin-top: calc(1.5 * var(--vertical-spacer-small));
+}
+
+//
+// page contents
+//
 
 .heading {
   margin-bottom: 1.25rem;
