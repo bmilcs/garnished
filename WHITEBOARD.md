@@ -1,5 +1,24 @@
 # Whiteboard Planning
 
+## Quote Process
+
+Initial Release
+
+1. Get Started Icon
+2. Signup or Login
+3. Once logged in, redirect user to Event Form
+   1. Explain quote process to user
+   2. Add animations / better styling
+4. On submitting Event Form, e-mail details to owners
+   1. Redirect user to Event view component
+   2. Display a toast/modal - success
+5. Owners contact potential clients and send quote, etc.
+
+Users should be also be able to:
+
+- update their event details
+- update their profile details
+
 ## Business Details
 
 Services

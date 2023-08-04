@@ -2,19 +2,31 @@
 
 ## Frontend
 
-- [ ] Define custom css vars
-  - [ ] Color Scheme
-  - [ ] Shadows
-  - [ ] Border-radius
+- [ ] Home
+  - [ ] Animate / style
+- [ ] Gallery
+  - [ ] Image carousel / gallery
+- [ ] Create toast / modal component for display success/errors
+- [ ] Refactor error handling to display toast/modal on server errors/generic catches
 - [ ] Create layout
-  - [ ] Header/nav
+  - [ ] Add social media links & icons
   - [ ] Footer
+  - [x] Header/nav
 - [ ] Setup meta tags for social media: Facebook, Twitter, Instagram
-<!-- - [ ] -->
+- [x] Define custom css vars
+  - [x] Color Scheme
+  - [x] Shadows
+  - [x] Border-radius
 
 ## Backend
 
-- [ ]
+- [ ] Add nodemailer
+- [ ] Create email templates
+  - [ ] Confirm event & reiterate the quote process
+  - [ ] Reset password
+- [ ] Update user controller
+- [ ] Delete user controller
+- [ ] Update event controller
 
 ## First Meeting
 
