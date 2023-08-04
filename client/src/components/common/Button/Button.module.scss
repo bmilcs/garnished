@@ -3,7 +3,7 @@
   outline: 0;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .primary,
@@ -47,14 +47,17 @@
 }
 
 .hero {
-  font-size: 1.5rem;
+  font-size: var(--fs-base-large);
   text-transform: uppercase;
   background: var(--clr-primary);
   color: var(--clr-fg);
+  padding-inline: min(5vw, 3rem);
+  padding-block: min(2vw, 0.75rem);
 
   &:hover {
     background: var(--clr-fg-light);
     color: var(--clr-bg-light);
+    outline: 3px solid var(--clr-primary);
   }
 }
 
