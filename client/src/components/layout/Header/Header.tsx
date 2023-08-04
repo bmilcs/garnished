@@ -1,4 +1,5 @@
 import { Button } from "@/components/common/Button/Button";
+import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
@@ -12,7 +13,11 @@ export const Header: FC = () => {
 
   return (
     <header className={`${styles.header}`}>
-      <div className={`column ${styles.headerContent}`}>
+      <ScrollAnimator
+        type="SLIDE_DOWN"
+        duration={1.5}
+        className={`column ${styles.headerContent}`}
+      >
         <h1>
           <a href="/" className={styles.logo}>
             Garnished
@@ -63,7 +68,7 @@ export const Header: FC = () => {
             </li>
           </ul>
         </nav>
-      </div>
+      </ScrollAnimator>
     </header>
   );
 };
