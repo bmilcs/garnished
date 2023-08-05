@@ -2,8 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;700;800&display=swap");
 
 :root {
-  --content-max-width: 1200px;
-  --content-padding: max(1.5rem, 5vw);
+  --content-max-width: 1300px;
+  --content-padding: clamp(1.5rem, 5vw, 3rem);
+  --section-padding: calc(3 * var(--vertical-spacer-large));
 
   --ff-primary: "Libre Baskerville", serif;
   --ff-title: "Raleway", sans-serif;

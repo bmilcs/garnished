@@ -1,11 +1,11 @@
+import drinkImage8 from "@/assets/specialtyDrink-08.jpg";
+import drinkImage7 from "@/assets/specialtyDrink-09.jpg";
+import drinkImage6 from "@/assets/specialtyDrink-10.jpg";
 import drinkImage3 from "@/assets/specialtyDrink-11.jpg";
 import drinkImage4 from "@/assets/specialtyDrink-12.jpg";
 import drinkImage5 from "@/assets/specialtyDrink-13.jpg";
-import drinkImage6 from "@/assets/specialtyDrink-14.jpg";
-import drinkImage7 from "@/assets/specialtyDrink-15.jpg";
-import drinkImage8 from "@/assets/specialtyDrink-16.jpg";
 import backgroundImage from "@/assets/specialtyDrink-21.jpg";
-import aboutImage from "@/assets/specialtyDrink-23.jpg";
+import { BeerPour } from "@/components/common/BeerPour/BeerPour";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMark } from "@/components/common/CheckMark/CheckMark";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
@@ -153,12 +153,8 @@ export const Home: FC = () => {
           </p>
         </ScrollAnimator>
 
-        <ScrollAnimator type="SLIDE_UP" inViewPercent={0} delay={1.2}>
-          <img
-            src={aboutImage}
-            className={styles.aboutImage}
-            alt="Specialty Drink"
-          />
+        <ScrollAnimator type="SLIDE_RIGHT" inViewPercent={0} delay={1.2}>
+          <BeerPour />
         </ScrollAnimator>
       </section>
 
@@ -174,6 +170,7 @@ export const Home: FC = () => {
           <h3 className={styles.sellingPointHeading}>
             What Makes Us Different
           </h3>
+
           <div className={styles.sellingPointsWrapper}>
             {sellingPoints.map(({ title, description }, index) => {
               return (
@@ -195,19 +192,23 @@ export const Home: FC = () => {
 
       {/* content blocks */}
 
-      {contentBlocks.map(({ title, description, image }) => {
+      {contentBlocks.map(({ title, description, image }, index) => {
         return (
           <section className="column" key={title}>
-            <div className={styles.section}>
+            <div
+              className={
+                index % 2 === 0 ? styles.section : styles.sectionReverse
+              }
+            >
               <ScrollAnimator
                 type="SLIDE_RIGHT"
                 inViewPercent={0.75}
                 delay={0.2}
-                className={`${styles.sectionContent}`}
               >
                 <h3 className={styles.heading}>{title}</h3>
                 <p className={styles.description}>{description}</p>
               </ScrollAnimator>
+
               <ScrollAnimator
                 type="FADE_GROW_IN"
                 inViewPercent={0.5}
