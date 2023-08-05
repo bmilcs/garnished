@@ -15,7 +15,6 @@ export const Header: FC = () => {
     <header className={`${styles.header}`}>
       <ScrollAnimator
         type="SLIDE_DOWN"
-        duration={1.5}
         className={`column ${styles.headerContent}`}
       >
         <h1>
