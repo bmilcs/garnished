@@ -1,14 +1,11 @@
-import drinkImage2 from "@/assets/specialtyDrink-10.jpg";
 import drinkImage3 from "@/assets/specialtyDrink-11.jpg";
 import drinkImage4 from "@/assets/specialtyDrink-12.jpg";
 import drinkImage5 from "@/assets/specialtyDrink-13.jpg";
 import drinkImage6 from "@/assets/specialtyDrink-14.jpg";
 import drinkImage7 from "@/assets/specialtyDrink-15.jpg";
 import drinkImage8 from "@/assets/specialtyDrink-16.jpg";
-import drinkImage9 from "@/assets/specialtyDrink-17.jpg";
-import drinkImage10 from "@/assets/specialtyDrink-18.jpg";
 import backgroundImage from "@/assets/specialtyDrink-21.jpg";
-import drinkImage from "@/assets/specialtyDrink-22.jpg";
+import aboutImage from "@/assets/specialtyDrink-23.jpg";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMark } from "@/components/common/CheckMark/CheckMark";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
@@ -48,9 +45,72 @@ const sellingPoints = [
   },
 ];
 
+const contentBlocks = [
+  {
+    title: "A Touch of Elegance in Every Sip",
+    description:
+      "Experience the art of presentation with Garnished's array of fresh garnishes, adding a touch of elegance to every beverage we serve. It's not just a drink; it's an unforgettable work of art.",
+    image: drinkImage3,
+  },
+
+  {
+    title: "Tailored to Your Vision",
+    description:
+      "At Garnished, we understand the importance of personalization. No matter the occasion, our services are fully flexible to suit your unique needs. From corporate functions to intimate weddings, we seamlessly blend our offerings into your vision.",
+    image: drinkImage4,
+  },
+
+  {
+    title: "A Signature Drink Menu for Your Moment",
+
+    description:
+      "Our skilled mixologists are masters at crafting custom drink menus, offering a delightful selection that perfectly complements the theme and style of your event. From signature cocktails to classic favorites, each sip will be a celebration of your moment.",
+    image: drinkImage5,
+  },
+
+  {
+    title: "An Elegant Mobile Bar Set Up - Wherever You Choose",
+    description:
+      "Garnished brings the bar to you, creating an enchanting ambiance indoors or outdoors, setting the stage for a memorable celebration. Our mobile venue allows you and your guests to savor the moment without compromise.",
+    image: drinkImage6,
+  },
+
+  {
+    title: "Seasonal Menus for Every Occasion",
+
+    description:
+      "Celebrate the changing seasons with Garnished's handpicked menus, featuring fresh, vibrant flavors that elevate your event. Embrace the spirit of spring, bask in the colors of summer, savor the essence of fall, and await the delights of winter.",
+    image: drinkImage7,
+  },
+
+  {
+    title: "Craft Your Story with Us",
+    description:
+      "Garnished invites you to embark on a journey of flavor, elegance, and celebration. Let us craft your story, where every detail, from drinks to garnishes, is meticulously designed to make you feel like an honored guest at your own gala.",
+    image: drinkImage8,
+  },
+
+  // {
+  //   title: "Connect with Us",
+  //   description:
+  //     "Join our community on Facebook and Instagram for inspiration, updates, and glimpses of the extraordinary events we create. We look forward to connecting with you and making your celebration one to remember.",
+
+  //   image: drinkImage9,
+  // },
+
+  // {
+  //   title: "Ready to Raise the Bar?",
+  //   description:
+  //     "Are you ready to take your event to new heights? Sign up for a personalized account and embark on an enchanting journey of flavor, elegance, and seamless service with Garnished. Tell us about your event by filling out a brief form with all the essential details. From your preferred drinks to the theme and unique requirements, your vision is the heart of our creation process.            Once we receive your event details, our dedicated team will craft a tailor-made quote just for you. We ensure transparency, allowing you to make an informed decision for your extraordinary celebration.",
+  //   image: drinkImage10,
+  // },
+];
+
 export const Home: FC = () => {
   return (
     <>
+      {/* hero */}
+
       <section>
         <ScrollAnimator
           type="FADE_IN"
@@ -61,7 +121,7 @@ export const Home: FC = () => {
           <div className={styles.heroOverlay}>
             <ScrollAnimator
               type="SLIDE_RIGHT"
-              delay={0.4}
+              delay={0.8}
               className={styles.heroWrapper}
             >
               <h2 className={styles.heroTitle}>
@@ -80,13 +140,11 @@ export const Home: FC = () => {
         </ScrollAnimator>
       </section>
 
-      <section className="column">
-        <ScrollAnimator
-          type="FADE_IN"
-          delay={0.6}
-          className={`${styles.about}`}
-        >
-          <h3 className={styles.heading}>Lorem Ipsum Dolor Sit</h3>
+      {/* about section */}
+
+      <section className={`column ${styles.aboutSection}`}>
+        <ScrollAnimator type="FADE_GROW_IN" delay={1}>
+          <h3 className={styles.heading}>Premium Mobile Bar</h3>
           <p className={styles.description}>
             Create unforgettable memories with Garnished, New England's premier
             mobile bar service. Whether you're hosting a corporate event, dream
@@ -95,225 +153,76 @@ export const Home: FC = () => {
           </p>
         </ScrollAnimator>
 
-        <ScrollAnimator type="SLIDE_UP" delay={0.8}>
+        <ScrollAnimator type="SLIDE_UP" inViewPercent={0} delay={1.2}>
           <img
-            src={drinkImage}
-            className={styles.drinkImage}
+            src={aboutImage}
+            className={styles.aboutImage}
             alt="Specialty Drink"
           />
         </ScrollAnimator>
       </section>
 
+      {/* selling points */}
+
       <section
         className={`content-spacer-large ${styles.sellingPointsSection}`}
       >
-        <div className={`${styles.sellingPoints} column`}>
+        <ScrollAnimator
+          type="SLIDE_RIGHT"
+          className={`${styles.sellingPoints} column`}
+        >
           <h3 className={styles.sellingPointHeading}>
             What Makes Us Different
           </h3>
           <div className={styles.sellingPointsWrapper}>
-            {sellingPoints.map(({ title, description }) => {
+            {sellingPoints.map(({ title, description }, index) => {
               return (
-                <div className={styles.sellingPoint} key={title}>
+                <ScrollAnimator
+                  type="SLIDE_UP"
+                  delay={index * 0.2}
+                  className={styles.sellingPoint}
+                  key={title}
+                >
                   <CheckMark className={styles.checkMark} />
                   <h4 className={styles.subHeading}>{title}</h4>
                   <p className={styles.sellingPointDetails}>{description}</p>
-                </div>
+                </ScrollAnimator>
               );
             })}
           </div>
-        </div>
+        </ScrollAnimator>
       </section>
 
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>
-              Crafting Exquisite Drinks and Memories
-            </h3>
-            <p className={styles.description}>
-              Garnished goes beyond the ordinary to ensure your event is
-              exceptional. Our fully compliant and licensed service offers peace
-              of mind, knowing your guests are in safe hands. With highly
-              trained staff certified in responsible alcohol service, your
-              guests will enjoy a secure and enjoyable atmosphere.
-            </p>
-          </div>
-          <img
-            src={drinkImage2}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
+      {/* content blocks */}
 
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>A Touch of Elegance in Every Sip</h3>
-            <p className={styles.description}>
-              Experience the art of presentation with Garnished's array of fresh
-              garnishes, adding a touch of elegance to every beverage we serve.
-              It's not just a drink; it's an unforgettable work of art.
-            </p>
-          </div>
-          <img
-            src={drinkImage3}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>Tailored to Your Vision</h3>
-            <p className={styles.description}>
-              At Garnished, we understand the importance of personalization. No
-              matter the occasion, our services are fully flexible to suit your
-              unique needs. From corporate functions to intimate weddings, we
-              seamlessly blend our offerings into your vision.
-            </p>
-          </div>
-          <img
-            src={drinkImage4}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>
-              A Signature Drink Menu for Your Moment
-            </h3>
-            <p className={styles.description}>
-              Our skilled mixologists are masters at crafting custom drink
-              menus, offering a delightful selection that perfectly complements
-              the theme and style of your event. From signature cocktails to
-              classic favorites, each sip will be a celebration of your moment.
-            </p>
-          </div>
-          <img
-            src={drinkImage5}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>
-              An Elegant Mobile Bar Set Up - Wherever You Choose
-            </h3>
-            <p className={styles.description}>
-              Garnished brings the bar to you, creating an enchanting ambiance
-              indoors or outdoors, setting the stage for a memorable
-              celebration. Our mobile venue allows you and your guests to savor
-              the moment without compromise.
-            </p>
-          </div>
-          <img
-            src={drinkImage6}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>
-              Seasonal Menus for Every Occasion
-            </h3>
-            <p className={styles.description}>
-              Celebrate the changing seasons with Garnished's handpicked menus,
-              featuring fresh, vibrant flavors that elevate your event. Embrace
-              the spirit of spring, bask in the colors of summer, savor the
-              essence of fall, and await the delights of winter.
-            </p>
-          </div>
-          <img
-            src={drinkImage7}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>Craft Your Story with Us</h3>
-            <p className={styles.description}>
-              Garnished invites you to embark on a journey of flavor, elegance,
-              and celebration. Let us craft your story, where every detail, from
-              drinks to garnishes, is meticulously designed to make you feel
-              like an honored guest at your own gala.
-            </p>
-          </div>
-          <img
-            src={drinkImage8}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>Connect with Us</h3>
-            <p className={styles.description}>
-              Join our community on Facebook and Instagram for inspiration,
-              updates, and glimpses of the extraordinary events we create. We
-              look forward to connecting with you and making your celebration
-              one to remember.
-            </p>
-          </div>
-          <img
-            src={drinkImage9}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
-
-      <section className="column">
-        <div className={styles.section}>
-          <div className={`${styles.sectionContent}`}>
-            <h3 className={styles.heading}>Ready to Raise the Bar?</h3>
-            <p className={styles.description}>
-              Are you ready to take your event to new heights? Sign up for a
-              personalized account and embark on an enchanting journey of
-              flavor, elegance, and seamless service with Garnished.
-            </p>
-            <p>
-              Tell us about your event by filling out a brief form with all the
-              essential details. From your preferred drinks to the theme and
-              unique requirements, your vision is the heart of our creation
-              process.
-            </p>
-            <p>
-              Once we receive your event details, our dedicated team will craft
-              a tailor-made quote just for you. We ensure transparency, allowing
-              you to make an informed decision for your extraordinary
-              celebration.
-            </p>
-          </div>
-          <img
-            src={drinkImage10}
-            className={styles.sectionImage}
-            alt="Specialty Drink"
-          />
-        </div>
-      </section>
+      {contentBlocks.map(({ title, description, image }) => {
+        return (
+          <section className="column" key={title}>
+            <div className={styles.section}>
+              <ScrollAnimator
+                type="SLIDE_RIGHT"
+                inViewPercent={0.75}
+                delay={0.2}
+                className={`${styles.sectionContent}`}
+              >
+                <h3 className={styles.heading}>{title}</h3>
+                <p className={styles.description}>{description}</p>
+              </ScrollAnimator>
+              <ScrollAnimator
+                type="FADE_GROW_IN"
+                inViewPercent={0.5}
+                delay={0.25}
+              >
+                <img
+                  src={image}
+                  className={styles.sectionImage}
+                  alt="Specialty Drink"
+                />
+              </ScrollAnimator>
+            </div>
+          </section>
+        );
+      })}
     </>
   );
 };
