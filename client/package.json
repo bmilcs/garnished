@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --port 3001",
     "build": "vite build && cp CNAME dist/",
-    "buildtest": "vite build && cp ./CNAMEPREVIEW dist/CNAME",
+    "buildpreview": "vite build && cp ./CNAMEPREVIEW dist/CNAME && git reset && git add dist && git commit -m 'Build client preview to dist/' && git push",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
