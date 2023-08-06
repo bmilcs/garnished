@@ -2,17 +2,20 @@
 
 ## Frontend
 
-- [ ] Home
-  - [ ] Animate / style
+- [ ] Services Page
+  - [ ] Explain process
+  - [ ] Add all services & details
 - [ ] Gallery
   - [ ] Image carousel / gallery
 - [ ] Create toast / modal component for display success/errors
 - [ ] Refactor error handling to display toast/modal on server errors/generic catches
-- [ ] Create layout
-  - [ ] Add social media links & icons
-  - [ ] Footer
-  - [x] Header/nav
 - [ ] Setup meta tags for social media: Facebook, Twitter, Instagram
+- [x] Home
+  - [x] Animate / style
+- [x] Create layout
+  - [x] Add social media links & icons
+  - [x] Footer
+  - [x] Header/nav
 - [x] Define custom css vars
   - [x] Color Scheme
   - [x] Shadows
