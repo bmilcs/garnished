@@ -1,5 +1,5 @@
 import { Facebook } from "@/components/common/Facebook/Facebook";
-import { GitHub } from "@/components/common/GitHub/GitHub";
+import { GitHubIcon } from "@/components/common/GitHubIcon/GitHubIcon";
 import { Instagram } from "@/components/common/Instagram/Instagram";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC } from "react";
@@ -54,8 +54,8 @@ export const Footer: FC = () => {
 
         <ScrollAnimator type="SLIDE_UP" delay={0.4}>
           <div className={styles.social}>
-            <Facebook />
-            <Instagram />
+            <Facebook url="https://www.facebook.com/garnished.llp" />
+            <Instagram url="https://www.instagram.com/garnished_events/" />
           </div>
         </ScrollAnimator>
       </div>
@@ -71,7 +71,7 @@ export const Footer: FC = () => {
                 Bryan Miller
               </a>
             </p>
-            <GitHub
+            <GitHubIcon
               url="https://github.com/bmilcs/garnished"
               className={styles.githubIcon}
             />
