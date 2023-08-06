@@ -1,6 +1,9 @@
+import { TClassName } from "@/types/propTypes";
 import { FC } from "react";
 
-export const BeerPour: FC = () => {
+type TProps = TClassName;
+
+export const BeerPourIcon: FC<TProps> = ({ ...rest }) => {
   const outlineColor = "var(--clr-fg-light)";
   const primaryColor = "var(--clr-primary)";
   const accentColor = "var(--clr-primary-light)";
@@ -11,6 +14,7 @@ export const BeerPour: FC = () => {
       data-name="Layer 1"
       viewBox="0 0 813.68918 551.12771"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      {...rest}
     >
       <path
         d="M491.69167,703.45578c-32.5042-14.96151-59.18375-46.5294-59.94159-82.30322a164.86264,164.86264,0,0,0,107.87707,34.2689c14.99067-.69683,31.59135-3.03276,43.62924,5.92814,7.49037,5.57553,11.67061,14.72113,13.1732,23.93681,1.50243,9.21616.62161,18.63449-.26256,27.93038l.87191,2.16183C561.47,719.27982,524.19587,718.4173,491.69167,703.45578Z"
