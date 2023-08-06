@@ -1,11 +1,18 @@
+import { TClassName } from "@/types/propTypes";
 import { FC } from "react";
 
-export const Facebook: FC = () => {
+type TProps = TClassName & {
+  url: string;
+};
+
+export const FacebookIcon: FC<TProps> = ({ url, ...rest }) => {
   return (
     <a
-      href="https://www.facebook.com/garnished.llp"
+      href={url}
+      aria-label="Facebook Page"
       target="_blank"
       rel="noreferrer"
+      {...rest}
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path
