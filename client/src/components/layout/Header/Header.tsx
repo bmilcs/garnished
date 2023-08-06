@@ -22,7 +22,15 @@ export const Header: FC = () => {
             Garnished
           </a>
         </h1>
-        <Button type="icon" onClick={toggleNav} className="hamburger">
+
+        {/* hamburger menu */}
+
+        <Button
+          type="icon"
+          onClick={toggleNav}
+          className="hamburger"
+          ariaLabel="Open Navigation Menu"
+        >
           <svg
             className={styles.hamburger}
             xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +42,9 @@ export const Header: FC = () => {
             />
           </svg>
         </Button>
+
+        {/* navigation */}
+
         <nav className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}>
           <ul className={styles.nav__ul}>
             <li>
