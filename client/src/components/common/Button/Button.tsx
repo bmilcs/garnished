@@ -9,6 +9,7 @@ interface IProps {
   link?: string;
   onClick?: () => void;
   className?: string;
+  ariaLabel?: string;
 }
 
 export const Button: FC<IProps> = ({
@@ -17,6 +18,7 @@ export const Button: FC<IProps> = ({
   onClick,
   children,
   className,
+  ariaLabel,
   ...rest
 }) => {
   return (
@@ -26,7 +28,7 @@ export const Button: FC<IProps> = ({
         <Link to={link}>
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className={`${styles.button} ${className ? className : ""} ${
+            className={`${styles.button}${className ? " " + className : ""} ${
               type === "primary"
                 ? styles.primary
                 : type === "secondary"
@@ -38,6 +40,7 @@ export const Button: FC<IProps> = ({
                 : styles.outline
             }`}
             onClick={onClick}
+            aria-label={ariaLabel}
             {...rest}
           >
             {children}
@@ -45,16 +48,20 @@ export const Button: FC<IProps> = ({
         </Link>
       ) : (
         <button
-          className={`${styles.button} ${className ? className : ""}  ${
+          className={`${styles.button}${className ? " " + className : ""} ${
             type === "primary"
               ? styles.primary
               : type === "secondary"
               ? styles.secondary
               : type === "icon"
               ? styles.icon
+              : type === "hero"
+              ? styles.hero
               : styles.outline
           }`}
           onClick={onClick}
+          aria-label={ariaLabel}
+          {...rest}
         >
           {children}
         </button>
