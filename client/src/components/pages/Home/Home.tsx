@@ -5,9 +5,9 @@ import drinkImage3 from "@/assets/specialtyDrink-11.jpg";
 import drinkImage4 from "@/assets/specialtyDrink-12.jpg";
 import drinkImage5 from "@/assets/specialtyDrink-13.jpg";
 import backgroundImage from "@/assets/specialtyDrink-21.jpg";
-import { BeerPour } from "@/components/common/BeerPour/BeerPour";
+import { BeerPourIcon } from "@/components/common/BeerPourIcon/BeerPourIcon";
 import { Button } from "@/components/common/Button/Button";
-import { CheckMark } from "@/components/common/CheckMark/CheckMark";
+import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC } from "react";
 import styles from "./Home.module.scss";
@@ -154,7 +154,7 @@ export const Home: FC = () => {
         </ScrollAnimator>
 
         <ScrollAnimator type="SLIDE_RIGHT" inViewPercent={0} delay={1.2}>
-          <BeerPour />
+          <BeerPourIcon />
         </ScrollAnimator>
       </section>
 
@@ -180,7 +180,7 @@ export const Home: FC = () => {
                   className={styles.sellingPoint}
                   key={title}
                 >
-                  <CheckMark className={styles.checkMark} />
+                  <CheckMarkIcon className={styles.checkMark} />
                   <h4 className={styles.subHeading}>{title}</h4>
                   <p className={styles.sellingPointDetails}>{description}</p>
                 </ScrollAnimator>
