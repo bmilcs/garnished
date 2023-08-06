@@ -1,8 +1,13 @@
+import { TClassName } from "@/types/propTypes";
 import { FC } from "react";
 
-export const Email: FC = () => {
+type TProps = TClassName & {
+  url: string;
+};
+
+export const EmailIcon: FC<TProps> = ({ url, ...rest }) => {
   return (
-    <a href="mailto:info@garnished.events">
+    <a href={url} aria-label="Email Link" {...rest}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path
           fill="currentColor"
