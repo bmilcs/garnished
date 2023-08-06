@@ -28,13 +28,17 @@
 
   --clr-bg: var(--clr-neutral-100);
   --clr-bg-light: var(--clr-neutral-200);
+  --clr-bg-lighter: var(--clr-neutral-300);
+
   --clr-fg: var(--clr-neutral-900);
   --clr-fg-light: var(--clr-neutral-800);
+  --clr-fg-lighter: var(--clr-neutral-700);
 
   --clr-neutral-100: hsla(0, 0%, 97%, 100%);
   --clr-neutral-100-t: hsla(0, 0%, 96%, 25%);
   --clr-neutral-150: hsla(0, 0%, 94%, 100%);
   --clr-neutral-200: hsla(0, 0%, 90%, 100%);
+  --clr-neutral-300: hsla(0, 0%, 70%, 100%);
   --clr-neutral-500: hsla(0, 2%, 8%, 100%);
   --clr-neutral-600: hsla(0, 2%, 29%, 100%);
   --clr-neutral-700: hsla(0, 2%, 22%, 100%);
