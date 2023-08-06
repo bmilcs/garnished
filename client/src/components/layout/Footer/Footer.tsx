@@ -1,6 +1,7 @@
-import { Facebook } from "@/components/common/Facebook/Facebook";
 import { GitHubIcon } from "@/components/common/GitHubIcon/GitHubIcon";
-import { Instagram } from "@/components/common/Instagram/Instagram";
+
+import { FacebookIcon } from "@/components/common/FacebookIcon/FacebookIcon";
+import { InstagramIcon } from "@/components/common/InstagramIcon/InstagramIcon";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -10,10 +11,14 @@ export const Footer: FC = () => {
   return (
     <footer className={styles.footer}>
       <div className={`column ${styles.footerWrapper}`}>
+        {/* logo */}
+
         <ScrollAnimator type="SLIDE_UP">
           <h3 className={styles.footerLogo}>Garnished</h3>
           <p>Premium Mobile Bar</p>
         </ScrollAnimator>
+
+        {/* navigation */}
 
         <ScrollAnimator type="SLIDE_UP" delay={0.2}>
           <nav className={styles.footerNav}>
@@ -52,13 +57,17 @@ export const Footer: FC = () => {
           </nav>
         </ScrollAnimator>
 
+        {/* socials */}
+
         <ScrollAnimator type="SLIDE_UP" delay={0.4}>
           <div className={styles.social}>
-            <Facebook url="https://www.facebook.com/garnished.llp" />
-            <Instagram url="https://www.instagram.com/garnished_events/" />
+            <FacebookIcon url="https://www.facebook.com/garnished.llp" />
+            <InstagramIcon url="https://www.instagram.com/garnished_events/" />
           </div>
         </ScrollAnimator>
       </div>
+
+      {/* credits / copyright bottom bar */}
 
       <ScrollAnimator type="FADE_IN" className={styles.credits} delay={0.6}>
         <div className={`column ${styles.creditsWrapper}`}>
