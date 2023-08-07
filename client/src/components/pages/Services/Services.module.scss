@@ -1,2 +1,42 @@
+//
+// services
+//
+
 .services {
+  margin-block: var(--vertical-spacer-medium);
+}
+
+.servicesTitle {
+  margin-bottom: var(--vertical-spacer-medium);
+}
+
+.servicesWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--vertical-spacer-small);
+}
+
+.service {
+  background: var(--clr-primary-light);
+  padding: var(--vertical-spacer-small);
+  border-radius: var(--border-radius-100);
+  border-left: 6px solid var(--clr-primary);
+}
+
+//
+// products
+//
+
+.products {
+  margin-block: var(--vertical-spacer-medium);
+}
+
+.productsTitle {
+  margin-block: var(--vertical-spacer-medium);
+}
+
+.productsWrapper {
+  display: grid;
+  gap: var(--vertical-spacer-medium);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
