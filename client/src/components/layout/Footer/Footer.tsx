@@ -1,6 +1,5 @@
-import { GitHubIcon } from "@/components/common/GitHubIcon/GitHubIcon";
-
 import { FacebookIcon } from "@/components/common/FacebookIcon/FacebookIcon";
+import { GitHubIcon } from "@/components/common/GitHubIcon/GitHubIcon";
 import { InstagramIcon } from "@/components/common/InstagramIcon/InstagramIcon";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC } from "react";
@@ -13,14 +12,14 @@ export const Footer: FC = () => {
       <div className={`column ${styles.footerWrapper}`}>
         {/* logo */}
 
-        <ScrollAnimator type="SLIDE_UP">
+        <ScrollAnimator type="SLIDE_UP" delay={0.2}>
           <h3 className={styles.footerLogo}>Garnished</h3>
           <p>Premium Mobile Bar</p>
         </ScrollAnimator>
 
         {/* navigation */}
 
-        <ScrollAnimator type="SLIDE_UP" delay={0.2}>
+        <ScrollAnimator type="SLIDE_UP" delay={0.4}>
           <nav className={styles.footerNav}>
             <ul className={styles.footerNavUl}>
               <li>
@@ -59,7 +58,7 @@ export const Footer: FC = () => {
 
         {/* socials */}
 
-        <ScrollAnimator type="SLIDE_UP" delay={0.4}>
+        <ScrollAnimator type="SLIDE_UP" delay={0.6}>
           <div className={styles.social}>
             <FacebookIcon url="https://www.facebook.com/garnished.llp" />
             <InstagramIcon url="https://www.instagram.com/garnished_events/" />
@@ -69,7 +68,7 @@ export const Footer: FC = () => {
 
       {/* credits / copyright bottom bar */}
 
-      <ScrollAnimator type="FADE_IN" className={styles.credits} delay={0.6}>
+      <ScrollAnimator type="FADE_IN" className={styles.credits}>
         <div className={`column ${styles.creditsWrapper}`}>
           <p className={styles.footerCopy}>&copy; 2023 Garnished LLP</p>
 
