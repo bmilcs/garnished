@@ -1,0 +1,19 @@
+.tiltDivider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-block: -2px;
+}
+
+.tiltDivider svg {
+  width: calc(100% + 1.3px);
+  height: 5vw;
+}
+
+.tiltDivider .shapeFill {
+  fill: var(--clr-primary-light);
+
+  @media screen and (min-width: 768px) {
+    fill: var(--clr-primary);
+  }
+}
