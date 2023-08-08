@@ -9,6 +9,7 @@ import { BeerPourIcon } from "@/components/common/BeerPourIcon/BeerPourIcon";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { TiltDivider } from "@/components/common/TiltDivider/TiltDivider";
 import { FC } from "react";
 import styles from "./Home.module.scss";
 
@@ -160,6 +161,7 @@ export const Home: FC = () => {
 
       {/* selling points */}
 
+      <TiltDivider />
       <section
         className={`content-spacer-large ${styles.sellingPointsSection}`}
       >
@@ -189,6 +191,7 @@ export const Home: FC = () => {
           </div>
         </ScrollAnimator>
       </section>
+      <TiltDivider location="BOTTOM" className={styles.divider} />
 
       {/* content blocks */}
 

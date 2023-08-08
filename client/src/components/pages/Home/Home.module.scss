@@ -53,6 +53,10 @@
   margin-top: calc(1.5 * var(--vertical-spacer-small));
 }
 
+.divider {
+  margin-bottom: var(--vertical-spacer-large);
+}
+
 //
 // page contents
 //
@@ -91,7 +95,6 @@
 
 .sellingPointsSection {
   background: var(--clr-primary-light);
-  margin-bottom: var(--vertical-spacer-large);
 
   @media screen and (min-width: 768px) {
     background: var(--clr-primary);
