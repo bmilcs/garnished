@@ -1,6 +1,7 @@
 .footer {
   background: var(--clr-fg-light);
   color: var(--clr-bg);
+  margin-top: var(--vertical-spacer-medium);
 
   p {
     color: var(--clr-bg);
@@ -62,8 +63,12 @@
 }
 
 //
-// social media
+// user login / social media
 //
+
+.connectTitle {
+  margin-bottom: var(--vertical-spacer-small);
+}
 
 .social {
   display: flex;
