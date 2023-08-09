@@ -4,9 +4,15 @@
   "description": "Full stack web app for Garnished LLC",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"npm run devclient\" \"npm run devserver\"",
+    "devclient": "cd client && npm run dev",
+    "devserver": "cd server && npm run dev",
     "pubclient": "git subtree push --prefix client/dist origin dist",
     "pubclientpreview": "git subtree push --prefix client/dist test dist"
   },
   "author": "Bryan Miller (bryan@bmilcs.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
 }
