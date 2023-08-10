@@ -1,13 +1,12 @@
 .wavySeparator {
   margin-block: -2px;
+  z-index: 0;
   width: 100%;
   overflow: hidden;
   line-height: 0;
 }
 
 .wavySeparator svg {
-  position: relative;
-  display: block;
   width: calc(159% + 1.3px);
   height: 52px;
 }
