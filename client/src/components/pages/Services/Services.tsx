@@ -1,6 +1,6 @@
 import backgroundImage from "@/assets/margarita-tray.png";
 import serverImg from "@/assets/server.jpg";
-import { Party } from "@/components/common/Party/Party";
+import { PartySVG } from "@/components/common/PartySVG/PartySVG";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
 import { FC } from "react";
@@ -46,11 +46,12 @@ export const Services: FC = () => {
         </ScrollAnimator>
 
         <ScrollAnimator type="FADE_GROW_IN" delay={0.7}>
-          <Party className={styles.partySVG} />
+          <PartySVG className={styles.partySVG} />
         </ScrollAnimator>
       </section>
 
       <WavySeparator location="TOP" />
+
       <section className={styles.services}>
         <div className={`column ${styles.servicesWrapper}`}>
           <ScrollAnimator
