@@ -1,2 +1,93 @@
+.hero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: grid;
+  min-height: max(30vh, 400px);
+  text-align: center;
+
+  p {
+    color: var(--clr-bg-light);
+  }
+}
+
+.heroOverlay {
+  display: grid;
+  place-items: center;
+  background: var(--clr-neutral-900-t);
+  padding: 2rem;
+  color: var(--clr-bg);
+}
+
+.heroTitle {
+  letter-spacing: -0.05em;
+  font-size: var(--fs-heading-hero);
+  text-transform: unset;
+  line-height: 0.9;
+  max-width: 16ch;
+
+  span {
+    color: var(--clr-primary);
+  }
+}
+
+.heroSubtitle {
+  font-size: var(--fs-base);
+  font-family: var(--ff-title);
+  letter-spacing: 4px;
+  color: var(--clr-neutral-100-t);
+  margin-block: var(--vertical-spacer-small);
+  text-transform: uppercase;
+}
+
+//
+// gallery
+//
+
 .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--vertical-spacer-small);
+  margin-block: var(--vertical-spacer-large);
+
+  @media (min-width: 768px) {
+    gap: var(--vertical-spacer-medium);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+.galleryImageButton {
+  border: 0;
+
+  padding: 0;
+
+  &:focus {
+    outline: 8px solid var(--clr-primary-light);
+  }
+}
+
+.galleryImage {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+//
+// modal
+//
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--clr-neutral-900-t);
+  display: grid;
+  place-items: center;
+}
+
+.modalImageWrapper {
+  padding: var(--content-padding);
+}
+
+.modalImage {
+  max-height: 90vh;
 }
