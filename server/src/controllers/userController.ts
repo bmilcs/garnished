@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
-import { accessTokenSecret, refreshTokenSecret } from "../index";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config";
 import { IAuthRequest, TJwtPayload } from "../middlewares/authenticate";
 import {
   setJwtAccessTokenCookie,
@@ -16,7 +16,7 @@ import UserModel, { TUserDocument } from "../models/user";
 
 export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
   // prevent further action if token secrets are missing on backend
-  if (!accessTokenSecret || !refreshTokenSecret) {
+  if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
     return res.status(500).json({ msg: "Internal server error." });
   }
 
@@ -28,13 +28,13 @@ export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
   }
 
   try {
-    jwt.verify(accessToken, accessTokenSecret) as TJwtPayload;
+    jwt.verify(accessToken, ACCESS_TOKEN_SECRET) as TJwtPayload;
     // access token is valid / user is authenticated
     return res.status(200).json({ authenticated: true });
   } catch {
     // access token is invalid/expired: check if refresh token is valid/expired
     try {
-      jwt.verify(refreshToken, refreshTokenSecret) as TJwtPayload;
+      jwt.verify(refreshToken, REFRESH_TOKEN_SECRET) as TJwtPayload;
       // refresh token is valid / user is authenticated
       return res.status(200).json({ authenticated: true });
     } catch {
@@ -88,7 +88,7 @@ export const userLogin = [
   // process request after sanitization
   async (req: Request, res: Response) => {
     // prevent further action if token secrets are missing on backend
-    if (!accessTokenSecret || !refreshTokenSecret) {
+    if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
       return res
         .status(500)
         .json({ msg: "Internal server error.", authenticated: false });

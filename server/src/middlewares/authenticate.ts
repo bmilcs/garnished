@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { accessTokenSecret, refreshTokenSecret } from "../index";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config";
 import { setJwtAccessTokenCookie } from "../middlewares/setJwtCookies";
 
 export type TJwtPayload = {
@@ -19,7 +19,7 @@ export interface IAuthRequest extends Request {
 
 const authenticate = (req: IAuthRequest, res: Response, next: NextFunction) => {
   // token secrets missing on backend: block access
-  if (!accessTokenSecret || !refreshTokenSecret) {
+  if (!ACCESS_TOKEN_SECRET || !REFRESH_TOKEN_SECRET) {
     return res.status(500).json({ msg: "Internal server error." });
   }
 
@@ -32,7 +32,7 @@ const authenticate = (req: IAuthRequest, res: Response, next: NextFunction) => {
 
   // decode access token
   try {
-    const decoded = jwt.verify(accessToken, accessTokenSecret) as TJwtPayload;
+    const decoded = jwt.verify(accessToken, ACCESS_TOKEN_SECRET) as TJwtPayload;
 
     // accessToken is valid & hasn't expired
     req.userId = decoded.userId;
@@ -42,7 +42,7 @@ const authenticate = (req: IAuthRequest, res: Response, next: NextFunction) => {
     try {
       const decoded = jwt.verify(
         refreshToken,
-        refreshTokenSecret,
+        REFRESH_TOKEN_SECRET,
       ) as TJwtPayload;
 
       // refreshToken is valid: generate new accessToken

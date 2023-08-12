@@ -1,6 +1,6 @@
 import { Response } from "express";
 import jwt from "jsonwebtoken";
-import { accessTokenSecret, refreshTokenSecret } from "../index";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config";
 
 //
 // jwt cookie expiration times
@@ -28,11 +28,11 @@ export const setJwtAccessTokenCookie = <T extends object>(
   res: Response,
   payload: T,
 ) => {
-  if (!accessTokenSecret) {
+  if (!ACCESS_TOKEN_SECRET) {
     return res.status(500).json({ msg: "Internal server error." });
   }
 
-  const accessToken = jwt.sign(payload, accessTokenSecret, {
+  const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {
     expiresIn: accessTokenExpiration,
   });
 
@@ -46,11 +46,11 @@ export const setJwtAccessTokenCookie = <T extends object>(
 //
 
 export const setJwtRefreshTokenCookie = (res: Response, userId: string) => {
-  if (!refreshTokenSecret) {
+  if (!REFRESH_TOKEN_SECRET) {
     return res.status(500).json({ msg: "Internal server error." });
   }
 
-  const refreshToken = jwt.sign({ userId }, refreshTokenSecret, {
+  const refreshToken = jwt.sign({ userId }, REFRESH_TOKEN_SECRET, {
     expiresIn: refreshTokenExpiration,
   });
 

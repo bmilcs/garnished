@@ -1,29 +1,15 @@
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import { MONGO_DB, NODE_ENV, PORT, PRODUCTION_URL } from "./config";
 import * as eventController from "./controllers/eventController";
 import * as userController from "./controllers/userController";
 import authenticate from "./middlewares/authenticate";
 
 //
-// environment variables
-//
-
-dotenv.config();
-const port = process.env.PORT || 3000;
-const productionURL = process.env.PRODUCTION_URL || "";
-const corsOrigin =
-  process.env.NODE_ENV === "production"
-    ? [`https://${productionURL}`, `https://test.${productionURL}`]
-    : `http://localhost:3001`;
-export const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-export const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
-
-//
-// express app
+// create express app
 //
 
 const app = express();
@@ -32,11 +18,17 @@ const app = express();
 // cors: cross origin resource sharing
 //
 
+const corsOrigin =
+  NODE_ENV === "production"
+    ? [`https://${PRODUCTION_URL}`, `https://test.${PRODUCTION_URL}`]
+    : `http://localhost:3001`;
+
 const corsOptions = {
   origin: corsOrigin,
   optionsSuccessStatus: 200,
   credentials: true, // allow cookies to be sent from the client to the server
 };
+
 app.use(cors(corsOptions));
 
 //
@@ -45,6 +37,7 @@ app.use(cors(corsOptions));
 
 // parse incoming data to req.body
 app.use(bodyParser.json());
+
 // parse application/x-www-form-urlencoded: easier testing with Postman or plain HTML forms
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -52,15 +45,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database connection
 //
 
-const mongoDB = process.env.MONGODB || "";
-async function connectDB() {
+const connectDB = async () => {
   try {
-    await mongoose.connect(mongoDB);
+    await mongoose.connect(MONGO_DB);
     console.log("database connected");
   } catch (err) {
-    console.error("error connecting to mongodb:", err);
+    console.error("mongodb error:", err);
+    throw new Error("failed to connect to database");
   }
-}
+};
 
 //
 // authentication
@@ -75,7 +68,6 @@ app.use(cookieParser());
 
 // base route
 app.get("/", (req, res) => {
-  console.log("received / req");
   res.json("Welcome to Garnished's API!");
 });
 
@@ -96,12 +88,15 @@ app.post("/event/:id", authenticate, eventController.eventUpdatePost);
 // start server
 //
 
-connectDB()
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`server started on port: ${port}`);
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`server started on port: ${PORT}`);
     });
-  })
-  .catch(err => {
+  } catch (err) {
     console.log(err);
-  });
+  }
+};
+
+startServer();
