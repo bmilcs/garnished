@@ -2,14 +2,18 @@
 
 ## Frontend
 
+- [ ] Login vs logout state: change header nav behavior
 - [ ] Services Page
   - [ ] Explain process
   - [ ] Add all services & details
-- [ ] Gallery
-  - [ ] Image carousel / gallery
+- [ ] Setup meta tags for social media: Facebook, Twitter, Instagram
 - [ ] Create toast / modal component for display success/errors
 - [ ] Refactor error handling to display toast/modal on server errors/generic catches
-- [ ] Setup meta tags for social media: Facebook, Twitter, Instagram
+- [ ] Improve navigation
+  - [ ] Mobile: better animation / styling
+  - [ ] Desktop: improve hover state styling / colors
+- [x] Gallery
+  - [x] Image carousel / gallery
 - [x] Home
   - [x] Animate / style
 - [x] Create layout
@@ -23,13 +27,19 @@
 
 ## Backend
 
-- [ ] Add nodemailer
+- [ ] Prevent brute force pw attacks: limit invalid auth attempts
+- [ ] Create roles: user vs owner/admin
+- [ ] Allow admin to access all events & their details
+- [ ] Admin routes:
+  - [ ] Get All Events
+  - [ ] Get All Users
+- [ ] Add Update user controller
+- [ ] Add Update event controller
+- [ ] Add Delete user controller
 - [ ] Create email templates
   - [ ] Confirm event & reiterate the quote process
   - [ ] Reset password
-- [ ] Update user controller
-- [ ] Delete user controller
-- [ ] Update event controller
+- [x] Add nodemailer
 
 ## First Meeting
 
