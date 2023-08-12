@@ -4,7 +4,7 @@
   "description": "Backend server for Garnished LLP",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'npm run build && npm run start'",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -33,6 +33,7 @@
     "@types/nodemailer": "^6.4.9",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
+    "concurrently": "^8.2.0",
     "eslint": "^8.45.0",
     "nodemon": "^3.0.1"
   }
