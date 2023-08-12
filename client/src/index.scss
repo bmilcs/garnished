@@ -198,7 +198,9 @@ p {
 }
 
 .error {
-  font-weight: var(--fw-bold);
+  font-family: var(--ff-title);
+  font-size: var(--fs-base-small);
+  font-style: italic;
   color: red;
 }
 

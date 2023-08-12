@@ -1,4 +1,5 @@
 import { Button } from "@/components/common/Button/Button";
+import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { getApiEndpoint } from "@/utils/apiConfig";
 import { FC, useContext, useEffect, useState } from "react";
@@ -42,7 +43,10 @@ export const Login: FC = () => {
 
   return (
     <section className={`content-spacer ${styles.login}`}>
-      <div className={`column ${styles.loginWrapper}`}>
+      <ScrollAnimator
+        type="SLIDE_DOWN"
+        className={`column ${styles.loginWrapper}`}
+      >
         <form
           action={`${apiBasePath}/user/login`}
           method="POST"
@@ -84,7 +88,7 @@ export const Login: FC = () => {
 
           <Button type="primary">Login</Button>
         </form>
-      </div>
+      </ScrollAnimator>
     </section>
   );
 };
