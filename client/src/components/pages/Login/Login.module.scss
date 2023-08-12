@@ -1,3 +1,22 @@
 .login {
+  min-height: 100%;
   text-align: center;
+  display: grid;
+  place-items: center;
+  background: var(--clr-bg-light);
+}
+
+.loginWrapper {
+  width: 100%;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: var(--vertical-spacer-small);
+
+  p {
+    font-family: var(--ff-title);
+    font-size: var(--fs-base);
+    line-height: 1.7;
+  }
 }

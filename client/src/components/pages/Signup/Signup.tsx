@@ -115,167 +115,175 @@ export const Signup: FC = () => {
   };
 
   return (
-    <section className={`column content-spacer ${styles.signup}`}>
-      <h2>Signup</h2>
-      <Link to="/login">Already have an account? Login here.</Link>
+    <section className={`content-spacer ${styles.signup}`}>
+      <div className={styles.signupWrapper}>
+        <form
+          action={`${apiBasePath}/user/signup`}
+          method="POST"
+          className={styles.form}
+          onSubmit={handleSubmitForm}
+        >
+          <div className={styles.formHeader}>
+            <h2>Signup</h2>
+            <p>
+              Already have an account? <Link to="/login">Login here.</Link>
+            </p>
+          </div>
 
-      <form
-        action={`${apiBasePath}/user/signup`}
-        method="POST"
-        className={styles.form}
-        onSubmit={handleSubmitForm}
-      >
-        <div className="input-group">
-          <label htmlFor="username">Email Address</label>
-          <input
-            type="email"
-            name="username"
-            id="username"
-            onChange={handleInputChange}
-            value={formData.username}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("username")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="username">Email Address</label>
+            <input
+              type="email"
+              name="username"
+              id="username"
+              onChange={handleInputChange}
+              value={formData.username}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("username")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleInputChange}
-            value={formData.password}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("password")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={handleInputChange}
+              value={formData.password}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("password")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            onChange={handleInputChange}
-            value={formData.confirmPassword}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("confirmPassword")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              onChange={handleInputChange}
+              value={formData.confirmPassword}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("confirmPassword")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="phone">Phone</label>
-          <input
-            type="text"
-            name="phone"
-            id="phone"
-            onChange={handleInputChange}
-            value={formData.phone}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("phone")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="phone">Phone</label>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              onChange={handleInputChange}
+              value={formData.phone}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("phone")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            onChange={handleInputChange}
-            value={formData.firstName}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("firstName")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              onChange={handleInputChange}
+              value={formData.firstName}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("firstName")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            onChange={handleInputChange}
-            value={formData.lastName}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("lastName")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              onChange={handleInputChange}
+              value={formData.lastName}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("lastName")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="address">Address</label>
-          <input
-            type="text"
-            name="address"
-            id="address"
-            onChange={handleInputChange}
-            value={formData.address}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("address")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="address">Address</label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              onChange={handleInputChange}
+              value={formData.address}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("address")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="city">City</label>
-          <input
-            type="text"
-            name="city"
-            id="city"
-            onChange={handleInputChange}
-            value={formData.city}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("city")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              onChange={handleInputChange}
+              value={formData.city}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("city")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="state">State</label>
-          <input
-            type="text"
-            name="state"
-            id="state"
-            onChange={handleInputChange}
-            value={formData.state}
-            required
-          />
-          {errors.length > 0 && (
-            <p className="error">{getFieldError("state")}</p>
-          )}
-        </div>
+          <div className="input-group">
+            <label htmlFor="state">State</label>
+            <input
+              type="text"
+              name="state"
+              id="state"
+              onChange={handleInputChange}
+              value={formData.state}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("state")}</p>
+            )}
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="zip">Zip Code</label>
-          <input
-            type="text"
-            name="zip"
-            id="zip"
-            maxLength={5}
-            onChange={handleInputChange}
-            value={formData.zip}
-            required
-          />
-          {errors.length > 0 && <p className="error">{getFieldError("zip")}</p>}
-        </div>
+          <div className="input-group">
+            <label htmlFor="zip">Zip Code</label>
+            <input
+              type="text"
+              name="zip"
+              id="zip"
+              maxLength={5}
+              onChange={handleInputChange}
+              value={formData.zip}
+              required
+            />
+            {errors.length > 0 && (
+              <p className="error">{getFieldError("zip")}</p>
+            )}
+          </div>
 
-        <Button type="primary">Signup</Button>
-      </form>
+          <Button type="primary">Signup</Button>
+        </form>
+      </div>
     </section>
   );
 };

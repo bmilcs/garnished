@@ -41,44 +41,50 @@ export const Login: FC = () => {
   };
 
   return (
-    <section className={`column content-spacer ${styles.login}`}>
-      <h2>Login</h2>
-      <Link to="/signup">Need an account? Sign up here.</Link>
+    <section className={`content-spacer ${styles.login}`}>
+      <div className={styles.loginWrapper}>
+        <form
+          action={`${apiBasePath}/user/login`}
+          method="POST"
+          className={styles.form}
+          onSubmit={handleSubmitForm}
+        >
+          <div className={styles.formHeader}>
+            <h2>Login</h2>
+            <p>
+              Need an account? <Link to="/signup">Sign up here.</Link>
+            </p>
+          </div>
 
-      <form
-        action={`${apiBasePath}/user/login`}
-        method="POST"
-        className={styles.form}
-        onSubmit={handleSubmitForm}
-      >
-        <div className="input-group">
-          <label htmlFor="username">Email Address</label>
-          <input
-            type="email"
-            name="username"
-            id="username"
-            onChange={handleInputChange}
-            value={formData.username}
-            required
-          />
-        </div>
+          <div className="input-group">
+            <label htmlFor="username">Email Address</label>
+            <input
+              type="email"
+              name="username"
+              id="username"
+              onChange={handleInputChange}
+              value={formData.username}
+              required
+            />
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleInputChange}
-            value={formData.password}
-            required
-          />
-        </div>
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={handleInputChange}
+              value={formData.password}
+              required
+            />
+          </div>
 
-        <p className="error">{error}</p>
+          <p className="error">{error}</p>
 
-        <Button type="primary">Login</Button>
-      </form>
+          <Button type="primary">Login</Button>
+        </form>
+      </div>
     </section>
   );
 };
