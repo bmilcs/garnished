@@ -42,7 +42,7 @@ export const Login: FC = () => {
 
   return (
     <section className={`content-spacer ${styles.login}`}>
-      <div className={styles.loginWrapper}>
+      <div className={`column ${styles.loginWrapper}`}>
         <form
           action={`${apiBasePath}/user/login`}
           method="POST"

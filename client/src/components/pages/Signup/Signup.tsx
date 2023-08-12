@@ -116,7 +116,7 @@ export const Signup: FC = () => {
 
   return (
     <section className={`content-spacer ${styles.signup}`}>
-      <div className={styles.signupWrapper}>
+      <div className={`column ${styles.signupWrapper}`}>
         <form
           action={`${apiBasePath}/user/signup`}
           method="POST"
