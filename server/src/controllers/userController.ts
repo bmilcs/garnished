@@ -8,6 +8,7 @@ import {
   setJwtRefreshTokenCookie,
 } from "../middlewares/setJwtCookies";
 import UserModel, { TUserDocument } from "../models/user";
+import sendWelcomeEmail from "../services/templates/welcomeEmail";
 
 //
 // GET user auth status
@@ -230,5 +231,7 @@ export const userSignup = [
     });
 
     res.json({ msg: "Successful user signup.", authenticated: true });
+
+    if (user.username) sendWelcomeEmail(user.username);
   },
 ];
