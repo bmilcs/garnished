@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId, Types } from "mongoose";
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 export type TEventDocument = mongoose.Document & {
-  user: string;
+  user: Types.ObjectId;
   date: Date;
   time: string;
   locationDescription: string;
@@ -28,7 +28,7 @@ export type TEventDocument = mongoose.Document & {
 };
 
 const EventSchema = new Schema({
-  user: [{ type: ObjectId, ref: "User" }],
+  user: { type: ObjectId, ref: "User", required: true },
   date: { type: Date, required: true, isLength: { min: 10, max: 10 } },
   time: { type: String, required: true, isLength: { min: 5, max: 5 } },
   locationDescription: {
