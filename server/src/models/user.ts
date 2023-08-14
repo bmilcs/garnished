@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
-import mongoose from "mongoose";
-import { TEventDocument } from "../models/event";
+import mongoose, { Types } from "mongoose";
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
@@ -8,14 +7,14 @@ const ObjectId = Schema.Types.ObjectId;
 export type TUserDocument = mongoose.Document & {
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
   password: string;
   address: string;
   city: string;
   state: string;
-  zip: string;
-  phone: string;
-  events: TEventDocument[];
+  zip: number;
+  phone: number;
+  events: Types.ObjectId[];
   comparePassword: (
     candidatePassword: string,
     next: (err: any, isMatch: boolean) => void,
@@ -60,11 +59,11 @@ const UserSchema = new Schema({
     length: { min: 2, max: 2 },
   },
   zip: {
-    type: String,
+    type: Number,
     required: [true, "Zip code is required."],
     length: { min: 5, max: 5 },
   },
-  phone: { type: String, required: [true, "Phone is required."], length: 10 },
+  phone: { type: Number, required: [true, "Phone is required."], length: 10 },
   events: [{ type: ObjectId, ref: "Event", required: false }],
 });
 
