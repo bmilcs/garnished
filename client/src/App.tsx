@@ -1,11 +1,11 @@
 import Layout from "@/Layout";
-import { Contact } from "@/components/pages/Contact/Contact";
-import { Gallery } from "@/components/pages/Gallery/Gallery";
-import { Home } from "@/components/pages/Home/Home";
-
 import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
+import { Contact } from "@/components/pages/Contact/Contact";
 import { Event } from "@/components/pages/Event/Event";
 import { EventForm } from "@/components/pages/EventForm/EventForm";
+import { Gallery } from "@/components/pages/Gallery/Gallery";
+import { GetStarted } from "@/components/pages/GetStarted/GetStarted";
+import { Home } from "@/components/pages/Home/Home";
 import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
@@ -29,6 +29,7 @@ const App: FC = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/user" element={<User />} />
             <Route path="/new-event" element={<EventForm />} />
+            <Route path="/get-started" element={<GetStarted />} />
             <Route path="/event/:id" element={<Event />} />
           </Routes>
         </Layout>
