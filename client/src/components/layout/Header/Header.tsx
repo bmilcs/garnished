@@ -1,11 +1,13 @@
 import { Button } from "@/components/common/Button/Button";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
-import { FC, useState } from "react";
+import { AuthContext } from "@/hooks/useAuthContext";
+import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 export const Header: FC = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const toggleNav = () => {
     setIsNavOpen(prev => !prev);
@@ -68,13 +70,25 @@ export const Header: FC = () => {
               </Link>
             </li>
             <li>
-              <Button
-                type="primary"
-                link="/new-event"
-                onClick={() => setIsNavOpen(false)}
-              >
-                Get Started
-              </Button>
+              {isLoggedIn ? (
+                <>
+                  <Button
+                    type="primary"
+                    link="/user"
+                    onClick={() => setIsNavOpen(false)}
+                  >
+                    Dashboard
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  type="primary"
+                  link="/get-started"
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  Get Started
+                </Button>
+              )}
             </li>
           </ul>
         </nav>
