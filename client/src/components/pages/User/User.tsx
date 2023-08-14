@@ -93,6 +93,10 @@ export const User: FC = () => {
 
       {error && <p className="error">{error}</p>}
 
+      <Button type="primary" link="/new-event">
+        New Event
+      </Button>
+
       <Button type="primary" onClick={handleLogout}>
         Logout
       </Button>
