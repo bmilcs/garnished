@@ -1,3 +1,15 @@
 .eventForm {
+  min-height: 80vh;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  background: var(--clr-bg-light);
+}
+
+.eventFormWrapper {
+  width: 100%;
+}
+
+.eventForm {
   text-align: center;
 }
