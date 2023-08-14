@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { IAuthRequest } from "../middlewares/authenticate";
 import EventModel from "../models/event";
-import UserModel from "../models/user";
+import UserModel, { TUserDocument } from "../models/user";
+import sendNewEventEmailToOwners from "../services/templates/newEventEmail";
 
 //
 // GET event details
@@ -13,7 +14,7 @@ export const eventGet = async (req: IAuthRequest, res: Response) => {
     const event = await EventModel.findById(req.params.id).populate("user");
 
     // make sure that the request user is the user associated with the event
-    if (event?.user[0]._id.toString() !== req.userId) {
+    if (event?.user._id.toString() !== req.userId) {
       return res.status(401).json({ msg: "Unauthorized." });
     }
 
@@ -152,17 +153,23 @@ export const eventCreatePost = [
 
     try {
       // get user data
-      const user = await UserModel.findOne({ _id: req.userId });
+      const user = (await UserModel.findOne({
+        _id: req.userId,
+      })) as TUserDocument;
 
       // create user event
-      const event = new EventModel({ ...req.body, user: req.userId });
+      const event = new EventModel({ ...req.body, user: user });
       event.save();
 
       // add event to user's events array
-      user?.events.push(event._id);
-      user?.save();
+      if (user) {
+        user?.events.push(event._id);
+        user?.save();
+      }
 
       res.json({ msg: "Successful create event.", eventId: event._id });
+
+      if (user && event) sendNewEventEmailToOwners({ user, event });
     } catch {
       res.status(500).json({ msg: "Internal server error." });
     }
