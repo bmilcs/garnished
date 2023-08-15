@@ -8,7 +8,9 @@
     "devclient": "cd client && npm run dev",
     "devserver": "cd server && npm run dev",
     "pubclient": "git subtree push --prefix client/dist origin dist",
-    "pubclientpreview": "git subtree push --prefix client/dist test dist"
+    "pubclientpreview": "git subtree push --prefix client/dist test dist",
+    "buildclientpreview": "cd client && npm run buildpreview",
+    "pubserver": "cd server && fly deploy"
   },
   "author": "Bryan Miller (bryan@bmilcs.com)",
   "license": "MIT",
