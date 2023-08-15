@@ -83,6 +83,7 @@ app.get("/user/logout", userController.userLogout);
 app.post("/event", authenticate, eventController.eventCreatePost);
 app.get("/event/:id", authenticate, eventController.eventGet);
 app.post("/event/:id", authenticate, eventController.eventUpdatePost);
+app.delete("/event/:id", authenticate, eventController.eventDelete);
 
 //
 // start server
