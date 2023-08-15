@@ -7,7 +7,7 @@ interface IProps {
   type: "primary" | "secondary" | "outline" | "icon" | "hero";
   children: React.ReactNode;
   link?: string;
-  onClick?: () => void;
+  onClick?: () => void | Promise<void>;
   className?: string;
   ariaLabel?: string;
 }

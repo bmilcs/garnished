@@ -3,7 +3,8 @@
   outline: 0;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  box-shadow: var(--box-shadow-100);
 }
 
 .primary,
@@ -21,8 +22,8 @@
   color: var(--clr-bg);
 
   &:hover {
-    background: var(--clr-fg-light);
-    color: var(--clr-bg-light);
+    background: var(--clr-primary);
+    color: var(--clr-fg);
   }
 }
 
