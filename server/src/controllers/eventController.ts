@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { IAuthRequest } from "../middlewares/authenticate";
-import EventModel from "../models/event";
+import EventModel, { TEventDocument } from "../models/event";
 import UserModel, { TUserDocument } from "../models/user";
 import sendNewEventEmailToOwners from "../services/templates/newEventEmail";
 
@@ -182,4 +182,44 @@ export const eventCreatePost = [
 
 export const eventUpdatePost = (req: Request, res: Response) => {
   res.json({ msg: "event post" });
+};
+
+//
+// DELETE event
+//
+
+export const eventDelete = async (req: IAuthRequest, res: Response) => {
+  try {
+    const event = (await EventModel.findById(req.params.id)) as TEventDocument;
+
+    // event not found
+    if (!event) return res.status(404).json({ msg: "Event not found." });
+
+    // make sure that the request user is the user associated with the event
+    if (event?.user.toString() !== req.userId) {
+      return res.status(401).json({ msg: "Unauthorized." });
+    }
+
+    // get user data
+    const user = (await UserModel.findOne({
+      _id: req.userId,
+    })) as TUserDocument;
+
+    if (!user) return res.status(404).json({ msg: "User not found." });
+
+    // remove event from user's events array
+    user.events = user.events.filter(
+      eventId => eventId.toString() !== event._id.toString(),
+    );
+
+    // save user
+    user.save();
+
+    // delete event
+    EventModel.deleteOne({ _id: event._id });
+
+    res.json({ msg: "successful event delete." });
+  } catch {
+    res.status(500).json({ msg: "Internal server error." });
+  }
 };
