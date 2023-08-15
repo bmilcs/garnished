@@ -52,7 +52,7 @@ export const userGet = async (req: IAuthRequest, res: Response) => {
   // get user details from the database, omit password
   const user: TUserDocument | null = await UserModel.findById(req.userId, {
     password: 0,
-  }).populate("events", { _id: 1, date: 1 });
+  }).populate("events", { _id: 1, date: 1, eventType: 1 });
 
   res.json({ msg: "Successful user get", user });
 };
