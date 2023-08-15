@@ -116,10 +116,10 @@ export const Signup: FC = () => {
   };
 
   return (
-    <section className={`content-spacer ${styles.signup}`}>
+    <section className={`content-spacer user-section`}>
       <ScrollAnimator
         type="SLIDE_DOWN"
-        className={`column ${styles.signupWrapper}`}
+        className={`column user-section-wrapper`}
       >
         <form
           action={`${apiBasePath}/user/signup`}
@@ -127,7 +127,7 @@ export const Signup: FC = () => {
           className={styles.form}
           onSubmit={handleSubmitForm}
         >
-          <div className={styles.formHeader}>
+          <div className="form-header">
             <h2>Signup</h2>
             <p>
               Already have an account? <Link to="/login">Login here.</Link>

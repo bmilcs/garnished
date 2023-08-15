@@ -1,0 +1,11 @@
+.dashboardHeader {
+  text-align: center;
+}
+
+.userDetailsHeader {
+  margin-bottom: var(--vertical-spacer-small);
+
+  &:nth-of-type(2) {
+    margin-top: var(--vertical-spacer-small);
+  }
+}
