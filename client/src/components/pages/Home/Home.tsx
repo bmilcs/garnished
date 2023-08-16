@@ -8,6 +8,7 @@ import backgroundImage from "@/assets/specialtyDrink-21.jpg";
 import { BeerPourIcon } from "@/components/common/BeerPourIcon/BeerPourIcon";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
+import { Hero } from "@/components/common/Hero/Hero";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { TiltDivider } from "@/components/common/TiltDivider/TiltDivider";
 import { FC } from "react";
@@ -112,34 +113,16 @@ export const Home: FC = () => {
     <>
       {/* hero */}
 
-      <section>
-        <ScrollAnimator
-          type="FADE_IN"
-          delay={0.2}
-          className={styles.hero}
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        >
-          <div className={styles.heroOverlay}>
-            <ScrollAnimator
-              type="SLIDE_RIGHT"
-              delay={0.8}
-              className={styles.heroWrapper}
-            >
-              <h2 className={styles.heroTitle}>
-                Elevate Your Events With <span>Garnished</span>
-              </h2>
-
-              <p className={styles.heroSubtitle}>
-                The Premium Mobile Bar Service
-              </p>
-
-              <Button className={styles.heroButton} type="hero" link="/signup">
-                Get Started
-              </Button>
-            </ScrollAnimator>
-          </div>
-        </ScrollAnimator>
-      </section>
+      <Hero
+        title="Elevate Your Events With"
+        titleSpan="Garnished"
+        subtitle="The Premium Mobile Bar Service"
+        backgroundImage={backgroundImage}
+      >
+        <Button className={styles.heroButton} type="hero" link="/signup">
+          Get Started
+        </Button>
+      </Hero>
 
       {/* about section */}
 
