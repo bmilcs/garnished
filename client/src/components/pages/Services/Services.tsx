@@ -1,5 +1,6 @@
 import backgroundImage from "@/assets/margarita-tray.png";
 import serverImg from "@/assets/server.jpg";
+import { Hero } from "@/components/common/Hero/Hero";
 import { PartySVG } from "@/components/common/PartySVG/PartySVG";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
@@ -9,28 +10,12 @@ import styles from "./Services.module.scss";
 export const Services: FC = () => {
   return (
     <>
-      <section>
-        <ScrollAnimator
-          type="FADE_IN"
-          delay={0.2}
-          className={styles.hero}
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        >
-          <div className={styles.heroOverlay}>
-            <ScrollAnimator
-              type="SLIDE_RIGHT"
-              delay={0.8}
-              className={styles.heroWrapper}
-            >
-              <h2 className={styles.heroTitle}>
-                Goods & <span>Services</span>
-              </h2>
-
-              <p className={styles.heroSubtitle}>We bring the party to you</p>
-            </ScrollAnimator>
-          </div>
-        </ScrollAnimator>
-      </section>
+      <Hero
+        title="Goods &"
+        titleSpan="Services"
+        subtitle="We bring the party to you"
+        backgroundImage={backgroundImage}
+      />
 
       <section className={`column ${styles.mobileBar}`}>
         <ScrollAnimator type="SLIDE_RIGHT" delay={0.5}>
