@@ -1,2 +1,38 @@
 .contact {
+  background: var(--clr-bg-light);
+}
+
+.contactWrapper {
+  display: grid;
+
+  @media screen and (min-width: 960px) {
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--vertical-spacer-large);
+  }
+}
+
+.contactLeftColumn {
+  display: grid;
+  align-items: center;
+  text-align: center;
+
+  padding-block: var(--vertical-spacer-medium);
+  margin-inline: auto;
+
+  @media screen and (min-width: 960px) {
+    text-align: left;
+  }
+}
+
+.contactHeader {
+  margin-bottom: var(--vertical-spacer-small);
+}
+
+.contactInstructions {
+  margin-bottom: calc(2 * var(--vertical-spacer-small));
+  max-width: 40ch;
+}
+
+.form {
+  min-width: 100%;
 }
