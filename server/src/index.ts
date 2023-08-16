@@ -4,6 +4,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import { MONGO_DB, NODE_ENV, PORT, PRODUCTION_URL } from "./config";
+import * as contactController from "./controllers/contactController";
 import * as eventController from "./controllers/eventController";
 import * as userController from "./controllers/userController";
 import authenticate from "./middlewares/authenticate";
@@ -84,6 +85,9 @@ app.post("/event", authenticate, eventController.eventCreatePost);
 app.get("/event/:id", authenticate, eventController.eventGet);
 app.post("/event/:id", authenticate, eventController.eventUpdatePost);
 app.delete("/event/:id", authenticate, eventController.eventDelete);
+
+// contact form route
+app.post("/contact", contactController.contactPost);
 
 //
 // start server
