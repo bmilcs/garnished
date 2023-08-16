@@ -174,7 +174,7 @@ export const Home: FC = () => {
           </div>
         </ScrollAnimator>
       </section>
-      <TiltDivider location="BOTTOM" className={styles.divider} />
+      <TiltDivider location="BOTTOM" className={styles.bottomDivider} />
 
       {/* content blocks */}
 

@@ -91,6 +91,10 @@
 // section content (post selling points)
 //
 
+.bottomDivider {
+  margin-bottom: var(--vertical-spacer-large);
+}
+
 .section,
 .sectionReverse {
   display: grid;
