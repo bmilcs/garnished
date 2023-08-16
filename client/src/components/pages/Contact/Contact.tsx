@@ -80,6 +80,7 @@ export const Contact: FC = () => {
         <div className={`column content-spacer ${styles.contactWrapper}`}>
           <ScrollAnimator
             type="SLIDE_DOWN"
+            delay={0.2}
             className={` ${styles.contactLeftColumn}`}
           >
             <div>
@@ -96,7 +97,7 @@ export const Contact: FC = () => {
             </div>
           </ScrollAnimator>
 
-          <ScrollAnimator type="SLIDE_UP">
+          <ScrollAnimator type="SLIDE_UP" delay={0.4}>
             <form onSubmit={handleSubmitForm} className={styles.form}>
               <div className="form-header">
                 <h3>Let's Chat</h3>
