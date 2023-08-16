@@ -1,5 +1,6 @@
 import backgroundImage from "@/assets/fruit-02.jpg";
 import * as images from "@/assets/index";
+import { Hero } from "@/components/common/Hero/Hero";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC, useEffect, useState } from "react";
 import styles from "./Gallery.module.scss";
@@ -68,30 +69,13 @@ export const Gallery: FC = () => {
 
   return (
     <>
-      <section>
-        <ScrollAnimator
-          type="FADE_IN"
-          delay={0.2}
-          className={styles.hero}
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        >
-          <div className={styles.heroOverlay}>
-            <ScrollAnimator
-              type="SLIDE_RIGHT"
-              delay={0.8}
-              className={styles.heroWrapper}
-            >
-              <h2 className={styles.heroTitle}>
-                Photos from <span>Garnished</span> Events
-              </h2>
-
-              <p className={styles.heroSubtitle}>
-                The Premium Mobile Bar Service
-              </p>
-            </ScrollAnimator>
-          </div>
-        </ScrollAnimator>
-      </section>
+      <Hero
+        backgroundImage={backgroundImage}
+        title="Photo"
+        titleSpan="Gallery"
+        subtitle="Eye candy from our events"
+        heightInVH={35}
+      />
 
       {/* image grid */}
 
