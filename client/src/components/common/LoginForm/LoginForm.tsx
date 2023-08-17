@@ -1,12 +1,14 @@
 import { Button } from "@/components/common/Button/Button";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
+import { TClassName } from "@/types/propTypes";
 import { getApiEndpoint } from "@/utils/apiConfig";
 import { FC, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Login.module.scss";
 
-export const Login: FC = () => {
+type TProps = TClassName;
+
+export const LoginForm: FC<TProps> = ({ className }) => {
   const navigate = useNavigate();
   const apiBasePath = getApiEndpoint();
   const { isLoggedIn, login, error } = useContext(AuthContext);
@@ -42,11 +44,13 @@ export const Login: FC = () => {
   };
 
   return (
-    <ScrollAnimator type="SLIDE_DOWN" className={`column user-section-wrapper`}>
+    <ScrollAnimator
+      type="SLIDE_DOWN"
+      className={`${className ? " " + className : ""}`}
+    >
       <form
         action={`${apiBasePath}/user/login`}
         method="POST"
-        className={styles.form}
         onSubmit={handleSubmitForm}
       >
         <div className="form-header">
