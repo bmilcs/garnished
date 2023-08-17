@@ -6,13 +6,13 @@ import { EventForm } from "@/components/pages/EventForm/EventForm";
 import { Gallery } from "@/components/pages/Gallery/Gallery";
 import { GetStarted } from "@/components/pages/GetStarted/GetStarted";
 import { Home } from "@/components/pages/Home/Home";
+import { Login } from "@/components/pages/Login/Login";
 import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
 import { AuthProvider } from "@/hooks/useAuthContext";
 import { FC } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { Login } from "./components/pages/Login/Login";
 
 const App: FC = () => {
   return (
