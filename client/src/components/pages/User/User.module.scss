@@ -9,3 +9,12 @@
     margin-top: var(--vertical-spacer-small);
   }
 }
+
+.contentWrapper {
+  display: grid;
+
+  @media screen and (min-width: 768px) {
+    gap: var(--vertical-spacer-medium);
+    grid-template-columns: 1fr 1fr;
+  }
+}
