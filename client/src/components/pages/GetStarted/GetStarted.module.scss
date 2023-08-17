@@ -1,0 +1,36 @@
+.getStarted {
+  background: var(--clr-bg-light);
+  min-height: 50vh;
+  display: grid;
+  place-items: center;
+}
+
+.getStartedWrapper {
+  display: grid;
+  gap: var(--vertical-spacer-medium);
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.instructions {
+  font-size: var(--fs-base);
+  margin-bottom: var(--vertical-spacer-large);
+}
+
+.signupButtonWrapper {
+  display: grid;
+  place-items: center;
+}
+
+.signupButton {
+  margin-top: var(--vertical-spacer-medium);
+  width: 100%;
+}
+
+.instructions {
+  margin-block: var(--vertical-spacer-small);
+}
