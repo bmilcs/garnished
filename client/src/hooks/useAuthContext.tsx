@@ -1,4 +1,4 @@
-import { getApiEndpoint } from "@/utils/apiConfig";
+import { apiService } from "@/utils/apiService";
 import { FC, createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,9 +10,10 @@ type TAuthContextValue = {
   isLoggedIn: boolean;
   isAuthPending: boolean;
   error: string;
+  redirectAuthorizedUser: () => void;
   redirectUnauthorizedUser: () => void;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  login: (formData: TLoginCredentials) => Promise<void>;
+  login: (credentials: TLoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -52,84 +53,53 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
   // and set login status accordingly (no user personal data is stored locally)
   useEffect(() => {
     const setAuthStatus = async () => {
-      // clear previous errors
+      setIsAuthPending(true);
       setError("");
 
-      const apiBasePath = getApiEndpoint();
-      const url = `${apiBasePath}/user/auth-status`;
       try {
-        const res = await fetch(url, {
+        const {
+          data: { authenticated },
+        } = await apiService<TAuthStatusResponse>({
+          path: "user/auth-status",
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
         });
 
-        const { authenticated } = (await res.json()) as TAuthStatusResponse;
-
-        if (authenticated) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
+        setIsLoggedIn(authenticated);
       } catch {
-        // no error message state is set here because this is a silent check
-        console.error("Unable to verify login status. Try again later.");
+        setIsLoggedIn(false);
+      } finally {
+        setIsAuthPending(false);
       }
     };
 
-    setAuthStatus()
-      .catch(() => setIsLoggedIn(false))
-      .finally(() => setIsAuthPending(false));
+    void setAuthStatus();
   }, []);
-
-  //
-  // auto redirect to login page if user is not logged in.
-  // without the isAuthPending check, authorized users will get redirected regardless
-  // of auth status because the auth status check is async
-  //
-
-  const redirectUnauthorizedUser = () => {
-    if (isAuthPending) return;
-    if (!isLoggedIn) {
-      navigate("/login");
-      return;
-    }
-  };
 
   //
   // login function
   //
 
-  const login = async (formData: { username: string; password: string }) => {
+  const login = async (loginCredentials: TLoginCredentials) => {
     setIsAuthPending(true);
-    // clear previous errors
+    setIsLoggedIn(false);
     setError("");
 
-    const apiBasePath = getApiEndpoint();
-    const url = `${apiBasePath}/user/login`;
     try {
-      const res = await fetch(url, {
+      const {
+        data: { authenticated, msg },
+      } = await apiService<TLoginApiResponse>({
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
+        path: "user/login",
+        body: loginCredentials,
       });
 
-      const { authenticated, msg } = (await res.json()) as TLoginApiResponse;
-
-      // login successful
       if (authenticated) {
         setIsLoggedIn(true);
         return;
       }
 
-      // login failed, set error message
+      // login failed, set error message from server
       setError(msg);
-      setIsLoggedIn(false);
     } catch {
       setError("Something went wrong. Try again later.");
     } finally {
@@ -143,27 +113,51 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
 
   const logout = async () => {
     setIsAuthPending(true);
-    // clear previous errors
     setError("");
 
-    const apiBasePath = getApiEndpoint();
-    const url = `${apiBasePath}/user/logout`;
-
     try {
-      await fetch(url, {
+      const { status } = await apiService({
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
+        path: "user/logout",
       });
 
-      // logout was successful
-      setIsLoggedIn(false);
+      if (status === 200) {
+        setIsLoggedIn(false);
+        navigate("/login");
+        return;
+      }
+
+      throw new Error();
     } catch {
       setError("Something went wrong. Try again later.");
     } finally {
       setIsAuthPending(false);
+    }
+  };
+
+  //
+  // redirects to a given path if user is not logged in
+  // without the isAuthPending check, authorized users will get redirected regardless
+  // of auth status because the auth status check is async & takes time to complete
+  //
+
+  const redirectUnauthorizedUser = (path = "/login") => {
+    if (isAuthPending) return;
+    if (!isLoggedIn) {
+      navigate(path);
+      return;
+    }
+  };
+
+  //
+  // redirect user if authorized
+  //
+
+  const redirectAuthorizedUser = (path = "/user") => {
+    if (isAuthPending) return;
+    if (isLoggedIn) {
+      navigate(path);
+      return;
     }
   };
 
@@ -173,6 +167,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
         isLoggedIn,
         isAuthPending,
         setIsLoggedIn,
+        redirectAuthorizedUser,
         redirectUnauthorizedUser,
         login,
         logout,
