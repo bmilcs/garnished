@@ -2,7 +2,7 @@ import { Button } from "@/components/common/Button/Button";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TClassName } from "@/types/propTypes";
-import { getApiEndpoint } from "@/utils/apiConfig";
+import { getApiEndpoint } from "@/utils/apiService";
 import { FC, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -11,20 +11,15 @@ type TProps = TClassName;
 export const LoginForm: FC<TProps> = ({ className }) => {
   const navigate = useNavigate();
   const apiBasePath = getApiEndpoint();
-  const { isLoggedIn, login, error } = useContext(AuthContext);
+  const { redirectAuthorizedUser, login, error } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "reggie@miller.com",
     password: "asdfasdf",
   });
 
-  useEffect(
-    function redirectIfLoggedIn() {
-      if (isLoggedIn) {
-        navigate("/user");
-      }
-    },
-    [isLoggedIn, navigate],
-  );
+  useEffect(() => {
+    redirectAuthorizedUser();
+  }, [redirectAuthorizedUser]);
 
   // on login form submit
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
