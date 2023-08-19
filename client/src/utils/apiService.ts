@@ -1,18 +1,18 @@
-// temporary solution while converting to api service
 export const getApiEndpoint = () => import.meta.env.VITE_API_ENDPOINT;
 
-// by default, "npm run dev" loads from ".env.development"
-// and production loads ".env.production"
+// by default, "npm run dev" loads ".env.development" and production loads ".env.production"
 const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 type TProps = {
   path: string;
-  method: HttpMethod;
+  method?: HttpMethod;
   body?: Record<string, unknown>;
   credentials?: boolean;
 };
+
+// type TApiResponse = Record<string, unknown>;
 
 export const apiService = async <TApiResponse>({
   method = "GET",
