@@ -1,96 +1,17 @@
 import { Button } from "@/components/common/Button/Button";
+import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
-import { AuthContext } from "@/hooks/useAuthContext";
-import { TEvent } from "@/types/eventTypes";
-import { getApiEndpoint } from "@/utils/apiConfig";
-import { FC, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCreateEvent } from "@/hooks/useEventCreate";
+import { FC } from "react";
 import styles from "./EventForm.module.scss";
 
-type TEventResponse = {
-  errors?: TEventResponseError[];
-  eventId?: string;
-};
-
-type TEventResponseError = {
-  type: string;
-  value: string;
-  msg: string;
-  path: string;
-  location: string;
-};
-
 export const EventForm: FC = () => {
-  const { redirectUnauthorizedUser, isLoggedIn } = useContext(AuthContext);
-  const apiBasePath = getApiEndpoint();
-  const navigate = useNavigate();
-  const [errors, setErrors] = useState<TEventResponseError[]>([]);
-  const [formData, setFormData] = useState<TEvent>({
-    date: "1999-10-15",
-    time: "17:00",
-    locationDescription: "Around back",
-    address: "123 Circle Dr.",
-    city: "West Springfield",
-    state: "MA",
-    zip: "01089",
-    guests: 25,
-    hours: 4,
-    eventType: "Birthday",
-    needBar: true,
-    needTent: false,
-    needAlcohol: true,
-    needRunningWater: true,
-    needRefrigeration: true,
-    needDrinkware: true,
-    beer: true,
-    wine: true,
-    specialtyDrinks: false,
-    liquorPreferences: "",
-  });
-
-  useEffect(() => {
-    redirectUnauthorizedUser();
-  }, [redirectUnauthorizedUser]);
-
-  const submitEvent = async () => {
-    // clear errors
-    setErrors([]);
-
-    const url = `${apiBasePath}/event/`;
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
-
-      const data = (await res.json()) as TEventResponse;
-
-      if (data.errors) {
-        setErrors(data.errors);
-        return;
-      }
-
-      // event created successfully
-      const eventId = data.eventId;
-
-      if (!eventId) {
-        console.error("event id not found");
-        return;
-      }
-
-      navigate(`/event/${eventId}`);
-    } catch (e) {
-      console.error("errors:", e);
-    }
-  };
+  const { formData, setFormData, createEvent, isPending, errors } =
+    useCreateEvent();
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submitEvent().catch(e => console.error("signup error:", e));
+    void createEvent();
   };
 
   // update form data on input change
@@ -113,27 +34,27 @@ export const EventForm: FC = () => {
 
   // get field error message
   const getFieldError = (fieldName: string) => {
-    if (errors.length === 0) return "";
+    if (errors.length === 0) return null;
     return errors
       .filter(error => error.path === fieldName)
       .map(error => error.msg)[0];
   };
 
-  if (isLoggedIn) {
+  if (isPending) return <HourglassSpinner />;
+
+  if (!isPending)
     return (
       <section className={`content-spacer ${styles.eventForm}`}>
-        <h2>Request Quote</h2>
-
         <ScrollAnimator
           type="SLIDE_DOWN"
           className={`column ${styles.loginWrapper}`}
         >
-          <form
-            action={`${apiBasePath}/user/signup`}
-            method="POST"
-            className={styles.form}
-            onSubmit={handleSubmitForm}
-          >
+          <form className={styles.form} onSubmit={handleSubmitForm}>
+            <div className="form-header">
+              <h2>Create Event</h2>
+              <p>Receive a free estimate for your event.</p>
+            </div>
+
             <div className="input-group">
               <label htmlFor="date">Event Date</label>
               <input
@@ -469,5 +390,4 @@ export const EventForm: FC = () => {
         </ScrollAnimator>
       </section>
     );
-  }
 };
