@@ -1,36 +1,16 @@
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { useInputChange } from "@/hooks/useInputChange";
 import { useUserSignup } from "@/hooks/useUserSignup";
+import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 
 export const Signup: FC = () => {
   const { formData, setFormData, signup, errors, isPending } = useUserSignup();
-
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    void signup();
-  };
-
-  // update formData state on input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  // get field error message for a field from errors array,
-  // which is in express - validator format
-  const getFieldError = (fieldName: string) => {
-    if (errors.length === 0) return null;
-    console.log(errors);
-    return errors
-      .filter(error => error.path === fieldName)
-      .map(error => error.msg)[0];
-  };
+  const handleSubmitForm = onFormSubmit(signup);
+  const handleInputChange = useInputChange(setFormData);
 
   if (isPending) return <HourglassSpinner />;
 
@@ -60,7 +40,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("username")}</p>
+                <p className="error">
+                  {getExpressValidatorError("username", errors)}
+                </p>
               )}
             </div>
 
@@ -75,7 +57,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("password")}</p>
+                <p className="error">
+                  {getExpressValidatorError("password", errors)}
+                </p>
               )}
             </div>
 
@@ -90,7 +74,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("confirmPassword")}</p>
+                <p className="error">
+                  {getExpressValidatorError("confirmPassword", errors)}
+                </p>
               )}
             </div>
 
@@ -105,7 +91,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("phone")}</p>
+                <p className="error">
+                  {getExpressValidatorError("phone", errors)}
+                </p>
               )}
             </div>
 
@@ -120,7 +108,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("firstName")}</p>
+                <p className="error">
+                  {getExpressValidatorError("firstName", errors)}
+                </p>
               )}
             </div>
 
@@ -135,7 +125,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("lastName")}</p>
+                <p className="error">
+                  {getExpressValidatorError("lastName", errors)}
+                </p>
               )}
             </div>
 
@@ -150,7 +142,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("address")}</p>
+                <p className="error">
+                  {getExpressValidatorError("address", errors)}
+                </p>
               )}
             </div>
 
@@ -165,7 +159,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("city")}</p>
+                <p className="error">
+                  {getExpressValidatorError("city", errors)}
+                </p>
               )}
             </div>
 
@@ -180,7 +176,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("state")}</p>
+                <p className="error">
+                  {getExpressValidatorError("state", errors)}
+                </p>
               )}
             </div>
 
@@ -196,7 +194,9 @@ export const Signup: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("zip")}</p>
+                <p className="error">
+                  {getExpressValidatorError("zip", errors)}
+                </p>
               )}
             </div>
 
