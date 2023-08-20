@@ -2,43 +2,16 @@ import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useCreateEvent } from "@/hooks/useEventCreate";
+import { useInputChange } from "@/hooks/useInputChange";
+import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
 import { FC } from "react";
 import styles from "./EventForm.module.scss";
 
 export const EventForm: FC = () => {
   const { formData, setFormData, createEvent, isPending, errors } =
     useCreateEvent();
-
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    void createEvent();
-  };
-
-  // update form data on input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  // toggle checkbox value on change
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: checked,
-    }));
-  };
-
-  // get field error message
-  const getFieldError = (fieldName: string) => {
-    if (errors.length === 0) return null;
-    return errors
-      .filter(error => error.path === fieldName)
-      .map(error => error.msg)[0];
-  };
+  const handleSubmitForm = onFormSubmit(createEvent);
+  const handleInputChange = useInputChange(setFormData);
 
   if (isPending) return <HourglassSpinner />;
 
@@ -66,7 +39,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("username")}</p>
+                <p className="error">
+                  {getExpressValidatorError("username", errors)}
+                </p>
               )}
             </div>
 
@@ -81,7 +56,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("time")}</p>
+                <p className="error">
+                  {getExpressValidatorError("time", errors)}
+                </p>
               )}
             </div>
 
@@ -96,7 +73,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("locationDescription")}</p>
+                <p className="error">
+                  {getExpressValidatorError("locationDescription", errors)}
+                </p>
               )}
             </div>
 
@@ -111,7 +90,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("address")}</p>
+                <p className="error">
+                  {getExpressValidatorError("address", errors)}
+                </p>
               )}
             </div>
 
@@ -126,7 +107,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("city")}</p>
+                <p className="error">
+                  {getExpressValidatorError("city", errors)}
+                </p>
               )}
             </div>
 
@@ -141,7 +124,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("state")}</p>
+                <p className="error">
+                  {getExpressValidatorError("state", errors)}
+                </p>
               )}
             </div>
 
@@ -157,7 +142,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("zip")}</p>
+                <p className="error">
+                  {getExpressValidatorError("zip", errors)}
+                </p>
               )}
             </div>
 
@@ -173,7 +160,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("guests")}</p>
+                <p className="error">
+                  {getExpressValidatorError("guests", errors)}
+                </p>
               )}
             </div>
 
@@ -189,7 +178,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("hours")}</p>
+                <p className="error">
+                  {getExpressValidatorError("hours", errors)}
+                </p>
               )}
             </div>
 
@@ -205,7 +196,9 @@ export const EventForm: FC = () => {
                 required
               />
               {errors.length > 0 && (
-                <p className="error">{getFieldError("eventType")}</p>
+                <p className="error">
+                  {getExpressValidatorError("eventType", errors)}
+                </p>
               )}
             </div>
 
@@ -219,13 +212,15 @@ export const EventForm: FC = () => {
                     name="needBar"
                     id="needBar"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.needBar ? true : false}
                   />
                   Mobile Bar
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("needBar")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("needBar", errors)}
+                  </p>
                 )}
               </div>
 
@@ -236,13 +231,15 @@ export const EventForm: FC = () => {
                     name="needTent"
                     id="needTent"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.needTent ? true : false}
                   />
                   Tent
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("needTent")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("needTent", errors)}
+                  </p>
                 )}
               </div>
 
@@ -253,13 +250,15 @@ export const EventForm: FC = () => {
                     name="needAlcohol"
                     id="needAlcohol"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.needAlcohol ? true : false}
                   />
                   Alcohol
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("needAlcohol")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("needAlcohol", errors)}
+                  </p>
                 )}
               </div>
 
@@ -270,13 +269,15 @@ export const EventForm: FC = () => {
                     name="needRunningWater"
                     id="needRunningWater"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.needRunningWater ? true : false}
                   />
                   Running Water
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("needRunningWater")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("needRunningWater", errors)}
+                  </p>
                 )}
               </div>
 
@@ -287,13 +288,15 @@ export const EventForm: FC = () => {
                     name="needRefrigeration"
                     id="needRefrigeration"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.needRefrigeration ? true : false}
                   />
                   Refrigeration
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("needRefrigeration")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("needRefrigeration", errors)}
+                  </p>
                 )}
               </div>
 
@@ -304,13 +307,15 @@ export const EventForm: FC = () => {
                     name="needDrinkware"
                     id="needDrinkware"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.needDrinkware ? true : false}
                   />
                   Disposable Drinkware
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("needDrinkware")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("needDrinkware", errors)}
+                  </p>
                 )}
               </div>
             </fieldset>
@@ -324,13 +329,15 @@ export const EventForm: FC = () => {
                     name="beer"
                     id="beer"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.beer ? true : false}
                   />
                   Beer
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("beer")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("beer", errors)}
+                  </p>
                 )}
               </div>
 
@@ -341,13 +348,15 @@ export const EventForm: FC = () => {
                     name="wine"
                     id="wine"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.wine ? true : false}
                   />
                   Wine
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("wine")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("wine", errors)}
+                  </p>
                 )}
               </div>
 
@@ -358,13 +367,15 @@ export const EventForm: FC = () => {
                     name="specialtyDrinks"
                     id="specialtyDrinks"
                     maxLength={5}
-                    onChange={handleCheckboxChange}
+                    onChange={handleInputChange}
                     checked={formData.specialtyDrinks ? true : false}
                   />
                   Specialty Drinks
                 </label>
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("specialtyDrinks")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("specialtyDrinks", errors)}
+                  </p>
                 )}
               </div>
 
@@ -380,7 +391,9 @@ export const EventForm: FC = () => {
                   required
                 />
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("liquorPreferences")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("liquorPreferences", errors)}
+                  </p>
                 )}
               </div>
             </fieldset>
