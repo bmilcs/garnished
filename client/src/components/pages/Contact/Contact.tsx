@@ -1,87 +1,58 @@
 import { specialtyDrink04 } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
+import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
-import { getApiEndpoint } from "@/utils/apiConfig";
-import { FC, useState } from "react";
+import { useContactForm } from "@/hooks/useContactForm";
+import { useInputChange } from "@/hooks/useInputChange";
+import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
+import { FC } from "react";
 import styles from "./Contact.module.scss";
 
-type TContactResponse = {
-  errors?: TContactResponseError[];
-  msg: string;
+//
+// hero section
+//
+
+const ContactHero: FC = () => {
+  return (
+    <Hero
+      backgroundImage={specialtyDrink04}
+      title="Get In"
+      titleSpan="Touch"
+      subtitle="We're excited to hear from you!"
+      heightInVH={35}
+    />
+  );
 };
 
-type TContactResponseError = {
-  type: string;
-  value: string;
-  msg: string;
-  path: string;
-  location: string;
-};
+//
+// contact page
+//
 
 export const Contact: FC = () => {
-  const apiBasePath = getApiEndpoint();
-  const [errors, setErrors] = useState<TContactResponseError[]>([]);
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
+  const { formData, setFormData, submitContactForm, errors, isPending } =
+    useContactForm();
+  const handleInputChange = useInputChange(setFormData);
+  const handleSubmitForm = onFormSubmit(submitContactForm);
 
-  // get field error message
-  const getFieldError = (fieldName: string) => {
-    if (errors.length === 0) return null;
-    return errors
-      .filter(error => error.path === fieldName)
-      .map(error => error.msg)[0];
-  };
-
-  const submitContactForm = async () => {
-    // clear errors
-    setErrors([]);
-
-    const url = `${apiBasePath}/contact/`;
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, message }),
-      });
-
-      const data = (await res.json()) as TContactResponse;
-
-      if (data.errors) {
-        setErrors(data.errors);
-        return;
-      }
-
-      alert("Sent!");
-    } catch (e) {
-      console.error("errors:", e);
-    }
-  };
-
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submitContactForm().catch(e => console.error("signup error:", e));
-  };
+  if (isPending)
+    return (
+      <>
+        <ContactHero />
+        <HourglassSpinner />
+      </>
+    );
 
   return (
     <>
-      <Hero
-        backgroundImage={specialtyDrink04}
-        title="Get In"
-        titleSpan="Touch"
-        subtitle="We're excited to hear from you!"
-        heightInVH={35}
-      />
+      <ContactHero />
 
       <section className={`${styles.contact}`}>
         <div className={`column content-spacer ${styles.contactWrapper}`}>
           <ScrollAnimator
             type="SLIDE_DOWN"
             delay={0.2}
-            className={` ${styles.contactLeftColumn}`}
+            className={`${styles.contactLeftColumn}`}
           >
             <div>
               <h2 className={styles.contactHeader}>Wait...</h2>
@@ -110,12 +81,14 @@ export const Contact: FC = () => {
                   type="text"
                   name="name"
                   id="name"
-                  onChange={e => setName(e.target.value)}
-                  value={name}
+                  onChange={handleInputChange}
+                  value={formData.name}
                   required
                 />
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("name")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("name", errors)}
+                  </p>
                 )}
               </div>
 
@@ -125,12 +98,14 @@ export const Contact: FC = () => {
                   type="email"
                   name="email"
                   id="email"
-                  onChange={e => setEmail(e.target.value)}
-                  value={email}
+                  onChange={handleInputChange}
+                  value={formData.email}
                   required
                 />
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("email")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("email", errors)}
+                  </p>
                 )}
               </div>
 
@@ -139,13 +114,15 @@ export const Contact: FC = () => {
                 <textarea
                   name="message"
                   id="message"
-                  onChange={e => setMessage(e.target.value)}
-                  value={message}
+                  onChange={handleInputChange}
+                  value={formData.message}
                   rows={5}
                   required
                 />
                 {errors.length > 0 && (
-                  <p className="error">{getFieldError("message")}</p>
+                  <p className="error">
+                    {getExpressValidatorError("message", errors)}
+                  </p>
                 )}
               </div>
 
@@ -155,6 +132,13 @@ export const Contact: FC = () => {
             </form>
           </ScrollAnimator>
         </div>
+
+        {/* <Modal
+          type="info"
+          navigateTo="/get-started"
+          title="Thank You!"
+          message="We'll review your message and get back to you as soon as possible."
+        /> */}
       </section>
     </>
   );
