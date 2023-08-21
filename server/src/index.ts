@@ -80,10 +80,10 @@ app.get("/", (req, res) => {
 
 // user routes
 app.get("/user", authenticate, userController.userGet);
-app.post("/user", authenticate, userController.userPost);
 app.get("/user/auth-status", userController.userAuthStatus);
-app.post("/user/login", userController.userLogin);
 app.post("/user/signup", userController.userSignup);
+app.post("/user/login", userController.userLogin);
+app.post("/user/update", authenticate, userController.userPost);
 app.get("/user/logout", userController.userLogout);
 
 // event routes

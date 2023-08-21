@@ -50,19 +50,13 @@ export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
 
 export const userGet = async (req: IAuthRequest, res: Response) => {
   // get user details from the database, omit password
-  const user: TUserDocument | null = await UserModel.findById(req.userId, {
+  const user = await UserModel.findById(req.userId, {
     password: 0,
   }).populate("events", { _id: 1, date: 1, eventType: 1 });
 
+  if (!user) return res.status(400).json({ msg: "User not found." });
+
   res.json({ msg: "Successful user get", user });
-};
-
-//
-// POST user details request
-//
-
-export const userPost = async (req: Request, res: Response) => {
-  res.json({ action: "user post: update user details" });
 };
 
 //
@@ -141,12 +135,19 @@ export const userLogin = [
 ];
 
 //
-// POST user signup request
-// Sanitized & validated with middleware/validateUserData.ts
+// POST user details request
 //
 
-export const userSignup = [
-  // validate and sanitize user input
+export const userPost = [
+  body("username")
+    .trim()
+    .escape()
+    .isEmail()
+    .withMessage("Email address is invalid.")
+    .toLowerCase()
+    .normalizeEmail()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required."),
   body("firstName")
     .trim()
     .escape()
@@ -165,25 +166,7 @@ export const userSignup = [
     .toLowerCase()
     .normalizeEmail()
     .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required.")
-    .custom(async (value: string) => {
-      // check if email is already registered
-      return UserModel.findOne({ username: value.toLowerCase() }).then(user => {
-        if (user) {
-          return Promise.reject("Email address already registered.");
-        }
-      });
-    }),
-  body("password")
-    .trim()
-    .escape()
-    .isLength({ min: 8, max: 50 })
-    .withMessage("Password must be 8 to 50 characters."),
-  body("address")
-    .trim()
-    .escape()
-    .isLength({ min: 1, max: 200 })
-    .withMessage("Address is required."),
+    .withMessage("Email is required."),
   body("city")
     .trim()
     .escape()
@@ -209,7 +192,132 @@ export const userSignup = [
       return value.replace(/\D/g, "");
     })
     .isLength({ min: 10, max: 10 })
-    .withMessage("Phone number is required."),
+    .withMessage("A valid phone number is required."),
+
+  async (req: IAuthRequest, res: Response) => {
+    // process request after validation and sanitization
+    const errors = validationResult(req);
+
+    // failed validation checks
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ msg: "Failed to validate user data.", errors: errors.array() });
+    }
+
+    // get user from database without updating it. we first
+    // need to check if username is already registered before updating
+    const user = await UserModel.findById({ _id: req.userId });
+
+    if (!user) {
+      return res.status(400).json({ msg: "User not found.", updated: false });
+    }
+
+    // make sure new username is not already registered
+    if (user.username !== req.body.username) {
+      const usernameExists = await UserModel.findOne({
+        username: req.body.username,
+      });
+
+      if (usernameExists) {
+        const customExpressValidatorError = [
+          {
+            type: "field",
+            location: "body",
+            path: "username",
+            value: req.body.username,
+            msg: "E-mail address already registered.",
+          },
+        ];
+
+        return res.status(400).json({
+          msg: "Email already registered.",
+          errors: customExpressValidatorError,
+          updated: false,
+        });
+      }
+    }
+
+    // update user details
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.username = req.body.username;
+    user.city = req.body.city;
+    user.state = req.body.state;
+    user.zip = req.body.zip;
+    user.phone = req.body.phone;
+    user.address = req.body.address;
+    await user.save();
+
+    res.json({ msg: "Successful user update.", updated: true });
+  },
+];
+
+//
+// POST user signup request
+// Sanitized & validated with middleware/validateUserData.ts
+//
+
+export const userSignup = [
+  body("username")
+    .trim()
+    .escape()
+    .isEmail()
+    .withMessage("Email address is invalid.")
+    .toLowerCase()
+    .normalizeEmail()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required."),
+  body("password")
+    .trim()
+    .escape()
+    .isLength({ min: 8, max: 50 })
+    .withMessage("Password must be 8 to 50 characters."),
+  body("firstName")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 50 })
+    .withMessage("First name is required."),
+  body("lastName")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 50 })
+    .withMessage("Last name is required."),
+  body("username")
+    .trim()
+    .escape()
+    .isEmail()
+    .withMessage("Email address is invalid.")
+    .toLowerCase()
+    .normalizeEmail()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required."),
+  body("city")
+    .trim()
+    .escape()
+    .isLength({ min: 1, max: 100 })
+    .withMessage("City is required."),
+  body("state")
+    .trim()
+    .escape()
+    .isLength({ min: 2, max: 2 })
+    .withMessage("State is required."),
+  body("zip")
+    .trim()
+    .escape()
+    .isNumeric()
+    .withMessage("A valid zip code is required: numbers only.")
+    .isLength({ min: 5, max: 5 })
+    .withMessage("Zip codes must be 5 characters long."),
+  body("phone")
+    .trim()
+    .escape()
+    .customSanitizer((value: string) => {
+      // remove all non-digit characters from the phone number
+      return value.replace(/\D/g, "");
+    })
+    .isLength({ min: 10, max: 10 })
+    .withMessage("A valid phone number is required."),
 
   // process request after validation and sanitization
   async (req: Request, res: Response) => {
