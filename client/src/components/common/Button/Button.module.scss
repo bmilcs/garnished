@@ -28,11 +28,15 @@
 }
 
 .secondary {
-  background: var(--clr-neutral-800);
-  color: var(--clr-bg);
+  background: var(--clr-primary);
+  color: var(--clr-fg);
+  padding-inline: min(5vw, 3rem);
+  padding-block: min(2vw, 0.75rem);
 
   &:hover {
-    background: var(--clr-neutral-600);
+    background: var(--clr-fg-light);
+    color: var(--clr-bg-light);
+    outline: 3px solid var(--clr-primary);
   }
 }
 
