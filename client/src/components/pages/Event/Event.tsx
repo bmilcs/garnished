@@ -1,87 +1,19 @@
 import { Button } from "@/components/common/Button/Button";
+import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
-import { AuthContext } from "@/hooks/useAuthContext";
-import { TEventWithId } from "@/types/eventTypes";
-import { getApiEndpoint } from "@/utils/apiConfig";
+import { useEventData } from "@/hooks/useEventData";
 import { formatDate, formatTime } from "@/utils/formatters";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-type TEventApiResponse = {
-  msg: string;
-  event: TEventWithId;
-};
-
 export const Event: FC = () => {
-  const navigate = useNavigate();
   const { id: eventId } = useParams();
-  const { isLoggedIn } = useContext(AuthContext);
-  const [eventData, setEventData] = useState<TEventWithId | null>(null);
-  const [error, setError] = useState("");
-
-  useEffect(
-    function fetchUserDataOnInitialPageLoad() {
-      if (!isLoggedIn) {
-        navigate("/login");
-        return;
-      }
-
-      getUserData().catch((error: Error) => setError(error.message));
-
-      async function getUserData() {
-        if (!eventId) return;
-
-        const apiBasePath = getApiEndpoint();
-        const url = `${apiBasePath}/event/${eventId}`;
-        try {
-          const res = await fetch(url, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          });
-
-          const data = (await res.json()) as TEventApiResponse;
-          if (data.event) {
-            // user is logged in, set user data
-            setEventData(data.event);
-          }
-        } catch (e) {
-          console.log(e);
-          throw new Error(
-            "Something went wrong while retrieving your event. Try again later.",
-          );
-        }
-      }
-    },
-    [isLoggedIn, navigate, eventId],
+  const { eventData, deleteEvent, error, isPending } = useEventData(
+    eventId || "",
   );
+  const navigate = useNavigate();
 
-  const handleDelete = async () => {
-    if (!eventId) return;
-
-    const apiBasePath = getApiEndpoint();
-    const url = `${apiBasePath}/event/${eventId}`;
-    try {
-      const res = await fetch(url, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      if (res.status === 200) {
-        navigate("/user");
-      }
-    } catch (e) {
-      console.log(e);
-      throw new Error(
-        "Something went wrong while retrieving your event. Try again later.",
-      );
-    }
-  };
+  if (isPending) return <HourglassSpinner />;
 
   return (
     <section className="content-spacer user-section">
@@ -126,7 +58,7 @@ export const Event: FC = () => {
         )}
 
         <ScrollAnimator type="SLIDE_DOWN" className="button-wrapper">
-          <Button type="primary" onClick={handleDelete}>
+          <Button type="primary" onClick={deleteEvent}>
             Delete Event
           </Button>
           <Button type="primary" onClick={() => navigate("/user")}>
