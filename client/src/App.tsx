@@ -10,6 +10,7 @@ import { Login } from "@/components/pages/Login/Login";
 import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
+import { UserUpdate } from "@/components/pages/UserUpdate/UserUpdate";
 import { AuthProvider } from "@/hooks/useAuthContext";
 import { FC } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -28,8 +29,9 @@ const App: FC = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user" element={<User />} />
-            <Route path="/new-event" element={<EventForm />} />
+            <Route path="/user/update" element={<UserUpdate />} />
             <Route path="/get-started" element={<GetStarted />} />
+            <Route path="/event/new" element={<EventForm />} />
             <Route path="/event/:id" element={<Event />} />
           </Routes>
         </Layout>
