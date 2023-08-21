@@ -3,7 +3,7 @@ import { TUser } from "@/types/userTypes";
 import { apiService } from "@/utils/apiService";
 import { useContext, useEffect, useState } from "react";
 
-type TUserApiResponse = {
+export type TUserApiResponse = {
   msg: string;
   user: TUser;
 };
