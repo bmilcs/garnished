@@ -398,7 +398,7 @@ export const EventForm: FC = () => {
               </div>
             </fieldset>
 
-            <Button type="primary">Signup</Button>
+            <Button type="primary">Submit Estimate Request</Button>
           </form>
         </ScrollAnimator>
       </section>
