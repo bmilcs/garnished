@@ -3,7 +3,13 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
-import { MONGO_DB, NODE_ENV, PORT, PRODUCTION_URL } from "./config";
+import {
+  CLIENT_PORT,
+  MONGO_DB,
+  NODE_ENV,
+  PRODUCTION_URL,
+  SERVER_PORT,
+} from "./config";
 import * as contactController from "./controllers/contactController";
 import * as eventController from "./controllers/eventController";
 import * as userController from "./controllers/userController";
@@ -22,7 +28,7 @@ const app = express();
 const corsOrigin =
   NODE_ENV === "production"
     ? [`https://${PRODUCTION_URL}`, `https://test.${PRODUCTION_URL}`]
-    : `http://localhost:3001`;
+    : `http://localhost:${CLIENT_PORT}`;
 
 const corsOptions = {
   origin: corsOrigin,
@@ -96,8 +102,8 @@ app.post("/contact", contactController.contactPost);
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
-      console.log(`server started on port: ${PORT}`);
+    app.listen(SERVER_PORT, () => {
+      console.log(`server started on port: ${SERVER_PORT}`);
     });
   } catch (err) {
     console.log(err);

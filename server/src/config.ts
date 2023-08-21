@@ -5,8 +5,9 @@ dotenv.config();
 // node environment
 export const NODE_ENV = process.env.NODE_ENV || "development";
 
-// app port
-export const PORT = process.env.PORT || 3000;
+// ports for client/server
+export const SERVER_PORT = process.env.SERVER_PORT || 3001;
+export const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
 
 // database connection string: mongodb atlas
 export const MONGO_DB = process.env.MONGODB || "";
