@@ -55,7 +55,7 @@ export const useCreateEvent = () => {
       const {
         data: { eventId, errors },
       } = await apiService<TCreateEventResponse>({
-        path: "/event/",
+        path: "event/",
         method: "POST",
         body: formData,
       });
@@ -66,7 +66,7 @@ export const useCreateEvent = () => {
       }
 
       if (!eventId) {
-        console.error("Something went wrong. Try again later.");
+        console.error("errors: Something went wrong. Try again later.");
         return;
       }
 
