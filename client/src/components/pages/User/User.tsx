@@ -38,6 +38,14 @@ export const User: FC = () => {
                 <h4 className={styles.userDetailsHeader}>Contact Info</h4>
                 <p>{formatPhoneNumber(userData.phone)}</p>
                 <p>{userData.username}</p>
+
+                <Button
+                  type="primary"
+                  link={"/user/update"}
+                  className={styles.updatePersonalInfoButton}
+                >
+                  Update Personal Info
+                </Button>
               </ScrollAnimator>
             )}
 
@@ -65,7 +73,7 @@ export const User: FC = () => {
             delay={0.4}
             className="button-wrapper"
           >
-            <Button type="secondary" link="/new-event">
+            <Button type="secondary" link="/event/new">
               Create New Event
             </Button>
 
