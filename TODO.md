@@ -2,9 +2,10 @@
 
 ## Frontend
 
-- [ ] Login vs logout state: change header nav behavior
-- [ ] Services Page
-  - [ ] Explain process
+- [ ] Add 404 handling
+- [x] Login vs logout state: change header nav behavior
+- [x] Services Page
+  - [x] Explain process
   - [ ] Add all services & details
 - [ ] Setup meta tags for social media: Facebook, Twitter, Instagram
 - [ ] Create toast / modal component for display success/errors
@@ -33,9 +34,10 @@
 - [ ] Admin routes:
   - [ ] Get All Events
   - [ ] Get All Users
-- [ ] Add Update user controller
+- [x] Add Update user controller
 - [ ] Add Update event controller
 - [ ] Add Delete user controller
+- [x] Add Delete event controller
 - [ ] Create email templates
   - [ ] Confirm event & reiterate the quote process
   - [ ] Reset password
