@@ -1,53 +1,37 @@
 import { Button } from "@/components/common/Button/Button";
+import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
+import { useInputChange } from "@/hooks/useInputChange";
 import { TClassName } from "@/types/propTypes";
-import { getApiEndpoint } from "@/utils/apiService";
+import { onFormSubmit } from "@/utils/forms";
 import { FC, useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type TProps = TClassName;
 
 export const LoginForm: FC<TProps> = ({ className }) => {
-  const navigate = useNavigate();
-  const apiBasePath = getApiEndpoint();
-  const { redirectAuthorizedUser, login, error } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     username: "reggie@miller.com",
     password: "asdfasdf",
   });
+  const { redirectAuthorizedUser, login, error, isAuthPending } =
+    useContext(AuthContext);
+  const handleInputChange = useInputChange(setFormData);
+  const handleSubmitForm = onFormSubmit(() => login(formData));
 
   useEffect(() => {
     redirectAuthorizedUser();
   }, [redirectAuthorizedUser]);
 
-  // on login form submit
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    login(formData).catch(() => {
-      console.error("Something went wrong. Try again later.");
-    });
-  };
-
-  // update form data on input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
+  if (isAuthPending) return <HourglassSpinner />;
 
   return (
     <ScrollAnimator
       type="SLIDE_DOWN"
       className={`${className ? " " + className : ""}`}
     >
-      <form
-        action={`${apiBasePath}/user/login`}
-        method="POST"
-        onSubmit={handleSubmitForm}
-      >
+      <form onSubmit={handleSubmitForm}>
         <div className="form-header">
           <h2>Login</h2>
           <p>
