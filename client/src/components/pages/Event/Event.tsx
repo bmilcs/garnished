@@ -18,7 +18,7 @@ export const Event: FC = () => {
   return (
     <section className="content-spacer user-section">
       <ScrollAnimator type="SLIDE_DOWN" className="column user-section-wrapper">
-        <h2>Your Event</h2>
+        <h2 className="user-section-heading">Your Event</h2>
 
         {eventData && (
           <ScrollAnimator type="SLIDE_DOWN" className="user-section-card">
