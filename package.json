@@ -10,7 +10,8 @@
     "pubclient": "git subtree push --prefix client/dist origin dist",
     "pubclientpreview": "git subtree push --prefix client/dist test dist",
     "buildclientpreview": "cd client && npm run buildpreview",
-    "pubserver": "cd server && fly deploy"
+    "pubserver": "cd server && fly deploy",
+    "pubserversecrets": "cd server && grep -vE '^(#|$)' .env | sed -E 's/\\s*=\\s*/=/g' | tr '\\n' ' ' | xargs fly secrets set && fly apps restart"
   },
   "author": "Bryan Miller (bryan@bmilcs.com)",
   "license": "MIT",
