@@ -28,3 +28,6 @@ export const EMAIL_FROM = process.env.EMAIL_FROM || "";
 
 // business owners email addresses
 export const OWNERS_EMAILS = process.env.OWNERS_EMAILS || "";
+
+// days required to prepare for an event
+export const DAYS_TO_PREPARE = Number(process.env.DAYS_TO_PREPARE || 7);
