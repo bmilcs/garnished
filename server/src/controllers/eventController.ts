@@ -1,9 +1,11 @@
+import { DAYS_TO_PREPARE } from "@/config";
+import { IAuthRequest } from "@/middlewares/authenticate";
+import EventModel, { TEventDocument } from "@/models/event";
+import UserModel, { TUserDocument } from "@/models/user";
+import sendNewEventEmailToOwners from "@/services/templates/newEventEmail";
+import { differenceInCalendarDays, parseISO } from "date-fns";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { IAuthRequest } from "../middlewares/authenticate";
-import EventModel, { TEventDocument } from "../models/event";
-import UserModel, { TUserDocument } from "../models/user";
-import sendNewEventEmailToOwners from "../services/templates/newEventEmail";
 
 //
 // GET event details
@@ -34,7 +36,16 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .isLength({ min: 10, max: 10 })
-    .withMessage("A valid date is required."),
+    .isDate()
+    .withMessage("A valid date is required.")
+    .custom((value: string) => {
+      const today = new Date();
+      const eventDate = parseISO(value);
+      const dateDifference = differenceInCalendarDays(eventDate, today);
+      if (dateDifference < DAYS_TO_PREPARE) {
+        return Promise.reject("Events require at least 7 days notice.");
+      }
+    }),
   body("time")
     .trim()
     .escape()
