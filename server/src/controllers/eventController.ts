@@ -35,16 +35,16 @@ export const eventCreatePost = [
   body("date")
     .trim()
     .escape()
-    .isLength({ min: 10, max: 10 })
     .isDate()
+    .isLength({ min: 10, max: 10 })
     .withMessage("A valid date is required.")
     .custom((value: string) => {
       const today = new Date();
       const eventDate = parseISO(value);
       const dateDifference = differenceInCalendarDays(eventDate, today);
-      if (dateDifference < DAYS_TO_PREPARE) {
-        return Promise.reject("Events require at least 7 days notice.");
-      }
+      return dateDifference < DAYS_TO_PREPARE
+        ? Promise.reject("Events require at least 7 days notice.")
+        : Promise.resolve();
     }),
   body("time")
     .trim()
