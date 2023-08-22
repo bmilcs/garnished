@@ -267,7 +267,15 @@ export const userSignup = [
     .toLowerCase()
     .normalizeEmail()
     .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required."),
+    .withMessage("Email is required.")
+    .custom(async (value: string) => {
+      // check if email is already registered
+      return UserModel.findOne({ username: value.toLowerCase() }).then(user => {
+        if (user) {
+          return Promise.reject("Email address already registered.");
+        }
+      });
+    }),
   body("password")
     .trim()
     .escape()
