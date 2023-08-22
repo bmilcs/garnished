@@ -1,5 +1,5 @@
+import { EMAIL_FROM, EMAIL_PASSWORD, EMAIL_USERNAME } from "@/config";
 import nodemailer from "nodemailer";
-import { EMAIL_FROM, EMAIL_PASSWORD, EMAIL_USERNAME } from "../config";
 
 //
 // nodemailer transporter object: using gmail credentials

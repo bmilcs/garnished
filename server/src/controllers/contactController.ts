@@ -1,8 +1,8 @@
+import { OWNERS_EMAILS } from "@/config";
+import { sendEmail } from "@/services/emailService";
+import { baseEmailTemplate } from "@/services/templates/baseEmailTemplate";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { OWNERS_EMAILS } from "../config";
-import { sendEmail } from "../services/emailService";
-import { baseEmailTemplate } from "../services/templates/baseEmailTemplate";
 
 export const contactPost = [
   body("name")
@@ -30,12 +30,10 @@ export const contactPost = [
 
     // signup data failed validation checks
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({
-          msg: "failed to validate contact form data.",
-          errors: errors.array(),
-        });
+      return res.status(400).json({
+        msg: "Failed to validate contact form data.",
+        errors: errors.array(),
+      });
     }
 
     try {
@@ -56,7 +54,7 @@ export const contactPost = [
       res.json({ msg: "successful contact form submission" });
     } catch (err) {
       console.error("contact form submission error:", err);
-      res.status(500).json({ msg: "failed to submit contact form" });
+      res.status(500).json({ msg: "Failed to submit contact form" });
     }
   },
 ];

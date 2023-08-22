@@ -1,6 +1,6 @@
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "@/config";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config";
 
 //
 // jwt cookie expiration times

@@ -1,4 +1,4 @@
-import { sendEmail } from "../emailService";
+import { sendEmail } from "@/services/emailService";
 import { baseEmailTemplate } from "./baseEmailTemplate";
 
 const sendWelcomeEmail = async (email: string) => {

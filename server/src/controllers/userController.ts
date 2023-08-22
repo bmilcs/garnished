@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config";
-import { IAuthRequest, TJwtPayload } from "../middlewares/authenticate";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "@/config";
+import { IAuthRequest, TJwtPayload } from "@/middlewares/authenticate";
 import {
   setJwtAccessTokenCookie,
   setJwtRefreshTokenCookie,
-} from "../middlewares/setJwtCookies";
-import UserModel, { TUserDocument } from "../models/user";
-import sendWelcomeEmail from "../services/templates/welcomeEmail";
+} from "@/middlewares/setJwtCookies";
+import UserModel, { TUserDocument } from "@/models/user";
+import sendWelcomeEmail from "@/services/templates/welcomeEmail";
+import { Request, Response } from "express";
+import { body, validationResult } from "express-validator";
+import jwt from "jsonwebtoken";
 
 //
 // GET user auth status

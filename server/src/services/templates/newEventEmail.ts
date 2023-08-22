@@ -1,7 +1,7 @@
-import { OWNERS_EMAILS } from "../../config";
-import { TEventDocument } from "../../models/event";
-import { TUserDocument } from "../../models/user";
-import { sendEmail } from "../emailService";
+import { OWNERS_EMAILS } from "@/config";
+import { TEventDocument } from "@/models/event";
+import { TUserDocument } from "@/models/user";
+import { sendEmail } from "@/services/emailService";
 import { baseEmailTemplate } from "./baseEmailTemplate";
 
 type TNewEventEmailTemplate = {

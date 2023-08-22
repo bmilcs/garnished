@@ -1,19 +1,19 @@
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import express from "express";
-import mongoose from "mongoose";
 import {
   CLIENT_PORT,
   MONGO_DB,
   NODE_ENV,
   PRODUCTION_URL,
   SERVER_PORT,
-} from "./config";
-import * as contactController from "./controllers/contactController";
-import * as eventController from "./controllers/eventController";
-import * as userController from "./controllers/userController";
-import authenticate from "./middlewares/authenticate";
+} from "@/config";
+import * as contactController from "@/controllers/contactController";
+import * as eventController from "@/controllers/eventController";
+import * as userController from "@/controllers/userController";
+import authenticate from "@/middlewares/authenticate";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import mongoose from "mongoose";
 
 //
 // create express app
