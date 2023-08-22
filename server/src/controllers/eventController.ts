@@ -157,15 +157,15 @@ export const eventCreatePost = [
         _id: req.userId,
       })) as TUserDocument;
 
+      if (!user) return res.status(404).json({ msg: "User not found." });
+
       // create user event
       const event = new EventModel({ ...req.body, user: user });
       event.save();
 
       // add event to user's events array
-      if (user) {
-        user?.events.push(event._id);
-        user?.save();
-      }
+      user.events.push(event._id);
+      user.save();
 
       res.json({ msg: "Successful create event.", eventId: event._id });
 
