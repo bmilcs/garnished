@@ -20,9 +20,9 @@ export const Header: FC = () => {
         className={`column ${styles.headerContent}`}
       >
         <h1>
-          <a href="/" className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             Garnished
-          </a>
+          </Link>
         </h1>
 
         {/* hamburger menu */}
