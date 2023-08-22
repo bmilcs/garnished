@@ -13,7 +13,10 @@
     "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"] // Define a path alias for "src"
+    }
   },
   "exclude": ["node_modules", "dist", "<node_internals>/**"],
   "include": ["src/**/*"]
