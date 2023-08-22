@@ -24,18 +24,31 @@ Client:
 
 ### Deployment Struggles
 
-Fly.io, a Platform as a Service, was used to host the server portion of this app and it did not play nicely with `ts-node` and `tsconfig-paths`. The simplicity and minimal overhead of running TypeScript directly on the backend was the goal. I personally love using path aliases with TypeScript, which allow me to import modules via a clean "@/" base path, while avoiding "../../" in my import statements.
+My original plan was to use `ts-node` and `tsconfig-paths` for the server. The goal was to keep things simple by running TypeScript directly on the backend and using clean "@/" base paths for module imports.
 
-After some research, it became apparent that the slight quality of life improvements that path aliases gave me was not worth the time investment of setting up webpack and plugins to compile code on builds. Adding more dependencies to my project and complexity was not worth it so I opted to simplify the development and build processes. Instead, I...
+However, Fly.io, the Platform as a Service I used to host the server, had issues with these packages.
 
-- Refactored import paths to use the default style: "../../"
-- Used `tsc` to compile my code to vanilla JS to simplify deployment
-- Setup my npm dev script to:
-  - Run `nodemon` to watch my source directory for `.ts` file changes
-  - Then build those changes to `/dist`
-  - Run vanilla `node`
+Here's what I did to work around the problem:
 
-These changes reduced the difference between development and production modes. It also reduced the chance for things to go wrong, be it security vulnerabilities or bugs.
+- Removed `ts-node` and `tsconfig-paths`
+- Swapped to relative import paths: `../../path/`
+- Used `tsc` to compile my code into vanilla JS, making deployment simpler
+- Updated my npm `dev` script to:
+  - Use `nodemon` to monitor the source directory for changes in .ts files
+  - Compile those changes into the `/dist` directory
+  - Run the compiled code using node
+
+These changes made the development and production modes more consistent. They also reduced complexity, the number of dependencies, and the likelihood of encountering issues like security vulnerabilities or bugs.
+
+**Update**: Interestingly, I discovered the `tsc-alias` package, which transpiles path aliases during build time. With it, I could maintain clean import statements while enjoying the benefits mentioned above. The final npm scripts for the server code are:
+
+```json
+"scripts": {
+  "dev": "concurrently \"tsc -w\" \"tsc-alias -p tsconfig.json --watch\" \"nodemon dist/index.js\"",
+  "build": "tsc && tsc-alias -p tsconfig.json",
+  "start": "node dist/index.js"
+},
+```
 
 ### Test Deployment & CORS
 
