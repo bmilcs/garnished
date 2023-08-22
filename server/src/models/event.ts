@@ -11,7 +11,7 @@ export type TEventDocument = mongoose.Document & {
   address: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
   guests: number;
   hours: number;
   eventType: string;
@@ -39,7 +39,7 @@ const EventSchema = new Schema({
   address: { type: String, required: true, isLength: { min: 1, max: 200 } },
   city: { type: String, required: true, isLength: { min: 1, max: 100 } },
   state: { type: String, required: true, isLength: { min: 2, max: 2 } },
-  zip: { type: Number, required: true, isLength: { min: 5, max: 5 } },
+  zip: { type: String, required: true, isLength: { min: 5, max: 5 } },
   guests: { type: Number, required: true, isLength: { min: 1, max: 10 } },
   hours: { type: Number, required: true, isLength: { min: 1, max: 2 } },
   eventType: { type: String, required: true, isLength: { min: 1, max: 200 } },

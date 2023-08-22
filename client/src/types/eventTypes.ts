@@ -5,7 +5,7 @@ export type TEvent = {
   address: string;
   city: string;
   state: string;
-  // leading zeros cause a TS error
+  // leading zeros cause a TS error & number type strips them
   zip: string;
   guests: number;
   hours: number;

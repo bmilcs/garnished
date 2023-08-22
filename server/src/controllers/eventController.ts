@@ -74,8 +74,8 @@ export const eventCreatePost = [
     .isLength({ min: 2, max: 2 })
     .withMessage("A valid 2 letter state is required."),
   body("zip")
-    .trim()
     .escape()
+    .trim()
     .isNumeric()
     .withMessage("A valid zip code is required: numbers only.")
     .isLength({ min: 5, max: 5 })

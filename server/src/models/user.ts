@@ -12,7 +12,7 @@ export type TUserDocument = mongoose.Document & {
   address: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
   phone: number;
   events: Types.ObjectId[];
   comparePassword: (
@@ -59,7 +59,8 @@ const UserSchema = new Schema({
     length: { min: 2, max: 2 },
   },
   zip: {
-    type: Number,
+    // number is stored as a string to preserve leading zeros
+    type: String,
     required: [true, "Zip code is required."],
     length: { min: 5, max: 5 },
   },

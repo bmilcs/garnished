@@ -178,8 +178,8 @@ export const userPost = [
     .isLength({ min: 2, max: 2 })
     .withMessage("State is required."),
   body("zip")
-    .trim()
     .escape()
+    .trim()
     .isNumeric()
     .withMessage("A valid zip code is required: numbers only.")
     .isLength({ min: 5, max: 5 })
