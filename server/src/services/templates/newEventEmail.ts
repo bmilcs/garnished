@@ -1,4 +1,4 @@
-import { OWNERS_EMAILS } from "@/config";
+import { OWNERS_EMAILS } from "@/config/env";
 import { TEventDocument } from "@/models/event";
 import { TUserDocument } from "@/models/user";
 import { sendEmail } from "@/services/emailService";

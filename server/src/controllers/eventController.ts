@@ -1,4 +1,4 @@
-import { DAYS_TO_PREPARE } from "@/config";
+import { DAYS_TO_PREPARE } from "@/config/env";
 import { IAuthRequest } from "@/middlewares/authenticate";
 import EventModel, { TEventDocument } from "@/models/event";
 import UserModel, { TUserDocument } from "@/models/user";

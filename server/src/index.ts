@@ -4,7 +4,7 @@ import {
   NODE_ENV,
   PRODUCTION_URL,
   SERVER_PORT,
-} from "@/config";
+} from "@/config/env";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";

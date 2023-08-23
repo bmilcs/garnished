@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "@/config";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "@/config/env";
 import { IAuthRequest, TJwtPayload } from "@/middlewares/authenticate";
 import {
   setJwtAccessTokenCookie,

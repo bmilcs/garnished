@@ -1,4 +1,4 @@
-import { TEST_ACCESS_TOKEN, TEST_REFRESH_TOKEN } from "@/config";
+import { TEST_ACCESS_TOKEN, TEST_REFRESH_TOKEN } from "@/config/env";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";

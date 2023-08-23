@@ -1,4 +1,4 @@
-import { OWNERS_EMAILS } from "@/config";
+import { OWNERS_EMAILS } from "@/config/env";
 import { sendEmail } from "@/services/emailService";
 import { baseEmailTemplate } from "@/services/templates/baseEmailTemplate";
 import { Request, Response } from "express";

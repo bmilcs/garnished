@@ -1,4 +1,4 @@
-import { EMAIL_FROM, EMAIL_PASSWORD, EMAIL_USERNAME } from "@/config";
+import { EMAIL_FROM, EMAIL_PASSWORD, EMAIL_USERNAME } from "@/config/env";
 import nodemailer from "nodemailer";
 
 //
