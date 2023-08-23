@@ -44,9 +44,6 @@ app.use(cors(corsOptions));
 // parse incoming data to req.body
 app.use(bodyParser.json());
 
-// parse application/x-www-form-urlencoded: easier testing with Postman or plain HTML forms
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // parse cookies: authentication jwt tokens are stored in cookies
 app.use(cookieParser());
 
