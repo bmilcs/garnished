@@ -1,10 +1,6 @@
+import corsOptions from "@/config/cors";
 import connectDatabase from "@/config/database";
-import {
-  CLIENT_PORT,
-  NODE_ENV,
-  PRODUCTION_URL,
-  SERVER_PORT,
-} from "@/config/env";
+import { SERVER_PORT } from "@/config/env";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -20,25 +16,11 @@ import userRouter from "./routes/userRouter";
 const app = express();
 
 //
-// setup cors: cross origin resource sharing
-//
-
-const corsOrigin =
-  NODE_ENV === "production"
-    ? [`https://${PRODUCTION_URL}`, `https://test.${PRODUCTION_URL}`]
-    : `http://localhost:${CLIENT_PORT}`;
-
-const corsOptions = {
-  origin: corsOrigin,
-  optionsSuccessStatus: 200,
-  credentials: true, // allow cookies to be sent from the client to the server
-};
-
-app.use(cors(corsOptions));
-
-//
 // middleware
 //
+
+// cors: allow requests from the client
+app.use(cors(corsOptions));
 
 // parse incoming data to req.body
 app.use(bodyParser.json());
