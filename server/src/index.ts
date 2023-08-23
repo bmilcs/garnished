@@ -5,24 +5,23 @@ import {
   PRODUCTION_URL,
   SERVER_PORT,
 } from "@/config";
-import * as contactController from "@/controllers/contactController";
-import * as eventController from "@/controllers/eventController";
-import * as userController from "@/controllers/userController";
-import authenticate from "@/middlewares/authenticate";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+import contactRouter from "./routes/contactRouter";
+import eventRouter from "./routes/eventRouter";
+import userRouter from "./routes/userRouter";
 
 //
-// create express app
+// create an express app
 //
 
 const app = express();
 
 //
-// cors: cross origin resource sharing
+// setup cors: cross origin resource sharing
 //
 
 const corsOrigin =
@@ -39,7 +38,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //
-// body parser middleware
+// middleware
 //
 
 // parse incoming data to req.body
@@ -47,6 +46,9 @@ app.use(bodyParser.json());
 
 // parse application/x-www-form-urlencoded: easier testing with Postman or plain HTML forms
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// parse cookies: authentication jwt tokens are stored in cookies
+app.use(cookieParser());
 
 //
 // database connection
@@ -63,37 +65,12 @@ const connectDB = async () => {
 };
 
 //
-// authentication
-//
-
-// cookie parser middleware: used for jwt tokens
-app.use(cookieParser());
-
-//
 // routes
 //
 
-// base route
-app.get("/", (req, res) => {
-  res.json("Welcome to Garnished's API!");
-});
-
-// user routes
-app.get("/user", authenticate, userController.userGet);
-app.get("/user/auth-status", userController.userAuthStatus);
-app.post("/user/signup", userController.userSignup);
-app.post("/user/login", userController.userLogin);
-app.post("/user/update", authenticate, userController.userPost);
-app.get("/user/logout", userController.userLogout);
-
-// event routes
-app.post("/event", authenticate, eventController.eventCreatePost);
-app.get("/event/:id", authenticate, eventController.eventGet);
-app.post("/event/:id", authenticate, eventController.eventUpdatePost);
-app.delete("/event/:id", authenticate, eventController.eventDelete);
-
-// contact form route
-app.post("/contact", contactController.contactPost);
+app.use("/contact", contactRouter);
+app.use("/event", eventRouter);
+app.use("/user", userRouter);
 
 //
 // start server
