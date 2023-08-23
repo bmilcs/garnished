@@ -31,3 +31,7 @@ export const OWNERS_EMAILS = process.env.OWNERS_EMAILS || "";
 
 // days required to prepare for an event
 export const DAYS_TO_PREPARE = Number(process.env.DAYS_TO_PREPARE || 7);
+
+// mocha test jwt tokens
+export const TEST_ACCESS_TOKEN = process.env.TEST_ACCESS_TOKEN || "";
+export const TEST_REFRESH_TOKEN = process.env.TEST_REFRESH_TOKEN || "";
