@@ -1,6 +1,6 @@
+import connectDatabase from "@/config/database";
 import {
   CLIENT_PORT,
-  MONGO_DB,
   NODE_ENV,
   PRODUCTION_URL,
   SERVER_PORT,
@@ -9,7 +9,6 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
-import mongoose from "mongoose";
 import contactRouter from "./routes/contactRouter";
 import eventRouter from "./routes/eventRouter";
 import userRouter from "./routes/userRouter";
@@ -48,20 +47,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //
-// database connection
-//
-
-const connectDB = async () => {
-  try {
-    await mongoose.connect(MONGO_DB);
-    console.log("database connected");
-  } catch (err) {
-    console.error("mongodb error:", err);
-    throw new Error("failed to connect to database");
-  }
-};
-
-//
 // routes
 //
 
@@ -75,7 +60,7 @@ app.use("/user", userRouter);
 
 const startServer = async () => {
   try {
-    await connectDB();
+    await connectDatabase();
     app.listen(SERVER_PORT, () => {
       console.log(`server started on port: ${SERVER_PORT}`);
     });
