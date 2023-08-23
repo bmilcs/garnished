@@ -28,6 +28,10 @@
 
 ## Backend
 
+- [ ] Write Tests
+  - [ ] User Controller Tests
+  - [ ] Event Controller Tests
+  - [ ] Contact Controller Tests
 - [ ] Prevent brute force pw attacks: limit invalid auth attempts
 - [ ] Create roles: user vs owner/admin
 - [ ] Allow admin to access all events & their details
