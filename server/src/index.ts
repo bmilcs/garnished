@@ -1,6 +1,7 @@
 import corsOptions from "@/config/cors";
 import connectDatabase from "@/config/database";
 import { SERVER_PORT } from "@/config/env";
+import errorHandler from "@/middlewares/errorHandler";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -35,6 +36,12 @@ app.use(cookieParser());
 app.use("/contact", contactRouter);
 app.use("/event", eventRouter);
 app.use("/user", userRouter);
+
+//
+// error handling
+//
+
+app.use(errorHandler);
 
 //
 // start server
