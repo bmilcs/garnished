@@ -16,6 +16,6 @@ user
 user.get("/auth-status", userController.userAuthStatus);
 user.post("/signup", userController.userSignup);
 user.post("/login", userController.userLogin);
-user.get("/logout", authenticate, userController.userLogout);
+user.delete("/logout", authenticate, userController.userLogout);
 
 export default user;
