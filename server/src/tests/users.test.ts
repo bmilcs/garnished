@@ -1,3 +1,4 @@
+import errorHandler from "@/middlewares/errorHandler";
 import UserModel from "@/models/user";
 import userRouter from "@/routes/userRouter";
 import chai from "chai";
@@ -10,6 +11,7 @@ const expect = chai.expect;
 //
 
 app.use("/", userRouter);
+app.use(errorHandler);
 before(async () => await setupMongoTestServer());
 after(async () => await teardownMongoTestServer());
 
@@ -209,5 +211,34 @@ describe("User Route: PATCH /", () => {
         );
         done();
       });
+  });
+});
+
+//
+// user logout tests
+//
+// note: done() syntax is causing these tests to hang for no obvious reason
+// async / await syntax works fine
+//
+
+describe("User Route: DELETE /logout", () => {
+  it("Without JWT cookies: 401 unauthorized", async () => {
+    const res = await request(app)
+      .delete("/logout")
+      .expect("Content-Type", /json/)
+      .expect(401);
+
+    expect(res.body.msg).to.equal("Unauthorized.");
+  });
+
+  it("With JWT cookies: 200 & success msg", async () => {
+    const res = await request(app)
+      .delete("/logout")
+      .set("Cookie", cookies)
+      .expect("Content-Type", /json/)
+      .expect(200, { msg: "Successful user logout." });
+
+    expect(res.header["set-cookie"][0]).to.include("accessToken=;");
+    expect(res.header["set-cookie"][1]).to.include("refreshToken=;");
   });
 });
