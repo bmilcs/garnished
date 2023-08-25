@@ -25,43 +25,45 @@ const newUser = {
   phone: "123-456-7890",
 };
 
+// cookies are acquired from login tests & used in future tests
 let cookies: string[];
 
 //
 // user signup tests
 //
 
-describe("POST /user/signup", () => {
-  it("with valid input: successful response & database check", async () => {
-    const res = await request(app)
+describe("User Route: POST /user/signup", () => {
+  it("Valid input: 200 with database updates", done => {
+    request(app)
       .post("/signup")
       .send(newUser)
       .expect("Content-Type", /json/)
       .expect("set-cookie", /refreshToken.*accessToken/)
       .expect(200, { msg: "Successful user signup.", authenticated: true })
       .then(async function validateDatabaseEntries(res) {
-        const userDb = await UserModel.findOne({ username: newUser.username });
-        expect(userDb?.username).to.equal(newUser.username);
-        expect(userDb?.firstName).to.equal(newUser.firstName);
-        expect(userDb?.lastName).to.equal(newUser.lastName);
-        expect(userDb?.address).to.equal(newUser.address);
-        expect(userDb?.city).to.equal(newUser.city);
-        expect(userDb?.state).to.equal(newUser.state);
-        expect(userDb?.zip).to.equal(newUser.zip);
-        expect(userDb?.phone).to.equal(
+        const user = await UserModel.findOne({ username: newUser.username });
+        expect(user?.username).to.equal(newUser.username);
+        expect(user?.firstName).to.equal(newUser.firstName);
+        expect(user?.lastName).to.equal(newUser.lastName);
+        expect(user?.address).to.equal(newUser.address);
+        expect(user?.city).to.equal(newUser.city);
+        expect(user?.state).to.equal(newUser.state);
+        expect(user?.zip).to.equal(newUser.zip);
+        expect(user?.password).to.not.equal(newUser.password);
+        expect(user?.events).to.be.an("array").that.is.empty;
+        expect(user?.phone).to.equal(
           Number(newUser.phone.toString().replace(/\D/g, "")),
         );
-        expect(userDb?.password).to.not.equal(newUser.password);
-        expect(userDb?.events).to.be.an("array").that.is.empty;
+        done();
       });
   });
 
-  it("with existing email address: 400 w/ error msg", async () => {
-    await request(app)
+  it("Existing email address: 400 w/ error msg", done => {
+    request(app)
       .post("/signup")
       .send(newUser)
       .expect(400)
-      .then(res => {
+      .then(async res => {
         expect(res.body.msg).to.equal("Failed to validate user data.");
         expect(res.body.errors.length).to.equal(1);
         expect(
@@ -69,25 +71,29 @@ describe("POST /user/signup", () => {
             return e.msg.includes("Email address already registered.");
           }),
         );
+        done();
       });
   });
 });
 
 //
 // user login
+// * this test acquires the cookies for future tests
 //
 
-describe("POST /user/login Tests", () => {
-  it("with valid credentials: 200 w/ success msg", async () => {
-    const res = await request(app)
+describe("User Route: POST /user/login", () => {
+  it("Valid credentials: 200, success msg & jwt cookies", done => {
+    request(app)
       .post("/login")
       .send({ username: newUser.username, password: newUser.password })
       .expect("Content-Type", /json/)
       .expect(200, { msg: "Successful user login.", authenticated: true })
-      .expect("set-cookie", /refreshToken.*accessToken/);
-
-    // set cookies for future tests
-    cookies = res.header["set-cookie"];
+      .expect("set-cookie", /refreshToken.*accessToken/)
+      .then(res => {
+        // set cookies for future tests
+        cookies = res.header["set-cookie"];
+        done();
+      });
   });
 });
 
@@ -95,15 +101,15 @@ describe("POST /user/login Tests", () => {
 // auth status tests
 //
 
-describe("GET /auth-status Tests", () => {
-  it("without JWT: authenticated = false", done => {
+describe("User Route: GET /auth-status", () => {
+  it("Without JWT cookies: authenticated = false", done => {
     request(app)
       .get("/auth-status")
       .expect("Content-Type", /json/)
       .expect(200, { authenticated: false }, done);
   });
 
-  it("with json JWT: authenticated = true", done => {
+  it("With JWT cookies: authenticated = true", done => {
     request(app)
       .get("/auth-status")
       .set("Cookie", cookies)
@@ -116,20 +122,38 @@ describe("GET /auth-status Tests", () => {
 // user get tests
 //
 
-describe("GET / Tests", () => {
-  it("without jwt: 401", done => {
-    request(app).get("/").expect("Content-Type", /json/).expect(401, done);
+describe("User Route: GET /", () => {
+  it("Without JWT cookies: 401", done => {
+    request(app)
+      .get("/")
+      .expect("Content-Type", /json/)
+      .expect(401)
+      .then(res => {
+        expect(res.body.msg).to.equal("Unauthorized.");
+        done();
+      });
   });
 
-  it("with jwt: 200 & data", done => {
+  it("With JWT cookies: 200 & user data", done => {
     request(app)
       .get("/")
       .set("Cookie", cookies)
       .expect("Content-Type", /json/)
-      .expect(2010, {
-        msg: "Successful user get",
-        user: { ...newUser, password: 0 },
-        done,
+      .expect(200)
+      .then(res => {
+        expect(res.body.msg).to.equal("Successful user get");
+        expect(res.body.user).to.be.an("object");
+        expect(res.body.user).to.have.property("username");
+        expect(res.body.user).to.have.property("firstName");
+        expect(res.body.user).to.have.property("lastName");
+        expect(res.body.user).to.have.property("address");
+        expect(res.body.user).to.have.property("city");
+        expect(res.body.user).to.have.property("state");
+        expect(res.body.user).to.have.property("zip");
+        expect(res.body.user).to.have.property("phone");
+        expect(res.body.user).to.have.property("events");
+        expect(res.body.user).to.not.have.property("password");
+        done();
       });
   });
 });
