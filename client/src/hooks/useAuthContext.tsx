@@ -117,7 +117,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
 
     try {
       const { status } = await apiService({
-        method: "GET",
+        method: "DELETE",
         path: "user/logout",
       });
 
