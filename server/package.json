@@ -4,10 +4,10 @@
   "description": "Backend server for Garnished LLP",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"tsc-alias -p tsconfig.json --watch\" \"nodemon --ignore tests dist/index.js\"",
+    "dev": "concurrently \"tsc -w\" \"tsc-alias -p tsconfig.json --watch\" \"nodemon --inspect --ignore tests dist/index.js\"",
     "build": "tsc && tsc-alias -p tsconfig.json",
     "start": "node dist/index.js",
-    "test": "ts-mocha -w -r tsconfig-paths/register src/tests/**/*.ts"
+    "test": "ts-mocha --timeout 5000 -w -r tsconfig-paths/register src/tests/**/*.ts"
   },
   "author": "Bryan Miller <bryan@bmilcs.com>",
   "license": "MIT",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/chai": "^4.3.5",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
@@ -38,6 +39,7 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
+    "chai": "^4.3.8",
     "concurrently": "^8.2.0",
     "eslint": "^8.45.0",
     "mocha": "^10.2.0",
