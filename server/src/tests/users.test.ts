@@ -157,3 +157,57 @@ describe("User Route: GET /", () => {
       });
   });
 });
+
+//
+// user update tests
+//
+
+describe("User Route: PATCH /", () => {
+  it("Without JWT cookies: 401 unauthorized", done => {
+    request(app)
+      .patch("/")
+      .expect("Content-Type", /json/)
+      .expect(401)
+      .then(res => {
+        expect(res.body.msg).to.equal("Unauthorized.");
+        done();
+      });
+  });
+
+  it("With JWT cookies: 200 & updated user data", done => {
+    const updatedUser = {
+      firstName: "Jane",
+      lastName: "Doe",
+      username: "jane@doe.com",
+      address: "123 Main St",
+      city: "Exampleville",
+      state: "CA",
+      zip: "12345",
+      phone: "123-456-7890",
+    };
+
+    request(app)
+      .patch("/")
+      .set("Cookie", cookies)
+      .send(updatedUser)
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(async res => {
+        const user = await UserModel.findOne({
+          username: updatedUser.username,
+        });
+        expect(res.body.msg).to.equal("Successful user update.");
+        expect(user?.username).to.equal(updatedUser.username);
+        expect(user?.firstName).to.equal(updatedUser.firstName);
+        expect(user?.lastName).to.equal(updatedUser.lastName);
+        expect(user?.address).to.equal(updatedUser.address);
+        expect(user?.city).to.equal(updatedUser.city);
+        expect(user?.state).to.equal(updatedUser.state);
+        expect(user?.zip).to.equal(updatedUser.zip);
+        expect(user?.phone).to.equal(
+          Number(updatedUser.phone.toString().replace(/\D/g, "")),
+        );
+        done();
+      });
+  });
+});
