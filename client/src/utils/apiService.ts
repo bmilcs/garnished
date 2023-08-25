@@ -3,7 +3,7 @@ export const getApiEndpoint = () => import.meta.env.VITE_API_ENDPOINT;
 // by default, "npm run dev" loads ".env.development" and production loads ".env.production"
 const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 type TProps = {
   path: string;

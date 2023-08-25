@@ -56,8 +56,8 @@ export const useUserUpdate = () => {
       const {
         data: { updated, errors },
       } = await apiService<TSignupResponse>({
-        method: "POST",
-        path: `user/update`,
+        method: "PATCH",
+        path: `user`,
         body: formData,
       });
 
