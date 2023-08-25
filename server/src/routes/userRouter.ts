@@ -8,11 +8,14 @@ import express from "express";
 
 const user = express.Router();
 
-user.get("/", authenticate, userController.userGet);
+user
+  .route("/")
+  .get(authenticate, userController.userGet)
+  .patch(authenticate, userController.userPost);
+
 user.get("/auth-status", userController.userAuthStatus);
 user.post("/signup", userController.userSignup);
 user.post("/login", userController.userLogin);
-user.post("/update", authenticate, userController.userPost);
 user.get("/logout", authenticate, userController.userLogout);
 
 export default user;
