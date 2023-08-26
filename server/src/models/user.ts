@@ -4,7 +4,20 @@ import mongoose, { Types } from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-export type TUserDocument = mongoose.Document & {
+export type TUserRequestDetails = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+  events: Types.ObjectId[];
+};
+
+export type TUserDetails = {
   firstName: string;
   lastName: string;
   username: string;
@@ -15,11 +28,15 @@ export type TUserDocument = mongoose.Document & {
   zip: string;
   phone: number;
   events: Types.ObjectId[];
-  comparePassword: (
-    candidatePassword: string,
-    next: (err: any, isMatch: boolean) => void,
-  ) => void;
 };
+
+export type TUserDocument = mongoose.Document &
+  TUserDetails & {
+    comparePassword: (
+      candidatePassword: string,
+      next: (err: any, isMatch: boolean) => void,
+    ) => void;
+  };
 
 const UserSchema = new Schema({
   firstName: {

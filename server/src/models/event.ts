@@ -3,8 +3,7 @@ import mongoose, { ObjectId, Types } from "mongoose";
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-export type TEventDocument = mongoose.Document & {
-  user: Types.ObjectId;
+export type TEventRequestDetails = {
   date: Date;
   time: string;
   locationDescription: string;
@@ -26,6 +25,11 @@ export type TEventDocument = mongoose.Document & {
   specialtyDrinks: boolean;
   liquorPreferences: string;
 };
+
+export type TEventDocument = mongoose.Document &
+  TEventRequestDetails & {
+    user: Types.ObjectId;
+  };
 
 const EventSchema = new Schema({
   user: { type: ObjectId, ref: "User", required: true },
