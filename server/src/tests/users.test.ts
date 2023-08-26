@@ -1,79 +1,69 @@
-import errorHandler from "@/middlewares/errorHandler";
-import UserModel from "@/models/user";
-import userRouter from "@/routes/userRouter";
+import UserModel, { TUserRequestDetails } from "@/models/user";
+
 import chai from "chai";
 import request from "supertest";
-import { app, setupMongoTestServer, teardownMongoTestServer } from "./setup";
+import {
+  app,
+  createEvent,
+  eventData,
+  logoutUser,
+  setupMongoTestServer,
+  signupUser,
+  teardownMongoTestServer,
+  userData,
+} from "./setup";
 const expect = chai.expect;
 
 //
 // setup
 //
 
-app.use("/", userRouter);
-app.use(errorHandler);
-before(async () => await setupMongoTestServer());
-after(async () => await teardownMongoTestServer());
-
-const newUser = {
-  firstName: "John",
-  lastName: "Doe",
-  username: "johndoe@notreal.com",
-  password: "password123",
-  address: "123 Main St",
-  city: "Exampleville",
-  state: "CA",
-  zip: "12345",
-  phone: "123-456-7890",
-};
-
-// cookies are acquired from login tests & used in future tests
-let cookies: string[];
+beforeEach(async () => await setupMongoTestServer());
+afterEach(async () => await teardownMongoTestServer());
 
 //
 // user signup tests
 //
 
 describe("User Route: POST /user/signup", () => {
-  it("Valid input: 200 with database updates", done => {
-    request(app)
-      .post("/signup")
-      .send(newUser)
+  it("Valid input: 200 with database updates", async () => {
+    await request(app)
+      .post("/user/signup")
+      .send(userData)
       .expect("Content-Type", /json/)
       .expect("set-cookie", /refreshToken.*accessToken/)
       .expect(200, { msg: "Successful user signup.", authenticated: true })
-      .then(async function validateDatabaseEntries(res) {
-        const user = await UserModel.findOne({ username: newUser.username });
-        expect(user?.username).to.equal(newUser.username);
-        expect(user?.firstName).to.equal(newUser.firstName);
-        expect(user?.lastName).to.equal(newUser.lastName);
-        expect(user?.address).to.equal(newUser.address);
-        expect(user?.city).to.equal(newUser.city);
-        expect(user?.state).to.equal(newUser.state);
-        expect(user?.zip).to.equal(newUser.zip);
-        expect(user?.password).to.not.equal(newUser.password);
+      .then(async () => {
+        const user = await UserModel.findOne({ username: userData.username });
+
+        expect(user?.username).to.equal(userData.username);
+        expect(user?.firstName).to.equal(userData.firstName);
+        expect(user?.lastName).to.equal(userData.lastName);
+        expect(user?.address).to.equal(userData.address);
+        expect(user?.city).to.equal(userData.city);
+        expect(user?.state).to.equal(userData.state);
+        expect(user?.zip).to.equal(userData.zip);
+        expect(user?.password).to.not.equal(userData.password);
         expect(user?.events).to.be.an("array").that.is.empty;
         expect(user?.phone).to.equal(
-          Number(newUser.phone.toString().replace(/\D/g, "")),
+          Number(userData.phone.toString().replace(/\D/g, "")),
         );
-        done();
       });
   });
 
-  it("Existing email address: 400 w/ error msg", done => {
-    request(app)
-      .post("/signup")
-      .send(newUser)
+  it("Existing email address: 400 w/ error", async () => {
+    await signupUser(app, userData as TUserRequestDetails);
+
+    await request(app)
+      .post("/user/signup")
+      .send(userData)
       .expect(400)
-      .then(async res => {
+      .then(res => {
         expect(res.body.msg).to.equal("Failed to validate user data.");
         expect(res.body.errors.length).to.equal(1);
-        expect(
-          res.body.errors.some((e: any) => {
-            return e.msg.includes("Email address already registered.");
-          }),
+        expect(res.body.errors[0].msg).to.equal(
+          "Email address already registered.",
         );
-        done();
       });
   });
 });
@@ -83,19 +73,33 @@ describe("User Route: POST /user/signup", () => {
 // * this test acquires the cookies for future tests
 //
 
-describe("User Route: POST /user/login", () => {
-  it("Valid credentials: 200, success msg & jwt cookies", done => {
-    request(app)
-      .post("/login")
-      .send({ username: newUser.username, password: newUser.password })
+describe("User Route: POST /user/login", async () => {
+  it("Valid credentials: 200, success msg & jwt cookies", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
+    await request(app)
+      .post("/user/login")
+      .send({ username: userData.username, password: userData.password })
       .expect("Content-Type", /json/)
       .expect(200, { msg: "Successful user login.", authenticated: true })
-      .expect("set-cookie", /refreshToken.*accessToken/)
-      .then(res => {
-        // set cookies for future tests
-        cookies = res.header["set-cookie"];
-        done();
-      });
+      .expect("set-cookie", /refreshToken.*accessToken/);
+  });
+
+  it("Invalid credentials: 401, error msg", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
+    const invalidCredentials = {
+      username: userData.username,
+      password: "wrongpassword",
+    };
+
+    await request(app)
+      .post("/user/login")
+      .send(invalidCredentials)
+      .expect("Content-Type", /json/)
+      .expect(401, { msg: "Invalid password.", authenticated: false });
   });
 });
 
@@ -104,19 +108,22 @@ describe("User Route: POST /user/login", () => {
 //
 
 describe("User Route: GET /auth-status", () => {
-  it("Without JWT cookies: authenticated = false", done => {
-    request(app)
-      .get("/auth-status")
+  it("Without JWT cookies: authenticated = false", async () => {
+    await request(app)
+      .get("/user/auth-status")
       .expect("Content-Type", /json/)
-      .expect(200, { authenticated: false }, done);
+      .expect(200, { authenticated: false });
   });
 
-  it("With JWT cookies: authenticated = true", done => {
-    request(app)
-      .get("/auth-status")
+  it("With JWT cookies: authenticated = true", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
+    await request(app)
+      .get("/user/auth-status")
       .set("Cookie", cookies)
       .expect("Content-Type", /json/)
-      .expect(200, { authenticated: true }, done);
+      .expect(200, { authenticated: true });
   });
 });
 
@@ -125,20 +132,22 @@ describe("User Route: GET /auth-status", () => {
 //
 
 describe("User Route: GET /", () => {
-  it("Without JWT cookies: 401", done => {
-    request(app)
-      .get("/")
+  it("Without JWT cookies: 401", async () => {
+    await request(app)
+      .get("/user/")
       .expect("Content-Type", /json/)
       .expect(401)
       .then(res => {
         expect(res.body.msg).to.equal("Unauthorized.");
-        done();
       });
   });
 
-  it("With JWT cookies: 200 & user data", done => {
-    request(app)
-      .get("/")
+  it("With JWT cookies: 200 & user data", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
+    await request(app)
+      .get("/user/")
       .set("Cookie", cookies)
       .expect("Content-Type", /json/)
       .expect(200)
@@ -155,7 +164,6 @@ describe("User Route: GET /", () => {
         expect(res.body.user).to.have.property("phone");
         expect(res.body.user).to.have.property("events");
         expect(res.body.user).to.not.have.property("password");
-        done();
       });
   });
 });
@@ -165,31 +173,33 @@ describe("User Route: GET /", () => {
 //
 
 describe("User Route: PATCH /", () => {
-  it("Without JWT cookies: 401 unauthorized", done => {
-    request(app)
-      .patch("/")
+  it("Without JWT cookies: 401 unauthorized", async () => {
+    await request(app)
+      .patch("/user/")
       .expect("Content-Type", /json/)
       .expect(401)
       .then(res => {
         expect(res.body.msg).to.equal("Unauthorized.");
-        done();
       });
   });
 
-  it("With JWT cookies: 200 & updated user data", done => {
+  it("With JWT cookies: 200 & updated user data", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
     const updatedUser = {
       firstName: "Jane",
       lastName: "Doe",
-      username: "jane@doe.com",
       address: "123 Main St",
+      username: "testuser@aol.com",
       city: "Exampleville",
       state: "CA",
       zip: "12345",
       phone: "123-456-7890",
     };
 
-    request(app)
-      .patch("/")
+    await request(app)
+      .patch("/user/")
       .set("Cookie", cookies)
       .send(updatedUser)
       .expect("Content-Type", /json/)
@@ -198,6 +208,7 @@ describe("User Route: PATCH /", () => {
         const user = await UserModel.findOne({
           username: updatedUser.username,
         });
+
         expect(res.body.msg).to.equal("Successful user update.");
         expect(user?.username).to.equal(updatedUser.username);
         expect(user?.firstName).to.equal(updatedUser.firstName);
@@ -209,7 +220,6 @@ describe("User Route: PATCH /", () => {
         expect(user?.phone).to.equal(
           Number(updatedUser.phone.toString().replace(/\D/g, "")),
         );
-        done();
       });
   });
 });
@@ -223,22 +233,67 @@ describe("User Route: PATCH /", () => {
 
 describe("User Route: DELETE /logout", () => {
   it("Without JWT cookies: 401 unauthorized", async () => {
-    const res = await request(app)
-      .delete("/logout")
+    await request(app)
+      .delete("/user/logout")
       .expect("Content-Type", /json/)
-      .expect(401);
-
-    expect(res.body.msg).to.equal("Unauthorized.");
+      .expect(401, { msg: "Unauthorized." });
   });
 
   it("With JWT cookies: 200 & success msg", async () => {
-    const res = await request(app)
-      .delete("/logout")
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
+    await request(app)
+      .delete("/user/logout")
       .set("Cookie", cookies)
       .expect("Content-Type", /json/)
-      .expect(200, { msg: "Successful user logout." });
+      .expect(200, { msg: "Successful user logout." })
+      .then(res => {
+        expect(res.header["set-cookie"][0]).to.include("accessToken=;");
+        expect(res.header["set-cookie"][1]).to.include("refreshToken=;");
+      });
+  });
+});
 
-    expect(res.header["set-cookie"][0]).to.include("accessToken=;");
-    expect(res.header["set-cookie"][1]).to.include("refreshToken=;");
+//
+// user delete tests
+//
+
+describe("User Route: DELETE /", () => {
+  it("Without JWT cookies: 401 unauthorized", async () => {
+    await request(app)
+      .delete("/user")
+      .expect("Content-Type", /json/)
+      .expect(401, { msg: "Unauthorized." });
+  });
+
+  it("With JWT cookies & no existing Events: 200, success msg & database check", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+
+    await request(app)
+      .delete("/user")
+      .set("Cookie", cookies)
+      .expect("Content-Type", /json/)
+      .expect(200, { msg: "Successful user delete.", deleted: true })
+      .then(async res => {
+        const user = await UserModel.findOne({ username: userData.username });
+        expect(user).to.equal(null);
+      });
+  });
+
+  it("With JWT cookies & 1 Events: ...", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await createEvent(app, cookies, eventData);
+
+    await request(app)
+      .delete("/user")
+      .set("Cookie", cookies)
+      .expect("Content-Type", /json/)
+      .expect(400, { msg: "User has existing events.", deleted: false })
+      .then(async res => {
+        const user = await UserModel.findOne({ username: userData.username });
+        expect(user).to.not.equal(null);
+        expect(user?.events).to.be.an("array").that.is.not.empty;
+      });
   });
 });
