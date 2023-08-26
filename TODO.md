@@ -29,22 +29,23 @@
 ## Backend
 
 - [ ] Write Tests
-  - [ ] User Controller Tests
+  - [x] User Controller Tests
   - [ ] Event Controller Tests
   - [ ] Contact Controller Tests
+- [ ] Error handling: Wrap database calls in try/catch block
 - [ ] Prevent brute force pw attacks: limit invalid auth attempts
 - [ ] Create roles: user vs owner/admin
 - [ ] Allow admin to access all events & their details
 - [ ] Admin routes:
   - [ ] Get All Events
   - [ ] Get All Users
-- [x] Add Update user controller
-- [ ] Add Update event controller
-- [ ] Add Delete user controller
-- [x] Add Delete event controller
 - [ ] Create email templates
   - [ ] Confirm event & reiterate the quote process
   - [ ] Reset password
+- [ ] Add Update event controller
+- [x] Add Update user controller
+- [x] Add Delete user controller
+- [x] Add Delete event controller
 - [x] Add nodemailer
 
 ## First Meeting
