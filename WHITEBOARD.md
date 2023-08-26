@@ -1,5 +1,25 @@
 # Whiteboard Planning
 
+## Meeting #2 Notes
+
+- Avoid clipart: use images instead
+  - Replace beer clipart w/ wine photo
+- Change colors
+  - Taupe beige gray
+  - Not white, white
+  - Light shade
+  - Primary: sage, smoky green
+- Font: tangerine, google fonts
+  - Replace banner text with cursive / script
+- Lighten up banners
+- Less animations, selective
+- Services offered
+- Remove running/refrigeration
+- Enlarge navigation text
+- Wedding focused
+- Carousel for photos
+- Evite drink estimator: https://www.google.com/search?channel=fs&client=ubuntu-sn&q=evite+drink+estimate
+
 ## Quote Process
 
 Initial Release
