@@ -11,7 +11,8 @@ const user = express.Router();
 user
   .route("/")
   .get(authenticate, userController.userGet)
-  .patch(authenticate, userController.userPost);
+  .patch(authenticate, userController.userPost)
+  .delete(authenticate, userController.userDelete);
 
 user.get("/auth-status", userController.userAuthStatus);
 user.post("/signup", userController.userSignup);

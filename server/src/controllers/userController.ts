@@ -63,7 +63,7 @@ export const userGet = async (req: IAuthRequest, res: Response) => {
 // POST user logout request
 //
 
-export const userLogout = async (req: Request, res: Response) => {
+export const userLogout = async (req: IAuthRequest, res: Response) => {
   return res
     .clearCookie("accessToken")
     .clearCookie("refreshToken")
@@ -118,7 +118,7 @@ export const userLogin = [
       // password is incorrect
       if (!isMatch) {
         return res
-          .status(400)
+          .status(401)
           .json({ msg: "Invalid password.", authenticated: false });
       }
 
@@ -351,3 +351,27 @@ export const userSignup = [
     if (user.username) sendWelcomeEmail(user.username);
   },
 ];
+
+//
+// DELETE user
+//
+
+export const userDelete = async (req: IAuthRequest, res: Response) => {
+  const user = await UserModel.findById(req.userId).populate("events", {
+    _id: 1,
+  });
+
+  if (!user) {
+    return res.status(400).json({ msg: "User not found.", deleted: false });
+  }
+
+  if (user.events.length > 0) {
+    return res
+      .status(400)
+      .json({ msg: "User has existing events.", deleted: false });
+  }
+
+  await user.deleteOne();
+
+  res.json({ msg: "Successful user delete.", deleted: true });
+};
