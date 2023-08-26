@@ -7,8 +7,9 @@ import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
 import { FC } from "react";
 
 export const UserUpdate: FC = () => {
-  const { formData, setFormData, update, errors, isPending } = useUserUpdate();
-  const handleSubmitForm = onFormSubmit(update);
+  const { formData, setFormData, updateUser, deleteUser, errors, isPending } =
+    useUserUpdate();
+  const handleSubmitForm = onFormSubmit(updateUser);
   const handleInputChange = useInputChange(setFormData);
 
   if (isPending) return <HourglassSpinner />;
@@ -147,12 +148,12 @@ export const UserUpdate: FC = () => {
             <div className="input-group">
               <label htmlFor="zip">Zip Code</label>
               <input
-                type="text"
+                type="number"
                 name="zip"
                 id="zip"
                 maxLength={5}
                 onChange={handleInputChange}
-                value={formData.zip}
+                value={formData.zip.toString()}
                 required
               />
               {errors.length > 0 && (
@@ -165,6 +166,10 @@ export const UserUpdate: FC = () => {
             <Button type="primary">Update Personal Information</Button>
           </form>
         </ScrollAnimator>
+
+        <Button type="outline" onClick={deleteUser}>
+          Delete Account
+        </Button>
       </section>
     );
 };

@@ -12,12 +12,17 @@ type TSignupResponse = {
   errors?: TExpressValidatorError[];
 };
 
+type TDeleteResponse = {
+  msg: string;
+  deleted?: boolean;
+};
+
 // signup utilizes an array of express-validator errors, so
 // moving this to authContext would require refactoring.
 // for now, this custom hook will be the solution.
 
 export const useUserUpdate = () => {
-  const { redirectUnauthorizedUser } = useContext(AuthContext);
+  const { redirectUnauthorizedUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
@@ -48,7 +53,7 @@ export const useUserUpdate = () => {
     void getUserData();
   }, [redirectUnauthorizedUser]);
 
-  const update = async () => {
+  const updateUser = async () => {
     setErrors([]);
     setIsPending(true);
 
@@ -73,5 +78,30 @@ export const useUserUpdate = () => {
     }
   };
 
-  return { formData, setFormData, update, errors, isPending };
+  const deleteUser = async () => {
+    setErrors([]);
+    setIsPending(true);
+
+    try {
+      const {
+        data: { deleted },
+      } = await apiService<TDeleteResponse>({
+        method: "DELETE",
+        path: `user`,
+      });
+
+      if (deleted) {
+        await logout();
+        navigate("/");
+      } else if (errors) {
+        setErrors(errors);
+      }
+    } catch {
+      console.error("Something went wrong. Try again later.");
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  return { formData, setFormData, updateUser, deleteUser, errors, isPending };
 };
