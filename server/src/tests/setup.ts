@@ -1,10 +1,11 @@
-import { TEST_ACCESS_TOKEN, TEST_REFRESH_TOKEN } from "@/config/env";
+import errorHandler from "@/middlewares/errorHandler";
 import EventModel from "@/models/event";
-import UserModel from "@/models/user";
+import UserModel, { TUserRequestDetails } from "@/models/user";
+import eventRouter from "@/routes/eventRouter";
+import userRouter from "@/routes/userRouter";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";
-import { test } from "mocha";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import request from "supertest";
@@ -16,6 +17,9 @@ import request from "supertest";
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use("/user", userRouter);
+app.use("/events", eventRouter);
+app.use(errorHandler);
 
 //
 // database connection
@@ -48,10 +52,6 @@ const setupMongoTestServer = async () => {
     }
     console.log(e);
   });
-
-  mongoose.connection.once("open", () => {
-    console.log(`MongoDB successfully connected to ${mongoUri}`);
-  });
 };
 
 const teardownMongoTestServer = async () => {
@@ -60,12 +60,98 @@ const teardownMongoTestServer = async () => {
 };
 
 //
-// json web tokens
+// helper functions
 //
 
-export const AUTH_COOKIES = [
-  `accessToken=${TEST_ACCESS_TOKEN}`,
-  `refreshToken=${TEST_REFRESH_TOKEN}`,
-];
+const signupUser = async (
+  app: Express.Application,
+  newUser: TUserRequestDetails,
+) => {
+  const res = await request(app).post("/user/signup").send(newUser).expect(200);
+  const cookies = res.header["set-cookie"];
+  return cookies;
+};
 
-export { app, request, setupMongoTestServer, teardownMongoTestServer, test };
+const loginUser = async (
+  app: Express.Application,
+  credentials: { username: string; password: string },
+) => {
+  const res = await request(app)
+    .post("/user/login")
+    .send(credentials)
+    .expect(200);
+  const cookies = res.header["set-cookie"];
+  return cookies;
+};
+
+const logoutUser = async (app: Express.Application, cookies: string[]) => {
+  const res = await request(app)
+    .delete("/user/logout")
+    .set("Cookie", cookies)
+    .expect(200);
+};
+
+const createEvent = async (
+  app: Express.Application,
+  cookies: string[],
+  event: object,
+) => {
+  const res = await request(app)
+    .post("/events")
+    .set("Cookie", cookies)
+    .send(event)
+    .expect(200);
+  return res.body;
+};
+
+//
+// mock data
+//
+
+const userData = {
+  firstName: "John",
+  lastName: "Doe",
+  username: "johndoe@notreal.com",
+  password: "password123",
+  address: "123 Main St",
+  city: "Exampleville",
+  state: "CA",
+  zip: "12345",
+  phone: "123-456-7890",
+};
+
+const eventData = {
+  date: "2024-08-26",
+  time: "17:00",
+  locationDescription: "Around back",
+  address: "123 Circle Dr.",
+  city: "West Springfield",
+  state: "MA",
+  zip: "01089",
+  guests: "25",
+  hours: "4",
+  eventType: "Birthday",
+  needBar: "true",
+  needTent: "false",
+  needAlcohol: "true",
+  needRunningWater: "true",
+  needRefrigeration: "true",
+  needDrinkware: "true",
+  beer: "true",
+  wine: "true",
+  specialtyDrinks: "false",
+  liquorPreferences: "11",
+};
+
+export {
+  app,
+  createEvent,
+  eventData,
+  loginUser,
+  logoutUser,
+  request,
+  setupMongoTestServer,
+  signupUser,
+  teardownMongoTestServer,
+  userData,
+};
