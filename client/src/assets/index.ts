@@ -25,6 +25,7 @@ import specialtyDrink24 from "./specialtyDrink-24.jpg";
 import specialtyDrink25 from "./specialtyDrink-25.jpg";
 import specialtyDrink26 from "./specialtyDrink-26.jpg";
 import specialtyDrink27 from "./specialtyDrink-27.jpg";
+import wine02 from "./wine-02.png";
 
 export {
   specialtyDrink01,
@@ -54,4 +55,5 @@ export {
   specialtyDrink25,
   specialtyDrink26,
   specialtyDrink27,
+  wine02,
 };
