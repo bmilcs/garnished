@@ -6,6 +6,7 @@ import sendNewEventEmailToOwners from "@/services/templates/newEventEmail";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
+import { isValidObjectId } from "mongoose";
 
 //
 // GET event details
@@ -13,6 +14,10 @@ import { body, validationResult } from "express-validator";
 
 export const eventGet = async (req: IAuthRequest, res: Response) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(404).json({ msg: "Event not found." });
+    }
+
     const event = await EventModel.findById(req.params.id).populate("user");
 
     // make sure that the request user is the user associated with the event
@@ -21,7 +26,8 @@ export const eventGet = async (req: IAuthRequest, res: Response) => {
     }
 
     res.json({ msg: "Successful event get.", event });
-  } catch {
+  } catch (e) {
+    console.error(e);
     res.status(500).json({ msg: "Internal server error." });
   }
 };
@@ -173,8 +179,10 @@ export const eventCreatePost = [
 
       res.json({ msg: "Successful create event.", eventId: event._id });
 
-      if (user && event) sendNewEventEmailToOwners({ user, event });
-    } catch {
+      if (user && event && user.username !== "test@garnished.com")
+        sendNewEventEmailToOwners({ user, event });
+    } catch (e) {
+      console.error(e);
       res.status(500).json({ msg: "Internal server error." });
     }
   },
@@ -194,6 +202,11 @@ export const eventUpdatePost = (req: Request, res: Response) => {
 
 export const eventDelete = async (req: IAuthRequest, res: Response) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(404).json({ msg: "Event not found." });
+    }
+
+    // don't delete immediately: wait to confirm that the user is the event owner
     const event = (await EventModel.findById(req.params.id)) as TEventDocument;
 
     // event not found
@@ -220,10 +233,13 @@ export const eventDelete = async (req: IAuthRequest, res: Response) => {
     user.save();
 
     // delete event
-    EventModel.deleteOne({ _id: event._id });
+    await EventModel.deleteOne({
+      _id: req.params.id,
+    });
 
-    res.json({ msg: "successful event delete." });
-  } catch {
+    res.json({ msg: "Successful event delete." });
+  } catch (e) {
+    console.error(e);
     res.status(500).json({ msg: "Internal server error." });
   }
 };
