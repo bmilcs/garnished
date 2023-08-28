@@ -49,14 +49,19 @@ export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
 //
 
 export const userGet = async (req: IAuthRequest, res: Response) => {
-  // get user details from the database, omit password
-  const user = await UserModel.findById(req.userId, {
-    password: 0,
-  }).populate("events", { _id: 1, date: 1, eventType: 1 });
+  try {
+    // get user details from the database, omit password
+    const user = await UserModel.findById(req.userId, {
+      password: 0,
+    }).populate("events", { _id: 1, date: 1, eventType: 1 });
 
-  if (!user) return res.status(400).json({ msg: "User not found." });
+    if (!user) return res.status(400).json({ msg: "User not found." });
 
-  res.json({ msg: "Successful user get", user });
+    res.json({ msg: "Successful user get", user });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "Internal server error." });
+  }
 };
 
 //
@@ -89,48 +94,53 @@ export const userLogin = [
         .json({ msg: "Internal server error.", authenticated: false });
     }
 
-    // retrieve user from database
-    // user id/password are the only fields necessary to login
-    const { username, password } = req.body;
-    const user: TUserDocument | null = await UserModel.findOne(
-      {
-        username: username.toLowerCase(),
-      },
-      { _id: 1, password: 1 },
-    );
+    try {
+      // retrieve user from database
+      // user id/password are the only fields necessary to login
+      const { username, password } = req.body;
+      const user: TUserDocument | null = await UserModel.findOne(
+        {
+          username: username.toLowerCase(),
+        },
+        { _id: 1, password: 1 },
+      );
 
-    // user does not exist in database
-    if (!user) {
-      return res
-        .status(400)
-        .json({ msg: "E-mail address not found.", authenticated: false });
-    }
-
-    // user exists: check if password is correct
-    user.comparePassword(password, (err: any, isMatch: boolean) => {
-      // compare passwords function error
-      if (err) {
+      // user does not exist in database
+      if (!user) {
         return res
-          .status(500)
-          .json({ msg: "Internal server error.", authenticated: false });
+          .status(400)
+          .json({ msg: "E-mail address not found.", authenticated: false });
       }
 
-      // password is incorrect
-      if (!isMatch) {
-        return res
-          .status(401)
-          .json({ msg: "Invalid password.", authenticated: false });
-      }
+      // user exists: check if password is correct
+      user.comparePassword(password, (err: any, isMatch: boolean) => {
+        // compare passwords function error
+        if (err) {
+          return res
+            .status(500)
+            .json({ msg: "Internal server error.", authenticated: false });
+        }
 
-      setJwtRefreshTokenCookie(res, user._id.toString());
-      setJwtAccessTokenCookie(res, {
-        userId: user._id.toString(),
+        // password is incorrect
+        if (!isMatch) {
+          return res
+            .status(401)
+            .json({ msg: "Invalid password.", authenticated: false });
+        }
+
+        setJwtRefreshTokenCookie(res, user._id.toString());
+        setJwtAccessTokenCookie(res, {
+          userId: user._id.toString(),
+        });
+
+        res
+          .status(200)
+          .json({ msg: "Successful user login.", authenticated: true });
       });
-
-      res
-        .status(200)
-        .json({ msg: "Successful user login.", authenticated: true });
-    });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ msg: "Internal server error." });
+    }
   },
 ];
 
@@ -205,51 +215,57 @@ export const userPost = [
         .json({ msg: "Failed to validate user data.", errors: errors.array() });
     }
 
-    // get user from database without updating it. we first
-    // need to check if username is already registered before updating
-    const user = await UserModel.findById({ _id: req.userId });
+    try {
+      // get user from database without updating it. we first
+      // need to check if username is already registered before updating
+      const user = await UserModel.findById({ _id: req.userId });
 
-    if (!user) {
-      return res.status(400).json({ msg: "User not found.", updated: false });
-    }
-
-    // make sure new username is not already registered
-    if (user.username !== req.body.username) {
-      const usernameExists = await UserModel.findOne({
-        username: req.body.username,
-      });
-
-      if (usernameExists) {
-        const customExpressValidatorError = [
-          {
-            type: "field",
-            location: "body",
-            path: "username",
-            value: req.body.username,
-            msg: "E-mail address already registered.",
-          },
-        ];
-
-        return res.status(400).json({
-          msg: "Email already registered.",
-          errors: customExpressValidatorError,
-          updated: false,
-        });
+      if (!user) {
+        return res.status(400).json({ msg: "User not found.", updated: false });
       }
+
+      // make sure new username is not already registered
+      if (user.username !== req.body.username) {
+        const usernameExists = await UserModel.findOne({
+          username: req.body.username,
+        });
+
+        if (usernameExists) {
+          const customExpressValidatorError = [
+            {
+              type: "field",
+              location: "body",
+              path: "username",
+              value: req.body.username,
+              msg: "E-mail address already registered.",
+            },
+          ];
+
+          return res.status(400).json({
+            msg: "Email already registered.",
+            errors: customExpressValidatorError,
+            updated: false,
+          });
+        }
+      }
+
+      // update user details
+      user.firstName = req.body.firstName;
+      user.lastName = req.body.lastName;
+      user.username = req.body.username;
+      user.city = req.body.city;
+      user.state = req.body.state;
+      user.zip = req.body.zip;
+      user.phone = req.body.phone;
+      user.address = req.body.address;
+
+      await user.save();
+
+      res.json({ msg: "Successful user update.", updated: true });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ msg: "Internal server error." });
     }
-
-    // update user details
-    user.firstName = req.body.firstName;
-    user.lastName = req.body.lastName;
-    user.username = req.body.username;
-    user.city = req.body.city;
-    user.state = req.body.state;
-    user.zip = req.body.zip;
-    user.phone = req.body.phone;
-    user.address = req.body.address;
-    await user.save();
-
-    res.json({ msg: "Successful user update.", updated: true });
   },
 ];
 
@@ -338,17 +354,24 @@ export const userSignup = [
         .json({ msg: "Failed to validate user data.", errors: errors.array() });
     }
 
-    const user = new UserModel(req.body);
-    await user.save();
+    try {
+      const user = new UserModel(req.body);
+      await user.save();
 
-    setJwtRefreshTokenCookie(res, user._id.toString());
-    setJwtAccessTokenCookie(res, {
-      userId: user._id.toString(),
-    });
+      setJwtRefreshTokenCookie(res, user._id.toString());
+      setJwtAccessTokenCookie(res, {
+        userId: user._id.toString(),
+      });
 
-    res.json({ msg: "Successful user signup.", authenticated: true });
+      res.json({ msg: "Successful user signup.", authenticated: true });
 
-    if (user.username) sendWelcomeEmail(user.username);
+      if (user.username && user.username !== "test@garnished.com") {
+        sendWelcomeEmail(user.username);
+      }
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ msg: "Internal server error." });
+    }
   },
 ];
 
@@ -357,21 +380,26 @@ export const userSignup = [
 //
 
 export const userDelete = async (req: IAuthRequest, res: Response) => {
-  const user = await UserModel.findById(req.userId).populate("events", {
-    _id: 1,
-  });
+  try {
+    const user = await UserModel.findById(req.userId).populate("events", {
+      _id: 1,
+    });
 
-  if (!user) {
-    return res.status(400).json({ msg: "User not found.", deleted: false });
+    if (!user) {
+      return res.status(400).json({ msg: "User not found.", deleted: false });
+    }
+
+    if (user.events.length > 0) {
+      return res
+        .status(400)
+        .json({ msg: "User has existing events.", deleted: false });
+    }
+
+    await user.deleteOne();
+
+    res.json({ msg: "Successful user delete.", deleted: true });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "Internal server error." });
   }
-
-  if (user.events.length > 0) {
-    return res
-      .status(400)
-      .json({ msg: "User has existing events.", deleted: false });
-  }
-
-  await user.deleteOne();
-
-  res.json({ msg: "Successful user delete.", deleted: true });
 };
