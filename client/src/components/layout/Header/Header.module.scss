@@ -24,6 +24,7 @@
 .hamburger {
   height: 36px;
   z-index: 11;
+  background: var(--clr-bg);
 }
 
 .nav {
@@ -33,6 +34,11 @@
 // desktop nav
 .header a {
   color: var(--clr-fg);
+  font-size: var(--fs-base);
+}
+
+.header .logo {
+  font-size: var(--fs-heading);
 }
 
 .nav__ul {
@@ -53,6 +59,11 @@
   background: var(--clr-neutral-900-t);
   backdrop-filter: blur(9px);
   font-size: 2rem;
+}
+
+.expanded a,
+.expanded button {
+  font-size: var(--fs-heading);
 }
 
 .expanded a {
