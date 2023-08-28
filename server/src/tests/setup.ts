@@ -134,8 +134,6 @@ const eventData = {
   needBar: "true",
   needTent: "false",
   needAlcohol: "true",
-  needRunningWater: "true",
-  needRefrigeration: "true",
   needDrinkware: "true",
   beer: "true",
   wine: "true",

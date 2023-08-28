@@ -114,16 +114,6 @@ export const eventCreatePost = [
     .escape()
     .isBoolean()
     .withMessage("A valid alcohol need is required."),
-  body("needRunningWater")
-    .trim()
-    .escape()
-    .isBoolean()
-    .withMessage("A valid running water need is required."),
-  body("needRefrigeration")
-    .trim()
-    .escape()
-    .isBoolean()
-    .withMessage("A valid refrigeration need is required."),
   body("needDrinkware")
     .trim()
     .escape()
@@ -171,7 +161,10 @@ export const eventCreatePost = [
       if (!user) return res.status(404).json({ msg: "User not found." });
 
       // create user event
-      const event = new EventModel({ ...req.body, user: user });
+      const event = new EventModel({
+        ...req.body,
+        user: user,
+      }) as TEventDocument;
       event.save();
 
       // add event to user's events array

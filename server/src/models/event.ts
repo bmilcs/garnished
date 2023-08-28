@@ -17,8 +17,6 @@ export type TEventRequestDetails = {
   needBar: boolean;
   needTent: boolean;
   needAlcohol: boolean;
-  needRunningWater: boolean;
-  needRefrigeration: boolean;
   needDrinkware: boolean;
   beer: boolean;
   wine: boolean;
@@ -50,15 +48,13 @@ const EventSchema = new Schema({
   needBar: { type: Boolean, required: true },
   needTent: { type: Boolean, required: true },
   needAlcohol: { type: Boolean, required: true },
-  needRunningWater: { type: Boolean, required: true },
-  needRefrigeration: { type: Boolean, required: true },
   needDrinkware: { type: Boolean, required: true },
   beer: { type: Boolean, required: true },
   wine: { type: Boolean, required: true },
   specialtyDrinks: { type: Boolean, required: true },
   liquorPreferences: {
     type: String,
-    required: true,
+    required: false,
     isLength: { min: 1, max: 300 },
   },
 });
