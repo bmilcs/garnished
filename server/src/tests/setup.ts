@@ -104,7 +104,7 @@ const createEvent = async (
     .set("Cookie", cookies)
     .send(event)
     .expect(200);
-  return res.body;
+  return res.body.eventId;
 };
 
 //
@@ -114,7 +114,7 @@ const createEvent = async (
 const userData = {
   firstName: "John",
   lastName: "Doe",
-  username: "johndoe@notreal.com",
+  username: "test@garnished.com",
   password: "password123",
   address: "123 Main St",
   city: "Exampleville",

@@ -182,7 +182,7 @@ describe("User Route: PATCH /", () => {
       firstName: "Jane",
       lastName: "Doe",
       address: "123 Main St",
-      username: "testuser@aol.com",
+      username: "test@garnished.com",
       city: "Exampleville",
       state: "CA",
       zip: "12345",
