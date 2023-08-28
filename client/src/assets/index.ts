@@ -1,3 +1,4 @@
+import mobileBar01 from "./mobileBar-01.jpg";
 import specialtyDrink01 from "./specialtyDrink-01.jpg";
 import specialtyDrink02 from "./specialtyDrink-02.jpg";
 import specialtyDrink03 from "./specialtyDrink-03.jpg";
@@ -28,6 +29,7 @@ import specialtyDrink27 from "./specialtyDrink-27.jpg";
 import wine02 from "./wine-02.png";
 
 export {
+  mobileBar01,
   specialtyDrink01,
   specialtyDrink02,
   specialtyDrink03,
