@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/user", userRouter);
-app.use("/events", eventRouter);
+app.use("/event", eventRouter);
 app.use(errorHandler);
 
 //
@@ -59,6 +59,9 @@ const teardownMongoTestServer = async () => {
   await mongoServer.stop();
 };
 
+beforeEach(async () => await setupMongoTestServer());
+afterEach(async () => await teardownMongoTestServer());
+
 //
 // helper functions
 //
@@ -97,7 +100,7 @@ const createEvent = async (
   event: object,
 ) => {
   const res = await request(app)
-    .post("/events")
+    .post("/event")
     .set("Cookie", cookies)
     .send(event)
     .expect(200);

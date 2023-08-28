@@ -7,19 +7,10 @@ import {
   createEvent,
   eventData,
   logoutUser,
-  setupMongoTestServer,
   signupUser,
-  teardownMongoTestServer,
   userData,
 } from "./setup";
 const expect = chai.expect;
-
-//
-// setup
-//
-
-beforeEach(async () => await setupMongoTestServer());
-afterEach(async () => await teardownMongoTestServer());
 
 //
 // user signup tests
