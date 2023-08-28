@@ -13,8 +13,6 @@ export type TEvent = {
   needBar: boolean;
   needTent: boolean;
   needAlcohol: boolean;
-  needRunningWater: boolean;
-  needRefrigeration: boolean;
   needDrinkware: boolean;
   beer: boolean;
   wine: boolean;

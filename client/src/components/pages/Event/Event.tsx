@@ -44,8 +44,6 @@ export const Event: FC = () => {
             {eventData.needBar && <p>Mobile Bar</p>}
             {eventData.needTent && <p>Tent</p>}
             {eventData.needAlcohol && <p>Alcohol</p>}
-            {eventData.needRunningWater && <p>Running Water</p>}
-            {eventData.needRefrigeration && <p>Refrigeration</p>}
             {eventData.needDrinkware && <p>Drinkware</p>}
             {eventData.beer && <p>Beer</p>}
             {eventData.wine && <p>Wine</p>}

@@ -40,7 +40,7 @@ export const EventForm: FC = () => {
               />
               {errors.length > 0 && (
                 <p className="error">
-                  {getExpressValidatorError("username", errors)}
+                  {getExpressValidatorError("date", errors)}
                 </p>
               )}
             </div>
@@ -263,44 +263,6 @@ export const EventForm: FC = () => {
               </div>
 
               <div className="input-group">
-                <label htmlFor="needRunningWater">
-                  <input
-                    type="checkbox"
-                    name="needRunningWater"
-                    id="needRunningWater"
-                    maxLength={5}
-                    onChange={handleInputChange}
-                    checked={formData.needRunningWater ? true : false}
-                  />
-                  Running Water
-                </label>
-                {errors.length > 0 && (
-                  <p className="error">
-                    {getExpressValidatorError("needRunningWater", errors)}
-                  </p>
-                )}
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="needRefrigeration">
-                  <input
-                    type="checkbox"
-                    name="needRefrigeration"
-                    id="needRefrigeration"
-                    maxLength={5}
-                    onChange={handleInputChange}
-                    checked={formData.needRefrigeration ? true : false}
-                  />
-                  Refrigeration
-                </label>
-                {errors.length > 0 && (
-                  <p className="error">
-                    {getExpressValidatorError("needRefrigeration", errors)}
-                  </p>
-                )}
-              </div>
-
-              <div className="input-group">
                 <label htmlFor="needDrinkware">
                   <input
                     type="checkbox"
@@ -388,7 +350,6 @@ export const EventForm: FC = () => {
                   maxLength={200}
                   onChange={handleInputChange}
                   value={formData.liquorPreferences}
-                  required
                 />
                 {errors.length > 0 && (
                   <p className="error">
