@@ -38,8 +38,6 @@ const sendNewEventEmailToOwners = async ({
     Bar: event.needBar ? "Yes" : "No",
     Tent: event.needTent ? "Yes" : "No",
     Alcohol: event.needAlcohol ? "Yes" : "No",
-    "Running Water": event.needRunningWater ? "Yes" : "No",
-    Refrigeration: event.needRefrigeration ? "Yes" : "No",
     Drinkware: event.needDrinkware ? "Yes" : "No",
     Beer: event.beer ? "Yes" : "No",
     Wine: event.wine ? "Yes" : "No",
