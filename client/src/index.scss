@@ -1,5 +1,5 @@
 @import url("./reset.scss");
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville:wght@400;700&family=Raleway:wght@400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Raleway:wght@400;800&family=Tangerine:wght@700&display=swap");
 
 :root {
   --content-max-width: 1300px;
@@ -8,7 +8,7 @@
 
   --ff-primary: "Libre Baskerville", serif;
   --ff-title: "Raleway", sans-serif;
-  --ff-logo: "Great Vibes", cursive;
+  --ff-logo: "Tangerine", cursive;
   --fw-normal: 400;
   --fw-bold: 700;
   --fw-xbold: 800;
@@ -17,16 +17,17 @@
   --fs-base: clamp(14px, 2vw, 16px);
   --fs-base-large: clamp(18px, 5vw, 20px);
 
-  --fs-heading-small: clamp(18px, 3vw, 22px);
-  --fs-heading: clamp(24px, 4vw, 36px);
-  --fs-heading-large: clamp(30px, 5vw, 42px);
-  --fs-heading-hero: clamp(48px, 10vw, 80px);
+  --fs-heading-small: clamp(16px, 3vw, 22px);
+  --fs-heading: clamp(32px, 4vw, 42px);
+  --fs-heading-large: clamp(30px, 5vw, 48px);
+  --fs-heading-hero: clamp(60px, 10vw, 124px);
 
   --border: 2px solid var(--clr-bg-lighter);
   --border-radius-100: 0.25rem;
   --border-radius-200: 0.5rem;
 
   --box-shadow-100: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --text-shadow-100: 1px 1px 4px var(--clr-neutral-900);
 
   --clr-bg: var(--clr-neutral-100);
   --clr-bg-light: var(--clr-neutral-200);
@@ -36,55 +37,59 @@
   --clr-fg-light: var(--clr-neutral-800);
   --clr-fg-lighter: var(--clr-neutral-700);
 
+  --clr-white: #ffffff;
+  --clr-beige: hsl(45, 22%, 96%);
+  --clr-green: #a2a7a0;
+  --clr-gray: hsl(90, 2%, 35%);
+  --clr-black: hsl(96, 3%, 28%);
+
   --clr-neutral-100: hsla(0, 0%, 97%, 100%);
   --clr-neutral-100-t: hsla(0, 0%, 96%, 25%);
-  --clr-neutral-150: hsla(0, 0%, 94%, 100%);
-  --clr-neutral-200: hsla(0, 0%, 90%, 100%);
-  --clr-neutral-300: hsla(0, 0%, 70%, 100%);
+  --clr-neutral-200: hsla(45, 22%, 96%, 100%);
+  --clr-neutral-300: rgb(212, 210, 203);
   --clr-neutral-500: hsla(0, 2%, 8%, 100%);
   --clr-neutral-600: hsla(0, 2%, 29%, 100%);
-  --clr-neutral-700: hsla(0, 2%, 22%, 100%);
-  --clr-neutral-800: hsla(0, 0%, 16%, 100%);
-  --clr-neutral-850: hsla(0, 2%, 10%, 100%);
-  --clr-neutral-900: hsla(0, 2%, 8%, 100%);
-  --clr-neutral-900-t: hsla(0, 0%, 8%, 75%);
+  --clr-neutral-700: hsla(90, 2%, 42%, 100%);
+  --clr-neutral-800: hsla(90, 2%, 35%, 100%);
+  --clr-neutral-900: hsla(96, 3%, 28%, 100%);
+  --clr-neutral-900-t: hsla(96, 3%, 28%, 0.25);
 
   // temporary, until we finalize color scheme
-  --clr-primary: hsl(47, 73%, 58%);
-  --clr-primary-light: hsl(47, 73%, 68%);
-  --clr-primary-dark: hsl(47, 73%, 38%);
+  // --clr-primary: hsl(159, 24%, 66%);
+  // --clr-primary-light: hsl(47, 73%, 68%);
+  // --clr-primary-dark: hsl(47, 73%, 38%);
 
-  // --clr-primary-h: 246;
-  // --clr-primary-s: 48%;
-  // --clr-primary-l: 50%;
+  --clr-primary-h: 98;
+  --clr-primary-s: 9%;
+  --clr-primary-l: 64%;
 
-  // --clr-primary: hsla(
-  //   var(--clr-primary-h),
-  //   var(--clr-primary-s),
-  //   var(--clr-primary-l),
-  //   100%
-  // );
+  --clr-primary: hsla(
+    var(--clr-primary-h),
+    var(--clr-primary-s),
+    var(--clr-primary-l),
+    100%
+  );
 
-  // --clr-primary-t: hsla(
-  //   --var(--clr-primary-h),
-  //   --var(--clr-primary-s),
-  //   --var(--clr-primary-l),
-  //   75%
-  // );
+  --clr-primary-t: hsla(
+    --var(--clr-primary-h),
+    --var(--clr-primary-s),
+    --var(--clr-primary-l),
+    75%
+  );
 
-  // --clr-primary-dark: hsla(
-  //   var(--clr-primary-h),
-  //   var(--clr-primary-s),
-  //   calc(var(--clr-primary-l) * 0.9),
-  //   100%
-  // );
+  --clr-primary-dark: hsla(
+    var(--clr-primary-h),
+    var(--clr-primary-s),
+    calc(var(--clr-primary-l) * 0.9),
+    100%
+  );
 
-  // --clr-primary-light: hsla(
-  //   var(--clr-primary-h),
-  //   var(--clr-primary-s),
-  //   calc(var(--clr-primary-l) * 1.1),
-  //   100%
-  // );
+  --clr-primary-light: hsla(
+    var(--clr-primary-h),
+    var(--clr-primary-s),
+    calc(var(--clr-primary-l) * 1.1),
+    100%
+  );
 
   --vertical-spacer-small: 0.5rem;
   --vertical-spacer-medium: 1.25rem;
@@ -164,17 +169,26 @@ h5 {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: var(--fs-heading);
   font-weight: bold;
   line-height: 1;
+}
+
+h1,
+h2,
+h3 {
   font-family: var(--ff-logo);
+}
+
+h4,
+h5 {
+  font-family: var(--ff-title);
 }
 
 h2,
 h3,
 h4,
 h5 {
-  font-family: var(--ff-title);
   font-weight: var(--fw-xbold);
   letter-spacing: -1px;
 }
