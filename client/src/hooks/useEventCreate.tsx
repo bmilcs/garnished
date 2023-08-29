@@ -21,7 +21,7 @@ export const useCreateEvent = () => {
   const { redirectUnauthorizedUser } = useContext(AuthContext);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
   const [formData, setFormData] = useState<TEvent>({
-    date: "1999-10-15",
+    date: "2025-10-15",
     time: "17:00",
     locationDescription: "Around back",
     address: "123 Circle Dr.",

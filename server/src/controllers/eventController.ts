@@ -140,11 +140,7 @@ export const eventCreatePost = [
     .escape()
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
-  body("liquorPreferences")
-    .trim()
-    .escape()
-    .isLength({ min: 1, max: 300 })
-    .withMessage("A valid liquor preference is required."),
+  body("liquorPreferences").trim().escape(),
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
