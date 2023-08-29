@@ -18,14 +18,14 @@ export const User: FC = () => {
     return (
       <section className={`content-spacer user-section`}>
         <div className={`column user-section-wrapper`}>
-          <ScrollAnimator type="SLIDE_DOWN" className={styles.dashboardHeader}>
+          <div className={styles.dashboardHeader}>
             <h2>User Dashboard</h2>
             <p>Welcome back, {userData?.firstName}!</p>
-          </ScrollAnimator>
+          </div>
 
           <div className={styles.contentWrapper}>
             {userData && (
-              <ScrollAnimator type="SLIDE_RIGHT" className="user-section-card">
+              <div className="user-section-card">
                 <h4 className={styles.userDetailsHeader}>Personal Info</h4>
                 <p>
                   {userData.firstName} {userData.lastName}
@@ -46,23 +46,23 @@ export const User: FC = () => {
                 >
                   Update Personal Info
                 </Button>
-              </ScrollAnimator>
+              </div>
             )}
 
             {userData && userData.events.length > 0 && (
-              <ScrollAnimator
-                type="SLIDE_UP"
-                delay={0.2}
-                className="user-section-card"
-              >
+              <div type="SLIDE_UP" delay={0.2} className="user-section-card">
                 <h4 className={styles.userDetailsHeader}>Your Events</h4>
 
-                {userData.events.map(event => (
-                  <Link to={`/event/${event._id}`} key={event._id}>
-                    {formatDate(event.date)} - {event.eventType}
-                  </Link>
-                ))}
-              </ScrollAnimator>
+                <ul>
+                  {userData.events.map(event => (
+                    <li>
+                      <Link to={`/event/${event._id}`} key={event._id}>
+                        {formatDate(event.date)} - {event.eventType}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
 
