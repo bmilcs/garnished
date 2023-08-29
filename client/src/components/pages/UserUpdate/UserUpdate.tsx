@@ -1,6 +1,5 @@
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserUpdate } from "@/hooks/useUserUpdate";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
@@ -17,10 +16,7 @@ export const UserUpdate: FC = () => {
   if (!isPending && formData)
     return (
       <section className={`content-spacer user-section`}>
-        <ScrollAnimator
-          type="SLIDE_DOWN"
-          className={`column user-section-wrapper`}
-        >
+        <div className={`column user-section-wrapper`}>
           <form onSubmit={handleSubmitForm}>
             <div className="form-header">
               <h2>Update Personal Info</h2>
@@ -165,7 +161,7 @@ export const UserUpdate: FC = () => {
 
             <Button type="primary">Update Personal Information</Button>
           </form>
-        </ScrollAnimator>
+        </div>
 
         <Button type="outline" onClick={deleteUser}>
           Delete Account
