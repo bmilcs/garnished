@@ -103,7 +103,7 @@ export const Home: FC = () => {
         subtitle="The Premium Mobile Bar Service"
         backgroundImage={backgroundImage}
       >
-        <Button className={styles.heroButton} type="hero" link="/signup">
+        <Button className={styles.heroButton} type="hero" link="/get-started">
           Get Started
         </Button>
       </Hero>
@@ -138,7 +138,7 @@ export const Home: FC = () => {
           </h3>
 
           <div className={styles.sellingPointsWrapper}>
-            {sellingPoints.map(({ title, description }, index) => {
+            {sellingPoints.map(({ title, description }) => {
               return (
                 <div className={styles.sellingPoint} key={title}>
                   <CheckMarkIcon className={styles.checkMark} />
