@@ -31,9 +31,17 @@ export const Hero: FC<TProps> = ({
           heightInVH
             ? {
                 minHeight: `max(${heightInVH}vh, 400px)`,
-                backgroundImage: `url(${backgroundImage})`,
+                background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
               }
-            : { backgroundImage: `url(${backgroundImage})` }
+            : {
+                background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }
         }
         {...rest}
       >

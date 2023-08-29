@@ -3,12 +3,10 @@
 //
 
 .hero {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   display: grid;
-  min-height: max(35vh, 400px);
+  min-height: max(45vh, 400px);
   text-align: center;
+  text-shadow: var(--text-shadow-100);
 
   p {
     color: var(--clr-bg-light);
@@ -28,10 +26,10 @@
   font-size: var(--fs-heading-hero);
   text-transform: unset;
   line-height: 0.9;
-  max-width: 16ch;
+  max-width: 13ch;
 
   span {
-    color: var(--clr-primary);
+    color: var(--clr-primary-light);
   }
 }
 
