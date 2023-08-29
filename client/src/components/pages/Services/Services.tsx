@@ -1,7 +1,7 @@
+import { mobileBar01 } from "@/assets";
 import backgroundImage from "@/assets/margarita-tray.png";
 import serverImg from "@/assets/server.jpg";
 import { Hero } from "@/components/common/Hero/Hero";
-import { PartySVG } from "@/components/common/PartySVG/PartySVG";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
 import { FC } from "react";
@@ -31,7 +31,11 @@ export const Services: FC = () => {
         </ScrollAnimator>
 
         <ScrollAnimator type="FADE_GROW_IN" delay={0.7}>
-          <PartySVG className={styles.partySVG} />
+          <img
+            src={mobileBar01}
+            alt="Mobile Bar"
+            className={styles.mobileBarImage}
+          />
         </ScrollAnimator>
       </section>
 
@@ -39,26 +43,18 @@ export const Services: FC = () => {
 
       <section className={styles.services}>
         <div className={`column ${styles.servicesWrapper}`}>
-          <ScrollAnimator
-            type="SLIDE_UP"
-            delay={0.3}
-            className={styles.service}
-          >
-            <h4 className={styles.serviceTitle}>Bartenders</h4>
+          <div className={styles.service}>
+            <h3 className={styles.serviceTitle}>Bartenders</h3>
             <p className={styles.serviceDescription}>
               Our team of bartenders consists of certified professionals with
               years of experience. They are not just skilled mixologists but
               also friendly and attentive, making sure your guests have a
               memorable and enjoyable time while sipping their favorite drinks.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_UP"
-            delay={0.2}
-            className={styles.service}
-          >
-            <h4 className={styles.serviceTitle}>Barbacks</h4>
+          <div className={styles.service}>
+            <h3 className={styles.serviceTitle}>Barbacks</h3>
             <p className={styles.serviceDescription}>
               Supporting our bartenders are our certified barbacks. With years
               of experience under their belts, our barbacks are essential in
@@ -66,43 +62,39 @@ export const Services: FC = () => {
               smoothly. They work behind the scenes to ensure that every aspect
               of your event's bar service is flawless.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_UP"
-            delay={0.1}
-            className={styles.service}
-          >
-            <h4 className={styles.serviceTitle}>Tent</h4>
+          <div className={styles.service}>
+            <h3 className={styles.serviceTitle}>Tent</h3>
             <p className={styles.serviceDescription}>
               For outdoor events, we offer a 10x10 tent that covers the bar
               area. This provision ensures that your bar area remains
               comfortable and protected from the elements, allowing your guests
               to enjoy their drinks without worrying about the weather.
             </p>
-          </ScrollAnimator>
+          </div>
         </div>
       </section>
 
       <WavySeparator location="BOTTOM" />
 
       <section className={`column ${styles.products}`}>
-        <ScrollAnimator type="SLIDE_UP">
+        <div>
           <img
             src={serverImg}
             className={styles.serverImage}
             alt="mobile bar"
           />
-        </ScrollAnimator>
+        </div>
 
-        <ScrollAnimator className={styles.productsHeader}>
+        <div className={styles.productsHeader}>
           <h2 className={styles.productsTitle}>Thirsty?</h2>
           <p className={styles.productsSubtitle}>We have you covered.</p>
-        </ScrollAnimator>
+        </div>
 
         <div className={styles.productsWrapper}>
-          <ScrollAnimator type="SLIDE_DOWN" className={styles.product}>
-            <h4 className={styles.serviceTitle}>Beer</h4>
+          <div className={styles.product}>
+            <h3 className={styles.serviceTitle}>Beer</h3>
             <p className={styles.serviceDescription}>
               Indulge in a variety of carefully selected beers that cater to
               different preferences. From rich and hoppy IPAs to crisp and
@@ -110,28 +102,20 @@ export const Services: FC = () => {
               most discerning beer enthusiasts. Enjoy the perfect complement to
               your event's atmosphere.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_DOWN"
-            delay={0.2}
-            className={styles.product}
-          >
-            <h4 className={styles.serviceTitle}>Wine</h4>
+          <div className={styles.product}>
+            <h3 className={styles.serviceTitle}>Wine</h3>
             <p className={styles.serviceDescription}>
               Elevate your event with a curated selection of wines that are sure
               to tantalize your taste buds. Our wines are chosen to offer a
               range of flavors, from elegant reds to delicate whites, ensuring
               that there's a wine to suit every palate and occasion.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_DOWN"
-            delay={0.3}
-            className={styles.product}
-          >
-            <h4 className={styles.serviceTitle}>Specialty Drinks</h4>
+          <div className={styles.product}>
+            <h3 className={styles.serviceTitle}>Specialty Drinks</h3>
             <p className={styles.serviceDescription}>
               Experience the artistry of mixology with our specialty drinks.
               Crafted with precision and creativity, these signature concoctions
@@ -139,14 +123,10 @@ export const Services: FC = () => {
               classic cocktail with a twist or an entirely unique creation, our
               specialty drinks are the epitome of a refined drinking experience.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_DOWN"
-            delay={0.4}
-            className={styles.product}
-          >
-            <h4 className={styles.serviceTitle}>Drinkware</h4>
+          <div className={styles.product}>
+            <h3 className={styles.serviceTitle}>Drinkware</h3>
             <p className={styles.serviceDescription}>
               To enhance your guests' experience, we provide a wide range of
               high-quality drinkware. From elegant glassware to durable and
@@ -154,14 +134,10 @@ export const Services: FC = () => {
               their beverages in style, while also being considerate of the
               environment.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_DOWN"
-            delay={0.5}
-            className={styles.product}
-          >
-            <h4 className={styles.serviceTitle}>Ice & Running Water</h4>
+          <div className={styles.product}>
+            <h3 className={styles.serviceTitle}>Ice & Running Water</h3>
             <p className={styles.serviceDescription}>
               The foundation of any great drink is quality ingredients, and that
               includes ice and running water. We ensure that your drinks stay
@@ -169,14 +145,10 @@ export const Services: FC = () => {
               resources they need to create the perfect cocktails that your
               guests will savor.
             </p>
-          </ScrollAnimator>
+          </div>
 
-          <ScrollAnimator
-            type="SLIDE_DOWN"
-            delay={0.6}
-            className={styles.product}
-          >
-            <h4 className={styles.serviceTitle}>Custom Bar Menu Sign</h4>
+          <div className={styles.product}>
+            <h3 className={styles.serviceTitle}>Custom Bar Menu Sign</h3>
             <p className={styles.serviceDescription}>
               Add a personal touch to your event with a custom bar menu sign.
               This sign not only showcases the drink offerings but also
@@ -184,7 +156,7 @@ export const Services: FC = () => {
               informative addition that helps guests explore the drink options
               available and make their choices confidently.
             </p>
-          </ScrollAnimator>
+          </div>
         </div>
       </section>
     </>

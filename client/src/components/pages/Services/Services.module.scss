@@ -27,9 +27,10 @@
 // party svg
 //
 
-.partySVG {
+.mobileBarImage {
   width: min(400px, 80%);
   margin-inline: auto;
+  border-radius: var(--border-radius-200);
 }
 
 //
