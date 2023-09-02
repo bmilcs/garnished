@@ -45,6 +45,7 @@
 
   --clr-neutral-100: hsla(0, 0%, 97%, 100%);
   --clr-neutral-100-t: hsla(0, 0%, 96%, 25%);
+  --clr-neutral-150-t: hsla(0, 0%, 96%, 50%);
   --clr-neutral-200: hsla(45, 22%, 96%, 100%);
   --clr-neutral-300: rgb(212, 210, 203);
   --clr-neutral-500: hsla(0, 2%, 8%, 100%);
@@ -53,6 +54,7 @@
   --clr-neutral-800: hsla(90, 2%, 35%, 100%);
   --clr-neutral-900: hsla(96, 3%, 28%, 100%);
   --clr-neutral-900-t: hsla(96, 3%, 28%, 0.25);
+  --clr-neutral-950-t: hsla(96, 3%, 28%, 0.75);
 
   // temporary, until we finalize color scheme
   // --clr-primary: hsl(159, 24%, 66%);
@@ -137,7 +139,7 @@ body {
 }
 
 .content-spacer {
-  padding-block: var(--vertical-spacer-medium);
+  padding-block: var(--vertical-spacer-large);
 }
 
 .content-spacer-large {
