@@ -4,13 +4,13 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
-  box-shadow: var(--box-shadow-100);
 }
 
 .primary,
 .secondary,
 .outline,
 .hero {
+  box-shadow: var(--box-shadow-100);
   padding: 0.6rem 1.5rem;
   font-weight: var(--fw-bold);
   border-radius: var(--border-radius-100);
@@ -69,8 +69,8 @@
   place-items: center;
   aspect-ratio: 1/1;
   padding: 0;
-  background: none;
   color: var(--clr-fg);
+  background: none;
 
   &:hover {
     color: var(--clr-primary);
