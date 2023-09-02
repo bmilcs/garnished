@@ -24,33 +24,8 @@ export const User: FC = () => {
           </div>
 
           <div className={styles.contentWrapper}>
-            {userData && (
+            {userData.events.length > 0 ? (
               <div className="user-section-card">
-                <h4 className={styles.userDetailsHeader}>Personal Info</h4>
-                <p>
-                  {userData.firstName} {userData.lastName}
-                </p>
-                <p>{userData.address}</p>
-                <p>
-                  {userData.city}, {userData.state}, {userData.zip}
-                </p>
-
-                <h4 className={styles.userDetailsHeader}>Contact Info</h4>
-                <p>{formatPhoneNumber(userData.phone)}</p>
-                <p>{userData.username}</p>
-
-                <Button
-                  type="primary"
-                  link={"/user/update"}
-                  className={styles.updatePersonalInfoButton}
-                >
-                  Update Personal Info
-                </Button>
-              </div>
-            )}
-
-            {userData && userData.events.length > 0 && (
-              <div type="SLIDE_UP" delay={0.2} className="user-section-card">
                 <h4 className={styles.userDetailsHeader}>Your Events</h4>
 
                 <ul>
@@ -63,7 +38,38 @@ export const User: FC = () => {
                   ))}
                 </ul>
               </div>
+            ) : (
+              <div className="user-section-card">
+                <h4 className={styles.userDetailsHeader}>Your Events</h4>
+                <p>
+                  You have no events scheduled. To create one, click on the
+                  Create New Event button below.
+                </p>
+              </div>
             )}
+
+            <div className="user-section-card">
+              <h4 className={styles.userDetailsHeader}>Personal Info</h4>
+              <p>
+                {userData.firstName} {userData.lastName}
+              </p>
+              <p>{userData.address}</p>
+              <p>
+                {userData.city}, {userData.state}, {userData.zip}
+              </p>
+
+              <h4 className={styles.userDetailsHeader}>Contact Info</h4>
+              <p>{formatPhoneNumber(userData.phone)}</p>
+              <p>{userData.username}</p>
+
+              <Button
+                type="primary"
+                link={"/user/update"}
+                className={styles.updatePersonalInfoButton}
+              >
+                Update Personal Info
+              </Button>
+            </div>
           </div>
 
           {error && <p className="error">{error}</p>}
@@ -73,11 +79,11 @@ export const User: FC = () => {
             delay={0.4}
             className="button-wrapper"
           >
-            <Button type="secondary" link="/event/new">
+            <Button type="primary" link="/event/new">
               Create New Event
             </Button>
 
-            <Button type="primary" onClick={logout}>
+            <Button type="secondary" onClick={logout}>
               Logout
             </Button>
           </ScrollAnimator>
