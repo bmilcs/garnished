@@ -1,0 +1,44 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--clr-neutral-950-t);
+
+  display: grid;
+  place-items: center;
+}
+
+.modal {
+  max-width: min(90%, 90vw);
+  max-height: min(90%, 90vh);
+
+  border-radius: var(--border-radius-200);
+  background-color: var(--clr-bg);
+
+  box-shadow: var(--box-shadow-100);
+
+  &.image {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+  }
+
+  &.standard {
+    padding: var(--vertical-spacer-medium);
+    margin: var(--vertical-spacer-medium);
+  }
+}
+
+.title {
+  margin-bottom: var(--vertical-spacer-small);
+}
+
+.message {
+  max-width: 40ch;
+}
