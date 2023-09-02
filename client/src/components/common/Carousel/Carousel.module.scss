@@ -1,36 +1,144 @@
 .carousel {
-  margin-block: var(--vertical-spacer-large);
+  --image-height: min(75vh, 600px);
+
   border-radius: var(--border-radius-200);
 
   display: grid;
   grid-auto-columns: 100%;
   grid-auto-flow: column;
-  grid-auto-rows: 100%;
 
-  // overflow: hidden;
+  white-space: nowrap;
   overflow-x: scroll;
+  overflow-y: hidden;
 
-  max-height: min(75vh, 600px);
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
+  // force scroll to snap to images
   scroll-snap-type: x mandatory;
-  scroll-padding: 0 12px;
+  scroll-padding: 0 1px;
 }
 
-.carouselItem {
+.carouselSlide {
+  // force scroll to snap to center of image
   scroll-snap-align: center;
+
+  cursor: pointer;
+
   width: 100%;
   height: 100%;
-
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 
   display: grid;
   place-items: center;
 }
 
 .carouselImage {
-  max-height: min(75vh, 600px);
-  // width: 80%;
-  object-fit: contain;
+  box-shadow: var(--box-shadow-100);
+  height: var(--image-height);
+  object-fit: cover;
+}
+
+.carouselWrapper {
+  position: relative;
+}
+
+//
+// carousel controls
+//
+
+.carouselControls {
+  --arrow-size: min(7.5vw, 48px);
+
+  // prevent overlay from blocking swipe on mobile
+  pointer-events: none;
+
+  z-index: 10;
+  width: 100%;
+
+  // full height controls
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--clr-fg);
+}
+
+.carouselArrowButton {
+  // allow buttons to be clicked when pointer-events are disabled on parent
+  pointer-events: all;
+
+  aspect-ratio: unset;
+  height: 100%;
+
+  color: var(--clr-bg);
+
+  border-radius: var(--border-radius-200);
+
+  &:hover {
+    background: var(--clr-neutral-100-t);
+  }
+}
+
+.carouselArrowSVG {
+  height: var(--arrow-size);
+  margin-inline: 1rem;
+  aspect-ratio: 1/1;
+}
+
+//
+// navigation grid
+//
+
+.navigationGrid {
+  --nav-slide-width: min(15vw, 80px);
+
+  margin-top: var(--vertical-spacer-medium);
+
+  // prevent page from overflowing on mobile
+  max-width: 80vw;
+  margin-inline: auto;
+
+  display: grid;
+  grid-auto-columns: var(--nav-slide-width);
+  grid-auto-flow: column;
+  gap: 4px;
+
+  white-space: nowrap;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // force scroll to snap to images
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 1px;
+}
+
+.navigationSlide {
+  scroll-snap-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.navigationSlideImage {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  opacity: 0.8;
+  box-shadow: var(--box-shadow-100);
+  filter: saturate(0) contrast(1.1);
+
+  &Active,
+  &:hover {
+    opacity: 1;
+    filter: saturate(1);
+  }
+
+  &Active {
+    border: 3px solid var(--clr-bg);
+  }
 }
