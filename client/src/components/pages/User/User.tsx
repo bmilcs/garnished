@@ -30,7 +30,7 @@ export const User: FC = () => {
 
                 <ul>
                   {userData.events.map(event => (
-                    <li>
+                    <li key={event._id}>
                       <Link to={`/event/${event._id}`} key={event._id}>
                         {formatDate(event.date)} - {event.eventType}
                       </Link>
