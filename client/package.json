@@ -10,7 +10,10 @@
     "dev": "vite --port 3000",
     "build": "vite build && cp CNAME dist/",
     "buildpreview": "vite build && cp ./CNAMEPREVIEW dist/CNAME && git reset && git add dist && git commit -m 'Build client preview to dist/' && git push",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "generateAssets": "bash ./src/scripts/generateAssets.sh",
+    "generateAssetsIndexFile": "bash ./src/scripts/writeAssetsIndex.sh",
+    "assets": "npm run generateAssets && npm run generateAssetsIndexFile"
   },
   "dependencies": {
     "framer-motion": "^10.15.0",
