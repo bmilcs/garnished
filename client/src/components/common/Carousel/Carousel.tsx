@@ -1,15 +1,24 @@
 import { ArrowSVG } from "@/components/common/ArrowSVG/ArrowSVG";
 import { Button } from "@/components/common/Button/Button";
 import { Modal } from "@/components/common/Modal/Modal";
+import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { useWindowResize } from "@/hooks/useWindowResize";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.scss";
 
 type TProps = {
-  imageArray: string[];
+  imageObject: {
+    [key: string]: {
+      full: string;
+      small: string;
+      medium: string;
+      large: string;
+    };
+  };
 };
 
-function Carousel({ imageArray }: TProps) {
+function Carousel({ imageObject }: TProps) {
+  const imageObjectArray = Object.values(imageObject);
   const windowSize = useWindowResize();
   const carouselRef = useRef<HTMLDivElement>(null);
   const carouselSlideRef = useRef<HTMLDivElement>(null);
@@ -61,14 +70,14 @@ function Carousel({ imageArray }: TProps) {
   };
 
   const handleNextImage = () => {
-    currentImageIndex === imageArray.length - 1
+    currentImageIndex === imageObjectArray.length - 1
       ? setCurrentImageIndex(0)
       : setCurrentImageIndex(currentImageIndex + 1);
   };
 
   const handlePreviousImage = () => {
     currentImageIndex === 0
-      ? setCurrentImageIndex(imageArray.length - 1)
+      ? setCurrentImageIndex(imageObjectArray.length - 1)
       : setCurrentImageIndex(currentImageIndex - 1);
   };
 
@@ -94,16 +103,16 @@ function Carousel({ imageArray }: TProps) {
           ref={carouselRef}
           onScroll={handleCarouselScroll}
         >
-          {imageArray.map(image => (
+          {imageObjectArray.map((image, index) => (
             <div
-              key={image}
+              key={image.full}
               className={styles.carouselSlide}
               ref={carouselSlideRef}
             >
-              <img
-                src={image}
-                onClick={() => handleCarouselImageClick(image)}
-                alt={`Carousel Image ${image}`}
+              <ResponsiveImage
+                img={image}
+                onClick={() => handleCarouselImageClick(image.full)}
+                alt={`Carousel Image #${index}`}
                 className={styles.carouselImage}
               />
             </div>
@@ -134,17 +143,17 @@ function Carousel({ imageArray }: TProps) {
       {/* image grid */}
       <div className="">
         <div className={styles.navigationGrid} ref={navRef}>
-          {imageArray.map((image, index) => (
-            <div ref={navSlideRef} key={`${image}-${index}`}>
+          {imageObjectArray.map((image, index) => (
+            <div ref={navSlideRef} key={`${image.full}-${index}`}>
               <Button
                 type="icon"
                 className={styles.navigationSlide}
                 ariaLabel={`Image ${index + 1}`}
+                key={image.full}
               >
-                <img
-                  key={image}
-                  src={image}
-                  alt={`Navigation Image ${image}`}
+                <ResponsiveImage
+                  img={image}
+                  alt={`Navigation Image ${index + 1}`}
                   onClick={() => handleNavigationSlideClick(index)}
                   className={`${styles.navigationSlideImage}${
                     index === currentImageIndex
