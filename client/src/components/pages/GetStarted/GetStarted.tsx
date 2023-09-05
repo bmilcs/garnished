@@ -1,4 +1,4 @@
-import { specialtyDrink08 as backgroundImage } from "@/assets";
+import { drinks } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { LoginForm } from "@/components/common/LoginForm/LoginForm";
@@ -9,7 +9,7 @@ export const GetStarted = () => {
   return (
     <>
       <Hero
-        backgroundImage={backgroundImage}
+        backgroundImage={drinks.specialty_drink_52.full}
         title="Get"
         titleSpan="Started"
         subtitle="Ready to bring your event to the next level?"
