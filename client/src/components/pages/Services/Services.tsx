@@ -1,7 +1,6 @@
-import { mobileBar01 } from "@/assets";
-import backgroundImage from "@/assets/margarita-tray.png";
-import serverImg from "@/assets/server.jpg";
+import { bar, drinks } from "@/assets";
 import { Hero } from "@/components/common/Hero/Hero";
+import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
 import { FC } from "react";
@@ -14,7 +13,7 @@ export const Services: FC = () => {
         title="Goods &"
         titleSpan="Services"
         subtitle="We bring the party to you"
-        backgroundImage={backgroundImage}
+        backgroundImage={drinks.specialty_drink_13.full}
       />
 
       <section className={`column ${styles.mobileBar}`}>
@@ -31,10 +30,10 @@ export const Services: FC = () => {
         </ScrollAnimator>
 
         <ScrollAnimator type="FADE_GROW_IN" delay={0.7}>
-          <img
-            src={mobileBar01}
-            alt="Mobile Bar"
+          <ResponsiveImage
+            img={bar.bar_display_01}
             className={styles.mobileBarImage}
+            alt="Mobile Bar"
           />
         </ScrollAnimator>
       </section>
@@ -80,10 +79,10 @@ export const Services: FC = () => {
 
       <section className={`column ${styles.products}`}>
         <div>
-          <img
-            src={serverImg}
+          <ResponsiveImage
+            img={bar.bar_server_02}
             className={styles.serverImage}
-            alt="mobile bar"
+            alt="Server"
           />
         </div>
 
