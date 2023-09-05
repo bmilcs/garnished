@@ -23,32 +23,32 @@ export const Footer: FC = () => {
           <nav className={styles.footerNav} aria-label="Secondary Navigation">
             <ul className={styles.footerNavUl}>
               <li>
-                <Link className={styles.footerLink} to="/">
+                <Link className={styles.footerNavLink} to="/">
                   Home
                 </Link>
               </li>
               <li>
-                <Link className={styles.footerLink} to="/services">
+                <Link className={styles.footerNavLink} to="/services">
                   Services
                 </Link>
               </li>
               <li>
-                <Link className={styles.footerLink} to="/gallery">
+                <Link className={styles.footerNavLink} to="/gallery">
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link className={styles.footerLink} to="/contact">
+                <Link className={styles.footerNavLink} to="/contact">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link className={styles.footerLink} to="/login">
+                <Link className={styles.footerNavLink} to="/login">
                   Login
                 </Link>
               </li>
               <li>
-                <Link className={styles.footerLink} to="/signup">
+                <Link className={styles.footerNavLink} to="/signup">
                   Sign Up
                 </Link>
               </li>
@@ -60,8 +60,14 @@ export const Footer: FC = () => {
 
         <ScrollAnimator type="SLIDE_UP" delay={0.6}>
           <div className={styles.social}>
-            <FacebookIcon url="https://www.facebook.com/garnished.llp" />
-            <InstagramIcon url="https://www.instagram.com/garnished_events/" />
+            <FacebookIcon
+              url="https://www.facebook.com/garnished.llp"
+              className={styles.socialIcon}
+            />
+            <InstagramIcon
+              url="https://www.instagram.com/garnished_events/"
+              className={styles.socialIcon}
+            />
           </div>
         </ScrollAnimator>
       </div>
