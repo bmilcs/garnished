@@ -1,4 +1,4 @@
-import { specialtyDrink04 } from "@/assets";
+import { drinks } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
@@ -16,7 +16,7 @@ import styles from "./Contact.module.scss";
 const ContactHero: FC = () => {
   return (
     <Hero
-      backgroundImage={specialtyDrink04}
+      backgroundImage={drinks.specialty_drink_21.full}
       title="Get In"
       titleSpan="Touch"
       subtitle="We're excited to hear from you!"
