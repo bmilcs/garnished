@@ -83,6 +83,13 @@
     100%
   );
 
+  --clr-primary-darker: hsla(
+    var(--clr-primary-h),
+    var(--clr-primary-s),
+    calc(var(--clr-primary-l) * 0.6),
+    100%
+  );
+
   --clr-primary-light: hsla(
     var(--clr-primary-h),
     var(--clr-primary-s),
@@ -143,9 +150,11 @@ body {
   padding-block: calc(3 * var(--vertical-spacer-medium));
 }
 
-a {
+a,
+a:visited,
+a:active {
   font-weight: var(--fw-bold);
-  color: var(--clr-primary-dark);
+  color: var(--clr-primary-darker);
   font-family: var(--ff-title);
   text-decoration: inherit;
   transition: color 0.15s ease-in-out;
