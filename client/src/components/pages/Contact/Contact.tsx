@@ -16,7 +16,7 @@ import styles from "./Contact.module.scss";
 const ContactHero: FC = () => {
   return (
     <Hero
-      backgroundImage={drinks.specialty_drink_21.full}
+      backgroundImage={drinks.specialty_drink_30.full}
       title="Get In"
       titleSpan="Touch"
       subtitle="We're excited to hear from you!"
