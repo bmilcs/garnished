@@ -64,6 +64,10 @@
 .service {
   border-radius: var(--border-radius-200);
   border: 6px solid var(--clr-primary-light);
+
+  p {
+    color: var(--clr-fg-dark);
+  }
 }
 
 .serviceTitle {
