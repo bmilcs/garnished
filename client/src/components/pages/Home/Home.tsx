@@ -1,14 +1,8 @@
-import { wine02 } from "@/assets";
-import drinkImage8 from "@/assets/specialtyDrink-08.jpg";
-import drinkImage7 from "@/assets/specialtyDrink-09.jpg";
-import drinkImage6 from "@/assets/specialtyDrink-10.jpg";
-import drinkImage3 from "@/assets/specialtyDrink-11.jpg";
-import drinkImage4 from "@/assets/specialtyDrink-12.jpg";
-import drinkImage5 from "@/assets/specialtyDrink-13.jpg";
-import backgroundImage from "@/assets/specialtyDrink-21.jpg";
+import { bar, drinks } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import { Hero } from "@/components/common/Hero/Hero";
+import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { TiltDivider } from "@/components/common/TiltDivider/TiltDivider";
 import { FC } from "react";
 import styles from "./Home.module.scss";
@@ -51,14 +45,14 @@ const contentBlocks = [
     title: "A Touch of Elegance in Every Sip",
     description:
       "Experience the art of presentation with Garnished's array of fresh garnishes, adding a touch of elegance to every beverage we serve. It's not just a drink; it's an unforgettable work of art.",
-    image: drinkImage3,
+    image: drinks.specialty_drink_63,
   },
 
   {
     title: "Tailored to Your Vision",
     description:
       "At Garnished, we understand the importance of personalization. No matter the occasion, our services are fully flexible to suit your unique needs. From corporate functions to intimate weddings, we seamlessly blend our offerings into your vision.",
-    image: drinkImage4,
+    image: drinks.specialty_drink_61,
   },
 
   {
@@ -66,14 +60,14 @@ const contentBlocks = [
 
     description:
       "Our skilled mixologists are masters at crafting custom drink menus, offering a delightful selection that perfectly complements the theme and style of your event. From signature cocktails to classic favorites, each sip will be a celebration of your moment.",
-    image: drinkImage5,
+    image: drinks.specialty_drink_05,
   },
 
   {
     title: "An Elegant Mobile Bar Set Up - Wherever You Choose",
     description:
       "Garnished brings the bar to you, creating an enchanting ambiance indoors or outdoors, setting the stage for a memorable celebration. Our mobile venue allows you and your guests to savor the moment without compromise.",
-    image: drinkImage6,
+    image: bar.bar_display_01,
   },
 
   {
@@ -81,14 +75,14 @@ const contentBlocks = [
 
     description:
       "Celebrate the changing seasons with Garnished's handpicked menus, featuring fresh, vibrant flavors that elevate your event. Embrace the spirit of spring, bask in the colors of summer, savor the essence of fall, and await the delights of winter.",
-    image: drinkImage7,
+    image: drinks.specialty_drink_31,
   },
 
   {
     title: "Craft Your Story with Us",
     description:
       "Garnished invites you to embark on a journey of flavor, elegance, and celebration. Let us craft your story, where every detail, from drinks to garnishes, is meticulously designed to make you feel like an honored guest at your own gala.",
-    image: drinkImage8,
+    image: drinks.specialty_drink_38,
   },
 ];
 
@@ -101,7 +95,7 @@ export const Home: FC = () => {
         title="Elevate Your Events With"
         titleSpan="Garnished"
         subtitle="The Premium Mobile Bar Service"
-        backgroundImage={backgroundImage}
+        backgroundImage={drinks.specialty_drink_35.full}
       >
         <Button className={styles.heroButton} type="hero" link="/get-started">
           Get Started
@@ -122,7 +116,11 @@ export const Home: FC = () => {
         </div>
 
         <div>
-          <img src={wine02} className={styles.aboutImage} alt="Drink" />
+          <ResponsiveImage
+            img={drinks.wine_01}
+            className={styles.aboutImage}
+            alt="Drink"
+          />
         </div>
       </section>
 
@@ -168,8 +166,8 @@ export const Home: FC = () => {
               </div>
 
               <div>
-                <img
-                  src={image}
+                <ResponsiveImage
+                  img={image}
                   className={styles.sectionImage}
                   alt="Specialty Drink"
                 />
