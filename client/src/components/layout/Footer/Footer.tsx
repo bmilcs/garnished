@@ -20,7 +20,7 @@ export const Footer: FC = () => {
         {/* navigation */}
 
         <ScrollAnimator type="SLIDE_UP" delay={0.4}>
-          <nav className={styles.footerNav}>
+          <nav className={styles.footerNav} aria-label="Secondary Navigation">
             <ul className={styles.footerNavUl}>
               <li>
                 <Link className={styles.footerLink} to="/">
@@ -75,7 +75,11 @@ export const Footer: FC = () => {
           <div className={styles.github}>
             <p>
               Created by{" "}
-              <a href="https://bmilcs.com" target="_blank">
+              <a
+                href="https://bmilcs.com"
+                target="_blank"
+                className={styles.creditLink}
+              >
                 Bryan Miller
               </a>
             </p>

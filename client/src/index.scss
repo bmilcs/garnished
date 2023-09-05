@@ -36,6 +36,7 @@
   --clr-fg: var(--clr-neutral-900);
   --clr-fg-light: var(--clr-neutral-800);
   --clr-fg-lighter: var(--clr-neutral-700);
+  --clr-fg-dark: var(--clr-neutral-950);
 
   --clr-white: #ffffff;
   --clr-beige: hsl(45, 22%, 96%);
@@ -53,13 +54,9 @@
   --clr-neutral-700: hsla(90, 2%, 42%, 100%);
   --clr-neutral-800: hsla(90, 2%, 35%, 100%);
   --clr-neutral-900: hsla(96, 3%, 28%, 100%);
+  --clr-neutral-950: rgb(42, 44, 40);
   --clr-neutral-900-t: hsla(96, 3%, 28%, 0.25);
   --clr-neutral-950-t: hsla(96, 3%, 28%, 0.75);
-
-  // temporary, until we finalize color scheme
-  // --clr-primary: hsl(159, 24%, 66%);
-  // --clr-primary-light: hsl(47, 73%, 68%);
-  // --clr-primary-dark: hsl(47, 73%, 38%);
 
   --clr-primary-h: 98;
   --clr-primary-s: 9%;
@@ -151,9 +148,10 @@ a {
   color: var(--clr-primary-dark);
   font-family: var(--ff-title);
   text-decoration: inherit;
+  transition: color 0.15s ease-in-out;
 
   &:hover {
-    color: var(--clr-primary-light);
+    color: var(--clr-primary);
     text-decoration: underline;
   }
 }

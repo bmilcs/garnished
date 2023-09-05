@@ -28,7 +28,7 @@
 //
 
 .footerLogo {
-  color: var(--clr-primary);
+  color: var(--clr-primary-light);
 }
 
 //
@@ -104,6 +104,10 @@
     justify-content: space-between;
     padding-block: var(--vertical-spacer-small);
   }
+}
+
+.creditLink {
+  color: var(--clr-primary-light);
 }
 
 .github {
