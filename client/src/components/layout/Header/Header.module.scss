@@ -18,7 +18,10 @@
   font-family: var(--ff-title);
 }
 
-.logo {
+.logo,
+.logo:visited,
+.logo:active,
+.logo:focus {
   font-family: var(--ff-logo);
   line-height: 1;
 }
@@ -33,14 +36,12 @@
   display: none;
 }
 
-// desktop nav
-.header a {
+.nav__link,
+.nav__link:focus,
+.nav__link:active,
+.nav__link:visited {
   color: var(--clr-fg);
   font-size: var(--fs-base);
-}
-
-.header .logo {
-  font-size: var(--fs-heading);
 }
 
 .nav__ul {
@@ -64,15 +65,11 @@
 }
 
 .expanded a,
+.expanded a:visited,
 .expanded button {
   font-size: var(--fs-heading);
-}
-
-.expanded a {
   color: var(--clr-bg);
-  &:hover {
-    color: var(--clr-bg-light);
-  }
+  text-shadow: var(--text-shadow-100);
 }
 
 @media screen and (min-width: 768px) {

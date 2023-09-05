@@ -47,25 +47,44 @@ export const Header: FC = () => {
 
         {/* navigation */}
 
-        <nav className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}>
+        <nav
+          className={`${styles.nav} ${isNavOpen ? styles.expanded : ""}`}
+          aria-label="Main Navigation"
+        >
           <ul className={styles.nav__ul}>
             <li>
-              <Link to="/" onClick={() => setIsNavOpen(false)}>
+              <Link
+                to="/"
+                className={styles.nav__link}
+                onClick={() => setIsNavOpen(false)}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/services" onClick={() => setIsNavOpen(false)}>
+              <Link
+                to="/services"
+                className={styles.nav__link}
+                onClick={() => setIsNavOpen(false)}
+              >
                 Services
               </Link>
             </li>
             <li>
-              <Link to="/gallery" onClick={() => setIsNavOpen(false)}>
+              <Link
+                to="/gallery"
+                className={styles.nav__link}
+                onClick={() => setIsNavOpen(false)}
+              >
                 Gallery
               </Link>
             </li>
             <li>
-              <Link to="/contact" onClick={() => setIsNavOpen(false)}>
+              <Link
+                to="/contact"
+                className={styles.nav__link}
+                onClick={() => setIsNavOpen(false)}
+              >
                 Contact
               </Link>
             </li>
