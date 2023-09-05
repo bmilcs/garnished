@@ -29,7 +29,7 @@
 
 .secondary {
   background: var(--clr-primary);
-  color: var(--clr-fg);
+  color: var(--clr-bg);
 
   &:hover {
     background: var(--clr-fg-light);
@@ -52,8 +52,8 @@
 .hero {
   font-size: var(--fs-base-large);
   text-transform: uppercase;
-  background: var(--clr-primary);
-  color: var(--clr-fg);
+  background: var(--clr-primary-dark);
+  color: var(--clr-fg-dark);
   padding-inline: min(5vw, 3rem);
   padding-block: min(2vw, 0.75rem);
 
