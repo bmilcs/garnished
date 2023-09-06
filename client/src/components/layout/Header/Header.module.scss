@@ -29,7 +29,6 @@
 .hamburger {
   height: 36px;
   z-index: 11;
-  background: var(--clr-bg);
 }
 
 .nav {
@@ -66,6 +65,8 @@
 
 .expanded a,
 .expanded a:visited,
+.expanded a:active,
+.expanded a:focus,
 .expanded button {
   font-size: var(--fs-heading);
   color: var(--clr-bg);

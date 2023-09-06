@@ -1,6 +1,7 @@
 import { Button } from "@/components/common/Button/Button";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
+import { navigationLinks } from "@/utils/navigation";
 import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
@@ -19,6 +20,8 @@ export const Header: FC = () => {
         type="SLIDE_DOWN"
         className={`column ${styles.headerContent}`}
       >
+        {/* logo */}
+
         <h1>
           <Link to="/" className={styles.logo}>
             Garnished
@@ -52,42 +55,22 @@ export const Header: FC = () => {
           aria-label="Main Navigation"
         >
           <ul className={styles.nav__ul}>
-            <li>
-              <Link
-                to="/"
-                className={styles.nav__link}
-                onClick={() => setIsNavOpen(false)}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/services"
-                className={styles.nav__link}
-                onClick={() => setIsNavOpen(false)}
-              >
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/gallery"
-                className={styles.nav__link}
-                onClick={() => setIsNavOpen(false)}
-              >
-                Gallery
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className={styles.nav__link}
-                onClick={() => setIsNavOpen(false)}
-              >
-                Contact
-              </Link>
-            </li>
+            {/* navigation links */}
+
+            {navigationLinks.map(({ name, link }) => (
+              <li key={name}>
+                <Link
+                  to={link}
+                  className={styles.nav__link}
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  {name}
+                </Link>
+              </li>
+            ))}
+
+            {/* get started/dashboard  */}
+
             <li>
               {isLoggedIn ? (
                 <>
