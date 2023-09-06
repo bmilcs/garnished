@@ -5,6 +5,7 @@
 .tabs {
   display: grid;
   gap: 1rem;
+  margin-bottom: var(--vertical-spacer-medium);
 
   background: var(--clr-bg);
   border-radius: var(--border-radius-200);

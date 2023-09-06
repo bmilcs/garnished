@@ -64,6 +64,7 @@ export const SeasonalMenus: FC = () => {
           file={menuFile}
           className={styles.pdfDocument}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+          loading={HourglassSpinner}
         >
           {numPages !== 0 &&
             [...(Array(numPages) as undefined[])]
