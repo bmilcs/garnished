@@ -64,8 +64,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  color: var(--clr-fg);
 }
 
 .carouselArrowButton {
@@ -75,7 +73,7 @@
   aspect-ratio: unset;
   height: 100%;
 
-  color: var(--clr-bg);
+  color: var(--clr-bg-lighter);
 
   border-radius: var(--border-radius-200);
 
