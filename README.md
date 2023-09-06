@@ -11,6 +11,9 @@ Server:
 - Express
 - MongoDB
 - TypeScript
+- RESTful API
+- JSON Web Tokens
+- Nodemailer
 
 Client:
 
@@ -19,6 +22,12 @@ Client:
 - TypeScript
 - SASS modules
 - ESLint
+- React PDF
+- Framer Motion
+- ImageMagick
+- Bash Scripts
+  1. `generateAssets.sh`: Automates the compression & generation of responsive image sizes (to be used with `<img srcset="...">` for SEO optimization & load time reduction)
+  2. `writeAssetsIndex.sh`: Automates the generation of `@/assets/index.ts`, including image import statements & the creation of image objects that organize responsive image sizes for each asset. The objects are then consumed by the `ResponsiveImage` component throughout the site.
 
 ## Problems Overcome
 
