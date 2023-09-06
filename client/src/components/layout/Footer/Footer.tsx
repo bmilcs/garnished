@@ -2,6 +2,7 @@ import { FacebookIcon } from "@/components/common/FacebookIcon/FacebookIcon";
 import { GitHubIcon } from "@/components/common/GitHubIcon/GitHubIcon";
 import { InstagramIcon } from "@/components/common/InstagramIcon/InstagramIcon";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { navigationLinks } from "@/utils/navigation";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.scss";
@@ -10,11 +11,27 @@ export const Footer: FC = () => {
   return (
     <footer className={styles.footer}>
       <div className={`column ${styles.footerWrapper}`}>
-        {/* logo */}
-
         <ScrollAnimator type="SLIDE_UP" delay={0.2}>
+          {/* logo */}
+
           <h3 className={styles.footerLogo}>Garnished</h3>
           <p>Premium Mobile Bar</p>
+
+          <div className={styles.footerAuthLinks}>
+            <Link
+              className={`${styles.footerNavLink} ${styles.footerAuthLink}`}
+              to="/login"
+            >
+              Login
+            </Link>
+            <span className={styles.footerAuthDivider}>|</span>
+            <Link
+              className={`${styles.footerNavLink} ${styles.footerAuthLink}`}
+              to="/signup"
+            >
+              Sign Up
+            </Link>
+          </div>
         </ScrollAnimator>
 
         {/* navigation */}
@@ -22,43 +39,25 @@ export const Footer: FC = () => {
         <ScrollAnimator type="SLIDE_UP" delay={0.4}>
           <nav className={styles.footerNav} aria-label="Secondary Navigation">
             <ul className={styles.footerNavUl}>
-              <li>
-                <Link className={styles.footerNavLink} to="/">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link className={styles.footerNavLink} to="/services">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link className={styles.footerNavLink} to="/gallery">
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link className={styles.footerNavLink} to="/contact">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link className={styles.footerNavLink} to="/login">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link className={styles.footerNavLink} to="/signup">
-                  Sign Up
-                </Link>
-              </li>
+              {navigationLinks.map(({ name, link }) => (
+                <li key={name}>
+                  <Link className={styles.footerNavLink} to={link}>
+                    {name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </ScrollAnimator>
 
-        {/* socials */}
+        <ScrollAnimator
+          type="SLIDE_UP"
+          delay={0.6}
+          className={styles.rightColumn}
+        >
+          {/* socials */}
 
-        <ScrollAnimator type="SLIDE_UP" delay={0.6}>
+          <h4 className={styles.socialTitle}>Follow Us</h4>
           <div className={styles.social}>
             <FacebookIcon
               url="https://www.facebook.com/garnished.llp"
@@ -89,6 +88,7 @@ export const Footer: FC = () => {
                 Bryan Miller
               </a>
             </p>
+
             <GitHubIcon
               url="https://github.com/bmilcs/garnished"
               className={styles.githubIcon}
