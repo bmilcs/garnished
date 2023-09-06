@@ -1,0 +1,40 @@
+//
+// menu selector
+//
+
+.tabs {
+  display: grid;
+  gap: 1rem;
+
+  background: var(--clr-bg);
+  border-radius: var(--border-radius-200);
+}
+
+.tabButton {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.activeTabButton,
+.activeTabButton:hover,
+.activeTabButton:focus {
+  background: #000;
+}
+
+.pdfDocument {
+  max-width: 100%;
+}
+
+.pdfPage {
+  box-shadow: var(--box-shadow-100);
+  margin-bottom: var(--vertical-spacer-medium);
+  border-radius: var(--border-radius-200);
+  padding: 0.5rem;
+  overflow: hidden;
+}
+
+.pdfPage > canvas {
+  max-width: 100%;
+  height: auto !important;
+}
