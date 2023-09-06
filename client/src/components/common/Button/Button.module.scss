@@ -29,7 +29,7 @@
 
 .secondary {
   background: var(--clr-primary);
-  color: var(--clr-bg);
+  color: var(--clr-fg);
 
   &:hover {
     background: var(--clr-fg-light);
@@ -72,7 +72,8 @@
   color: var(--clr-fg);
   background: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: var(--clr-primary);
   }
 }
