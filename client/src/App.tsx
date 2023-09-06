@@ -7,6 +7,7 @@ import { Gallery } from "@/components/pages/Gallery/Gallery";
 import { GetStarted } from "@/components/pages/GetStarted/GetStarted";
 import { Home } from "@/components/pages/Home/Home";
 import { Login } from "@/components/pages/Login/Login";
+import { SeasonalMenus } from "@/components/pages/SeasonalMenus/SeasonalMenus";
 import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
@@ -33,6 +34,7 @@ const App: FC = () => {
             <Route path="/get-started" element={<GetStarted />} />
             <Route path="/event/new" element={<EventForm />} />
             <Route path="/event/:id" element={<Event />} />
+            <Route path="/seasonal-menus" element={<SeasonalMenus />} />
           </Routes>
         </Layout>
       </AuthProvider>
