@@ -8,8 +8,7 @@ import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Dispatch, FC, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import styles from "./SeasonalMenus.module.scss";
 
 type TMenu = "winter" | "spring" | "summer" | "autumn";
@@ -56,8 +55,43 @@ export const SeasonalMenus: FC = () => {
         backgroundImage={drinks.specialty_drink_15.full}
       />
 
-      <section className={`column content-spacer ${styles.menuSection}`}>
+      <section className={`column content-spacer ${styles.about}`}>
+        <div>
+          <h2>Seasonal Menus</h2>
+
+          <p>
+            Garnished Events is proud to offer seasonal menus for all of our
+            events. We also offer a variety of specialty drinks that are
+            available year-round. Our seasonal menus are designed to highlight
+            the best flavors of the season. We use fresh ingredients to create
+            unique drinks that are sure to impress your guests.
+          </p>
+        </div>
+
+        <div className={styles.aboutRightColumn}>
+          <h2>Downloads</h2>
+          <ul>
+            <li>
+              <a href={springMenu}>Spring Menu</a>
+            </li>
+            <li>
+              <a href={summerMenu}>Summer Menu</a>
+            </li>
+            <li>
+              <a href={autumnMenu}>Autumn Menu</a>
+            </li>
+            <li>
+              <a href={winterMenu}>Winter Menu</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className={`column ${styles.menuSection}`}>
+        <h2>Live Preview</h2>
+
         <MenuSelector setMenu={setMenu} menu={menu} />
+
         {/* pdf file */}
 
         <Document
@@ -93,40 +127,35 @@ const MenuSelector: FC<TMenuSelector> = ({ menu, setMenu }) => {
   return (
     <div className={styles.tabs}>
       <Button
-        type="primary"
-        className={`${styles.tabButton}${
-          menu === "winter" ? styles.activeTabButton : ""
-        }}`}
-        onClick={() => setMenu("winter")}
-      >
-        Winter
-      </Button>
-      <Button
-        type="primary"
-        className={`${styles.tabButton}${
-          menu === "spring" ? styles.activeTabButton : ""
-        }`}
+        type="secondary"
+        className={menu === "spring" ? styles.activeTabButton : ""}
         onClick={() => setMenu("spring")}
       >
         Spring
       </Button>
+
       <Button
-        type="primary"
-        className={`${styles.tabButton}${
-          menu === "summer" ? styles.activeTabButton : ""
-        }`}
+        type="secondary"
+        className={menu === "summer" ? styles.activeTabButton : ""}
         onClick={() => setMenu("summer")}
       >
         Summer
       </Button>
+
       <Button
-        type="primary"
-        className={`${styles.tabButton}${
-          menu === "autumn" ? styles.activeTabButton : ""
-        }`}
+        type="secondary"
+        className={menu === "autumn" ? styles.activeTabButton : ""}
         onClick={() => setMenu("autumn")}
       >
         Autumn
+      </Button>
+
+      <Button
+        type="secondary"
+        className={menu === "winter" ? styles.activeTabButton : ""}
+        onClick={() => setMenu("winter")}
+      >
+        Winter
       </Button>
     </div>
   );

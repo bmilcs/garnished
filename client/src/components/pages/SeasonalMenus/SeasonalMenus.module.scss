@@ -2,37 +2,69 @@
 // menu selector
 //
 
+.menuSection {
+  background: var(--clr-bg-light);
+  margin-bottom: var(--vertical-spacer-medium);
+}
+
+.about {
+  display: grid;
+  gap: var(--vertical-spacer-medium);
+  align-items: start;
+
+  h2 {
+    margin-bottom: var(--vertical-spacer-small);
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.aboutRightColumn {
+  li {
+    margin-block: 0.25rem;
+  }
+
+  a {
+    font-size: var(--fs-base);
+    font-weight: unset;
+    margin-block: var(--vertical-spacer-small);
+  }
+
+  @media screen and (min-width: 768px) {
+    justify-self: center;
+  }
+}
+
 .tabs {
   display: grid;
-  gap: 1rem;
-  margin-bottom: var(--vertical-spacer-medium);
-
-  background: var(--clr-bg);
-  border-radius: var(--border-radius-200);
-}
-
-.tabButton {
-  display: flex;
+  gap: var(--vertical-spacer-small);
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  flex-wrap: wrap;
+
+  margin-block: var(--vertical-spacer-small);
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(8ch, 1fr));
+  }
 }
 
-.activeTabButton,
-.activeTabButton:hover,
-.activeTabButton:focus {
-  background: #000;
+.activeTabButton {
+  background: var(--clr-fg-light);
+  color: var(--clr-bg);
 }
 
 .pdfDocument {
   max-width: 100%;
+  padding: var(--vertical-spacer-small);
+  background: var(--clr-bg);
+  border-radius: var(--border-radius-200);
+  box-shadow: var(--box-shadow-100);
 }
 
 .pdfPage {
   box-shadow: var(--box-shadow-100);
-  margin-bottom: var(--vertical-spacer-medium);
-  border-radius: var(--border-radius-200);
-  padding: 0.5rem;
-  overflow: hidden;
 }
 
 .pdfPage > canvas {
