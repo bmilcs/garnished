@@ -1,6 +1,7 @@
 import errorHandler from "@/middlewares/errorHandler";
 import EventModel from "@/models/event";
 import UserModel, { TUserRequestDetails } from "@/models/user";
+import contactRouter from "@/routes/contactRouter";
 import eventRouter from "@/routes/eventRouter";
 import userRouter from "@/routes/userRouter";
 import bodyParser from "body-parser";
@@ -15,10 +16,12 @@ import request from "supertest";
 //
 
 const app = express();
+app.set("testMode", true);
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/user", userRouter);
 app.use("/event", eventRouter);
+app.use("/contact", contactRouter);
 app.use(errorHandler);
 
 //
