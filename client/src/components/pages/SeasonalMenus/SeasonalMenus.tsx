@@ -55,42 +55,44 @@ export const SeasonalMenus: FC = () => {
         backgroundImage={drinks.specialty_drink_15.full}
       />
 
-      <section className={`column content-spacer ${styles.about}`}>
-        <div>
-          <h2>Seasonal Menus</h2>
+      <section className={`column content-spacer`}>
+        <div className={styles.about}>
+          <div>
+            <h2>Seasonal Menus</h2>
 
-          <p>
-            Garnished Events is proud to offer seasonal menus for all of our
-            events. We also offer a variety of specialty drinks that are
-            available year-round. Our seasonal menus are designed to highlight
-            the best flavors of the season. We use fresh ingredients to create
-            unique drinks that are sure to impress your guests.
-          </p>
+            <p>
+              Garnished Events is proud to offer seasonal menus for all of our
+              events. We also offer a variety of specialty drinks that are
+              available year-round. Our seasonal menus are designed to highlight
+              the best flavors of the season. We use fresh ingredients to create
+              unique drinks that are sure to impress your guests.
+            </p>
+          </div>
+
+          <div className={styles.aboutRightColumn}>
+            <h2>Downloads</h2>
+            <ul>
+              <li>
+                <a href={springMenu}>Spring Menu</a>
+              </li>
+              <li>
+                <a href={summerMenu}>Summer Menu</a>
+              </li>
+              <li>
+                <a href={autumnMenu}>Autumn Menu</a>
+              </li>
+              <li>
+                <a href={winterMenu}>Winter Menu</a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className={styles.aboutRightColumn}>
-          <h2>Downloads</h2>
-          <ul>
-            <li>
-              <a href={springMenu}>Spring Menu</a>
-            </li>
-            <li>
-              <a href={summerMenu}>Summer Menu</a>
-            </li>
-            <li>
-              <a href={autumnMenu}>Autumn Menu</a>
-            </li>
-            <li>
-              <a href={winterMenu}>Winter Menu</a>
-            </li>
-          </ul>
+        <div className={styles.livePreviewMenuContainer}>
+          <h2>Live Preview</h2>
+
+          <MenuSelector setMenu={setMenu} menu={menu} />
         </div>
-      </section>
-
-      <section className={`column ${styles.menuSection}`}>
-        <h2>Live Preview</h2>
-
-        <MenuSelector setMenu={setMenu} menu={menu} />
 
         {/* pdf file */}
 
@@ -108,7 +110,7 @@ export const SeasonalMenus: FC = () => {
                   key={page}
                   pageNumber={page}
                   renderTextLayer={false}
-                  scale={2.5}
+                  scale={2}
                   className={styles.pdfPage}
                   loading={HourglassSpinner}
                 />
