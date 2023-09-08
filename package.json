@@ -7,9 +7,10 @@
     "dev": "concurrently \"npm run devclient\" \"npm run devserver\"",
     "devclient": "cd client && npm run dev",
     "devserver": "cd server && npm run dev",
-    "pubclient": "git subtree push --prefix client/dist origin dist",
     "pubclientpreview": "git subtree push --prefix client/dist test dist",
     "buildclientpreview": "cd client && npm run buildpreview",
+    "pushclientpreview": "npm run buildclientpreview && npm run pubclientpreview",
+    "pubclient": "git subtree push --prefix client/dist origin dist",
     "pubserver": "cd server && fly deploy",
     "pubserversecrets": "cd server && grep -vE '^(#|$)' .env | sed -E 's/\\s*=\\s*/=/g' | tr '\\n' ' ' | xargs fly secrets set && fly apps restart"
   },
