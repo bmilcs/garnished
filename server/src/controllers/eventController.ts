@@ -175,8 +175,10 @@ export const eventCreatePost = [
 
       res.json({ msg: "Successful create event.", eventId: event._id });
 
-      if (user && event && user.username !== "test@garnished.com")
-        sendNewEventEmailToOwners({ user, event });
+      // avoid sending emails in test mode
+      if (req.app.get("testMode")) return;
+
+      if (user && event) sendNewEventEmailToOwners({ user, event });
     } catch (e) {
       console.error(e);
       res.status(500).json({ msg: "Internal server error." });

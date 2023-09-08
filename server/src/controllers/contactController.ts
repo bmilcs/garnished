@@ -49,7 +49,9 @@ export const contactPost = [
 
       const html = baseEmailTemplate({ header, content });
 
-      await sendEmail({ to: OWNERS_EMAILS, subject, html });
+      // avoid sending emails in test mode
+      if (!req.app.get("testMode"))
+        await sendEmail({ to: OWNERS_EMAILS, subject, html });
 
       res.json({ msg: "successful contact form submission" });
     } catch (err) {

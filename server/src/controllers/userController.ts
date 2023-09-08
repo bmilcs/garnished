@@ -365,9 +365,10 @@ export const userSignup = [
 
       res.json({ msg: "Successful user signup.", authenticated: true });
 
-      if (user.username && user.username !== "test@garnished.com") {
-        sendWelcomeEmail(user.username);
-      }
+      // avoid sending emails in test mode
+      if (req.app.get("testMode")) return;
+
+      if (user.username) sendWelcomeEmail(user.username);
     } catch (e) {
       console.error(e);
       res.status(500).json({ msg: "Internal server error." });
