@@ -2,17 +2,18 @@
 
 ## Frontend
 
+- [ ] Delete user error display when events exist
 - [ ] Add 404 handling
 - [x] Login vs logout state: change header nav behavior
 - [x] Services Page
   - [x] Explain process
   - [ ] Add all services & details
-- [ ] Setup meta tags for social media: Facebook, Twitter, Instagram
 - [ ] Create toast / modal component for display success/errors
 - [ ] Refactor error handling to display toast/modal on server errors/generic catches
 - [ ] Improve navigation
   - [ ] Mobile: better animation / styling
   - [ ] Desktop: improve hover state styling / colors
+- [x] Setup meta tags for social media: Facebook, Twitter, Instagram
 - [x] Gallery
   - [x] Image carousel / gallery
 - [x] Home
@@ -28,10 +29,6 @@
 
 ## Backend
 
-- [ ] Write Tests
-  - [x] User Controller Tests
-  - [ ] Event Controller Tests
-  - [ ] Contact Controller Tests
 - [ ] Error handling: Wrap database calls in try/catch block
 - [ ] Prevent brute force pw attacks: limit invalid auth attempts
 - [ ] Create roles: user vs owner/admin
@@ -43,6 +40,10 @@
   - [ ] Confirm event & reiterate the quote process
   - [ ] Reset password
 - [ ] Add Update event controller
+- [x] Write Tests
+  - [x] User Controller Tests
+  - [x] Event Controller Tests
+  - [x] Contact Controller Tests
 - [x] Add Update user controller
 - [x] Add Delete user controller
 - [x] Add Delete event controller
