@@ -12,7 +12,6 @@ describe("Contact Route: POST /contact", () => {
       })
       .expect(400)
       .then(result => {
-        console.log(result.body);
         expect(result.body.msg).to.equal(
           "Failed to validate contact form data.",
         );

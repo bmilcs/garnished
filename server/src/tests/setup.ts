@@ -5,11 +5,14 @@ import contactRouter from "@/routes/contactRouter";
 import eventRouter from "@/routes/eventRouter";
 import userRouter from "@/routes/userRouter";
 import bodyParser from "body-parser";
+import compression from "compression";
 import cookieParser from "cookie-parser";
 import express from "express";
+import helmet from "helmet";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import request from "supertest";
+export { FAILED_LOGIN_ATTEMPTS_LIMIT } from "@/config/env";
 
 //
 // server
@@ -19,6 +22,8 @@ const app = express();
 app.set("testMode", true);
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(compression());
+app.use(helmet());
 app.use("/user", userRouter);
 app.use("/event", eventRouter);
 app.use("/contact", contactRouter);
@@ -127,7 +132,7 @@ const userData = {
 };
 
 const eventData = {
-  date: "2024-08-26",
+  date: "2024-08-16",
   time: "17:00",
   locationDescription: "Around back",
   address: "123 Circle Dr.",
