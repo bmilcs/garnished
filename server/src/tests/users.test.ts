@@ -3,6 +3,7 @@ import UserModel, { TUserRequestDetails } from "@/models/user";
 import chai from "chai";
 import request from "supertest";
 import {
+  FAILED_LOGIN_ATTEMPTS_LIMIT,
   app,
   createEvent,
   eventData,
@@ -91,6 +92,34 @@ describe("User Route: POST /user/login", async () => {
       .send(invalidCredentials)
       .expect("Content-Type", /json/)
       .expect(401, { msg: "Invalid password.", authenticated: false });
+  });
+
+  it("Rate limit login tests: 429, error msg", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    await logoutUser(app, cookies);
+
+    // previous tests count toward the rate limit
+    const previousLoginTests = 2;
+    const loginAttempts = FAILED_LOGIN_ATTEMPTS_LIMIT - previousLoginTests;
+
+    for (let i = 0; i <= loginAttempts; i++) {
+      const res = await request(app)
+        .post("/user/login")
+        .send({ username: userData.username, password: userData.password });
+
+      const reachedRateLimit = i >= loginAttempts;
+      if (!reachedRateLimit) {
+        expect(res.body.msg).to.equal("Successful user login.");
+        expect(res.headers["set-cookie"]).to.be.an("array").length(2);
+        expect(res.headers["content-type"]).to.match(/json/);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.authenticated).to.equal(true);
+      } else {
+        expect(res.body.msg).to.equal(
+          "Too many failed login attempts. Try again later.",
+        );
+      }
+    }
   });
 });
 
