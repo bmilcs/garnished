@@ -3,6 +3,7 @@ import connectDatabase from "@/config/database";
 import { SERVER_PORT } from "@/config/env";
 import errorHandler from "@/middlewares/errorHandler";
 import bodyParser from "body-parser";
+import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
@@ -20,6 +21,9 @@ const app = express();
 //
 // middleware
 //
+
+// compress responses
+app.use(compression());
 
 // cors: allow requests from the client
 app.use(cors(corsOptions));
