@@ -41,15 +41,24 @@ export const eventCreatePost = [
   body("date")
     .trim()
     .escape()
-    .isDate()
-    .isLength({ min: 10, max: 10 })
-    .withMessage("A valid date is required.")
     .custom((value: string) => {
+      // isDate() function isn't working after npm update. this is a workaround.
+      const dateFormat = /^\d{4}\-\d{2}\-\d{2}$/;
+
+      if (!value.match(dateFormat))
+        return Promise.reject("Invalid date format.");
+
+      return Promise.resolve();
+    })
+    .custom((value: string) => {
+      // prevent customers from creating events unless there is DAYS_TO_PREPARE (days notice)
       const today = new Date();
       const eventDate = parseISO(value);
       const dateDifference = differenceInCalendarDays(eventDate, today);
       return dateDifference < DAYS_TO_PREPARE
-        ? Promise.reject("Events require at least 7 days notice.")
+        ? Promise.reject(
+            `Events require at least ${DAYS_TO_PREPARE} days notice.`,
+          )
         : Promise.resolve();
     }),
   body("time")
