@@ -1,5 +1,6 @@
 import * as userController from "@/controllers/userController";
 import authenticate from "@/middlewares/authenticate";
+import { loginLimiter } from "@/middlewares/rateLimits";
 import express from "express";
 
 //
@@ -15,8 +16,11 @@ user
   .delete(authenticate, userController.userDelete);
 
 user.get("/auth-status", userController.userAuthStatus);
+
 user.post("/signup", userController.userSignup);
-user.post("/login", userController.userLogin);
+
+user.post("/login", loginLimiter, userController.userLogin);
+
 user.delete("/logout", authenticate, userController.userLogout);
 
 export default user;
