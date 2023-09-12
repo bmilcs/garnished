@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import helmet from "helmet";
 import contactRouter from "./routes/contactRouter";
 import eventRouter from "./routes/eventRouter";
 import userRouter from "./routes/userRouter";
@@ -28,6 +29,9 @@ app.use(bodyParser.json());
 
 // parse cookies: authentication jwt tokens are stored in cookies
 app.use(cookieParser());
+
+// helmet: set security headers & protect well-known web vulnerabilities
+app.use(helmet());
 
 //
 // routes
