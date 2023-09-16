@@ -2,6 +2,8 @@
 
 ## Frontend
 
+- [ ] Extend Create Event, Event Page, etc. to include a comment/note box
+  - [ ] Add a note/comment box for generic info
 - [ ] Delete user error display when events exist
 - [ ] Add 404 handling
 - [x] Login vs logout state: change header nav behavior
@@ -29,6 +31,8 @@
 
 ## Backend
 
+- [ ] Extend Event Model/Controller
+  - [ ] Add a note/comment box for generic info
 - [ ] Error handling: Wrap database calls in try/catch block
 - [ ] Prevent brute force pw attacks: limit invalid auth attempts
 - [ ] Create roles: user vs owner/admin
