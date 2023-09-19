@@ -2,7 +2,9 @@ import React, { ChangeEvent, Dispatch } from "react";
 
 type SetStateFunction<T> = Dispatch<React.SetStateAction<T>>;
 
-type InputChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+export type InputChangeEvent = ChangeEvent<
+  HTMLInputElement | HTMLTextAreaElement
+>;
 
 //
 // custom hook to handle input changes and saving them to a single state object
