@@ -2,6 +2,7 @@
 
 ## Frontend
 
+- [ ] Contact Page: Success modal
 - [ ] Extend Create Event, Event Page, etc. to include a comment/note box
   - [ ] Add a note/comment box for generic info
 - [ ] Delete user error display when events exist
