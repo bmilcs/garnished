@@ -1,5 +1,6 @@
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
+import { Input } from "@/components/common/Input/Input";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserSignup } from "@/hooks/useUserSignup";
@@ -29,176 +30,107 @@ export const Signup: FC = () => {
               </p>
             </div>
 
-            <div className="input-group">
-              <label htmlFor="username">Email Address</label>
-              <input
-                type="email"
-                name="username"
-                id="username"
-                onChange={handleInputChange}
-                value={formData.username}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("username", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="username"
+              type="email"
+              label="Email Address"
+              onChange={handleInputChange}
+              value={formData.username}
+              required
+              error={getExpressValidatorError("username", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={handleInputChange}
-                value={formData.password}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("password", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="password"
+              type="password"
+              label="Password"
+              onChange={handleInputChange}
+              value={formData.password}
+              required
+              error={getExpressValidatorError("password", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                onChange={handleInputChange}
-                value={formData.confirmPassword}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("confirmPassword", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="confirmPassword"
+              type="password"
+              label="Confirm Password"
+              onChange={handleInputChange}
+              value={formData.confirmPassword}
+              required
+              error={getExpressValidatorError("confirmPassword", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                onChange={handleInputChange}
-                value={formData.phone}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("phone", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="phone"
+              type="text"
+              label="Phone"
+              onChange={handleInputChange}
+              value={formData.phone}
+              required
+              error={getExpressValidatorError("phone", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                onChange={handleInputChange}
-                value={formData.firstName}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("firstName", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="firstName"
+              type="text"
+              label="First Name"
+              onChange={handleInputChange}
+              value={formData.firstName}
+              required
+              error={getExpressValidatorError("firstName", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                onChange={handleInputChange}
-                value={formData.lastName}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("lastName", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="lastName"
+              type="text"
+              label="Last Name"
+              onChange={handleInputChange}
+              value={formData.lastName}
+              required
+              error={getExpressValidatorError("lastName", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="address">Address</label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                onChange={handleInputChange}
-                value={formData.address}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("address", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="address"
+              type="text"
+              label="Address"
+              onChange={handleInputChange}
+              value={formData.address}
+              required
+              error={getExpressValidatorError("address", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="city">City</label>
-              <input
-                type="text"
-                name="city"
-                id="city"
-                onChange={handleInputChange}
-                value={formData.city}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("city", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="city"
+              type="text"
+              label="City"
+              onChange={handleInputChange}
+              value={formData.city}
+              required
+              error={getExpressValidatorError("city", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="state">State</label>
-              <input
-                type="text"
-                name="state"
-                id="state"
-                onChange={handleInputChange}
-                value={formData.state}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("state", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="state"
+              type="text"
+              label="State"
+              onChange={handleInputChange}
+              value={formData.state}
+              required
+              maxLength={2}
+              error={getExpressValidatorError("state", errors)}
+            />
 
-            <div className="input-group">
-              <label htmlFor="zip">Zip Code</label>
-              <input
-                type="text"
-                name="zip"
-                id="zip"
-                maxLength={5}
-                onChange={handleInputChange}
-                value={formData.zip}
-                required
-              />
-              {errors.length > 0 && (
-                <p className="error">
-                  {getExpressValidatorError("zip", errors)}
-                </p>
-              )}
-            </div>
+            <Input
+              name="zip"
+              type="text"
+              label="Zip Code"
+              onChange={handleInputChange}
+              value={formData.zip}
+              required
+              maxLength={5}
+              error={getExpressValidatorError("zip", errors)}
+            />
 
             <Button type="primary">Signup</Button>
           </form>
