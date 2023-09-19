@@ -2,6 +2,7 @@ import { drinks } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
+import { Input } from "@/components/common/Input/Input";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useContactForm } from "@/hooks/useContactForm";
 import { useInputChange } from "@/hooks/useInputChange";
@@ -75,56 +76,36 @@ export const Contact: FC = () => {
                 <p>Feedback? Questions? We want to hear from you.</p>
               </div>
 
-              <div className="input-group">
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  onChange={handleInputChange}
-                  value={formData.name}
-                  required
-                />
-                {errors.length > 0 && (
-                  <p className="error">
-                    {getExpressValidatorError("name", errors)}
-                  </p>
-                )}
-              </div>
+              <Input
+                name="name"
+                type="text"
+                label="Name"
+                onChange={handleInputChange}
+                value={formData.name}
+                required
+                error={getExpressValidatorError("name", errors)}
+              />
 
-              <div className="input-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  onChange={handleInputChange}
-                  value={formData.email}
-                  required
-                />
-                {errors.length > 0 && (
-                  <p className="error">
-                    {getExpressValidatorError("email", errors)}
-                  </p>
-                )}
-              </div>
+              <Input
+                name="email"
+                type="email"
+                label="Email"
+                onChange={handleInputChange}
+                value={formData.email}
+                required
+                error={getExpressValidatorError("email", errors)}
+              />
 
-              <div className="input-group">
-                <label htmlFor="message">Message</label>
-                <textarea
-                  name="message"
-                  id="message"
-                  onChange={handleInputChange}
-                  value={formData.message}
-                  rows={5}
-                  required
-                />
-                {errors.length > 0 && (
-                  <p className="error">
-                    {getExpressValidatorError("message", errors)}
-                  </p>
-                )}
-              </div>
+              <Input
+                name="message"
+                type="textarea"
+                label="Message"
+                onChange={handleInputChange}
+                value={formData.message}
+                required
+                error={getExpressValidatorError("message", errors)}
+                rows={6}
+              />
 
               <Button type="primary" onClick={submitContactForm}>
                 Send Message
