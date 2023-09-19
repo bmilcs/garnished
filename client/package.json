@@ -8,8 +8,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "vite build && cp CNAME dist/",
-    "buildpreview": "vite build && cp ./CNAMEPREVIEW dist/CNAME && git reset && git add dist && git commit -m 'Build client preview to dist/' && git push",
+    "build": "vite build --outDir dist/production && cp CNAME dist/production/",
+    "buildpreview": "vite build --outDir dist/preview/ && cp CNAMEPREVIEW dist/preview/CNAME",
+    "pubpreview": "cd dist/preview && git reset && git add . && git commit -m 'Build preview updates' && git push",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "generateAssets": "bash ./src/scripts/generateAssets.sh",
     "generateAssetsIndexFile": "bash ./src/scripts/writeAssetsIndex.sh",

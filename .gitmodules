@@ -1,0 +1,3 @@
+[submodule "client/dist/preview"]
+path = client/dist/preview
+url = garnishedpreview:bmilcs/garnished-preview.git
