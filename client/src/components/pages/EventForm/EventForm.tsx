@@ -6,7 +6,6 @@ import { useCreateEvent } from "@/hooks/useEventCreate";
 import { useInputChange } from "@/hooks/useInputChange";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
 import { FC } from "react";
-import styles from "./EventForm.module.scss";
 
 export const EventForm: FC = () => {
   const { formData, setFormData, createEvent, isPending, errors } =
@@ -18,12 +17,9 @@ export const EventForm: FC = () => {
 
   if (!isPending)
     return (
-      <section className={`content-spacer ${styles.eventForm}`}>
-        <ScrollAnimator
-          type="SLIDE_DOWN"
-          className={`column ${styles.loginWrapper}`}
-        >
-          <form className={styles.form} onSubmit={handleSubmitForm}>
+      <section className="content-spacer user-section">
+        <ScrollAnimator type="SLIDE_DOWN" className="column">
+          <form onSubmit={handleSubmitForm}>
             <div className="form-header">
               <h2>Create Event</h2>
               <p>Receive a free estimate for your event.</p>
