@@ -49,32 +49,5 @@ export const useEventData = (eventId: string) => {
     void getEventData();
   }, [redirectUnauthorizedUser, eventId]);
 
-  const deleteEvent = async () => {
-    redirectUnauthorizedUser();
-    if (!eventId) {
-      setError("No event ID provided.");
-      setIsPending(false);
-      return;
-    }
-
-    setError("");
-    setIsPending(true);
-
-    try {
-      const { status } = await apiService({
-        path: `event/${eventId}`,
-        method: "DELETE",
-      });
-
-      if (status === 200) navigate("/user");
-    } catch {
-      setError(
-        "Something went wrong while retrieving your event. Try again later.",
-      );
-    } finally {
-      setIsPending(false);
-    }
-  };
-
-  return { eventData, deleteEvent, isPending, error };
+  return { eventData, isPending, error };
 };

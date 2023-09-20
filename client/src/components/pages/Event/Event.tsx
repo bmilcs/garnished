@@ -62,9 +62,6 @@ export const Event: FC = () => {
           >
             Edit Event
           </Button>
-          <Button type="primary" onClick={deleteEvent}>
-            Delete Event
-          </Button>
           <Button type="primary" onClick={() => navigate("/user")}>
             Back to Dashboard
           </Button>
