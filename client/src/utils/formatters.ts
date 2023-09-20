@@ -10,6 +10,10 @@ export const formatDate = (date: string) => {
   return new Date(date).toLocaleDateString();
 };
 
+export const formatDateWithDashes = (date: string) => {
+  return new Date(date).toISOString().slice(0, 10);
+};
+
 export const formatTime = (time: string) => {
   const timeArr = time.split(":");
   const hours = +timeArr[0] > 12 ? +timeArr[0] - 12 : timeArr[0];
