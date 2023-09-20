@@ -6,7 +6,7 @@ import { apiService } from "@/utils/apiService";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type TSignupResponse = {
+type TUpdateUserResponse = {
   msg: string;
   updated?: boolean;
   errors?: TExpressValidatorError[];
@@ -60,7 +60,7 @@ export const useUserUpdate = () => {
     try {
       const {
         data: { updated, errors },
-      } = await apiService<TSignupResponse>({
+      } = await apiService<TUpdateUserResponse>({
         method: "PATCH",
         path: `user`,
         body: formData,
