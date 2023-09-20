@@ -3,6 +3,7 @@ import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
 import { Contact } from "@/components/pages/Contact/Contact";
 import { Event } from "@/components/pages/Event/Event";
 import { EventForm } from "@/components/pages/EventForm/EventForm";
+import { EventUpdate } from "@/components/pages/EventUpdate/EventUpdate";
 import { Gallery } from "@/components/pages/Gallery/Gallery";
 import { GetStarted } from "@/components/pages/GetStarted/GetStarted";
 import { Home } from "@/components/pages/Home/Home";
@@ -34,6 +35,7 @@ const App: FC = () => {
             <Route path="/get-started" element={<GetStarted />} />
             <Route path="/event/new" element={<EventForm />} />
             <Route path="/event/:id" element={<Event />} />
+            <Route path="/event/:id/update" element={<EventUpdate />} />
             <Route path="/seasonal-menus" element={<SeasonalMenus />} />
           </Routes>
         </Layout>

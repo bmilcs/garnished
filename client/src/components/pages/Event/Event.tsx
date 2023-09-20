@@ -56,6 +56,12 @@ export const Event: FC = () => {
         )}
 
         <ScrollAnimator type="SLIDE_DOWN" className="button-wrapper">
+          <Button
+            type="secondary"
+            onClick={() => navigate(`/event/${eventData?._id ?? ""}/update`)}
+          >
+            Edit Event
+          </Button>
           <Button type="primary" onClick={deleteEvent}>
             Delete Event
           </Button>
