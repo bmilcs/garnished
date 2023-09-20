@@ -13,7 +13,7 @@ event.route("/").post(authenticate, eventController.eventCreatePost);
 event
   .route("/:id")
   .get(authenticate, eventController.eventGet)
-  .post(authenticate, eventController.eventUpdatePost)
+  .patch(authenticate, eventController.eventUpdatePatch)
   .delete(authenticate, eventController.eventDelete);
 
 export default event;
