@@ -2,15 +2,13 @@ import { AuthContext } from "@/hooks/useAuthContext";
 import { TEventWithId } from "@/types/eventTypes";
 import { apiService } from "@/utils/apiService";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-type TEventApiResponse = {
+type TEventGetApiResponse = {
   msg: string;
   event: TEventWithId;
 };
 
 export const useEventData = (eventId: string) => {
-  const navigate = useNavigate();
   const { redirectUnauthorizedUser } = useContext(AuthContext);
   const [isPending, setIsPending] = useState(true);
   const [eventData, setEventData] = useState<TEventWithId | null>(null);
@@ -31,7 +29,7 @@ export const useEventData = (eventId: string) => {
       try {
         const {
           data: { event },
-        } = await apiService<TEventApiResponse>({
+        } = await apiService<TEventGetApiResponse>({
           path: `event/${eventId}`,
         });
 

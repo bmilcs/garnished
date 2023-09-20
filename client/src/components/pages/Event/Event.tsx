@@ -8,9 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const Event: FC = () => {
   const { id: eventId } = useParams();
-  const { eventData, deleteEvent, error, isPending } = useEventData(
-    eventId || "",
-  );
+  const { eventData, error, isPending } = useEventData(eventId ?? "");
   const navigate = useNavigate();
 
   if (isPending) return <HourglassSpinner />;
