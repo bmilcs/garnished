@@ -326,13 +326,10 @@ export const eventUpdatePatch = [
     }
 
     try {
-      // get user data: only return the events array
-      const user = (await UserModel.findOne(
-        {
-          _id: req.userId,
-        },
-        { events: 1 },
-      ).populate({
+      // get user data: needed for email to owners
+      const user = (await UserModel.findOne({
+        _id: req.userId,
+      }).populate({
         // populate user.events with a single event matching the event that's being updated
         // this is to make sure that the user is the owner of the event
         path: "events",
