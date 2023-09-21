@@ -7,15 +7,15 @@
   - [ ] Add a note/comment box for generic info
 - [ ] Delete user error display when events exist
 - [ ] Add 404 handling
-- [x] Login vs logout state: change header nav behavior
-- [x] Services Page
-  - [x] Explain process
-  - [ ] Add all services & details
 - [ ] Create toast / modal component for display success/errors
 - [ ] Refactor error handling to display toast/modal on server errors/generic catches
 - [ ] Improve navigation
   - [ ] Mobile: better animation / styling
   - [ ] Desktop: improve hover state styling / colors
+- [x] Login vs logout state: change header nav behavior
+- [x] Services Page
+  - [x] Explain process
+  - [ ] Add all services & details
 - [x] Setup meta tags for social media: Facebook, Twitter, Instagram
 - [x] Gallery
   - [x] Image carousel / gallery
@@ -34,8 +34,6 @@
 
 - [ ] Extend Event Model/Controller
   - [ ] Add a note/comment box for generic info
-- [ ] Error handling: Wrap database calls in try/catch block
-- [ ] Prevent brute force pw attacks: limit invalid auth attempts
 - [ ] Create roles: user vs owner/admin
 - [ ] Allow admin to access all events & their details
 - [ ] Admin routes:
@@ -44,7 +42,9 @@
 - [ ] Create email templates
   - [ ] Confirm event & reiterate the quote process
   - [ ] Reset password
-- [ ] Add Update event controller
+- [x] Error handling: Wrap database calls in try/catch blocks
+- [x] Prevent brute force pw attacks: limit invalid auth attempts
+- [x] Add Update event controller
 - [x] Write Tests
   - [x] User Controller Tests
   - [x] Event Controller Tests
