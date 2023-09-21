@@ -54,7 +54,7 @@ describe("Event Route: POST /event/", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(res => {
-        expect(res.body.msg).to.equal("Successful create event.");
+        expect(res.body).to.contain({ msg: "Successful create event." });
         expect(res.body.eventId).to.be.a("string");
       });
   });
@@ -96,7 +96,7 @@ describe("Event Route: DELETE /event/:id", () => {
       .delete(`/event/${eventId}`)
       .set("Cookie", cookies)
       .expect("Content-Type", /json/)
-      .expect(200, { msg: "Successful event delete." })
+      .expect(200, { msg: "Successful event delete.", deleted: true })
       .then(async res => {
         // check that event was deleted from database
         const event = await EventModel.findById(eventId);
@@ -108,6 +108,47 @@ describe("Event Route: DELETE /event/:id", () => {
 //
 // event get
 //
+
+describe("Event Route: GET /event/:id", () => {
+  it("Missing JWT cookies: 401 Unauthorized", async () => {
+    await request(app)
+      .get("/event/123")
+      .expect("Content-Type", /json/)
+      .expect(401)
+      .then(res => {
+        expect(res.body.msg).to.equal("Unauthorized.");
+      });
+  });
+
+  it("With JWT cookies & invalid eventId: 404", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+
+    await request(app)
+      .get("/event/123")
+      .set("Cookie", cookies)
+      .expect("Content-Type", /json/)
+      .expect(404)
+      .then(res => {
+        expect(res.body.msg).to.equal("Event not found.");
+      });
+  });
+
+  it("With JWT cookies & valid eventId: 200 & event data", async () => {
+    const cookies = await signupUser(app, userData as TUserRequestDetails);
+    const eventId = await createEvent(app, cookies, eventData);
+
+    await request(app)
+      .get(`/event/${eventId}`)
+      .set("Cookie", cookies)
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(res => {
+        expect(res.body.event).to.be.an("object");
+        expect(res.body.event.time).to.equal(eventData.time);
+        expect(res.body.event.address).to.equal(eventData.address);
+      });
+  });
+});
 
 //
 // event update
