@@ -315,6 +315,10 @@ export const eventUpdatePatch = [
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(404).json({ msg: "Event not found." });
+    }
+
     const errors = validationResult(req);
 
     // signup data failed validation checks
@@ -351,7 +355,7 @@ export const eventUpdatePatch = [
         },
       )) as TEventDocument;
 
-      res.json({ msg: "Successful create update.", updated: true });
+      res.json({ msg: "Successful event update.", updated: true });
 
       // avoid sending emails in test mode
       if (req.app.get("testMode")) return;
