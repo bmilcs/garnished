@@ -1,5 +1,5 @@
+import { loginLimiter } from "@/middlewares/rateLimits";
 import UserModel, { TUserRequestDetails } from "@/models/user";
-
 import chai from "chai";
 import request from "supertest";
 import {
@@ -62,10 +62,13 @@ describe("User Route: POST /user/signup", () => {
 
 //
 // user login
-// * this test acquires the cookies for future tests
 //
 
 describe("User Route: POST /user/login", async () => {
+  beforeEach(() => {
+    loginLimiter.resetKey(userData.username);
+  });
+
   it("Valid credentials: 200, success msg & jwt cookies", async () => {
     const cookies = await signupUser(app, userData as TUserRequestDetails);
     await logoutUser(app, cookies);
@@ -99,15 +102,14 @@ describe("User Route: POST /user/login", async () => {
     await logoutUser(app, cookies);
 
     // previous tests count toward the rate limit
-    const previousLoginTests = 2;
-    const loginAttempts = FAILED_LOGIN_ATTEMPTS_LIMIT - previousLoginTests;
 
-    for (let i = 0; i <= loginAttempts; i++) {
+    for (let i = 0; i <= FAILED_LOGIN_ATTEMPTS_LIMIT; i++) {
+      const reachedRateLimit = i >= FAILED_LOGIN_ATTEMPTS_LIMIT;
+
       const res = await request(app)
         .post("/user/login")
         .send({ username: userData.username, password: userData.password });
 
-      const reachedRateLimit = i >= loginAttempts;
       if (!reachedRateLimit) {
         expect(res.body.msg).to.equal("Successful user login.");
         expect(res.headers["set-cookie"]).to.be.an("array").length(2);

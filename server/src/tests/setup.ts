@@ -67,8 +67,12 @@ const teardownMongoTestServer = async () => {
   await mongoServer.stop();
 };
 
-beforeEach(async () => await setupMongoTestServer());
-afterEach(async () => await teardownMongoTestServer());
+beforeEach(async () => {
+  await setupMongoTestServer();
+});
+afterEach(async () => {
+  await teardownMongoTestServer();
+});
 
 //
 // helper functions

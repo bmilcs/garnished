@@ -12,4 +12,7 @@ export const loginLimiter = rateLimiter({
       .status(429)
       .json({ msg: "Too many failed login attempts. Try again later." });
   },
+  keyGenerator: function (req /*, res*/) {
+    return req.body.username;
+  },
 });
