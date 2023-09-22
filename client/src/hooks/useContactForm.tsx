@@ -15,10 +15,12 @@ export const useContactForm = () => {
   });
 
   const [isPending, setIsPending] = useState(false);
+  const [isSent, setIsSent] = useState(false);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
 
   const submitContactForm = async () => {
     setErrors([]);
+    setIsSent(false);
     setIsPending(true);
 
     try {
@@ -35,7 +37,7 @@ export const useContactForm = () => {
         return;
       }
 
-      alert("Message sent!");
+      setIsSent(true);
     } catch {
       console.error("Something went wrong while submitting the form.");
     } finally {
@@ -43,5 +45,12 @@ export const useContactForm = () => {
     }
   };
 
-  return { formData, setFormData, submitContactForm, errors, isPending };
+  return {
+    formData,
+    setFormData,
+    submitContactForm,
+    errors,
+    isSent,
+    isPending,
+  };
 };
