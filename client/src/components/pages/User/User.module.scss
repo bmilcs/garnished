@@ -22,3 +22,10 @@
 .updatePersonalInfoButton {
   margin-top: var(--vertical-spacer-small);
 }
+
+.eventLink,
+.eventLink:visited,
+.eventLink:hover,
+.eventLink:active {
+  font-size: var(--fs-base-large);
+}

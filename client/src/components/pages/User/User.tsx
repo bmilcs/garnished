@@ -25,13 +25,17 @@ export const User: FC = () => {
 
           <div className={styles.contentWrapper}>
             {userData.events.length > 0 ? (
+              //  user has events
               <div className="user-section-card">
                 <h4 className={styles.userDetailsHeader}>Your Events</h4>
 
                 <ul>
                   {userData.events.map(event => (
                     <li key={event._id}>
-                      <Link to={`/event/${event._id}`} key={event._id}>
+                      <Link
+                        to={`/event/${event._id}`}
+                        className={styles.eventLink}
+                      >
                         {formatDate(event.date)} - {event.eventType}
                       </Link>
                     </li>
@@ -39,6 +43,7 @@ export const User: FC = () => {
                 </ul>
               </div>
             ) : (
+              // user has no events
               <div className="user-section-card">
                 <h4 className={styles.userDetailsHeader}>Your Events</h4>
                 <p>
