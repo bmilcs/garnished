@@ -72,8 +72,7 @@
   color: var(--clr-fg);
   background: none;
 
-  &:hover,
-  &:focus {
+  &:hover:not(:focus) {
     color: var(--clr-primary);
   }
 }
