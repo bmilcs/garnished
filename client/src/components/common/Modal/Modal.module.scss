@@ -9,6 +9,9 @@
 }
 
 .modal {
+  position: relative;
+  z-index: 11;
+
   max-width: min(90%, 90vw);
   max-height: min(90%, 90vh);
 
@@ -41,4 +44,13 @@
 
 .message {
   max-width: 40ch;
+}
+
+.closeButton {
+  width: 24px;
+  aspect-ratio: 1/1;
+
+  position: absolute;
+  top: var(--vertical-spacer-small);
+  right: var(--vertical-spacer-small);
 }

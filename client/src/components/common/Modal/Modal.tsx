@@ -1,3 +1,4 @@
+import { CloseButton } from "@/components/common/CloseButton/CloseButton";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { TChildrenAndClassName } from "@/types/propTypes";
 import { FC, useEffect } from "react";
@@ -7,7 +8,11 @@ type TProps = TChildrenAndClassName & {
   type: "standard" | "image";
   title?: string;
   message?: string;
-  onClick?: () => void;
+  onClickCloseOrOverlay?: () => void;
+};
+
+const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  e.stopPropagation();
 };
 
 export const Modal: FC<TProps> = ({
@@ -15,7 +20,7 @@ export const Modal: FC<TProps> = ({
   title,
   message,
   children,
-  onClick,
+  onClickCloseOrOverlay,
   className,
 }) => {
   useEffect(
@@ -27,7 +32,7 @@ export const Modal: FC<TProps> = ({
           e.key === " " ||
           e.key === "Enter"
         ) {
-          onClick?.();
+          onClickCloseOrOverlay?.();
         }
       };
 
@@ -35,22 +40,29 @@ export const Modal: FC<TProps> = ({
 
       return () => document.removeEventListener("keydown", handleKeyDown);
     },
-    [onClick],
+    [onClickCloseOrOverlay],
   );
 
   return (
     <div
       className={`${styles.modalOverlay}${className ? ` ${className}` : ""}`}
-      onClick={onClick}
+      onClick={onClickCloseOrOverlay}
     >
       <ScrollAnimator
         className={`${styles.modal}${
           type === "image" ? ` ${styles.image}` : ` ${styles.standard}`
         }`}
+        onClick={handleModalClick}
       >
         {title && <h3 className={styles.title}>{title}</h3>}
         {message && <p className={styles.message}>{message}</p>}
+
         {children}
+
+        <CloseButton
+          onClick={onClickCloseOrOverlay}
+          className={styles.closeButton}
+        />
       </ScrollAnimator>
     </div>
   );
