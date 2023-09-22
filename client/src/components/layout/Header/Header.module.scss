@@ -60,17 +60,26 @@
   text-align: center;
   background: var(--clr-neutral-900-t);
   backdrop-filter: blur(9px);
-  font-size: 2rem;
+
+  a,
+  a:visited,
+  a:active,
+  a:focus,
+  button {
+    animation: fadeIn 0.75s ease-in-out forwards;
+    font-size: calc(var(--fs-heading) * 0.85);
+    color: var(--clr-bg);
+    text-shadow: var(--text-shadow-100);
+  }
 }
 
-.expanded a,
-.expanded a:visited,
-.expanded a:active,
-.expanded a:focus,
-.expanded button {
-  font-size: var(--fs-heading);
-  color: var(--clr-bg);
-  text-shadow: var(--text-shadow-100);
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media screen and (min-width: 768px) {

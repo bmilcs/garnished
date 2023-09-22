@@ -27,5 +27,6 @@
 .eventLink:visited,
 .eventLink:hover,
 .eventLink:active {
-  font-size: var(--fs-base-large);
+  font-size: var(--fs-base);
+  font-family: var(--ff-primary);
 }
