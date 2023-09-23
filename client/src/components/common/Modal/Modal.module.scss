@@ -38,8 +38,12 @@
   }
 }
 
-.title {
-  margin-bottom: var(--vertical-spacer-small);
+.message {
+  margin-top: var(--vertical-spacer-small);
+}
+
+.children {
+  margin-top: calc(2 * var(--vertical-spacer-small));
 }
 
 .message {

@@ -54,10 +54,23 @@ export const Modal: FC<TProps> = ({
         }`}
         onClick={handleModalClick}
       >
-        {title && <h3 className={styles.title}>{title}</h3>}
-        {message && <p className={styles.message}>{message}</p>}
+        {title && <h3>{title}</h3>}
 
-        {children}
+        {/* if message exists with a title, add .message (margin) to message.
+        otherwise just render message */}
+        {message && title ? (
+          <p className={styles.message}>{message}</p>
+        ) : (
+          <p>message</p>
+        )}
+
+        {/* if children exist with a title or message, add .children class (margin) 
+        otherwise just render children */}
+        {children && (title || message) ? (
+          <div className={styles.children}>{children}</div>
+        ) : (
+          children
+        )}
 
         <CloseButton
           onClick={onClickCloseOrOverlay}
