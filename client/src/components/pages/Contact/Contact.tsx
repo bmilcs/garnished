@@ -113,7 +113,11 @@ export const Contact: FC = () => {
                 title="Thank You!"
                 message="We'll review your message and get back to you as soon as possible."
                 onClickCloseOrOverlay={() => navigate("/")}
-              />
+              >
+                <Button type="primary" onClick={() => navigate("/")}>
+                  Back to Home
+                </Button>
+              </Modal>
             )}
           </div>
         )}
