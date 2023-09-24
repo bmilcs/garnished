@@ -2,14 +2,14 @@
 
 ## Frontend
 
-- [ ] Extend Create Event, Event Page, etc. to include a comment/note box
-  - [ ] Add a note/comment box for generic info
-- [ ] Delete user error display when events exist
-- [ ] Add 404 handling
-- [ ] Refactor error handling to display toast/modal on server errors/generic catches
 - [ ] Improve navigation
-  - [ ] Mobile: better animation / styling
+  - [x] Mobile: better animation / styling
   - [ ] Desktop: improve hover state styling / colors
+- [x] Extend Create Event, Event Page, etc. to include a comment/note box
+  - [x] Add a note/comment box for generic info
+- [x] Refactor error handling to display toast/modal on server errors/generic catches
+- [x] Delete user error display when events exist
+- [x] Add 404 handling
 - [x] Contact Page: Success modal
 - [x] Create toast / modal component for display success/errors
 - [x] Login vs logout state: change header nav behavior
