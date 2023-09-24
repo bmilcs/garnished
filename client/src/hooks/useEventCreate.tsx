@@ -3,21 +3,15 @@ import { TExpressValidatorError } from "@/types/apiResponseTypes";
 import { TEvent } from "@/types/eventTypes";
 import { apiService } from "@/utils/apiService";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 type TCreateEventResponse = {
   errors?: TExpressValidatorError[];
   eventId?: string;
 };
 
-// authcontext uses a string for error messages
-// but signup utilizes an array of express-validator errors.
-// moving this to authContext would require refactoring.
-// for now, this custom hook will be the solution.
-
 export const useCreateEvent = () => {
-  const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
+  const [createdEventId, setCreatedEventId] = useState<null | string>(null);
   const { redirectUnauthorizedUser } = useContext(AuthContext);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
   const [formData, setFormData] = useState<TEvent>({
@@ -68,7 +62,7 @@ export const useCreateEvent = () => {
         return;
       }
 
-      navigate(`/event/${eventId}`);
+      setCreatedEventId(eventId);
     } catch (e) {
       console.error("errors:", e);
     } finally {
@@ -76,5 +70,12 @@ export const useCreateEvent = () => {
     }
   };
 
-  return { formData, setFormData, createEvent, errors, isPending };
+  return {
+    formData,
+    setFormData,
+    createEvent,
+    errors,
+    createdEventId,
+    isPending,
+  };
 };
