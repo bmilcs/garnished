@@ -1,4 +1,4 @@
-import { ArrowSVG } from "@/components/common/ArrowSVG/ArrowSVG";
+import { ArrowIcon } from "@/components/common/ArrowIcon/ArrowIcon";
 import { Button } from "@/components/common/Button/Button";
 import { Modal } from "@/components/common/Modal/Modal";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
@@ -28,6 +28,8 @@ function Carousel({ imageObject }: TProps) {
   const [navSlideWidth, setNavSlideWidth] = useState(0);
   const [modalImage, setModalImage] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [carouselScrollPosition, setCarouselScrollPosition] = useState(0);
+  const DEBOUNCE_TIME = 100;
 
   useEffect(
     function setSlideWidthsOnWindowSizeChange() {
@@ -40,43 +42,56 @@ function Carousel({ imageObject }: TProps) {
   useEffect(
     function scrollToImagesOnIndexChange() {
       const scrollAfterDebounce = setTimeout(() => {
+        // scroll current carousel slide to center of the carousel
         const carouselScrollPosition = carouselSlideWidth * currentImageIndex;
         carouselRef.current?.scrollTo({
           left: carouselScrollPosition,
           behavior: "smooth",
         });
 
-        // scroll nav slide to center of the nav grid
+        // scroll current nav slide to center of the nav grid
         const navGridWidth = navRef.current?.clientWidth ?? 0;
         const navFarLeftScrollPosition = navSlideWidth * currentImageIndex;
-        const navFinalScrollPosition =
+        const navCenteredScrollPosition =
           navFarLeftScrollPosition - (navGridWidth / 2 - navSlideWidth);
         navRef.current?.scrollTo({
-          left: navFinalScrollPosition,
+          left: navCenteredScrollPosition,
           behavior: "smooth",
         });
-      }, 100);
+      }, DEBOUNCE_TIME);
 
       return () => clearTimeout(scrollAfterDebounce);
     },
     [currentImageIndex, carouselSlideWidth, navSlideWidth],
   );
 
+  useEffect(
+    function changeImageIndexAfterCarouselScrollingStops() {
+      const setImageIndexAfterDebounce = setTimeout(() => {
+        const index = Math.round(carouselScrollPosition / carouselSlideWidth);
+        setCurrentImageIndex(index);
+      }, DEBOUNCE_TIME);
+
+      return () => clearTimeout(setImageIndexAfterDebounce);
+    },
+    [carouselScrollPosition, carouselSlideWidth],
+  );
+
   const handleCarouselScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const scrollLeft = e.currentTarget.scrollLeft;
-    const index = scrollLeft / carouselSlideWidth;
-    if (index % 1 !== 0) return;
-    setCurrentImageIndex(index);
+    setCarouselScrollPosition(scrollLeft);
   };
 
   const handleNextImage = () => {
-    currentImageIndex === imageObjectArray.length - 1
+    const onLastImage = currentImageIndex === imageObjectArray.length - 1;
+    onLastImage
       ? setCurrentImageIndex(0)
       : setCurrentImageIndex(currentImageIndex + 1);
   };
 
   const handlePreviousImage = () => {
-    currentImageIndex === 0
+    const onFirstImage = currentImageIndex === 0;
+    onFirstImage
       ? setCurrentImageIndex(imageObjectArray.length - 1)
       : setCurrentImageIndex(currentImageIndex - 1);
   };
@@ -102,7 +117,6 @@ function Carousel({ imageObject }: TProps) {
           className={`${styles.carousel}`}
           ref={carouselRef}
           onScroll={handleCarouselScroll}
-          tabIndex={0}
         >
           {imageObjectArray.map((image, index) => (
             <div
@@ -120,7 +134,8 @@ function Carousel({ imageObject }: TProps) {
           ))}
         </div>
 
-        {/* carousel controls */}
+        {/* carousel controls: left/right arrows */}
+
         <div className={styles.carouselControls}>
           <Button
             type="icon"
@@ -128,7 +143,7 @@ function Carousel({ imageObject }: TProps) {
             className={styles.carouselArrowButton}
             ariaLabel="Previous Image"
           >
-            <ArrowSVG direction="left" className={styles.carouselArrowSVG} />
+            <ArrowIcon direction="left" className={styles.carouselArrowSVG} />
           </Button>
           <Button
             type="icon"
@@ -136,13 +151,14 @@ function Carousel({ imageObject }: TProps) {
             className={styles.carouselArrowButton}
             ariaLabel="Next Image"
           >
-            <ArrowSVG direction="right" className={styles.carouselArrowSVG} />
+            <ArrowIcon direction="right" className={styles.carouselArrowSVG} />
           </Button>
         </div>
       </div>
 
       {/* image grid */}
-      <div className="">
+
+      <div>
         <div className={styles.navigationGrid} ref={navRef}>
           {imageObjectArray.map((image, index) => (
             <div ref={navSlideRef} key={`${image.full}-${index}`}>
@@ -151,11 +167,11 @@ function Carousel({ imageObject }: TProps) {
                 className={styles.navigationSlide}
                 ariaLabel={`Image ${index + 1}`}
                 key={image.full}
+                onClick={() => handleNavigationSlideClick(index)}
               >
                 <ResponsiveImage
                   img={image}
                   alt={`Navigation Image ${index + 1}`}
-                  onClick={() => handleNavigationSlideClick(index)}
                   className={`${styles.navigationSlideImage}${
                     index === currentImageIndex
                       ? ` ${styles.navigationSlideImageActive}`
@@ -171,7 +187,11 @@ function Carousel({ imageObject }: TProps) {
       {/* modal */}
 
       {modalImage !== null && (
-        <Modal onClick={() => handleModalImageClick()} type="image">
+        <Modal
+          onClickCloseOrOverlay={() => handleModalImageClick()}
+          onClickModal={() => handleModalImageClick()}
+          type="image"
+        >
           <img src={modalImage} alt="Modal Image" />
         </Modal>
       )}
