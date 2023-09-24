@@ -274,18 +274,6 @@ import wine_01_small from "@/assets/drinks/responsive/wine_01_small.webp";
 import wine_01_medium from "@/assets/drinks/responsive/wine_01_medium.webp";
 import wine_01_large from "@/assets/drinks/responsive/wine_01_large.webp";
 import wine_01_full from "@/assets/drinks/responsive/wine_01_full.webp";
-import wine_02_small from "@/assets/drinks/responsive/wine_02_small.webp";
-import wine_02_medium from "@/assets/drinks/responsive/wine_02_medium.webp";
-import wine_02_large from "@/assets/drinks/responsive/wine_02_large.webp";
-import wine_02_full from "@/assets/drinks/responsive/wine_02_full.webp";
-import wine_03_small from "@/assets/drinks/responsive/wine_03_small.webp";
-import wine_03_medium from "@/assets/drinks/responsive/wine_03_medium.webp";
-import wine_03_large from "@/assets/drinks/responsive/wine_03_large.webp";
-import wine_03_full from "@/assets/drinks/responsive/wine_03_full.webp";
-import wine_04_small from "@/assets/drinks/responsive/wine_04_small.webp";
-import wine_04_medium from "@/assets/drinks/responsive/wine_04_medium.webp";
-import wine_04_large from "@/assets/drinks/responsive/wine_04_large.webp";
-import wine_04_full from "@/assets/drinks/responsive/wine_04_full.webp";
 import drinkware_01_small from "@/assets/drinkware/responsive/drinkware_01_small.webp";
 import drinkware_01_medium from "@/assets/drinkware/responsive/drinkware_01_medium.webp";
 import drinkware_01_large from "@/assets/drinkware/responsive/drinkware_01_large.webp";
@@ -732,24 +720,6 @@ export const drinks = {
     medium: wine_01_medium,
     large: wine_01_large,
     full: wine_01_full,
-  },
-  wine_02: {
-    small: wine_02_small,
-    medium: wine_02_medium,
-    large: wine_02_large,
-    full: wine_02_full,
-  },
-  wine_03: {
-    small: wine_03_small,
-    medium: wine_03_medium,
-    large: wine_03_large,
-    full: wine_03_full,
-  },
-  wine_04: {
-    small: wine_04_small,
-    medium: wine_04_medium,
-    large: wine_04_large,
-    full: wine_04_full,
   },
 };
 
