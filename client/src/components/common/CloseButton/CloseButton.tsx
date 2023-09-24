@@ -3,7 +3,7 @@ import { TClassName } from "@/types/propTypes";
 import { FC } from "react";
 
 type TProps = TClassName & {
-  onClick?: () => void;
+  onClick: () => void;
 };
 
 export const CloseButton: FC<TProps> = ({ className, onClick }) => {
