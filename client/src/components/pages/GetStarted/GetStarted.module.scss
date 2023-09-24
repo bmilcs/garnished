@@ -22,12 +22,12 @@
 }
 
 .signupButtonWrapper {
+  margin-top: var(--vertical-spacer-medium);
   display: grid;
   place-items: center;
 }
 
 .signupButton {
-  margin-top: var(--vertical-spacer-medium);
   width: 100%;
 }
 
