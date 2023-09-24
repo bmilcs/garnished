@@ -9,10 +9,7 @@ type TProps = TChildrenAndClassName & {
   title?: string;
   message?: string;
   onClickCloseOrOverlay?: () => void;
-};
-
-const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
-  e.stopPropagation();
+  onClickModal?: () => void;
 };
 
 export const Modal: FC<TProps> = ({
@@ -21,17 +18,17 @@ export const Modal: FC<TProps> = ({
   message,
   children,
   onClickCloseOrOverlay,
+  onClickModal,
   className,
 }) => {
+  const handleModalClickDefault = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   useEffect(
     function addKeyboardNavigation() {
       const handleKeyDown = (e: KeyboardEvent) => {
-        if (
-          e.key === "Escape" ||
-          e.key === "Spacebar" ||
-          e.key === " " ||
-          e.key === "Enter"
-        ) {
+        if (e.key === "Escape") {
           onClickCloseOrOverlay?.();
         }
       };
@@ -52,7 +49,7 @@ export const Modal: FC<TProps> = ({
         className={`${styles.modal}${
           type === "image" ? ` ${styles.image}` : ` ${styles.standard}`
         }`}
-        onClick={handleModalClick}
+        onClick={onClickModal ?? handleModalClickDefault}
       >
         {title && <h3>{title}</h3>}
 
@@ -60,9 +57,9 @@ export const Modal: FC<TProps> = ({
         otherwise just render message */}
         {message && title ? (
           <p className={styles.message}>{message}</p>
-        ) : (
-          <p>message</p>
-        )}
+        ) : message ? (
+          <p>{message}</p>
+        ) : null}
 
         {/* if children exist with a title or message, add .children class (margin) 
         otherwise just render children */}
@@ -72,10 +69,12 @@ export const Modal: FC<TProps> = ({
           children
         )}
 
-        <CloseButton
-          onClick={onClickCloseOrOverlay}
-          className={styles.closeButton}
-        />
+        {onClickCloseOrOverlay && (
+          <CloseButton
+            onClick={onClickCloseOrOverlay}
+            className={styles.closeButton}
+          />
+        )}
       </ScrollAnimator>
     </div>
   );
