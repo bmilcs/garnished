@@ -52,9 +52,9 @@ export const Contact: FC = () => {
               <div>
                 <h2 className={styles.contactHeader}>Wait...</h2>
                 <p className={styles.contactInstructions}>
-                  Are you ready for your free estimate? If so, click get started
-                  and follow the instructions. Otherwise, fill out the form and
-                  we'll get back to you as soon as possible.
+                  Are you ready for your free estimate? If so, click to get
+                  started and follow the instructions. Otherwise, fill out the
+                  contact form and we'll get back to you as soon as possible.
                 </p>
 
                 <Button type="hero" link="/get-started">
