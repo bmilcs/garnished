@@ -17,7 +17,7 @@ type TDeleteResponse = {
   deleted?: boolean;
 };
 
-// signup utilizes an array of express-validator errors, so
+// user update utilizes an array of express-validator errors, so
 // moving this to authContext would require refactoring.
 // for now, this custom hook will be the solution.
 
@@ -25,7 +25,10 @@ export const useUserUpdate = () => {
   const { redirectUnauthorizedUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
-  const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
+  const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
+    [],
+  );
+  const [deleteError, setDeleteError] = useState("");
   const [formData, setFormData] = useState<TUser>();
 
   useEffect(() => {
@@ -54,7 +57,7 @@ export const useUserUpdate = () => {
   }, [redirectUnauthorizedUser]);
 
   const updateUser = async () => {
-    setErrors([]);
+    setUpdateErrors([]);
     setIsPending(true);
 
     try {
@@ -69,7 +72,7 @@ export const useUserUpdate = () => {
       if (updated) {
         navigate("/user");
       } else if (errors) {
-        setErrors(errors);
+        setUpdateErrors(errors);
       }
     } catch {
       console.error("Something went wrong. Try again later.");
@@ -79,12 +82,12 @@ export const useUserUpdate = () => {
   };
 
   const deleteUser = async () => {
-    setErrors([]);
+    setDeleteError("");
     setIsPending(true);
 
     try {
       const {
-        data: { deleted },
+        data: { deleted, msg },
       } = await apiService<TDeleteResponse>({
         method: "DELETE",
         path: `user`,
@@ -93,8 +96,8 @@ export const useUserUpdate = () => {
       if (deleted) {
         await logout();
         navigate("/");
-      } else if (errors) {
-        setErrors(errors);
+      } else if (msg) {
+        setDeleteError(msg);
       }
     } catch {
       console.error("Something went wrong. Try again later.");
@@ -103,5 +106,13 @@ export const useUserUpdate = () => {
     }
   };
 
-  return { formData, setFormData, updateUser, deleteUser, errors, isPending };
+  return {
+    formData,
+    setFormData,
+    updateUser,
+    deleteUser,
+    updateErrors,
+    deleteError,
+    isPending,
+  };
 };

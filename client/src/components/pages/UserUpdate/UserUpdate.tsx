@@ -1,16 +1,27 @@
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
+import { Modal } from "@/components/common/Modal/Modal";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserUpdate } from "@/hooks/useUserUpdate";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserUpdate: FC = () => {
-  const { formData, setFormData, updateUser, deleteUser, errors, isPending } =
-    useUserUpdate();
+  const {
+    formData,
+    setFormData,
+    updateUser,
+    deleteUser,
+    updateErrors,
+    deleteError,
+    isPending,
+  } = useUserUpdate();
   const handleSubmitForm = onFormSubmit(updateUser);
   const handleInputChange = useInputChange(setFormData);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const navigate = useNavigate();
 
   if (isPending) return <HourglassSpinner />;
 
@@ -30,7 +41,7 @@ export const UserUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.username}
               required
-              error={getExpressValidatorError("username", errors)}
+              error={getExpressValidatorError("username", updateErrors)}
             />
 
             <Input
@@ -40,7 +51,7 @@ export const UserUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.phone}
               required
-              error={getExpressValidatorError("phone", errors)}
+              error={getExpressValidatorError("phone", updateErrors)}
             />
 
             <Input
@@ -50,7 +61,7 @@ export const UserUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.firstName}
               required
-              error={getExpressValidatorError("firstName", errors)}
+              error={getExpressValidatorError("firstName", updateErrors)}
             />
 
             <Input
@@ -60,7 +71,7 @@ export const UserUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.lastName}
               required
-              error={getExpressValidatorError("lastName", errors)}
+              error={getExpressValidatorError("lastName", updateErrors)}
             />
 
             <Input
@@ -70,7 +81,7 @@ export const UserUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.address}
               required
-              error={getExpressValidatorError("address", errors)}
+              error={getExpressValidatorError("address", updateErrors)}
             />
 
             <Input
@@ -80,7 +91,7 @@ export const UserUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.city}
               required
-              error={getExpressValidatorError("city", errors)}
+              error={getExpressValidatorError("city", updateErrors)}
             />
 
             <Input
@@ -91,7 +102,7 @@ export const UserUpdate: FC = () => {
               value={formData.state}
               required
               maxLength={2}
-              error={getExpressValidatorError("state", errors)}
+              error={getExpressValidatorError("state", updateErrors)}
             />
 
             <Input
@@ -102,16 +113,53 @@ export const UserUpdate: FC = () => {
               value={formData.zip}
               required
               maxLength={5}
-              error={getExpressValidatorError("zip", errors)}
+              error={getExpressValidatorError("zip", updateErrors)}
             />
 
             <Button type="primary">Update Personal Information</Button>
           </form>
         </div>
 
-        <Button type="outline" onClick={deleteUser}>
+        <Button type="outline" onClick={() => setShowDeleteModal(true)}>
           Delete Account
         </Button>
+
+        {deleteError && (
+          <Modal
+            title="Error"
+            message={deleteError}
+            onClickCloseOrOverlay={() => navigate("/user")}
+          >
+            <Button type="primary" onClick={() => navigate("/user")}>
+              Return to Dashboard
+            </Button>
+          </Modal>
+        )}
+
+        {showDeleteModal && !deleteError && (
+          <Modal
+            title="Delete Your Account?"
+            message="Are you sure you want to delete your account? This action cannot be undone."
+          >
+            <div className="button-wrapper">
+              <Button
+                type="outline"
+                onClick={deleteUser}
+                className="margin-right"
+              >
+                Delete Account
+              </Button>
+
+              <Button
+                type="primary"
+                onClick={() => setShowDeleteModal(false)}
+                className="margin-right"
+              >
+                Cancel
+              </Button>
+            </div>
+          </Modal>
+        )}
       </section>
     );
 };
