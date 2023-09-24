@@ -21,8 +21,10 @@
   background: var(--clr-fg);
   color: var(--clr-bg);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: var(--clr-primary);
+    outline: 3px solid var(--clr-fg-light);
     color: var(--clr-fg);
   }
 }
@@ -31,7 +33,8 @@
   background: var(--clr-primary);
   color: var(--clr-fg);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: var(--clr-fg-light);
     color: var(--clr-bg-light);
     outline: 3px solid var(--clr-primary);
@@ -43,7 +46,8 @@
   background: none;
   color: var(--clr-fg);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: var(--clr-fg);
     color: var(--clr-primary);
   }
@@ -57,7 +61,8 @@
   padding-inline: min(5vw, 3rem);
   padding-block: min(2vw, 0.75rem);
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: var(--clr-fg-light);
     color: var(--clr-bg-light);
     outline: 3px solid var(--clr-primary);
@@ -74,5 +79,9 @@
 
   &:hover:not(:focus) {
     color: var(--clr-primary);
+  }
+
+  &:focus {
+    outline: 3px solid var(--clr-primary);
   }
 }
