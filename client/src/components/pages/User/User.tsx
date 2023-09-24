@@ -1,6 +1,7 @@
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { useUserData } from "@/hooks/useUserData";
 import { formatDate, formatPhoneNumber } from "@/utils/formatters";
@@ -12,7 +13,13 @@ export const User: FC = () => {
   const { userData, isPending, error } = useUserData();
   const { logout } = useContext(AuthContext);
 
-  if (isPending) return <HourglassSpinner />;
+  if (isPending) {
+    return <HourglassSpinner />;
+  }
+
+  if (!isPending && !userData) {
+    return <ErrorPage title="404" subtitle="User not found." />;
+  }
 
   if (userData)
     return (

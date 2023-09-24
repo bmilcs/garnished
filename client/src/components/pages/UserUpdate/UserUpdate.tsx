@@ -2,6 +2,7 @@ import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
+import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserUpdate } from "@/hooks/useUserUpdate";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
@@ -23,7 +24,13 @@ export const UserUpdate: FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
 
-  if (isPending) return <HourglassSpinner />;
+  if (isPending) {
+    return <HourglassSpinner />;
+  }
+
+  if (!isPending && !formData) {
+    return <ErrorPage title="404" subtitle="User not found." />;
+  }
 
   if (!isPending && formData)
     return (
