@@ -22,6 +22,7 @@ export type TEventRequestDetails = {
   wine: boolean;
   specialtyDrinks: boolean;
   liquorPreferences: string;
+  additionalInfo: string;
 };
 
 export type TEventDocument = mongoose.Document &
@@ -56,6 +57,11 @@ const EventSchema = new Schema({
     type: String,
     required: false,
     isLength: { min: 1, max: 300 },
+  },
+  additionalInfo: {
+    type: String,
+    required: false,
+    isLength: { min: 1, max: 1000 },
   },
 });
 

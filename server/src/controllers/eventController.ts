@@ -2,8 +2,7 @@ import { DAYS_TO_PREPARE } from "@/config/env";
 import { IAuthRequest } from "@/middlewares/authenticate";
 import EventModel, { TEventDocument } from "@/models/event";
 import UserModel, { TUserDocument } from "@/models/user";
-import sendNewEventEmailToOwners from "@/services/templates/newEventEmail";
-import sendUpdatedEventEmailToOwners from "@/services/templates/updatedEventEmail";
+import { sendEventEmailToOwners } from "@/services/templates/eventEmail";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { Response } from "express";
 import { body, validationResult } from "express-validator";
@@ -150,6 +149,7 @@ export const eventCreatePost = [
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
   body("liquorPreferences").trim().escape().isLength({ max: 300 }),
+  body("additionalInfo").trim().escape().isLength({ max: 1000 }),
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
@@ -186,8 +186,12 @@ export const eventCreatePost = [
 
       // avoid sending emails in test mode
       if (req.app.get("testMode")) return;
-
-      if (user && event) sendNewEventEmailToOwners({ user, event });
+      if (user && event)
+        sendEventEmailToOwners({
+          user,
+          event,
+          title: "New Event Quote Request!",
+        });
     } catch (e) {
       console.error(e);
       res.status(500).json({ msg: "Internal server error." });
@@ -312,6 +316,7 @@ export const eventUpdatePatch = [
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
   body("liquorPreferences").trim().escape().isLength({ max: 300 }),
+  body("additionalInfo").trim().escape().isLength({ max: 1000 }),
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
@@ -359,7 +364,12 @@ export const eventUpdatePatch = [
 
       // avoid sending emails in test mode
       if (req.app.get("testMode")) return;
-      if (user && event) sendUpdatedEventEmailToOwners({ user, event });
+      if (user && event)
+        sendEventEmailToOwners({
+          user,
+          event,
+          title: "An Event Has Been Updated!",
+        });
     } catch (e) {
       console.error(e);
       res.status(500).json({ msg: "Internal server error." });

@@ -33,6 +33,7 @@ export const useCreateEvent = () => {
     wine: true,
     specialtyDrinks: false,
     liquorPreferences: "",
+    additionalInfo: "",
   });
 
   useEffect(() => {

@@ -18,6 +18,7 @@ export type TEvent = {
   wine: boolean;
   specialtyDrinks: boolean;
   liquorPreferences: string;
+  additionalInfo: string;
 };
 
 export type TEventWithId = TEvent & {

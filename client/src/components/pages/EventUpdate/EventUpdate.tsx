@@ -218,6 +218,16 @@ export const EventUpdate: FC = () => {
               error={getExpressValidatorError("liquorPreferences", errors)}
             />
 
+            <Input
+              name="additionalInfo"
+              type="textarea"
+              label="Additional Information (optional)"
+              maxLength={1000}
+              onChange={handleInputChange}
+              value={formData.additionalInfo}
+              error={getExpressValidatorError("additionalInfo", errors)}
+            />
+
             <Button type="primary">Update Event Details</Button>
           </form>
         </ScrollAnimator>

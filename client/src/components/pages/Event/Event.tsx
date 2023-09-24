@@ -30,24 +30,19 @@ export const Event: FC = () => {
           {eventData && (
             <ScrollAnimator type="SLIDE_DOWN" className="user-section-card">
               <h4>Details</h4>
-
               <p>{eventData.eventType}</p>
               <p>
                 {formatTime(eventData.time)} on {formatDate(eventData.date)}
               </p>
               <p>Guests: {eventData.guests}</p>
               <p>Hours: {eventData.hours}</p>
-
               <h4>Location</h4>
-
               <p>Located: {eventData.locationDescription}</p>
               <p>{eventData.address}</p>
               <p>
                 {eventData.city}, {eventData.state} {eventData.zip}
               </p>
-
               <h4>Services</h4>
-
               {eventData.needBar && <p>Mobile Bar</p>}
               {eventData.needTent && <p>Tent</p>}
               {eventData.needAlcohol && <p>Alcohol</p>}
@@ -55,10 +50,19 @@ export const Event: FC = () => {
               {eventData.beer && <p>Beer</p>}
               {eventData.wine && <p>Wine</p>}
               {eventData.specialtyDrinks && <p>Specialty Drinks</p>}
+              {eventData.liquorPreferences && (
+                <>
+                  <h4>Liquor Preferences</h4>
+                  <p>{eventData.liquorPreferences}</p>
+                </>
+              )}
 
-              <h4>Liquor Preferences</h4>
-
-              {eventData.liquorPreferences}
+              {eventData.additionalInfo && (
+                <>
+                  <h4>Additional Information</h4>
+                  <p>{eventData.additionalInfo}</p>
+                </>
+              )}
             </ScrollAnimator>
           )}
 
