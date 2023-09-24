@@ -3,9 +3,10 @@ import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { LoginForm } from "@/components/common/LoginForm/LoginForm";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { FC } from "react";
 import styles from "./GetStarted.module.scss";
 
-export const GetStarted = () => {
+export const GetStarted: FC = () => {
   return (
     <>
       <Hero

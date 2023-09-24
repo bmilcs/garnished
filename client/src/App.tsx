@@ -1,6 +1,7 @@
 import Layout from "@/Layout";
 import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
 import { Contact } from "@/components/pages/Contact/Contact";
+import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { Event } from "@/components/pages/Event/Event";
 import { EventForm } from "@/components/pages/EventForm/EventForm";
 import { EventUpdate } from "@/components/pages/EventUpdate/EventUpdate";
@@ -37,6 +38,7 @@ const App: FC = () => {
             <Route path="/event/:id" element={<Event />} />
             <Route path="/event/:id/update" element={<EventUpdate />} />
             <Route path="/seasonal-menus" element={<SeasonalMenus />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Layout>
       </AuthProvider>
