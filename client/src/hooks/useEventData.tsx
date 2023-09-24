@@ -1,6 +1,7 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TEventWithId } from "@/types/eventTypes";
 import { apiService } from "@/utils/apiService";
+import { formatDateWithDashes } from "@/utils/formatters";
 import { useContext, useEffect, useState } from "react";
 
 type TEventGetApiResponse = {
@@ -33,7 +34,10 @@ export const useEventData = (eventId: string) => {
           path: `event/${eventId}`,
         });
 
-        if (event) setEventData(event);
+        if (event) {
+          const date = formatDateWithDashes(event.date);
+          setEventData({ ...event, date: date });
+        }
       } catch {
         setError(
           "Something went wrong while retrieving your event. Try again later.",

@@ -1,11 +1,13 @@
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
+import { Modal } from "@/components/common/Modal/Modal";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { useEventUpdate } from "@/hooks/useEventUpdate";
 import { useInputChange } from "@/hooks/useInputChange";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export const EventUpdate: FC = () => {
@@ -14,10 +16,14 @@ export const EventUpdate: FC = () => {
     useEventUpdate(eventId ?? "");
   const handleSubmitForm = onFormSubmit(updateEvent);
   const handleInputChange = useInputChange(setFormData);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   if (isPending) return <HourglassSpinner />;
 
-  if (!isPending && formData)
+  if (!isPending && !formData)
+    return <ErrorPage title="404" subtitle="Event not found." />;
+
+  if (formData)
     return (
       <section className="content-spacer user-section">
         <ScrollAnimator type="SLIDE_DOWN" className="column">
@@ -216,9 +222,34 @@ export const EventUpdate: FC = () => {
           </form>
         </ScrollAnimator>
 
-        <Button type="outline" onClick={deleteEvent}>
+        <Button type="outline" onClick={() => setShowDeleteModal(true)}>
           Delete Event
         </Button>
+
+        {showDeleteModal && (
+          <Modal
+            title="Delete Event?"
+            message="Are you sure you want to delete your event? This action cannot be undone."
+          >
+            <div className="button-wrapper">
+              <Button
+                type="outline"
+                onClick={deleteEvent}
+                className="margin-right"
+              >
+                Delete Event
+              </Button>
+
+              <Button
+                type="primary"
+                onClick={() => setShowDeleteModal(false)}
+                className="margin-right"
+              >
+                Cancel
+              </Button>
+            </div>
+          </Modal>
+        )}
       </section>
     );
 };

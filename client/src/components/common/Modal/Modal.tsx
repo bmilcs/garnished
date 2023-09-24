@@ -5,7 +5,7 @@ import { FC, useEffect } from "react";
 import styles from "./Modal.module.scss";
 
 type TProps = TChildrenAndClassName & {
-  type: "standard" | "image";
+  type?: "standard" | "image";
   title?: string;
   message?: string;
   onClickCloseOrOverlay?: () => void;
