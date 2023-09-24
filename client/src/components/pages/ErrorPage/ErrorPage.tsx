@@ -4,8 +4,8 @@ import { Hero } from "@/components/common/Hero/Hero";
 import { FC } from "react";
 
 type TProps = {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
 };
 
 export const ErrorPage: FC<TProps> = ({
