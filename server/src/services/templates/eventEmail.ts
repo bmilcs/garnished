@@ -7,14 +7,16 @@ import { baseEmailTemplate } from "./baseEmailTemplate";
 type TNewEventEmailTemplate = {
   user: TUserDocument;
   event: TEventDocument;
+  title: string;
 };
 
-const sendNewEventEmailToOwners = async ({
+export const sendEventEmailToOwners = async ({
   user,
+  title = "New Event Quote Request!",
   event,
 }: TNewEventEmailTemplate) => {
-  const subject = "New Event Quote Request!";
-  const header = "New Event Quote Request";
+  const subject = title;
+  const header = title;
 
   const userDetails = {
     "First Name": user.firstName,
@@ -67,5 +69,3 @@ const sendNewEventEmailToOwners = async ({
 
   await sendEmail({ to: OWNERS_EMAILS, subject, html });
 };
-
-export default sendNewEventEmailToOwners;
