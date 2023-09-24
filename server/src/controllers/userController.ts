@@ -5,7 +5,6 @@ import {
   setJwtRefreshTokenCookie,
 } from "@/middlewares/setJwtCookies";
 import UserModel, { TUserDocument } from "@/models/user";
-import sendWelcomeEmail from "@/services/templates/welcomeEmail";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
@@ -366,9 +365,9 @@ export const userSignup = [
       res.json({ msg: "Successful user signup.", authenticated: true });
 
       // avoid sending emails in test mode
-      if (req.app.get("testMode")) return;
-
-      if (user.username) sendWelcomeEmail(user.username);
+      // note: temporarily disabled until an email design process is implemented
+      // if (req.app.get("testMode")) return;
+      // if (user.username) sendWelcomeEmail(user.username);
     } catch (e) {
       console.error(e);
       res.status(500).json({ msg: "Internal server error." });
