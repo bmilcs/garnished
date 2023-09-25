@@ -2,13 +2,14 @@ import { drinks } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { LoginForm } from "@/components/common/LoginForm/LoginForm";
+import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { FC } from "react";
 import styles from "./GetStarted.module.scss";
 
 export const GetStarted: FC = () => {
   return (
-    <>
+    <PageTransition>
       <Hero
         backgroundImage={drinks.specialty_drink_52.full}
         title="Get"
@@ -52,6 +53,6 @@ export const GetStarted: FC = () => {
           <LoginForm className={styles.loginForm} />
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 };

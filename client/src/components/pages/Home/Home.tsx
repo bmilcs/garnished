@@ -2,6 +2,7 @@ import { bar, drinks } from "@/assets";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import { Hero } from "@/components/common/Hero/Hero";
+import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { TiltDivider } from "@/components/common/TiltDivider/TiltDivider";
 import { FC } from "react";
@@ -88,7 +89,7 @@ const contentBlocks = [
 
 export const Home: FC = () => {
   return (
-    <>
+    <PageTransition>
       {/* hero */}
 
       <Hero
@@ -176,6 +177,6 @@ export const Home: FC = () => {
           </section>
         );
       })}
-    </>
+    </PageTransition>
   );
 };

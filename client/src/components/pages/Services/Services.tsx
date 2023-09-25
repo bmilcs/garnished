@@ -1,5 +1,6 @@
 import { bar, drinks } from "@/assets";
 import { Hero } from "@/components/common/Hero/Hero";
+import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
@@ -8,7 +9,7 @@ import styles from "./Services.module.scss";
 
 export const Services: FC = () => {
   return (
-    <>
+    <PageTransition>
       <Hero
         title="Goods &"
         titleSpan="Services"
@@ -158,6 +159,6 @@ export const Services: FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 };

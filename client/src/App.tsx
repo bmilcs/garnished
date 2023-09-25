@@ -1,6 +1,5 @@
 import Layout from "@/Layout";
 import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
-import { Footer } from "@/components/layout/Footer/Footer";
 import { Contact } from "@/components/pages/Contact/Contact";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { Event } from "@/components/pages/Event/Event";
@@ -46,7 +45,6 @@ const App: FC = () => {
           </Routes>
         </AnimatePresence>
       </Layout>
-      <Footer />
     </AuthProvider>
   );
 };

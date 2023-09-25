@@ -4,6 +4,7 @@ import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
+import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useContactForm } from "@/hooks/useContactForm";
 import { useInputChange } from "@/hooks/useInputChange";
@@ -30,7 +31,7 @@ export const Contact: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <PageTransition>
       <Hero
         backgroundImage={drinks.specialty_drink_30.full}
         title="Get In"
@@ -122,6 +123,6 @@ export const Contact: FC = () => {
           </div>
         )}
       </section>
-    </>
+    </PageTransition>
   );
 };

@@ -2,17 +2,18 @@
 import { drinks } from "@/assets";
 import Carousel from "@/components/common/Carousel/Carousel";
 import { Hero } from "@/components/common/Hero/Hero";
+import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { FC } from "react";
 import styles from "./Gallery.module.scss";
 
 export const Gallery: FC = () => {
   return (
-    <>
+    <PageTransition>
       <Hero
         backgroundImage={drinks.specialty_drink_42.full}
         title="Photo"
         titleSpan="Gallery"
-        subtitle="Eye candy from our events"
+        subtitle="Drink in the beauty"
       />
 
       {/* image grid */}
@@ -22,6 +23,6 @@ export const Gallery: FC = () => {
           <Carousel imageObject={drinks} />
         </div>
       </section>
-    </>
+    </PageTransition>
   );
 };
