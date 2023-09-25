@@ -1,5 +1,6 @@
 import Layout from "@/Layout";
 import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
+import { Footer } from "@/components/layout/Footer/Footer";
 import { Contact } from "@/components/pages/Contact/Contact";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { Event } from "@/components/pages/Event/Event";
@@ -15,16 +16,19 @@ import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
 import { UserUpdate } from "@/components/pages/UserUpdate/UserUpdate";
 import { AuthProvider } from "@/hooks/useAuthContext";
+import { AnimatePresence } from "framer-motion";
 import { FC } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 const App: FC = () => {
+  const location = useLocation();
+
   return (
-    <HashRouter>
-      <AuthProvider>
-        <ScrollToTop />
-        <Layout>
-          <Routes>
+    <AuthProvider>
+      <Layout>
+        <AnimatePresence>
+          <ScrollToTop />
+          <Routes key={location.pathname} location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -40,9 +44,10 @@ const App: FC = () => {
             <Route path="/seasonal-menus" element={<SeasonalMenus />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-        </Layout>
-      </AuthProvider>
-    </HashRouter>
+        </AnimatePresence>
+      </Layout>
+      <Footer />
+    </AuthProvider>
   );
 };
 
