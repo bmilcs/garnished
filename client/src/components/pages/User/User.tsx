@@ -17,25 +17,30 @@ export const User: FC = () => {
     return <HourglassSpinner />;
   }
 
-  if (!isPending && !userData) {
+  if (error || (!isPending && !userData)) {
     return <ErrorPage title="404" subtitle="User not found." />;
   }
 
   if (userData)
     return (
       <section className={`content-spacer user-section`}>
-        <div className={`column user-section-wrapper`}>
+        <ScrollAnimator
+          type="SLIDE_DOWN"
+          className={`column user-section-wrapper`}
+        >
+          {/* page header */}
           <div className={styles.dashboardHeader}>
             <h2>User Dashboard</h2>
             <p>Welcome back, {userData?.firstName}!</p>
           </div>
 
+          {/* 2 column layout */}
           <div className={styles.contentWrapper}>
+            {/* events column */}
             {userData.events.length > 0 ? (
               //  user has events
               <div className="user-section-card">
                 <h4 className={styles.userDetailsHeader}>Your Events</h4>
-
                 <ul>
                   {userData.events.map(event => (
                     <li key={event._id}>
@@ -60,6 +65,7 @@ export const User: FC = () => {
               </div>
             )}
 
+            {/* personal details column */}
             <div className="user-section-card">
               <h4 className={styles.userDetailsHeader}>Personal Info</h4>
               <p>
@@ -69,11 +75,9 @@ export const User: FC = () => {
               <p>
                 {userData.city}, {userData.state}, {userData.zip}
               </p>
-
               <h4 className={styles.userDetailsHeader}>Contact Info</h4>
               <p>{formatPhoneNumber(userData.phone)}</p>
               <p>{userData.username}</p>
-
               <Button
                 type="primary"
                 link={"/user/update"}
@@ -84,8 +88,7 @@ export const User: FC = () => {
             </div>
           </div>
 
-          {error && <p className="error">{error}</p>}
-
+          {/* bottom buttons */}
           <ScrollAnimator
             type="SLIDE_UP"
             delay={0.4}
@@ -94,12 +97,11 @@ export const User: FC = () => {
             <Button type="primary" link="/event/new">
               Create New Event
             </Button>
-
             <Button type="secondary" onClick={logout}>
               Logout
             </Button>
           </ScrollAnimator>
-        </div>
+        </ScrollAnimator>
       </section>
     );
 };
