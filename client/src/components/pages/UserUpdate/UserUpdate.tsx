@@ -2,6 +2,7 @@ import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
+import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserUpdate } from "@/hooks/useUserUpdate";
@@ -35,7 +36,10 @@ export const UserUpdate: FC = () => {
   if (!isPending && formData)
     return (
       <section className={`content-spacer user-section`}>
-        <div className={`column user-section-wrapper`}>
+        <ScrollAnimator
+          type="SLIDE_DOWN"
+          className="column user-section-wrapper"
+        >
           <form onSubmit={handleSubmitForm}>
             <div className="form-header">
               <h2>Update Personal Info</h2>
@@ -125,23 +129,13 @@ export const UserUpdate: FC = () => {
 
             <Button type="primary">Update Personal Information</Button>
           </form>
-        </div>
+        </ScrollAnimator>
 
-        <Button type="outline" onClick={() => setShowDeleteModal(true)}>
-          Delete Account
-        </Button>
-
-        {deleteError && (
-          <Modal
-            title="Error"
-            message={deleteError}
-            onClickCloseOrOverlay={() => navigate("/user")}
-          >
-            <Button type="primary" onClick={() => navigate("/user")}>
-              Return to Dashboard
-            </Button>
-          </Modal>
-        )}
+        <ScrollAnimator type="SLIDE_UP" delay={0.4} className="button-wrapper">
+          <Button type="outline" onClick={() => setShowDeleteModal(true)}>
+            Delete Account
+          </Button>
+        </ScrollAnimator>
 
         {showDeleteModal && !deleteError && (
           <Modal
@@ -165,6 +159,18 @@ export const UserUpdate: FC = () => {
                 Cancel
               </Button>
             </div>
+          </Modal>
+        )}
+
+        {deleteError && (
+          <Modal
+            title="Error"
+            message={deleteError}
+            onClickCloseOrOverlay={() => navigate("/user")}
+          >
+            <Button type="primary" onClick={() => navigate("/user")}>
+              Return to Dashboard
+            </Button>
           </Modal>
         )}
       </section>
