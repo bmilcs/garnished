@@ -3,6 +3,7 @@ import { HourglassSpinner } from "@/components/common/HourglassSpinner/Hourglass
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
 import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
 import { useCreateEvent } from "@/hooks/useEventCreate";
 import { useInputChange } from "@/hooks/useInputChange";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
@@ -24,24 +25,6 @@ export const EventForm: FC = () => {
 
   if (isPending) {
     return <HourglassSpinner />;
-  }
-
-  if (createdEventId) {
-    return (
-      <Modal
-        type="standard"
-        title="Success!"
-        message="Thank you for submitting your estimate request. The details have been sent to our customer service team and we will be in touch shortly."
-        onClickCloseOrOverlay={() => navigate(`/event/${createdEventId}`)}
-      >
-        <Button
-          type="primary"
-          onClick={() => navigate(`/event/${createdEventId}`)}
-        >
-          View Event Details
-        </Button>
-      </Modal>
-    );
   }
 
   return (
@@ -251,6 +234,23 @@ export const EventForm: FC = () => {
           <Button type="primary">Submit Estimate Request</Button>
         </form>
       </ScrollAnimator>
+
+      {!isPending && createdEventId && (
+        <Modal
+          type="standard"
+          title="Success!"
+          message="Thank you for submitting your estimate request. The details have been sent to our customer service team and we will be in touch shortly."
+          onClickCloseOrOverlay={() => navigate(`/event/${createdEventId}`)}
+        >
+          <ScrollToTop />
+          <Button
+            type="primary"
+            onClick={() => navigate(`/event/${createdEventId}`)}
+          >
+            View Event Details
+          </Button>
+        </Modal>
+      )}
     </section>
   );
 };
