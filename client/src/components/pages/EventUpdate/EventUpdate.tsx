@@ -12,8 +12,15 @@ import { useParams } from "react-router-dom";
 
 export const EventUpdate: FC = () => {
   const { id: eventId } = useParams();
-  const { formData, setFormData, updateEvent, deleteEvent, isPending, errors } =
-    useEventUpdate(eventId ?? "");
+  const {
+    formData,
+    setFormData,
+    updateEvent,
+    deleteEvent,
+    isPending,
+    updateErrors,
+    deleteError,
+  } = useEventUpdate(eventId ?? "");
   const handleSubmitForm = onFormSubmit(updateEvent);
   const handleInputChange = useInputChange(setFormData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -40,7 +47,7 @@ export const EventUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.date}
               required
-              error={getExpressValidatorError("date", errors)}
+              error={getExpressValidatorError("date", updateErrors)}
             />
 
             <Input
@@ -50,7 +57,7 @@ export const EventUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.time}
               required
-              error={getExpressValidatorError("time", errors)}
+              error={getExpressValidatorError("time", updateErrors)}
             />
 
             <Input
@@ -60,7 +67,7 @@ export const EventUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.address}
               required
-              error={getExpressValidatorError("address", errors)}
+              error={getExpressValidatorError("address", updateErrors)}
             />
 
             <Input
@@ -70,7 +77,7 @@ export const EventUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.city}
               required
-              error={getExpressValidatorError("city", errors)}
+              error={getExpressValidatorError("city", updateErrors)}
             />
 
             <Input
@@ -81,7 +88,7 @@ export const EventUpdate: FC = () => {
               value={formData.state}
               maxLength={2}
               required
-              error={getExpressValidatorError("state", errors)}
+              error={getExpressValidatorError("state", updateErrors)}
             />
 
             <Input
@@ -92,7 +99,7 @@ export const EventUpdate: FC = () => {
               value={formData.zip || ""}
               maxLength={2}
               required
-              error={getExpressValidatorError("zip", errors)}
+              error={getExpressValidatorError("zip", updateErrors)}
             />
 
             <Input
@@ -102,7 +109,10 @@ export const EventUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.locationDescription}
               required
-              error={getExpressValidatorError("locationDescription", errors)}
+              error={getExpressValidatorError(
+                "locationDescription",
+                updateErrors,
+              )}
             />
 
             <Input
@@ -112,7 +122,7 @@ export const EventUpdate: FC = () => {
               onChange={handleInputChange}
               value={formData.eventType}
               required
-              error={getExpressValidatorError("eventType", errors)}
+              error={getExpressValidatorError("eventType", updateErrors)}
             />
 
             <Input
@@ -123,7 +133,7 @@ export const EventUpdate: FC = () => {
               value={formData.guests}
               maxLength={2}
               required
-              error={getExpressValidatorError("guests", errors)}
+              error={getExpressValidatorError("guests", updateErrors)}
             />
 
             <Input
@@ -134,7 +144,7 @@ export const EventUpdate: FC = () => {
               value={formData.hours}
               maxLength={2}
               required
-              error={getExpressValidatorError("hours", errors)}
+              error={getExpressValidatorError("hours", updateErrors)}
             />
 
             <label>What services do you need?</label>
@@ -146,7 +156,7 @@ export const EventUpdate: FC = () => {
                 label="Mobile Bar"
                 onChange={handleInputChange}
                 checked={formData.needBar}
-                error={getExpressValidatorError("needBar", errors)}
+                error={getExpressValidatorError("needBar", updateErrors)}
               />
 
               <Input
@@ -155,7 +165,7 @@ export const EventUpdate: FC = () => {
                 label="Tent"
                 onChange={handleInputChange}
                 checked={formData.needTent}
-                error={getExpressValidatorError("needTent", errors)}
+                error={getExpressValidatorError("needTent", updateErrors)}
               />
 
               <Input
@@ -164,7 +174,7 @@ export const EventUpdate: FC = () => {
                 label="Alcohol"
                 onChange={handleInputChange}
                 checked={formData.needAlcohol}
-                error={getExpressValidatorError("needAlcohol", errors)}
+                error={getExpressValidatorError("needAlcohol", updateErrors)}
               />
 
               <Input
@@ -173,7 +183,7 @@ export const EventUpdate: FC = () => {
                 label="Disposable Drinkware"
                 onChange={handleInputChange}
                 checked={formData.needDrinkware}
-                error={getExpressValidatorError("needDrinkware", errors)}
+                error={getExpressValidatorError("needDrinkware", updateErrors)}
               />
             </fieldset>
 
@@ -186,7 +196,7 @@ export const EventUpdate: FC = () => {
                 label="Beer"
                 onChange={handleInputChange}
                 checked={formData.beer}
-                error={getExpressValidatorError("beer", errors)}
+                error={getExpressValidatorError("beer", updateErrors)}
               />
 
               <Input
@@ -195,7 +205,7 @@ export const EventUpdate: FC = () => {
                 label="Wine"
                 onChange={handleInputChange}
                 checked={formData.wine}
-                error={getExpressValidatorError("wine", errors)}
+                error={getExpressValidatorError("wine", updateErrors)}
               />
 
               <Input
@@ -204,7 +214,10 @@ export const EventUpdate: FC = () => {
                 label="Specialty Drinks"
                 onChange={handleInputChange}
                 checked={formData.specialtyDrinks}
-                error={getExpressValidatorError("specialtyDrinks", errors)}
+                error={getExpressValidatorError(
+                  "specialtyDrinks",
+                  updateErrors,
+                )}
               />
             </fieldset>
 
@@ -215,7 +228,10 @@ export const EventUpdate: FC = () => {
               maxLength={300}
               onChange={handleInputChange}
               value={formData.liquorPreferences}
-              error={getExpressValidatorError("liquorPreferences", errors)}
+              error={getExpressValidatorError(
+                "liquorPreferences",
+                updateErrors,
+              )}
             />
 
             <Input
@@ -225,7 +241,7 @@ export const EventUpdate: FC = () => {
               maxLength={1000}
               onChange={handleInputChange}
               value={formData.additionalInfo}
-              error={getExpressValidatorError("additionalInfo", errors)}
+              error={getExpressValidatorError("additionalInfo", updateErrors)}
             />
 
             <Button type="primary">Update Event Details</Button>
@@ -236,7 +252,7 @@ export const EventUpdate: FC = () => {
           Delete Event
         </Button>
 
-        {showDeleteModal && (
+        {!deleteError && showDeleteModal && (
           <Modal
             title="Delete Event?"
             message="Are you sure you want to delete your event? This action cannot be undone."
@@ -249,7 +265,6 @@ export const EventUpdate: FC = () => {
               >
                 Delete Event
               </Button>
-
               <Button
                 type="primary"
                 onClick={() => setShowDeleteModal(false)}
@@ -258,6 +273,18 @@ export const EventUpdate: FC = () => {
                 Cancel
               </Button>
             </div>
+          </Modal>
+        )}
+
+        {deleteError && (
+          <Modal
+            title="Error"
+            message="Something went wrong while trying to delete your event. Please try again later."
+            onClickCloseOrOverlay={() => setShowDeleteModal(false)}
+          >
+            <Button type="primary" onClick={() => setShowDeleteModal(false)}>
+              Cancel
+            </Button>
           </Modal>
         )}
       </section>
