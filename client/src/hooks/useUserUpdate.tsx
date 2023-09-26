@@ -71,7 +71,10 @@ export const useUserUpdate = () => {
 
       if (updated) {
         navigate("/user");
-      } else if (errors) {
+        return;
+      }
+
+      if (errors) {
         setUpdateErrors(errors);
       }
     } catch {
@@ -94,9 +97,12 @@ export const useUserUpdate = () => {
       });
 
       if (deleted) {
-        await logout();
         navigate("/");
-      } else if (msg) {
+        await logout();
+        return;
+      }
+
+      if (msg) {
         setDeleteError(msg);
       }
     } catch {

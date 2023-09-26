@@ -27,7 +27,10 @@ export const useEventUpdate = (eventId: string) => {
   const navigate = useNavigate();
   const { redirectUnauthorizedUser } = useContext(AuthContext);
   const [isPending, setIsPending] = useState(true);
-  const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
+  const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
+    [],
+  );
+  const [deleteError, setDeleteError] = useState("");
   const [formData, setFormData] = useState<TEvent>();
 
   // on initial render, retrieve event data from server
@@ -40,7 +43,7 @@ export const useEventUpdate = (eventId: string) => {
       }
 
       setIsPending(true);
-      setErrors([]);
+      setUpdateErrors([]);
 
       try {
         const {
@@ -65,7 +68,7 @@ export const useEventUpdate = (eventId: string) => {
   }, [redirectUnauthorizedUser, eventId, navigate]);
 
   const updateEvent = async () => {
-    setErrors([]);
+    setUpdateErrors([]);
     setIsPending(true);
 
     try {
@@ -82,7 +85,7 @@ export const useEventUpdate = (eventId: string) => {
         return;
       }
 
-      if (errors) setErrors(errors);
+      if (errors) setUpdateErrors(errors);
     } catch {
       console.error("Something went wrong. Try again later.");
     } finally {
@@ -98,18 +101,23 @@ export const useEventUpdate = (eventId: string) => {
       return;
     }
 
-    setErrors([]);
+    setDeleteError("");
     setIsPending(true);
 
     try {
       const {
-        data: { deleted },
+        data: { deleted, msg },
       } = await apiService<TEventDeleteResponse>({
         path: `event/${eventId}`,
         method: "DELETE",
       });
 
-      if (deleted) navigate("/user");
+      if (deleted) {
+        navigate("/user");
+        return;
+      }
+
+      setDeleteError(msg);
     } catch {
       console.error("Something went wrong. Try again later.");
     } finally {
@@ -117,5 +125,13 @@ export const useEventUpdate = (eventId: string) => {
     }
   };
 
-  return { formData, setFormData, updateEvent, deleteEvent, errors, isPending };
+  return {
+    formData,
+    setFormData,
+    updateEvent,
+    deleteEvent,
+    updateErrors,
+    deleteError,
+    isPending,
+  };
 };
