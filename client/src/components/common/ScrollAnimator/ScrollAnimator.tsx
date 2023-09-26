@@ -1,4 +1,4 @@
-import { AnimatePresence, Variants, motion } from "framer-motion";
+import { Variants, motion } from "framer-motion";
 import React from "react";
 
 interface ScrollAnimatorProps extends React.ComponentProps<typeof motion.div> {
@@ -122,15 +122,13 @@ const ScrollAnimator: React.FC<ScrollAnimatorProps> = ({
   const variants = getVariants(type, delay, duration);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        variants={variants}
-        initial="offscreen"
-        whileInView="onscreen"
-        viewport={{ once: true, amount: inViewPercent }}
-        {...rest}
-      />
-    </AnimatePresence>
+    <motion.div
+      variants={variants}
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true, amount: inViewPercent }}
+      {...rest}
+    />
   );
 };
 
