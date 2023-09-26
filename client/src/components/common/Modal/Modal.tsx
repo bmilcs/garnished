@@ -46,6 +46,7 @@ export const Modal: FC<TProps> = ({
       onClick={onClickCloseOrOverlay}
     >
       <ScrollAnimator
+        type="FADE_GROW_IN"
         className={`${styles.modal}${
           type === "image" ? ` ${styles.image}` : ` ${styles.standard}`
         }`}
