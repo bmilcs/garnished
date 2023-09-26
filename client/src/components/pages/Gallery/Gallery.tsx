@@ -16,8 +16,6 @@ export const Gallery: FC = () => {
         subtitle="Drink in the beauty"
       />
 
-      {/* image grid */}
-
       <section className={`content-spacer ${styles.carouselSection}`}>
         <div className="column">
           <Carousel imageObject={drinks} />
