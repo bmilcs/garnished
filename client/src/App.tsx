@@ -25,8 +25,8 @@ const App: FC = () => {
   return (
     <AuthProvider>
       <Layout>
-        <AnimatePresence>
-          <ScrollToTop />
+        <ScrollToTop />
+        <AnimatePresence mode="sync">
           <Routes key={location.pathname} location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
