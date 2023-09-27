@@ -27,7 +27,7 @@ export const GetStarted: FC = () => {
         />
 
         <section className={`content-spacer ${styles.getStarted}`}>
-          <div className={`column content-spacer ${styles.getStartedWrapper}`}>
+          <div className={`column ${styles.getStartedWrapper}`}>
             <ScrollAnimator type="SLIDE_UP">
               <h2 className={styles.heading}>Here's How It Works</h2>
               <p>Our process is simple:</p>

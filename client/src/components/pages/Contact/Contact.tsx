@@ -41,9 +41,9 @@ export const Contact: FC = () => {
       />
 
       <section className={`${styles.contact}`}>
-        {isPending ? (
-          <HourglassSpinner />
-        ) : (
+        {isPending && <HourglassSpinner />}
+
+        {!isPending && (
           <div className={`column content-spacer ${styles.contactWrapper}`}>
             <ScrollAnimator
               type="SLIDE_DOWN"
@@ -58,9 +58,19 @@ export const Contact: FC = () => {
                   contact form and we'll get back to you as soon as possible.
                 </p>
 
-                <Button type="hero" link="/get-started">
-                  Get Started
-                </Button>
+                <ScrollAnimator
+                  type="SLIDE_UP"
+                  delay={0.5}
+                  className={styles.getStartedButtonWrapper}
+                >
+                  <Button
+                    type="hero"
+                    link="/get-started"
+                    className={styles.getStartedButton}
+                  >
+                    Get Started
+                  </Button>
+                </ScrollAnimator>
               </div>
             </ScrollAnimator>
 

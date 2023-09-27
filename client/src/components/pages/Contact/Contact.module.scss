@@ -4,19 +4,19 @@
 
 .contactWrapper {
   display: grid;
+  gap: var(--vertical-spacer-large);
 
   @media screen and (min-width: 960px) {
     grid-template-columns: 1fr 1.5fr;
-    gap: var(--vertical-spacer-large);
   }
 }
 
 .contactLeftColumn {
   display: grid;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  // text-align: center;
 
-  padding-block: var(--vertical-spacer-medium);
   margin-inline: auto;
 
   @media screen and (min-width: 960px) {
@@ -30,7 +30,15 @@
 
 .contactInstructions {
   margin-bottom: calc(2 * var(--vertical-spacer-small));
-  max-width: 40ch;
+}
+
+.getStartedButtonWrapper {
+  margin-top: var(--vertical-spacer-medium);
+  display: grid;
+  place-items: center;
+}
+
+.getStartedButton {
 }
 
 .form {
