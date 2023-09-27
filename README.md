@@ -2,7 +2,7 @@
 
 This repo contains a full stack web app for Garnished LLP, a mobile bar business.
 
-- [Live URL](https://garnishedllp.com)
+- [Live URL](https://garnished.events)
 
 ## Technology
 
@@ -67,4 +67,4 @@ To get around this, I created a secondary GitHub repo for the test page and adde
 
 My personal domain was already setup to host all of my GitHub repos, making them accessible via a URL path: `https://bmilcs.com/<some_repo>`. I deployed this test site, as I normally would, to `/garnished-test`. Unfortunately, my JSON Web Token based authentication relies on httpOnly cookies, and as a result, they could not be set from a different domain. This resulted in a CORS error.
 
-My final solution was to deploy the test page to a subdomain on the parent `garnishedllp.com` domain. I then converted my string based CORS origin to to an array, in order to cover both the public domain and the `test` subdomain.
+My final solution was to deploy the test page to a subdomain on the parent `garnished.events` domain. I then converted my string based CORS origin to to an array, in order to cover both the public domain and the `test` subdomain.
