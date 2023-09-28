@@ -1,5 +1,6 @@
 // import * as imagesObject from "@/assets/index";
 import { drinks } from "@/assets";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import Carousel from "@/components/common/Carousel/Carousel";
 import { Hero } from "@/components/common/Hero/Hero";
 import { PageTransition } from "@/components/common/PageTransition/PageTransition";
@@ -17,9 +18,9 @@ export const Gallery: FC = () => {
       />
 
       <section className={`content-spacer ${styles.carouselSection}`}>
-        <div className="column">
+        <AnimatedDiv type="SLIDE_UP" delay={0.5} className="column">
           <Carousel imageObject={drinks} />
-        </div>
+        </AnimatedDiv>
       </section>
     </PageTransition>
   );
