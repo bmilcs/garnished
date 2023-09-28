@@ -3,6 +3,7 @@ import autumnMenu from "@/assets/menus/garnished_events_autumn_menu.pdf";
 import springMenu from "@/assets/menus/garnished_events_spring_menu.pdf";
 import summerMenu from "@/assets/menus/garnished_events_summer_menu.pdf";
 import winterMenu from "@/assets/menus/garnished_events_winter_menu.pdf";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
@@ -58,7 +59,7 @@ export const SeasonalMenus: FC = () => {
 
       <section className={`column content-spacer`}>
         <div className={styles.about}>
-          <div>
+          <AnimatedDiv type={"SLIDE_DOWN"} delay={0.25}>
             <h2>Seasonal Menus</h2>
             <p>
               Garnished Events is proud to offer seasonal menus for all of our
@@ -67,9 +68,13 @@ export const SeasonalMenus: FC = () => {
               the best flavors of the season. We use fresh ingredients to create
               unique drinks that are sure to impress your guests.
             </p>
-          </div>
+          </AnimatedDiv>
 
-          <div className={styles.aboutRightColumn}>
+          <AnimatedDiv
+            delay={0.5}
+            type={"SLIDE_UP"}
+            className={styles.aboutRightColumn}
+          >
             <h2>Downloads</h2>
             <ul>
               <li>
@@ -85,36 +90,38 @@ export const SeasonalMenus: FC = () => {
                 <a href={winterMenu}>Winter Menu</a>
               </li>
             </ul>
+          </AnimatedDiv>
+        </div>
+
+        <AnimatedDiv type="SLIDE_UP" delay={1}>
+          <div className={styles.livePreviewMenuContainer}>
+            <h2>Live Preview</h2>
+            <MenuSelector setMenu={setMenu} menu={menu} />
           </div>
-        </div>
 
-        <div className={styles.livePreviewMenuContainer}>
-          <h2>Live Preview</h2>
-          <MenuSelector setMenu={setMenu} menu={menu} />
-        </div>
+          {/* pdf file */}
 
-        {/* pdf file */}
-
-        <Document
-          file={menuFile}
-          className={styles.pdfDocument}
-          onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-          loading={HourglassSpinner}
-        >
-          {numPages !== 0 &&
-            [...(Array(numPages) as undefined[])]
-              .map((x, i) => i + 1)
-              .map(page => (
-                <Page
-                  key={page}
-                  pageNumber={page}
-                  renderTextLayer={false}
-                  scale={2}
-                  className={styles.pdfPage}
-                  loading={HourglassSpinner}
-                />
-              ))}
-        </Document>
+          <Document
+            file={menuFile}
+            className={styles.pdfDocument}
+            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+            loading={HourglassSpinner}
+          >
+            {numPages !== 0 &&
+              [...(Array(numPages) as undefined[])]
+                .map((x, i) => i + 1)
+                .map(page => (
+                  <Page
+                    key={page}
+                    pageNumber={page}
+                    renderTextLayer={false}
+                    scale={2}
+                    className={styles.pdfPage}
+                    loading={HourglassSpinner}
+                  />
+                ))}
+          </Document>
+        </AnimatedDiv>
       </section>
     </PageTransition>
   );
