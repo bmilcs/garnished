@@ -1,6 +1,6 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { useInputChange } from "@/hooks/useInputChange";
 import { TClassName } from "@/types/propTypes";
@@ -27,7 +27,7 @@ export const LoginForm: FC<TProps> = ({ className }) => {
   if (isAuthPending) return <HourglassSpinner />;
 
   return (
-    <ScrollAnimator
+    <AnimatedDiv
       type="SLIDE_DOWN"
       className={`${className ? " " + className : ""}`}
     >
@@ -67,6 +67,6 @@ export const LoginForm: FC<TProps> = ({ className }) => {
 
         <Button type="primary">Login</Button>
       </form>
-    </ScrollAnimator>
+    </AnimatedDiv>
   );
 };

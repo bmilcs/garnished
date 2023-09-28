@@ -1,7 +1,7 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { FacebookIcon } from "@/components/common/FacebookIcon/FacebookIcon";
 import { GitHubIcon } from "@/components/common/GitHubIcon/GitHubIcon";
 import { InstagramIcon } from "@/components/common/InstagramIcon/InstagramIcon";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { navigationLinks } from "@/utils/navigation";
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ export const Footer: FC = () => {
   return (
     <footer className={styles.footer}>
       <div className={`column ${styles.footerWrapper}`}>
-        <ScrollAnimator type="SLIDE_UP" delay={0.2}>
+        <AnimatedDiv type="SLIDE_UP" delay={0.2}>
           {/* logo */}
 
           <h3 className={styles.footerLogo}>Garnished</h3>
@@ -32,11 +32,11 @@ export const Footer: FC = () => {
               Sign Up
             </Link>
           </div>
-        </ScrollAnimator>
+        </AnimatedDiv>
 
         {/* navigation */}
 
-        <ScrollAnimator type="SLIDE_UP" delay={0.4}>
+        <AnimatedDiv type="SLIDE_UP" delay={0.4}>
           <nav className={styles.footerNav} aria-label="Secondary Navigation">
             <ul className={styles.footerNavUl}>
               {navigationLinks.map(({ name, link }) => (
@@ -48,13 +48,9 @@ export const Footer: FC = () => {
               ))}
             </ul>
           </nav>
-        </ScrollAnimator>
+        </AnimatedDiv>
 
-        <ScrollAnimator
-          type="SLIDE_UP"
-          delay={0.6}
-          className={styles.rightColumn}
-        >
+        <AnimatedDiv type="SLIDE_UP" delay={0.6} className={styles.rightColumn}>
           {/* socials */}
 
           <h4 className={styles.socialTitle}>Follow Us</h4>
@@ -68,12 +64,12 @@ export const Footer: FC = () => {
               className={styles.socialIcon}
             />
           </div>
-        </ScrollAnimator>
+        </AnimatedDiv>
       </div>
 
       {/* credits / copyright bottom bar */}
 
-      <ScrollAnimator type="FADE_IN" className={styles.credits}>
+      <AnimatedDiv type="FADE_IN" className={styles.credits}>
         <div className={`column ${styles.creditsWrapper}`}>
           <p className={styles.footerCopy}>&copy; 2023 Garnished LLP</p>
 
@@ -95,7 +91,7 @@ export const Footer: FC = () => {
             />
           </div>
         </div>
-      </ScrollAnimator>
+      </AnimatedDiv>
     </footer>
   );
 };

@@ -1,8 +1,8 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
 import { useCreateEvent } from "@/hooks/useEventCreate";
 import { useInputChange } from "@/hooks/useInputChange";
@@ -29,7 +29,7 @@ export const EventForm: FC = () => {
 
   return (
     <section className="content-spacer user-section">
-      <ScrollAnimator type="SLIDE_DOWN" className="column">
+      <AnimatedDiv type="SLIDE_DOWN" className="column">
         <form onSubmit={handleSubmitForm}>
           <div className="form-header">
             <h2>Create Event</h2>
@@ -233,7 +233,7 @@ export const EventForm: FC = () => {
 
           <Button type="primary">Submit Estimate Request</Button>
         </form>
-      </ScrollAnimator>
+      </AnimatedDiv>
 
       {!isPending && createdEventId && (
         <Modal

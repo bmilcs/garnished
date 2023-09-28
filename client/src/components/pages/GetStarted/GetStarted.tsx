@@ -1,9 +1,9 @@
 import { drinks } from "@/assets";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { LoginForm } from "@/components/common/LoginForm/LoginForm";
 import { PageTransition } from "@/components/common/PageTransition/PageTransition";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { FC, useContext, useEffect } from "react";
 import styles from "./GetStarted.module.scss";
@@ -28,7 +28,7 @@ export const GetStarted: FC = () => {
 
         <section className={`content-spacer ${styles.getStarted}`}>
           <div className={`column ${styles.getStartedWrapper}`}>
-            <ScrollAnimator type="SLIDE_UP">
+            <AnimatedDiv type="SLIDE_UP">
               <h2 className={styles.heading}>Here's How It Works</h2>
               <p>Our process is simple:</p>
               <ol className={styles.instructions}>
@@ -41,7 +41,7 @@ export const GetStarted: FC = () => {
                 finalize the details.
               </p>
 
-              <ScrollAnimator
+              <AnimatedDiv
                 type="SLIDE_UP"
                 delay={0.5}
                 className={styles.signupButtonWrapper}
@@ -53,8 +53,8 @@ export const GetStarted: FC = () => {
                 >
                   Sign Up Now
                 </Button>
-              </ScrollAnimator>
-            </ScrollAnimator>
+              </AnimatedDiv>
+            </AnimatedDiv>
 
             <LoginForm className={styles.loginForm} />
           </div>

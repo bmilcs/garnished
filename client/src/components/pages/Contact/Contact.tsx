@@ -1,11 +1,11 @@
 import { drinks } from "@/assets";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
 import { PageTransition } from "@/components/common/PageTransition/PageTransition";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useContactForm } from "@/hooks/useContactForm";
 import { useInputChange } from "@/hooks/useInputChange";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
@@ -45,7 +45,7 @@ export const Contact: FC = () => {
 
         {!isPending && (
           <div className={`column content-spacer ${styles.contactWrapper}`}>
-            <ScrollAnimator
+            <AnimatedDiv
               type="SLIDE_DOWN"
               delay={0.2}
               className={`${styles.contactLeftColumn}`}
@@ -58,7 +58,7 @@ export const Contact: FC = () => {
                   contact form and we'll get back to you as soon as possible.
                 </p>
 
-                <ScrollAnimator
+                <AnimatedDiv
                   type="SLIDE_UP"
                   delay={0.5}
                   className={styles.getStartedButtonWrapper}
@@ -70,11 +70,11 @@ export const Contact: FC = () => {
                   >
                     Get Started
                   </Button>
-                </ScrollAnimator>
+                </AnimatedDiv>
               </div>
-            </ScrollAnimator>
+            </AnimatedDiv>
 
-            <ScrollAnimator type="SLIDE_UP" delay={0.4}>
+            <AnimatedDiv type="SLIDE_UP" delay={0.4}>
               <form onSubmit={handleSubmitForm} className={styles.form}>
                 <div className="form-header">
                   <h3>Let's Chat</h3>
@@ -116,7 +116,7 @@ export const Contact: FC = () => {
                   Send Message
                 </Button>
               </form>
-            </ScrollAnimator>
+            </AnimatedDiv>
 
             {isSent && (
               <Modal

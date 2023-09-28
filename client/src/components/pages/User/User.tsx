@@ -1,6 +1,6 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { useUserData } from "@/hooks/useUserData";
@@ -24,7 +24,7 @@ export const User: FC = () => {
   if (userData)
     return (
       <section className={`content-spacer user-section`}>
-        <ScrollAnimator
+        <AnimatedDiv
           type="SLIDE_DOWN"
           className={`column user-section-wrapper`}
         >
@@ -89,19 +89,15 @@ export const User: FC = () => {
           </div>
 
           {/* bottom buttons */}
-          <ScrollAnimator
-            type="SLIDE_UP"
-            delay={0.4}
-            className="button-wrapper"
-          >
+          <AnimatedDiv type="SLIDE_UP" delay={0.4} className="button-wrapper">
             <Button type="primary" link="/event/new">
               Create New Event
             </Button>
             <Button type="secondary" onClick={logout}>
               Logout
             </Button>
-          </ScrollAnimator>
-        </ScrollAnimator>
+          </AnimatedDiv>
+        </AnimatedDiv>
       </section>
     );
 };

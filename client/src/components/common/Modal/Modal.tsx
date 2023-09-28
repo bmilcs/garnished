@@ -1,5 +1,5 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { CloseButton } from "@/components/common/CloseButton/CloseButton";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { TChildrenAndClassName } from "@/types/propTypes";
 import { FC, useEffect } from "react";
 import styles from "./Modal.module.scss";
@@ -45,7 +45,7 @@ export const Modal: FC<TProps> = ({
       className={`${styles.modalOverlay}${className ? ` ${className}` : ""}`}
       onClick={onClickCloseOrOverlay}
     >
-      <ScrollAnimator
+      <AnimatedDiv
         type="FADE_GROW_IN"
         className={`${styles.modal}${
           type === "image" ? ` ${styles.image}` : ` ${styles.standard}`
@@ -76,7 +76,7 @@ export const Modal: FC<TProps> = ({
             className={styles.closeButton}
           />
         )}
-      </ScrollAnimator>
+      </AnimatedDiv>
     </div>
   );
 };

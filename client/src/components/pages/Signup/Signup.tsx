@@ -1,7 +1,7 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserSignup } from "@/hooks/useUserSignup";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
@@ -18,7 +18,7 @@ export const Signup: FC = () => {
   if (!isPending)
     return (
       <section className={`content-spacer user-section`}>
-        <ScrollAnimator
+        <AnimatedDiv
           type="SLIDE_DOWN"
           className={`column user-section-wrapper`}
         >
@@ -134,7 +134,7 @@ export const Signup: FC = () => {
 
             <Button type="primary">Signup</Button>
           </form>
-        </ScrollAnimator>
+        </AnimatedDiv>
       </section>
     );
 };

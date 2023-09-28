@@ -1,8 +1,8 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { useEventUpdate } from "@/hooks/useEventUpdate";
 import { useInputChange } from "@/hooks/useInputChange";
@@ -33,7 +33,7 @@ export const EventUpdate: FC = () => {
   if (formData)
     return (
       <section className="content-spacer user-section">
-        <ScrollAnimator type="SLIDE_DOWN" className="column">
+        <AnimatedDiv type="SLIDE_DOWN" className="column">
           <form onSubmit={handleSubmitForm}>
             <div className="form-header">
               <h2>Update Event Info</h2>
@@ -246,7 +246,7 @@ export const EventUpdate: FC = () => {
 
             <Button type="primary">Update Event Details</Button>
           </form>
-        </ScrollAnimator>
+        </AnimatedDiv>
 
         <Button type="outline" onClick={() => setShowDeleteModal(true)}>
           Delete Event

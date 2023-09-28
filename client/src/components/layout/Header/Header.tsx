@@ -1,5 +1,5 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { navigationLinks } from "@/utils/navigation";
 import { FC, useContext, useState } from "react";
@@ -16,7 +16,7 @@ export const Header: FC = () => {
 
   return (
     <header className={`${styles.header}`}>
-      <ScrollAnimator
+      <AnimatedDiv
         type="SLIDE_DOWN"
         className={`column ${styles.headerContent}`}
       >
@@ -94,7 +94,7 @@ export const Header: FC = () => {
             </li>
           </ul>
         </nav>
-      </ScrollAnimator>
+      </AnimatedDiv>
     </header>
   );
 };

@@ -1,6 +1,6 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { useEventData } from "@/hooks/useEventData";
 import { formatDate, formatTime } from "@/utils/formatters";
@@ -21,14 +21,11 @@ export const Event: FC = () => {
   if (eventData) {
     return (
       <section className="content-spacer user-section">
-        <ScrollAnimator
-          type="SLIDE_DOWN"
-          className="column user-section-wrapper"
-        >
+        <AnimatedDiv type="SLIDE_DOWN" className="column user-section-wrapper">
           <h2 className="user-section-heading">Your Event</h2>
 
           {eventData && (
-            <ScrollAnimator type="SLIDE_DOWN" className="user-section-card">
+            <AnimatedDiv type="SLIDE_DOWN" className="user-section-card">
               <h4>Details</h4>
               <p>{eventData.eventType}</p>
               <p>
@@ -63,10 +60,10 @@ export const Event: FC = () => {
                   <p>{eventData.additionalInfo}</p>
                 </>
               )}
-            </ScrollAnimator>
+            </AnimatedDiv>
           )}
 
-          <ScrollAnimator type="SLIDE_DOWN" className="button-wrapper">
+          <AnimatedDiv type="SLIDE_DOWN" className="button-wrapper">
             <Button
               type="secondary"
               onClick={() => navigate(`/event/${eventData?._id ?? ""}/update`)}
@@ -76,10 +73,10 @@ export const Event: FC = () => {
             <Button type="primary" onClick={() => navigate("/user")}>
               Back to Dashboard
             </Button>
-          </ScrollAnimator>
+          </AnimatedDiv>
 
           {error && <p className="error">{error}</p>}
-        </ScrollAnimator>
+        </AnimatedDiv>
       </section>
     );
   }

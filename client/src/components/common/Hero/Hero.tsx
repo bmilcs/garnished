@@ -1,4 +1,4 @@
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { TChildrenAndClassName } from "@/types/propTypes";
 import { FC } from "react";
 import styles from "./Hero.module.scss";
@@ -23,7 +23,7 @@ export const Hero: FC<TProps> = ({
 }) => {
   return (
     <section>
-      <ScrollAnimator
+      <AnimatedDiv
         type="FADE_IN"
         delay={0.2}
         className={`${styles.hero}${className ? " " + className : ""}`}
@@ -46,7 +46,7 @@ export const Hero: FC<TProps> = ({
         {...rest}
       >
         <div className={styles.heroOverlay}>
-          <ScrollAnimator
+          <AnimatedDiv
             type="SLIDE_RIGHT"
             delay={0.8}
             className={styles.heroWrapper}
@@ -58,16 +58,16 @@ export const Hero: FC<TProps> = ({
 
             <p className={styles.heroSubtitle}>{subtitle}</p>
 
-            <ScrollAnimator
+            <AnimatedDiv
               type="SLIDE_UP"
               delay={1.2}
               className={styles.heroChildren}
             >
               {children}
-            </ScrollAnimator>
-          </ScrollAnimator>
+            </AnimatedDiv>
+          </AnimatedDiv>
         </div>
-      </ScrollAnimator>
+      </AnimatedDiv>
     </section>
   );
 };

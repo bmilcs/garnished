@@ -1,8 +1,8 @@
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { useInputChange } from "@/hooks/useInputChange";
 import { useUserUpdate } from "@/hooks/useUserUpdate";
@@ -36,10 +36,7 @@ export const UserUpdate: FC = () => {
   if (!isPending && formData)
     return (
       <section className={`content-spacer user-section`}>
-        <ScrollAnimator
-          type="SLIDE_DOWN"
-          className="column user-section-wrapper"
-        >
+        <AnimatedDiv type="SLIDE_DOWN" className="column user-section-wrapper">
           <form onSubmit={handleSubmitForm}>
             <div className="form-header">
               <h2>Update Personal Info</h2>
@@ -129,13 +126,13 @@ export const UserUpdate: FC = () => {
 
             <Button type="primary">Update Personal Information</Button>
           </form>
-        </ScrollAnimator>
+        </AnimatedDiv>
 
-        <ScrollAnimator type="SLIDE_UP" delay={0.4} className="button-wrapper">
+        <AnimatedDiv type="SLIDE_UP" delay={0.4} className="button-wrapper">
           <Button type="outline" onClick={() => setShowDeleteModal(true)}>
             Delete Account
           </Button>
-        </ScrollAnimator>
+        </AnimatedDiv>
 
         {showDeleteModal && !deleteError && (
           <Modal

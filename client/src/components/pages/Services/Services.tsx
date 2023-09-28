@@ -1,8 +1,8 @@
 import { bar, drinks } from "@/assets";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Hero } from "@/components/common/Hero/Hero";
 import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
-import ScrollAnimator from "@/components/common/ScrollAnimator/ScrollAnimator";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
 import { FC } from "react";
 import styles from "./Services.module.scss";
@@ -18,7 +18,7 @@ export const Services: FC = () => {
       />
 
       <section className={`column ${styles.mobileBar}`}>
-        <ScrollAnimator type="SLIDE_RIGHT" delay={0.5}>
+        <AnimatedDiv type="SLIDE_RIGHT" delay={0.5}>
           <div className={styles.mobileBarContent}>
             <h3 className={styles.mobileBarTitle}>The Mobile Bar</h3>
             <p className={styles.mobileBarDescription}>
@@ -28,15 +28,15 @@ export const Services: FC = () => {
               a touch of elegance and convenience to any occasion.
             </p>
           </div>
-        </ScrollAnimator>
+        </AnimatedDiv>
 
-        <ScrollAnimator type="FADE_GROW_IN" delay={0.7}>
+        <AnimatedDiv type="FADE_GROW_IN" delay={0.7}>
           <ResponsiveImage
             img={bar.bar_display_01}
             className={styles.mobileBarImage}
             alt="Mobile Bar"
           />
-        </ScrollAnimator>
+        </AnimatedDiv>
       </section>
 
       <WavySeparator location="TOP" />
