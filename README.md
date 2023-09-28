@@ -68,3 +68,23 @@ To get around this, I created a secondary GitHub repo for the test page and adde
 My personal domain was already setup to host all of my GitHub repos, making them accessible via a URL path: `https://bmilcs.com/<some_repo>`. I deployed this test site, as I normally would, to `/garnished-test`. Unfortunately, my JSON Web Token based authentication relies on httpOnly cookies, and as a result, they could not be set from a different domain. This resulted in a CORS error.
 
 My final solution was to deploy the test page to a subdomain on the parent `garnished.events` domain. I then converted my string based CORS origin to to an array, in order to cover both the public domain and the `test` subdomain.
+
+### `react-router-dom` & GitHub Pages: URL Path Redirects
+
+When `react-router-dom` is used for client side routing, paths will not resolve if a web site is refreshed or a URL is typed directly into the address bar. All URLs entered into the address bar of your browser are sent to the server, which in this instance, is GitHub Pages.
+
+React router paths are not accessible unless the root custom domain is accessed, the index page is read and the JavaScript resources are fetched and read. However, this never occurs if a path is tacked onto the base URL. GitHub Pages throws their default 404 error page.
+
+Fortunately, GH Pages allows us to use a custom 404.html by placing it in the root path of the repo. Following the instructions laid out in the `spa-github-pages` repo, two scripts are used to solve the issue:
+
+- `404.html` script
+  - takes the current url & converts the path/query string to just a query string
+  - redirects the browser to the new url with a query string & hash fragment
+- `index.html` script
+  - checks to see if a redirect is present in the query string,
+  - converts it back into the correct url
+  - adds it to the browser's history using window.history.replaceState(...),
+  - once the page loads, the correct url is waiting in the browser's history for the SPA to route
+
+Explanation: https://stackoverflow.com/a/36623117
+Solution: https://github.com/rafgraph/spa-github-pages
