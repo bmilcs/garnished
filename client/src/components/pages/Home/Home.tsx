@@ -1,4 +1,5 @@
 import { bar, drinks } from "@/assets";
+import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import { Hero } from "@/components/common/Hero/Hero";
@@ -106,7 +107,7 @@ export const Home: FC = () => {
       {/* about section */}
 
       <section className={`column ${styles.aboutSection}`}>
-        <div>
+        <AnimatedDiv type="SLIDE_UP" delay={0.2}>
           <h3 className={styles.heading}>Premium Mobile Bar</h3>
           <p className={styles.description}>
             Create unforgettable memories with Garnished, New England's premier
@@ -114,15 +115,15 @@ export const Home: FC = () => {
             wedding, or any other celebration, Garnished is here to turn it into
             an extraordinary experience.
           </p>
-        </div>
+        </AnimatedDiv>
 
-        <div>
+        <AnimatedDiv type="FADE_GROW_IN" delay={0.4}>
           <ResponsiveImage
             img={drinks.wine_01}
             className={styles.aboutImage}
             alt="Drink"
           />
-        </div>
+        </AnimatedDiv>
       </section>
 
       {/* selling points */}
