@@ -22,7 +22,7 @@ export const Hero: FC<TProps> = ({
   ...rest
 }) => {
   return (
-    <section>
+    <section aria-label="Hero">
       <AnimatedDiv
         type="FADE_IN"
         delay={0.2}
