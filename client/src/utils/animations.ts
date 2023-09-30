@@ -1,7 +1,6 @@
 import { Variants } from "framer-motion";
 
-export const PAGE_TRANSITION_DURATION = 0.5;
-export const BASE_ANIMATION_DELAY = PAGE_TRANSITION_DURATION * 0.75;
+export const BASE_ANIMATION_DELAY = 0.5;
 
 export type TAnimationType =
   | "SLIDE_DOWN"
