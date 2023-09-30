@@ -7,7 +7,6 @@ import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
-import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { Dispatch, FC, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -49,7 +48,7 @@ export const SeasonalMenus: FC = () => {
   ).toString();
 
   return (
-    <PageTransition>
+    <>
       <Hero
         title="Seasonal"
         titleSpan="Menus"
@@ -123,7 +122,7 @@ export const SeasonalMenus: FC = () => {
           </Document>
         </AnimatedDiv>
       </section>
-    </PageTransition>
+    </>
   );
 };
 

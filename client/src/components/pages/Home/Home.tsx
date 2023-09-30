@@ -3,7 +3,6 @@ import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import { Hero } from "@/components/common/Hero/Hero";
-import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { TiltDivider } from "@/components/common/TiltDivider/TiltDivider";
 import { FC } from "react";
@@ -90,7 +89,7 @@ const contentBlocks = [
 
 export const Home: FC = () => {
   return (
-    <PageTransition>
+    <>
       {/* hero */}
 
       <Hero
@@ -178,6 +177,13 @@ export const Home: FC = () => {
           </section>
         );
       })}
-    </PageTransition>
+
+      {/* <CallToAction>
+        <h3 className={styles.ctaHeading}>View Our Services</h3>
+        <Button link="/services" type="primary" className={styles.ctaButton}>
+          Services
+        </Button>
+      </CallToAction> */}
+    </>
   );
 };

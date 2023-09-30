@@ -1,7 +1,6 @@
 import { bar, drinks } from "@/assets";
 import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
 import { Hero } from "@/components/common/Hero/Hero";
-import { PageTransition } from "@/components/common/PageTransition/PageTransition";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
 import { FC } from "react";
@@ -9,7 +8,7 @@ import styles from "./Services.module.scss";
 
 export const Services: FC = () => {
   return (
-    <PageTransition>
+    <>
       <Hero
         title="Goods &"
         titleSpan="Services"
@@ -159,6 +158,14 @@ export const Services: FC = () => {
           </div>
         </div>
       </section>
-    </PageTransition>
+
+      {/* cta
+      <CallToAction>
+        <h3 className={styles.ctaHeading}>View Our Gallery</h3>
+        <Button link="/gallery" type="primary" className={styles.ctaButton}>
+          Gallery
+        </Button>
+      </CallToAction> */}
+    </>
   );
 };

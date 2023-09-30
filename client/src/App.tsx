@@ -15,7 +15,6 @@ import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
 import { UserUpdate } from "@/components/pages/UserUpdate/UserUpdate";
 import { AuthProvider } from "@/hooks/useAuthContext";
-import { AnimatePresence } from "framer-motion";
 import { FC } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
@@ -26,24 +25,22 @@ const App: FC = () => {
     <AuthProvider>
       <Layout>
         <ScrollToTop />
-        <AnimatePresence mode="sync">
-          <Routes key={location.pathname} location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/user" element={<User />} />
-            <Route path="/user/update" element={<UserUpdate />} />
-            <Route path="/get-started" element={<GetStarted />} />
-            <Route path="/event/new" element={<EventForm />} />
-            <Route path="/event/:id" element={<Event />} />
-            <Route path="/event/:id/update" element={<EventUpdate />} />
-            <Route path="/seasonal-menus" element={<SeasonalMenus />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </AnimatePresence>
+        <Routes key={location.key} location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/seasonal-menus" element={<SeasonalMenus />} />
+          <Route path="/user/update" element={<UserUpdate />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/get-started" element={<GetStarted />} />
+          <Route path="/event/new" element={<EventForm />} />
+          <Route path="/event/:id/update" element={<EventUpdate />} />
+          <Route path="/event/:id" element={<Event />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
       </Layout>
     </AuthProvider>
   );
