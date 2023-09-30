@@ -47,7 +47,8 @@ export const Button: FC<IProps> = ({
           </motion.button>
         </Link>
       ) : (
-        <button
+        <motion.button
+          whileTap={{ scale: 0.95 }}
           className={`${styles.button}${className ? " " + className : ""} ${
             type === "primary"
               ? styles.primary
@@ -64,7 +65,7 @@ export const Button: FC<IProps> = ({
           {...rest}
         >
           {children}
-        </button>
+        </motion.button>
       )}
     </>
   );
