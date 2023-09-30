@@ -1,6 +1,6 @@
 import { Variants } from "framer-motion";
 
-export const BASE_ANIMATION_DELAY = 0.5;
+export const BASE_ANIMATION_DELAY = 0.1;
 
 export type TAnimationType =
   | "SLIDE_DOWN"

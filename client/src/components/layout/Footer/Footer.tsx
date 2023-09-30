@@ -11,7 +11,7 @@ export const Footer: FC = () => {
   return (
     <footer className={styles.footer}>
       <div className={`column ${styles.footerWrapper}`}>
-        <AnimatedDiv type="SLIDE_UP" delay={0.2}>
+        <AnimatedDiv type="SLIDE_UP" when="IN_VIEW">
           {/* logo */}
 
           <h3 className={styles.footerLogo}>Garnished</h3>
@@ -36,7 +36,7 @@ export const Footer: FC = () => {
 
         {/* navigation */}
 
-        <AnimatedDiv type="SLIDE_UP" delay={0.4}>
+        <AnimatedDiv type="SLIDE_UP" when="IN_VIEW" delay={0.2}>
           <nav className={styles.footerNav} aria-label="Secondary Navigation">
             <ul className={styles.footerNavUl}>
               {navigationLinks.map(({ name, link }) => (
@@ -50,7 +50,12 @@ export const Footer: FC = () => {
           </nav>
         </AnimatedDiv>
 
-        <AnimatedDiv type="SLIDE_UP" delay={0.6} className={styles.rightColumn}>
+        <AnimatedDiv
+          type="SLIDE_UP"
+          when="IN_VIEW"
+          delay={0.4}
+          className={styles.rightColumn}
+        >
           {/* socials */}
 
           <h4 className={styles.socialTitle}>Follow Us</h4>
@@ -69,7 +74,12 @@ export const Footer: FC = () => {
 
       {/* credits / copyright bottom bar */}
 
-      <AnimatedDiv type="FADE_IN" className={styles.credits}>
+      <AnimatedDiv
+        type="SLIDE_DOWN"
+        when="IN_VIEW"
+        delay={0.6}
+        className={styles.credits}
+      >
         <div className={`column ${styles.creditsWrapper}`}>
           <p className={styles.footerCopy}>&copy; 2023 Garnished LLP</p>
 
