@@ -5,7 +5,8 @@ import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import { Hero } from "@/components/common/Hero/Hero";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { TiltDivider } from "@/components/common/TiltDivider/TiltDivider";
-import { FC } from "react";
+import { AuthContext } from "@/hooks/useAuthContext";
+import { FC, useContext } from "react";
 import styles from "./Home.module.scss";
 
 const sellingPoints = [
@@ -88,6 +89,8 @@ const contentBlocks = [
 ];
 
 export const Home: FC = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <>
       {/* hero */}
@@ -98,9 +101,15 @@ export const Home: FC = () => {
         subtitle="The Premium Mobile Bar Service"
         backgroundImage={drinks.specialty_drink_35.full}
       >
-        <Button className={styles.heroButton} type="hero" link="/get-started">
-          Get Started
-        </Button>
+        {isLoggedIn ? (
+          <Button className={styles.heroButton} type="hero" link="/user">
+            View Your Dashboard
+          </Button>
+        ) : (
+          <Button className={styles.heroButton} type="hero" link="/get-started">
+            Get Started
+          </Button>
+        )}
       </Hero>
 
       {/* about section */}
