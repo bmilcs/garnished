@@ -12,6 +12,8 @@
     "buildpreview": "vite build --outDir dist/preview/ && cp CNAMEPREVIEW dist/preview/CNAME && cp 404.html dist/preview/",
     "pubpreview": "cd dist/preview && git reset && git add . && git commit -m 'Build preview updates' && git push",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "npx playwright test",
+    "testui": "npx playwright test --ui",
     "generateAssets": "bash ./src/scripts/generateAssets.sh",
     "generateAssetsIndexFile": "bash ./src/scripts/writeAssetsIndex.sh",
     "assets": "npm run generateAssets && npm run generateAssetsIndexFile"
