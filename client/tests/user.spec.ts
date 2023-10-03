@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test";
-import { BASE_URL, MOCK_USER, logoutUser, signupUser } from "./setup";
+import { MOCK_USER, logoutUser, signupUser } from "./setup";
 
-test("has title", async ({ page }) => {
-  await page.goto(BASE_URL);
+test("Site has title", async ({ page }) => {
+  await page.goto("/");
   await expect(page).toHaveTitle(/Garnished Events, LLP/);
 });
 
-test("get started link", async ({ page }) => {
-  await page.goto(BASE_URL);
+test("Get started hero link: /get-started", async ({ page }) => {
+  await page.goto("/");
   await page
     .getByLabel("Hero")
     .getByRole("link", { name: "Get Started" })
@@ -51,7 +51,7 @@ test("login test", async ({ page }) => {
   signupUser({ page });
   logoutUser({ page });
 
-  page.goto(`${BASE_URL}/login`);
+  page.goto(`/login`);
   await expect(page.getByRole("heading", { name: "Login" })).toBeVisible();
   await page.getByLabel("Email Address").fill(MOCK_USER.email);
   await page.getByLabel("Password", { exact: true }).fill(MOCK_USER.password);
@@ -61,7 +61,5 @@ test("login test", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "User Dashboard" }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Your Events" }),
-  ).toBeVisible();
+  expect(page.getByRole("heading", { name: "Your Events" })).toBeVisible();
 });

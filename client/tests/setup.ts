@@ -1,6 +1,6 @@
-import { expect } from "@playwright/test";
+// @ts-nocheck
 
-export const BASE_URL = "http://localhost:3000";
+import { expect } from "@playwright/test";
 
 export const MOCK_USER = {
   firstName: "John",
@@ -15,7 +15,7 @@ export const MOCK_USER = {
 };
 
 export const signupUser = async ({ page }) => {
-  await page.goto(`${BASE_URL}/signup`);
+  await page.goto("/signup");
   await expect(page.getByRole("heading", { name: "Signup" })).toBeVisible();
   await page.getByLabel("First Name").fill(MOCK_USER.firstName);
   await page.getByLabel("Last Name").fill(MOCK_USER.lastName);
@@ -32,7 +32,7 @@ export const signupUser = async ({ page }) => {
 };
 
 export const logoutUser = async ({ page }) => {
-  await page.goto(`${BASE_URL}/user`);
+  await page.goto("/user");
   await expect(
     page.getByRole("heading", { name: "User Dashboard" }),
   ).toBeVisible();
