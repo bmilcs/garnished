@@ -116,7 +116,7 @@ export const Home: FC = () => {
 
       <section className={`column ${styles.aboutSection}`}>
         <AnimatedDiv type="SLIDE_UP" delay={0.2}>
-          <h3 className={styles.heading}>Premium Mobile Bar</h3>
+          <h2 className={styles.heading}>Premium Mobile Bar</h2>
           <p className={styles.description}>
             Create unforgettable memories with Garnished, New England's premier
             mobile bar service. Whether you're hosting a corporate event, dream
@@ -141,16 +141,16 @@ export const Home: FC = () => {
         className={`content-spacer-large ${styles.sellingPointsSection}`}
       >
         <div className={`${styles.sellingPoints} column`}>
-          <h3 className={styles.sellingPointHeading}>
+          <h2 className={styles.sellingPointHeading}>
             What Makes Us Different
-          </h3>
+          </h2>
 
           <div className={styles.sellingPointsWrapper}>
             {sellingPoints.map(({ title, description }) => {
               return (
                 <div className={styles.sellingPoint} key={title}>
                   <CheckMarkIcon className={styles.checkMark} />
-                  <h4 className={styles.subHeading}>{title}</h4>
+                  <h3 className={`h4 ${styles.subHeading}`}>{title}</h3>
                   <p className={styles.sellingPointDetails}>{description}</p>
                 </div>
               );
@@ -171,7 +171,7 @@ export const Home: FC = () => {
               }
             >
               <div>
-                <h3 className={styles.heading}>{title}</h3>
+                <h2 className={styles.heading}>{title}</h2>
                 <p className={styles.description}>{description}</p>
               </div>
 
@@ -188,7 +188,7 @@ export const Home: FC = () => {
       })}
 
       {/* <CallToAction>
-        <h3 className={styles.ctaHeading}>View Our Services</h3>
+        <h2 className={styles.ctaHeading}>View Our Services</h2>
         <Button link="/services" type="primary" className={styles.ctaButton}>
           Services
         </Button>
