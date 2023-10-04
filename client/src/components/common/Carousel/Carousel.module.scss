@@ -96,6 +96,7 @@
   --nav-slide-width: min(15vw, 80px);
 
   margin-top: var(--vertical-spacer-medium);
+  padding-block: 0.5rem;
 
   // prevent page from overflowing on mobile
   max-width: 80vw;
@@ -106,37 +107,38 @@
   grid-auto-flow: column;
   gap: 4px;
 
-  white-space: nowrap;
+  // force scroll to snap to images
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 1px;
+
   overflow-x: scroll;
 
   &::-webkit-scrollbar {
     display: none;
   }
-
-  // force scroll to snap to images
-  scroll-snap-type: x mandatory;
-  scroll-padding: 0 1px;
 }
 
 .navigationSlide {
-  scroll-snap-align: center;
   transition: all 0.2s ease-in-out;
 }
 
 .navigationSlideImage {
   aspect-ratio: 1/1;
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 0.5;
   box-shadow: var(--box-shadow-100);
-  filter: saturate(0) contrast(1.1);
 
   &Active,
   &:hover {
     opacity: 1;
-    filter: saturate(1);
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    border: 3px solid black;
   }
 
   &Active {
-    border: 3px solid var(--clr-bg);
+    opacity: 1;
   }
 }

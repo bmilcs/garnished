@@ -117,6 +117,7 @@ function Carousel({ imageObject }: TProps) {
           className={`${styles.carousel}`}
           ref={carouselRef}
           onScroll={handleCarouselScroll}
+          tabIndex={0}
         >
           {imageObjectArray.map((image, index) => (
             <div
