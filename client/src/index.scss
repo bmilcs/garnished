@@ -152,7 +152,8 @@ body {
 
 a,
 a:visited,
-a:active {
+a:active,
+a:focus {
   font-weight: var(--fw-bold);
   color: var(--clr-primary-darker);
   font-family: var(--ff-title);
@@ -165,7 +166,10 @@ a:active {
   }
 }
 
-p {
+p,
+.p {
+  font-size: var(--fs-base);
+  line-height: 1.7;
   color: var(--clr-fg-light);
 }
 
@@ -173,50 +177,62 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5 {
   line-height: 0.9;
-}
-
-h1 {
-  font-size: var(--fs-heading);
-  font-weight: bold;
-  line-height: 1;
+  color: var(--clr-fg-light);
 }
 
 h1,
 h2,
-h3 {
+h3,
+.h1,
+.h2,
+.h3 {
   font-family: var(--ff-logo);
 }
 
 h4,
-h5 {
+h5,
+.h4,
+.h5 {
   font-family: var(--ff-title);
 }
 
 h2,
 h3,
 h4,
-h5 {
+h5,
+.h2,
+.h3,
+.h4 {
   font-weight: var(--fw-xbold);
   letter-spacing: -1px;
 }
 
-h2 {
+h1,
+.h1 {
+  font-size: var(--fs-heading);
+  font-weight: bold;
+}
+
+h2,
+.h2 {
   font-size: var(--fs-heading-large);
 }
 
-h3 {
+h3,
+.h3 {
   font-size: var(--fs-heading);
 }
 
-h4 {
+h4,
+.h4 {
   font-size: var(--fs-heading-small);
-}
-
-p {
-  font-size: var(--fs-base);
-  line-height: 1.7;
 }
 
 .error {
