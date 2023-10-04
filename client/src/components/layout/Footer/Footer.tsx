@@ -14,7 +14,7 @@ export const Footer: FC = () => {
         <AnimatedDiv type="SLIDE_UP" when="IN_VIEW">
           {/* logo */}
 
-          <h3 className={styles.footerLogo}>Garnished</h3>
+          <p className={styles.footerLogo}>Garnished</p>
           <p>Premium Mobile Bar</p>
 
           <div className={styles.footerAuthLinks}>
@@ -58,7 +58,7 @@ export const Footer: FC = () => {
         >
           {/* socials */}
 
-          <h4 className={styles.socialTitle}>Follow Us</h4>
+          <p className={styles.socialTitle}>Follow Us</p>
           <div className={styles.social}>
             <FacebookIcon
               url="https://www.facebook.com/garnished.llp"

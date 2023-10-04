@@ -27,8 +27,11 @@
 // logo
 //
 
-.footerLogo {
-  color: var(--clr-primary-lighter);
+p.footerLogo {
+  font-family: var(--ff-logo);
+  font-size: var(--fs-heading-large);
+  color: var(--clr-primary-light);
+  line-height: 1;
 }
 
 //
@@ -67,10 +70,12 @@
 // user login / social media
 //
 
-.socialTitle {
+p.socialTitle {
+  font-weight: var(--fw-bold);
   font-size: var(--fs-heading-small);
   margin-bottom: 1rem;
   color: var(--clr-bg-lighter);
+  line-height: 1.5;
 }
 
 .social {
