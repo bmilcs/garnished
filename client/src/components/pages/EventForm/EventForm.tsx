@@ -32,7 +32,7 @@ export const EventForm: FC = () => {
       <AnimatedDiv type="SLIDE_DOWN" className="column">
         <form onSubmit={handleSubmitForm}>
           <div className="form-header">
-            <h2>Create Event</h2>
+            <h1 className="h2">Create Event</h1>
             <p>Receive a free estimate for your event.</p>
           </div>
 

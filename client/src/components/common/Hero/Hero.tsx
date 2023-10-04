@@ -51,10 +51,10 @@ export const Hero: FC<TProps> = ({
             delay={0.8}
             className={styles.heroWrapper}
           >
-            <h2 className={styles.heroTitle}>
+            <h1 className={styles.heroTitle}>
               {title}
               {titleSpan ? <span> {titleSpan}</span> : ""}
-            </h2>
+            </h1>
 
             <p className={styles.heroSubtitle}>{subtitle}</p>
 

@@ -39,7 +39,7 @@ export const UserUpdate: FC = () => {
         <AnimatedDiv type="SLIDE_DOWN" className="column user-section-wrapper">
           <form onSubmit={handleSubmitForm}>
             <div className="form-header">
-              <h2>Update Personal Info</h2>
+              <h1 className="h2">Update Personal Info</h1>
             </div>
 
             <Input

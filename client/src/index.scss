@@ -173,12 +173,10 @@ p,
   color: var(--clr-fg-light);
 }
 
-h1,
 h2,
 h3,
 h4,
 h5,
-.h1,
 .h2,
 .h3,
 .h4,
@@ -210,14 +208,14 @@ h5,
 .h2,
 .h3,
 .h4 {
-  font-weight: var(--fw-xbold);
+  font-weight: var(--fw-bold);
   letter-spacing: -1px;
 }
 
-h1,
-.h1 {
-  font-size: var(--fs-heading);
+h1 {
+  font-size: var(--fs-heading-hero);
   font-weight: bold;
+  color: var(--clr-bg-light);
 }
 
 h2,

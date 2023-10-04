@@ -24,7 +24,7 @@ export const Signup: FC = () => {
         >
           <form onSubmit={handleSubmitForm}>
             <div className="form-header">
-              <h2>Signup</h2>
+              <h1 className="h2">Signup</h1>
               <p>
                 Already have an account? <Link to="/login">Login here.</Link>
               </p>
