@@ -10,7 +10,7 @@ const Layout: FC<TProps> = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <main>{children}</main>
       <Footer />
     </>
   );
