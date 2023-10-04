@@ -22,11 +22,9 @@ export const Header: FC = () => {
       >
         {/* logo */}
 
-        <h1>
-          <Link to="/" className={styles.logo}>
-            Garnished
-          </Link>
-        </h1>
+        <Link to="/" className={styles.logo}>
+          Garnished
+        </Link>
 
         {/* hamburger menu */}
 
