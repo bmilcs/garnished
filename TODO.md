@@ -2,9 +2,24 @@
 
 ## Frontend
 
+- [ ] Accessibility
+  - [ ] headers:
+    - [ ] single h1 (NOT LOGO)
+    - [ ] don't skip levels: h1 > h3
+    - [ ] add classes for styling
+- [ ] Refactor fetch states into single variable
+  - [ ] `[status, setStatus]`
+    - [ ] idle, loading, error, success
+- [ ] Tests
+  - [ ] Event tests
+  - [ ] User tests
+- [ ] View Transitions: research polyfill support
 - [ ] Improve navigation
   - [x] Mobile: better animation / styling
   - [ ] Desktop: improve hover state styling / colors
+
+### History
+
 - [x] Extend Create Event, Event Page, etc. to include a comment/note box
   - [x] Add a note/comment box for generic info
 - [x] Refactor error handling to display toast/modal on server errors/generic catches
