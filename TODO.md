@@ -3,10 +3,10 @@
 ## Frontend
 
 - [ ] Accessibility
-  - [ ] headers:
-    - [ ] single h1 (NOT LOGO)
-    - [ ] don't skip levels: h1 > h3
-    - [ ] add classes for styling
+  - [x] headers:
+    - [x] single h1 (NOT LOGO)
+    - [x] don't skip levels: h1 > h3
+    - [x] add classes for styling
 - [ ] Refactor fetch states into single variable
   - [ ] `[status, setStatus]`
     - [ ] idle, loading, error, success
