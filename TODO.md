@@ -1,5 +1,11 @@
 # TODO
 
+- [ ] Prepare for production
+  - [x] Dummy data on frontend: preview (yes) vs production (no)
+  - [x] MongoDB: 'development' vs 'production' databases
+  - [ ] Add analytics
+- [ ] Push site to production
+
 ## Frontend
 
 - [ ] Accessibility
