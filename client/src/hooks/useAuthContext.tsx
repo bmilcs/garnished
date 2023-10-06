@@ -1,4 +1,5 @@
 import { apiService } from "@/utils/apiService";
+import { clientMode } from "@/utils/clientMode";
 import { FC, createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ type TAuthContextValue = {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   login: (credentials: TLoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
+  isProduction: boolean;
 };
 
 export const AuthContext = createContext<TAuthContextValue>(
@@ -48,6 +50,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
   const [isAuthPending, setIsAuthPending] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [error, setError] = useState("");
+  const isProduction = clientMode() === "production";
 
   // on first site load, call api to check if user is logged in
   // and set login status accordingly (no user personal data is stored locally)
@@ -164,6 +167,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        isProduction,
         isLoggedIn,
         isAuthPending,
         setIsLoggedIn,
