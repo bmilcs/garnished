@@ -8,7 +8,7 @@
     "devclient": "cd client && npm run dev",
     "devserver": "cd server && npm run dev",
     "pubpreview": "cd client && npm run buildpreview && npm run pubpreview",
-    "pubclient": "git subtree push --prefix client/dist/production origin dist",
+    "pubclient": "cd client && npm run build && npm run pub && cd .. && git subtree push --prefix client/dist/production origin dist",
     "pubserver": "cd server && fly deploy",
     "pubsecrets": "cd server && grep -vE '^(#|$)' .env | sed -E 's/\\s*=\\s*/=/g' | tr '\\n' ' ' | xargs fly secrets set && fly apps restart"
   },

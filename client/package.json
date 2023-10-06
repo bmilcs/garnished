@@ -8,9 +8,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "vite build --outDir dist/production && cp CNAME dist/production/ && cp 404.html dist/production/",
-    "buildpreview": "vite build --outDir dist/preview/ && cp CNAMEPREVIEW dist/preview/CNAME && cp 404.html dist/preview/",
-    "pubpreview": "cd dist/preview && git reset && git add . && git commit -m 'Build preview updates' && git push",
+    "build": "vite build --outDir dist/production && echo 'garnished.events' > dist/production/CNAME && cp 404.html dist/production/",
+    "pub": "git reset && git add dist/production && git commit -m 'Build production updates' && git push",
+    "buildpreview": "vite build --outDir dist/preview/ && echo 'test.garnished.events' > dist/preview/CNAME && cp 404.html dist/preview/",
+    "pubpreview": "cd dist/preview/ && git reset && git add . && git commit -m 'Build preview updates' && git push",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "npx playwright test",
     "testui": "npx playwright test --ui",
