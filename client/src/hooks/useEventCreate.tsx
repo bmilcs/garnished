@@ -9,32 +9,36 @@ type TCreateEventResponse = {
   eventId?: string;
 };
 
+const dummyEvent = {
+  date: "2025-10-15",
+  time: "17:00",
+  locationDescription: "Around back",
+  address: "123 Circle Dr.",
+  city: "West Springfield",
+  state: "MA",
+  zip: "01089",
+  guests: 25,
+  hours: 4,
+  eventType: "Birthday",
+  needBar: true,
+  needTent: false,
+  needAlcohol: true,
+  needDrinkware: true,
+  beer: true,
+  wine: true,
+  specialtyDrinks: false,
+  liquorPreferences: "Premium liquors only.",
+  additionalInfo: "Great web site!",
+};
+
 export const useCreateEvent = () => {
   const [isPending, setIsPending] = useState(false);
   const [createdEventId, setCreatedEventId] = useState<null | string>(null);
-  const { redirectUnauthorizedUser } = useContext(AuthContext);
+  const { redirectUnauthorizedUser, isProduction } = useContext(AuthContext);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
-  const [formData, setFormData] = useState<TEvent>({
-    date: "2025-10-15",
-    time: "17:00",
-    locationDescription: "Around back",
-    address: "123 Circle Dr.",
-    city: "West Springfield",
-    state: "MA",
-    zip: "01089",
-    guests: 25,
-    hours: 4,
-    eventType: "Birthday",
-    needBar: true,
-    needTent: false,
-    needAlcohol: true,
-    needDrinkware: true,
-    beer: true,
-    wine: true,
-    specialtyDrinks: false,
-    liquorPreferences: "",
-    additionalInfo: "",
-  });
+  const [formData, setFormData] = useState<TEvent>(
+    isProduction ? ({} as TEvent) : dummyEvent,
+  );
 
   useEffect(() => {
     redirectUnauthorizedUser();
