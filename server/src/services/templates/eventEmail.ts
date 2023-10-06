@@ -19,32 +19,51 @@ export const sendEventEmailToOwners = async ({
   const header = title;
 
   const userDetails = {
-    "First Name": user.firstName,
-    "Last Name": user.lastName,
+    Name: `${user.firstName} ${user.lastName}`,
     Email: user.username,
-    Address: user.address,
-    City: user.city,
-    State: user.state,
-    Zip: user.zip,
     Phone: user.phone,
+    Address: `${user.address}, ${user.city}, ${user.state} ${user.zip}`,
   };
 
+  // Create a string of the drinks that the user selected
+  const drinks = Object.entries(event.toObject())
+    .filter(([key, value]) => {
+      if (key !== "beer" && key !== "wine" && key !== "specialtyDrinks") {
+        return false;
+      }
+      return value ? true : false;
+    })
+    .map(([key]) => key.toUpperCase())
+    .join(", ");
+
+  // Create a string of the services that the user selected
+  const services = Object.entries(event.toObject())
+    .filter(([key, value]) => {
+      if (
+        key !== "needBar" &&
+        key !== "needTent" &&
+        key !== "needAlcohol" &&
+        key !== "needDrinkware"
+      ) {
+        return false;
+      }
+      return value ? true : false;
+    })
+    .map(([key]) => key.replace("need", "").toUpperCase())
+    .join(", ");
+
   const eventDetails = {
-    "Event Type": event.eventType,
-    "Event Date": new Date(event.date).toLocaleDateString(),
-    "Event Time": event.time,
+    Event: `${event.eventType} on ${new Date(
+      event.date,
+    ).toLocaleDateString()} at ${event.time}`,
     "Event Hours": event.hours,
+    "Number of Guests": event.guests,
+    "Services Needed": services,
+    "Drinks Needed": drinks,
+    "Liquor Preferences": event.liquorPreferences || "",
+    "Additional Details": event.additionalInfo || "",
     "Event Address": `${event.address}, ${event.city}, ${event.state} ${event.zip}`,
     "Event Location": event.locationDescription,
-    "Number of Guests": event.guests,
-    Bar: event.needBar ? "Yes" : "No",
-    Tent: event.needTent ? "Yes" : "No",
-    Alcohol: event.needAlcohol ? "Yes" : "No",
-    Drinkware: event.needDrinkware ? "Yes" : "No",
-    Beer: event.beer ? "Yes" : "No",
-    Wine: event.wine ? "Yes" : "No",
-    "Specialty Drinks": event.specialtyDrinks ? "Yes" : "No",
-    "Liquor Preferences": event.liquorPreferences,
   };
 
   const userHTML = Object.entries(userDetails).reduce((acc, [key, value]) => {
