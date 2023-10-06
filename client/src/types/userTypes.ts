@@ -1,7 +1,6 @@
 import { TEventWithId } from "@/types/eventTypes";
 
-export type TUser = {
-  _id: string;
+type TUserBaseInfo = {
   firstName: string;
   lastName: string;
   username: string;
@@ -9,11 +8,20 @@ export type TUser = {
   city: string;
   state: string;
   zip: string;
-  phone: number;
+  phone: string;
+};
+
+export type TUser = TUserBaseInfo & {
+  _id: string;
   events: TEventWithId[];
 };
 
-export type TUserWithPassword = TUser & {
+export type TUserSignup = TUserBaseInfo & {
   password: string;
   confirmPassword: string;
+};
+
+export type TUserLoginCredentials = {
+  username: string;
+  password: string;
 };
