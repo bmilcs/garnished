@@ -116,36 +116,57 @@ export const eventCreatePost = [
   body("needBar")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid bar need is required."),
   body("needTent")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid tent need is required."),
   body("needAlcohol")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid alcohol need is required."),
   body("needDrinkware")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid drinkware need is required."),
   body("beer")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid beer need is required."),
   body("wine")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid wine need is required."),
   body("specialtyDrinks")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
   body("liquorPreferences").trim().escape().isLength({ max: 300 }),
@@ -153,6 +174,7 @@ export const eventCreatePost = [
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
+    console.log(req.body);
     const errors = validationResult(req);
 
     // signup data failed validation checks
@@ -283,36 +305,57 @@ export const eventUpdatePatch = [
   body("needBar")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid bar need is required."),
   body("needTent")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid tent need is required."),
   body("needAlcohol")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid alcohol need is required."),
   body("needDrinkware")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid drinkware need is required."),
   body("beer")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid beer need is required."),
   body("wine")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid wine need is required."),
   body("specialtyDrinks")
     .trim()
     .escape()
+    .customSanitizer(value => {
+      return Boolean(value);
+    })
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
   body("liquorPreferences").trim().escape().isLength({ max: 300 }),
