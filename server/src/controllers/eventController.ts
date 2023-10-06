@@ -44,7 +44,6 @@ export const eventCreatePost = [
     .custom((value: string) => {
       // isDate() function isn't working after npm update. this is a workaround.
       const dateFormat = /^\d{4}\-\d{2}\-\d{2}$/;
-
       return !value.match(dateFormat)
         ? Promise.reject("Invalid date format.")
         : Promise.resolve();
@@ -174,7 +173,6 @@ export const eventCreatePost = [
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
-    console.log(req.body);
     const errors = validationResult(req);
 
     // signup data failed validation checks
