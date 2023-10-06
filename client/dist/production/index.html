@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HE1G0VYR21"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-HE1G0VYR21");
+    </script>
+
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Favorite Icon -->
-    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
 
     <!-- HTML Meta Tags -->
     <title>Garnished Events, LLP</title>
@@ -15,7 +30,7 @@
     />
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://garnishedllp.com" />
+    <meta property="og:url" content="https://garnished.events" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Garnished Events, LLP" />
     <meta
@@ -24,13 +39,13 @@
     />
     <meta
       property="og:image"
-      content="https://garnishedllp.com/og_image.webp"
+      content="https://garnished.events/og_image.webp"
     />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="garnishedllp.com" />
-    <meta property="twitter:url" content="https://garnishedllp.com" />
+    <meta property="twitter:domain" content="garnished.events" />
+    <meta property="twitter:url" content="https://garnished.events" />
     <meta name="twitter:title" content="Garnished Events, LLP" />
     <meta
       name="twitter:description"
@@ -38,10 +53,41 @@
     />
     <meta
       name="twitter:image"
-      content="https://garnishedllp.com/og_image.webp"
+      content="https://garnished.events/og_image.webp"
     />
-    <script type="module" crossorigin src="/assets/index-1f236555.js"></script>
-    <link rel="stylesheet" href="/assets/index-8c04ace2.css">
+
+    <!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script checks to see if a redirect is present in the query string,
+      // converts it back into the correct url and adds it to the
+      // browser's history using window.history.replaceState(...),
+      // which won't cause the browser to attempt to load the new url.
+      // When the single page app is loaded further down in this file,
+      // the correct url will be waiting in the browser's history for
+      // the single page app to route accordingly.
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    <script type="module" crossorigin src="/assets/index-405f75f6.js"></script>
+    <link rel="stylesheet" href="/assets/index-f492c274.css">
   </head>
   <body>
     <div id="root"></div>
