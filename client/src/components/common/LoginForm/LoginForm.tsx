@@ -4,19 +4,24 @@ import { HourglassSpinner } from "@/components/common/HourglassSpinner/Hourglass
 import { AuthContext } from "@/hooks/useAuthContext";
 import { useInputChange } from "@/hooks/useInputChange";
 import { TClassName } from "@/types/propTypes";
+import { TUserLoginCredentials } from "@/types/userTypes";
 import { onFormSubmit } from "@/utils/forms";
 import { FC, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 type TProps = TClassName;
 
+const dummyLoginCredentials = {
+  username: "reggie@miller.com",
+  password: "asdfasdf",
+};
+
 export const LoginForm: FC<TProps> = ({ className }) => {
-  const [formData, setFormData] = useState({
-    username: "reggie@miller.com",
-    password: "asdfasdf",
-  });
-  const { redirectAuthorizedUser, login, error, isAuthPending } =
+  const { redirectAuthorizedUser, login, error, isAuthPending, isProduction } =
     useContext(AuthContext);
+  const [formData, setFormData] = useState<TUserLoginCredentials>(
+    isProduction ? ({} as TUserLoginCredentials) : dummyLoginCredentials,
+  );
   const handleInputChange = useInputChange(setFormData);
   const handleSubmitForm = onFormSubmit(() => login(formData));
 
