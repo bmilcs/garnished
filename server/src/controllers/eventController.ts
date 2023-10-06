@@ -116,7 +116,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid bar need is required."),
@@ -124,7 +124,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid tent need is required."),
@@ -132,7 +132,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid alcohol need is required."),
@@ -140,7 +140,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid drinkware need is required."),
@@ -148,7 +148,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid beer need is required."),
@@ -156,7 +156,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid wine need is required."),
@@ -164,7 +164,7 @@ export const eventCreatePost = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
@@ -304,7 +304,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid bar need is required."),
@@ -312,7 +312,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid tent need is required."),
@@ -320,7 +320,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid alcohol need is required."),
@@ -328,7 +328,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid drinkware need is required."),
@@ -336,7 +336,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid beer need is required."),
@@ -344,7 +344,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid wine need is required."),
@@ -352,7 +352,7 @@ export const eventUpdatePatch = [
     .trim()
     .escape()
     .customSanitizer(value => {
-      return Boolean(value);
+      return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
