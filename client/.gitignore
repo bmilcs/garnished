@@ -3,6 +3,9 @@
 .env.development
 .env
 
+# submodule
+dist/preview
+
 # Logs
 logs
 *.log
