@@ -10,7 +10,7 @@
     "pubpreview": "cd client && npm run buildpreview && npm run pubpreview",
     "pubclient": "cd client && npm run build && npm run pub && cd .. && git subtree push --prefix client/dist/production origin dist",
     "pubserver": "cd server && fly deploy",
-    "pubsecrets": "cd server && grep -vE '^(#|$)' .env | sed -E 's/\\s*=\\s*/=/g' | tr '\\n' ' ' | xargs fly secrets set && fly apps restart"
+    "pubsecrets": "cd server && grep -vE '^(#|$)' .env | sed -E 's/\\s*=\\s*/=/g' | tr '\\n' ' ' | xargs fly secrets set && grep -vE '^(#|$)' .env.production | sed -E 's/\\s*=\\s*/=/g' | tr '\\n' ' ' | xargs fly secrets set && fly apps restart"
   },
   "author": "Bryan Miller (bryan@bmilcs.com)",
   "license": "MIT",
