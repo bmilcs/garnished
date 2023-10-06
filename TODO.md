@@ -1,10 +1,12 @@
 # TODO
 
+- [ ] Fix express-validator's `escape()`
+  - [ ] Prevent ' to &amp from displaying on the client.
 - [x] Prepare for production
   - [x] Dummy data on frontend: preview (yes) vs production (no)
   - [x] MongoDB: 'development' vs 'production' databases
   - [x] Add analytics
-- [ ] Push site to production
+- [x] Push site to production
 
 ## Frontend
 
