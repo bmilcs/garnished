@@ -1,5 +1,6 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
+import { TUserSignup } from "@/types/userTypes";
 import { apiService } from "@/utils/apiService";
 import { useContext, useEffect, useState } from "react";
 
@@ -9,26 +10,31 @@ type TSignupResponse = {
   errors?: TExpressValidatorError[];
 };
 
+const dummySignup = {
+  firstName: "Reggie",
+  lastName: "Miller",
+  username: "reggie@miller.com",
+  password: "asdfasdf",
+  confirmPassword: "asdfasdf",
+  address: "123 Reggie Lane.",
+  city: "Reggieland",
+  state: "MA",
+  zip: "12135",
+  phone: "413-413-4133",
+};
+
 // signup utilizes an array of express-validator errors, so
 // moving this to authContext would require refactoring.
 // for now, this custom hook will be the solution.
 
 export const useUserSignup = () => {
-  const { redirectAuthorizedUser, setIsLoggedIn } = useContext(AuthContext);
+  const { redirectAuthorizedUser, setIsLoggedIn, isProduction } =
+    useContext(AuthContext);
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
-  const [formData, setFormData] = useState({
-    firstName: "Reggie",
-    lastName: "Miller",
-    username: "reggie@miller.com",
-    password: "asdfasdf",
-    confirmPassword: "asdfasdf",
-    address: "123 Reggie Lane.",
-    city: "Reggieland",
-    state: "MA",
-    zip: "12135",
-    phone: "413-413-4133",
-  });
+  const [formData, setFormData] = useState<TUserSignup>(
+    isProduction ? ({} as TUserSignup) : dummySignup,
+  );
 
   // redirect user to /user when logged in
   useEffect(() => {
