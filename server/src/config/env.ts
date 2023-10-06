@@ -9,8 +9,10 @@ export const NODE_ENV = process.env.NODE_ENV || "development";
 export const SERVER_PORT = process.env.SERVER_PORT || 3001;
 export const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
 
-// database connection string: mongodb atlas
-export const MONGO_DB = process.env.MONGODB || "";
+// database connection string & database names: mongodb atlas
+export const MONGO_DB = process.env.MONGO_DB || "";
+export const PRODUCTION_DB = process.env.PRODUCTION_DB || "production";
+export const DEVELOPMENT_DB = process.env.DEVELOPMENT_DB || "development";
 
 // production url: required for CORS
 export const PRODUCTION_URL = process.env.PRODUCTION_URL || "";
