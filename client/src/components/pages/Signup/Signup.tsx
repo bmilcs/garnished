@@ -13,128 +13,128 @@ export const Signup: FC = () => {
   const handleSubmitForm = onFormSubmit(signup);
   const handleInputChange = useInputChange(setFormData);
 
+  // pending status: waiting on signup request to complete
+
   if (isPending) return <HourglassSpinner />;
 
-  if (!isPending)
-    return (
-      <section className={`content-spacer user-section`}>
-        <AnimatedDiv
-          type="SLIDE_DOWN"
-          className={`column user-section-wrapper`}
-        >
-          <form onSubmit={handleSubmitForm}>
-            <div className="form-header">
-              <h1 className="h2">Signup</h1>
-              <p>
-                Already have an account? <Link to="/login">Login here.</Link>
-              </p>
-            </div>
+  // not pending: render signup form
 
-            <Input
-              name="username"
-              type="email"
-              label="Email Address"
-              onChange={handleInputChange}
-              value={formData.username}
-              required
-              error={getExpressValidatorError("username", errors)}
-            />
+  return (
+    <section className={`content-spacer user-section`}>
+      <AnimatedDiv type="SLIDE_DOWN" className={`column user-section-wrapper`}>
+        <form onSubmit={handleSubmitForm}>
+          <div className="form-header">
+            <h1 className="h2">Signup</h1>
+            <p>
+              Already have an account? <Link to="/login">Login here.</Link>
+            </p>
+          </div>
 
-            <Input
-              name="password"
-              type="password"
-              label="Password"
-              onChange={handleInputChange}
-              value={formData.password}
-              required
-              error={getExpressValidatorError("password", errors)}
-            />
+          <Input
+            name="username"
+            type="email"
+            label="Email Address"
+            onChange={handleInputChange}
+            value={formData.username}
+            required
+            error={getExpressValidatorError("username", errors)}
+          />
 
-            <Input
-              name="confirmPassword"
-              type="password"
-              label="Confirm Password"
-              onChange={handleInputChange}
-              value={formData.confirmPassword}
-              required
-              error={getExpressValidatorError("confirmPassword", errors)}
-            />
+          <Input
+            name="password"
+            type="password"
+            label="Password"
+            onChange={handleInputChange}
+            value={formData.password}
+            required
+            error={getExpressValidatorError("password", errors)}
+          />
 
-            <Input
-              name="phone"
-              type="text"
-              label="Phone"
-              onChange={handleInputChange}
-              value={formData.phone}
-              required
-              error={getExpressValidatorError("phone", errors)}
-            />
+          <Input
+            name="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            onChange={handleInputChange}
+            value={formData.confirmPassword}
+            required
+            error={getExpressValidatorError("confirmPassword", errors)}
+          />
 
-            <Input
-              name="firstName"
-              type="text"
-              label="First Name"
-              onChange={handleInputChange}
-              value={formData.firstName}
-              required
-              error={getExpressValidatorError("firstName", errors)}
-            />
+          <Input
+            name="phone"
+            type="text"
+            label="Phone"
+            onChange={handleInputChange}
+            value={formData.phone}
+            required
+            error={getExpressValidatorError("phone", errors)}
+          />
 
-            <Input
-              name="lastName"
-              type="text"
-              label="Last Name"
-              onChange={handleInputChange}
-              value={formData.lastName}
-              required
-              error={getExpressValidatorError("lastName", errors)}
-            />
+          <Input
+            name="firstName"
+            type="text"
+            label="First Name"
+            onChange={handleInputChange}
+            value={formData.firstName}
+            required
+            error={getExpressValidatorError("firstName", errors)}
+          />
 
-            <Input
-              name="address"
-              type="text"
-              label="Address"
-              onChange={handleInputChange}
-              value={formData.address}
-              required
-              error={getExpressValidatorError("address", errors)}
-            />
+          <Input
+            name="lastName"
+            type="text"
+            label="Last Name"
+            onChange={handleInputChange}
+            value={formData.lastName}
+            required
+            error={getExpressValidatorError("lastName", errors)}
+          />
 
-            <Input
-              name="city"
-              type="text"
-              label="City"
-              onChange={handleInputChange}
-              value={formData.city}
-              required
-              error={getExpressValidatorError("city", errors)}
-            />
+          <Input
+            name="address"
+            type="text"
+            label="Address"
+            onChange={handleInputChange}
+            value={formData.address}
+            required
+            error={getExpressValidatorError("address", errors)}
+          />
 
-            <Input
-              name="state"
-              type="text"
-              label="State"
-              onChange={handleInputChange}
-              value={formData.state}
-              required
-              maxLength={2}
-              error={getExpressValidatorError("state", errors)}
-            />
+          <Input
+            name="city"
+            type="text"
+            label="City"
+            onChange={handleInputChange}
+            value={formData.city}
+            required
+            error={getExpressValidatorError("city", errors)}
+          />
 
-            <Input
-              name="zip"
-              type="text"
-              label="Zip Code"
-              onChange={handleInputChange}
-              value={formData.zip}
-              required
-              maxLength={5}
-              error={getExpressValidatorError("zip", errors)}
-            />
+          <Input
+            name="state"
+            type="text"
+            label="State"
+            onChange={handleInputChange}
+            value={formData.state}
+            required
+            maxLength={2}
+            error={getExpressValidatorError("state", errors)}
+          />
 
-            <Button type="primary">Signup</Button>
-          </form>
-        </AnimatedDiv>
-      </section>
-    );
+          <Input
+            name="zip"
+            type="text"
+            label="Zip Code"
+            onChange={handleInputChange}
+            value={formData.zip}
+            required
+            maxLength={5}
+            error={getExpressValidatorError("zip", errors)}
+          />
+
+          <Button type="primary">Signup</Button>
+        </form>
+      </AnimatedDiv>
+    </section>
+  );
 };
