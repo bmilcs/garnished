@@ -9,7 +9,7 @@ export type TUserApiResponse = {
 };
 
 export const useUserData = () => {
-  const { redirectUnauthorizedUser } = useContext(AuthContext);
+  const { redirectUnauthorizedUser, setIsLoggedIn } = useContext(AuthContext);
   const [isPending, setIsPending] = useState(true);
   const [userData, setUserData] = useState<TUser | null>(null);
   const [error, setError] = useState("");
@@ -29,16 +29,21 @@ export const useUserData = () => {
           path: "user",
         });
 
+        // if no user data is returned, the server clears jwt cookies & logs the user out.
+        // update the GUI accordingly by setting isLoggedIn to false, hiding user dashboard access.
+        // the user dashboard page will then display the ErrorPage component.
         if (user) setUserData(user);
+        else setIsLoggedIn(false);
       } catch {
         setError("Something went wrong while logging in. Try again later.");
+        setIsLoggedIn(false);
       } finally {
         setIsPending(false);
       }
     };
 
     void getUserData();
-  }, [redirectUnauthorizedUser]);
+  }, [redirectUnauthorizedUser, setIsLoggedIn]);
 
   return { userData, isPending, error };
 };
