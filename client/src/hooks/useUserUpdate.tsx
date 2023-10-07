@@ -17,37 +17,39 @@ type TDeleteResponse = {
   deleted?: boolean;
 };
 
-// user update utilizes an array of express-validator errors, so
-// moving this to authContext would require refactoring.
-// for now, this custom hook will be the solution.
+// this hook is used by UserUpdate page. it fetches fresh user data, and provides
+// functions to update or delete user data on server. it also provides state variables
+// for form data, pending status, and error messages.
 
 export const useUserUpdate = () => {
+  const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(AuthContext);
+  const [formData, setFormData] = useState<TUser>();
+  const [isUserActionPending, setIsUserActionPending] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+  const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
+    [],
+  );
   const {
     userData,
     isPending: isUserDataPending,
     error: userDataError,
   } = useUserData();
-  const [isPending, setIsPending] = useState(false);
-  const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
-    [],
-  );
-  const [deleteError, setDeleteError] = useState("");
-  const [formData, setFormData] = useState<TUser>();
-  const navigate = useNavigate();
 
   // on initial render, retrieve fresh user data from server using useUserData hook.
-  // this hook (useUserUpdate) returns useUserData's isPending & error states
+  // this hook (useUserUpdate) returns useUserData's isUserActionPending & error states
   // as well, so we can use those to render a loading spinner or error page.
+
   useEffect(() => {
     if (!userData) return;
     setFormData(userData);
   }, [userData]);
 
+  // update user data on server
+
   const updateUser = async () => {
     setUpdateErrors([]);
-    setIsPending(true);
-
+    setIsUserActionPending(true);
     try {
       const {
         data: { updated, errors },
@@ -56,26 +58,25 @@ export const useUserUpdate = () => {
         path: `user`,
         body: formData,
       });
-
       if (updated) {
         navigate("/user");
         return;
       }
-
       if (errors) {
         setUpdateErrors(errors);
       }
     } catch {
       console.error("Something went wrong. Try again later.");
     } finally {
-      setIsPending(false);
+      setIsUserActionPending(false);
     }
   };
 
+  // delete user data on server
+
   const deleteUser = async () => {
     setDeleteError("");
-    setIsPending(true);
-
+    setIsUserActionPending(true);
     try {
       const {
         data: { deleted, msg },
@@ -83,26 +84,25 @@ export const useUserUpdate = () => {
         method: "DELETE",
         path: `user`,
       });
-
       if (deleted) {
-        navigate("/");
         // the server logs user out & clears cookies upon deletion. this toggles
-        // user dashboard visibility, and shows get started elements instead.
+        // user dashboard visibility, and shows get started elements instead
         setIsLoggedIn(false);
+        navigate("/");
         return;
       }
-
       if (msg) {
         setDeleteError(msg);
       }
     } catch {
       console.error("Something went wrong. Try again later.");
     } finally {
-      setIsPending(false);
+      setIsUserActionPending(false);
     }
   };
 
   return {
+    isUserActionPending,
     isUserDataPending,
     userDataError,
     formData,
@@ -111,6 +111,5 @@ export const useUserUpdate = () => {
     deleteUser,
     updateErrors,
     deleteError,
-    isPending,
   };
 };

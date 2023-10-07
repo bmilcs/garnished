@@ -4,7 +4,7 @@ import { HourglassSpinner } from "@/components/common/HourglassSpinner/Hourglass
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { AuthContext } from "@/hooks/useAuthContext";
 import { useUserData } from "@/hooks/useUserData";
-import { formatDate, formatPhoneNumber } from "@/utils/formatters";
+import { formatDate } from "@/utils/formatters";
 import { FC, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./User.module.scss";
@@ -85,7 +85,7 @@ export const User: FC = () => {
                 {userData.city}, {userData.state}, {userData.zip}
               </p>
               <h2 className={`h4 ${styles.userDetailsHeader}`}>Contact Info</h2>
-              <p>{formatPhoneNumber(userData.phone)}</p>
+              <p>{userData.phone}</p>
               <p>{userData.username}</p>
               <Button
                 type="primary"
