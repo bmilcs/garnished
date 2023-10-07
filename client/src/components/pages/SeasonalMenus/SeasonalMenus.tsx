@@ -134,7 +134,7 @@ const MenuSelector: FC<TMenuSelector> = ({ menu, setMenu }) => {
   return (
     <div className={styles.tabs}>
       <Button
-        type="secondary"
+        type="outline"
         className={menu === "spring" ? styles.activeTabButton : ""}
         onClick={() => setMenu("spring")}
       >
@@ -142,7 +142,7 @@ const MenuSelector: FC<TMenuSelector> = ({ menu, setMenu }) => {
       </Button>
 
       <Button
-        type="secondary"
+        type="outline"
         className={menu === "summer" ? styles.activeTabButton : ""}
         onClick={() => setMenu("summer")}
       >
@@ -150,7 +150,7 @@ const MenuSelector: FC<TMenuSelector> = ({ menu, setMenu }) => {
       </Button>
 
       <Button
-        type="secondary"
+        type="outline"
         className={menu === "autumn" ? styles.activeTabButton : ""}
         onClick={() => setMenu("autumn")}
       >
@@ -158,7 +158,7 @@ const MenuSelector: FC<TMenuSelector> = ({ menu, setMenu }) => {
       </Button>
 
       <Button
-        type="secondary"
+        type="outline"
         className={menu === "winter" ? styles.activeTabButton : ""}
         onClick={() => setMenu("winter")}
       >
