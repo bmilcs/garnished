@@ -40,8 +40,10 @@ export const Contact: FC = () => {
       />
 
       <section className={`${styles.contact}`}>
+        {/* pending status: waiting on contact form request to complete */}
         {isPending && <HourglassSpinner />}
 
+        {/* not pending: render contact form */}
         {!isPending && (
           <div className={`column content-spacer ${styles.contactWrapper}`}>
             <AnimatedDiv
@@ -116,6 +118,8 @@ export const Contact: FC = () => {
                 </Button>
               </form>
             </AnimatedDiv>
+
+            {/* modal: success status, contact form request was successful */}
 
             {isSent && (
               <Modal
