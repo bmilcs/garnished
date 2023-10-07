@@ -24,7 +24,13 @@
 
   --border: 2px solid var(--clr-bg-lighter);
   --border-radius-100: 0.25rem;
+  --border-radius-100-top: var(--border-radius-100) var(--border-radius-100) 0 0;
+  --border-radius-100-bottom: 0 0 var(--border-radius-100)
+    var(--border-radius-100);
   --border-radius-200: 0.5rem;
+  --border-radius-200-top: var(--border-radius-200) var(--border-radius-200) 0 0;
+  --border-radius-200-bottom: 0 0 var(--border-radius-200)
+    var(--border-radius-200);
 
   --box-shadow-100: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   --text-shadow-100: 1px 1px 4px var(--clr-neutral-900);
