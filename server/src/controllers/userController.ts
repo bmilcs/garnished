@@ -101,13 +101,18 @@ const respondWithLogout = ({
 };
 
 //
-// GET user login request
+// POST user login request
 //
 
 export const userLogin = [
   // sanitize user input
-  body("username").trim().escape(),
-  body("password").trim().escape(),
+  body("username")
+    .trim()
+    .isEmail()
+    .withMessage("Email address is invalid.")
+    .toLowerCase()
+    .normalizeEmail(),
+  body("password").trim(),
 
   // process request after sanitization
   async (req: Request, res: Response) => {
@@ -175,44 +180,37 @@ export const userLogin = [
 export const userPost = [
   body("username")
     .trim()
-    .escape()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required.")
     .isEmail()
     .withMessage("Email address is invalid.")
     .toLowerCase()
-    .normalizeEmail()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required."),
+    .normalizeEmail(),
   body("firstName")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 50 })
     .withMessage("First name is required."),
   body("lastName")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 50 })
     .withMessage("Last name is required."),
   body("username")
     .trim()
-    .escape()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required.")
     .isEmail()
     .withMessage("Email address is invalid.")
     .toLowerCase()
-    .normalizeEmail()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required."),
+    .normalizeEmail(),
   body("city")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 100 })
     .withMessage("City is required."),
   body("state")
     .trim()
-    .escape()
     .isLength({ min: 2, max: 2 })
     .withMessage("State is required."),
   body("zip")
-    .escape()
     .trim()
     .isNumeric()
     .withMessage("A valid zip code is required: numbers only.")
@@ -220,7 +218,6 @@ export const userPost = [
     .withMessage("Zip codes must be 5 characters long."),
   body("phone")
     .trim()
-    .escape()
     .customSanitizer((value: string) => {
       // remove all non-digit characters from the phone number
       return value.replace(/\D/g, "");
@@ -301,13 +298,12 @@ export const userPost = [
 export const userSignup = [
   body("username")
     .trim()
-    .escape()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required.")
     .isEmail()
     .withMessage("Email address is invalid.")
     .toLowerCase()
     .normalizeEmail()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required.")
     .custom(async (value: string) => {
       // check if email is already registered
       return UserModel.findOne({ username: value.toLowerCase() }).then(user => {
@@ -318,48 +314,40 @@ export const userSignup = [
     }),
   body("password")
     .trim()
-    .escape()
     .isLength({ min: 8, max: 50 })
     .withMessage("Password must be 8 to 50 characters."),
   body("firstName")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 50 })
     .withMessage("First name is required."),
   body("lastName")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 50 })
     .withMessage("Last name is required."),
   body("username")
     .trim()
-    .escape()
+    .isLength({ min: 1, max: 320 })
+    .withMessage("Email is required.")
     .isEmail()
     .withMessage("Email address is invalid.")
     .toLowerCase()
-    .normalizeEmail()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required."),
+    .normalizeEmail(),
   body("city")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 100 })
     .withMessage("City is required."),
   body("state")
     .trim()
-    .escape()
     .isLength({ min: 2, max: 2 })
     .withMessage("State is required."),
   body("zip")
     .trim()
-    .escape()
     .isNumeric()
     .withMessage("A valid zip code is required: numbers only.")
     .isLength({ min: 5, max: 5 })
     .withMessage("Zip codes must be 5 characters long."),
   body("phone")
     .trim()
-    .escape()
     .customSanitizer((value: string) => {
       // remove all non-digit characters from the phone number
       return value.replace(/\D/g, "");

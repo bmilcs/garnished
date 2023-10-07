@@ -7,12 +7,10 @@ import { body, validationResult } from "express-validator";
 export const contactPost = [
   body("name")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 50 })
     .withMessage("First name is required."),
   body("email")
     .trim()
-    .escape()
     .isEmail()
     .withMessage("Email address is invalid.")
     .toLowerCase()
@@ -21,7 +19,6 @@ export const contactPost = [
     .withMessage("Email is required."),
   body("message")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 2000 })
     .withMessage("Messages must be between 1 and 2000 characters."),
 

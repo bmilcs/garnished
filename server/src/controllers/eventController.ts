@@ -40,7 +40,6 @@ export const eventCreatePost = [
   // validate and sanitize user input
   body("date")
     .trim()
-    .escape()
     .custom((value: string) => {
       // isDate() function isn't working after npm update. this is a workaround.
       const dateFormat = /^\d{4}\-\d{2}\-\d{2}$/;
@@ -61,33 +60,27 @@ export const eventCreatePost = [
     }),
   body("time")
     .trim()
-    .escape()
     .isLength({ min: 5, max: 5 })
     .withMessage("A valid time is required."),
   body("locationDescription")
     .trim()
-    .escape()
     .isLength({ min: 10, max: 250 })
     .withMessage(
       "Please give a description of where on the premises the event will be held.",
     ),
   body("address")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 200 })
     .withMessage("A valid address is required."),
   body("city")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 100 })
     .withMessage("A valid city is required."),
   body("state")
     .trim()
-    .escape()
     .isLength({ min: 2, max: 2 })
     .withMessage("A valid 2 letter state is required."),
   body("zip")
-    .escape()
     .trim()
     .isNumeric()
     .withMessage("A valid zip code is required: numbers only.")
@@ -95,26 +88,22 @@ export const eventCreatePost = [
     .withMessage("Zip codes must be 5 characters long."),
   body("guests")
     .trim()
-    .escape()
     .isNumeric()
     .withMessage("A valid number of guests is required: numbers only.")
     .isLength({ min: 1, max: 10 })
     .withMessage("Guest count must be 1 to 10 digits long."),
   body("hours")
     .trim()
-    .escape()
     .isNumeric()
     .withMessage("A valid number of hours is required: numbers only.")
     .isLength({ min: 1, max: 2 })
     .withMessage("Hour count must be 1 to 2 digits long."),
   body("eventType")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 200 })
     .withMessage("A valid event type is required."),
   body("needBar")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -122,7 +111,6 @@ export const eventCreatePost = [
     .withMessage("A valid bar need is required."),
   body("needTent")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -130,7 +118,6 @@ export const eventCreatePost = [
     .withMessage("A valid tent need is required."),
   body("needAlcohol")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -138,7 +125,6 @@ export const eventCreatePost = [
     .withMessage("A valid alcohol need is required."),
   body("needDrinkware")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -146,7 +132,6 @@ export const eventCreatePost = [
     .withMessage("A valid drinkware need is required."),
   body("beer")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -154,7 +139,6 @@ export const eventCreatePost = [
     .withMessage("A valid beer need is required."),
   body("wine")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -162,14 +146,13 @@ export const eventCreatePost = [
     .withMessage("A valid wine need is required."),
   body("specialtyDrinks")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
-  body("liquorPreferences").trim().escape().isLength({ max: 300 }),
-  body("additionalInfo").trim().escape().isLength({ max: 1000 }),
+  body("liquorPreferences").trim().isLength({ max: 300 }),
+  body("additionalInfo").trim().isLength({ max: 1000 }),
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
@@ -227,7 +210,6 @@ export const eventUpdatePatch = [
   // validate and sanitize user input
   body("date")
     .trim()
-    .escape()
     .custom((value: string) => {
       // isDate() function isn't working after npm update. this is a workaround.
       const dateFormat = /^\d{4}\-\d{2}\-\d{2}$/;
@@ -249,33 +231,27 @@ export const eventUpdatePatch = [
     }),
   body("time")
     .trim()
-    .escape()
     .isLength({ min: 5, max: 5 })
     .withMessage("A valid time is required."),
   body("locationDescription")
     .trim()
-    .escape()
     .isLength({ min: 10, max: 250 })
     .withMessage(
       "Please give a description of where on the premises the event will be held.",
     ),
   body("address")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 200 })
     .withMessage("A valid address is required."),
   body("city")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 100 })
     .withMessage("A valid city is required."),
   body("state")
     .trim()
-    .escape()
     .isLength({ min: 2, max: 2 })
     .withMessage("A valid 2 letter state is required."),
   body("zip")
-    .escape()
     .trim()
     .isNumeric()
     .withMessage("A valid zip code is required: numbers only.")
@@ -283,26 +259,22 @@ export const eventUpdatePatch = [
     .withMessage("Zip codes must be 5 characters long."),
   body("guests")
     .trim()
-    .escape()
     .isNumeric()
     .withMessage("A valid number of guests is required: numbers only.")
     .isLength({ min: 1, max: 10 })
     .withMessage("Guest count must be 1 to 10 digits long."),
   body("hours")
     .trim()
-    .escape()
     .isNumeric()
     .withMessage("A valid number of hours is required: numbers only.")
     .isLength({ min: 1, max: 2 })
     .withMessage("Hour count must be 1 to 2 digits long."),
   body("eventType")
     .trim()
-    .escape()
     .isLength({ min: 1, max: 200 })
     .withMessage("A valid event type is required."),
   body("needBar")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -310,7 +282,6 @@ export const eventUpdatePatch = [
     .withMessage("A valid bar need is required."),
   body("needTent")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -318,7 +289,6 @@ export const eventUpdatePatch = [
     .withMessage("A valid tent need is required."),
   body("needAlcohol")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -326,7 +296,6 @@ export const eventUpdatePatch = [
     .withMessage("A valid alcohol need is required."),
   body("needDrinkware")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -334,7 +303,6 @@ export const eventUpdatePatch = [
     .withMessage("A valid drinkware need is required."),
   body("beer")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -342,7 +310,6 @@ export const eventUpdatePatch = [
     .withMessage("A valid beer need is required."),
   body("wine")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
@@ -350,14 +317,13 @@ export const eventUpdatePatch = [
     .withMessage("A valid wine need is required."),
   body("specialtyDrinks")
     .trim()
-    .escape()
     .customSanitizer(value => {
       return value === "true" ? true : false;
     })
     .isBoolean()
     .withMessage("A valid specialty drinks need is required."),
-  body("liquorPreferences").trim().escape().isLength({ max: 300 }),
-  body("additionalInfo").trim().escape().isLength({ max: 1000 }),
+  body("liquorPreferences").trim().isLength({ max: 300 }),
+  body("additionalInfo").trim().isLength({ max: 1000 }),
 
   // process request after validation and sanitization
   async (req: IAuthRequest, res: Response) => {
