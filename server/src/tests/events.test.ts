@@ -32,14 +32,14 @@ describe("Event Route: POST /event/", () => {
     await request(app)
       .post("/event")
       .set("Cookie", cookies)
-      .send({ ...eventData, beer: "yes" })
+      .send({ ...eventData, guests: "A lot" })
       .expect("Content-Type", /json/)
       .expect(400)
       .then(res => {
         expect(res.body.msg).to.equal("Failed to validate event data.");
         expect(res.body.errors).to.be.an("array");
         expect(res.body.errors[0].msg).to.equal(
-          "A valid beer need is required.",
+          "A valid number of guests is required: numbers only.",
         );
       });
   });
@@ -185,15 +185,13 @@ describe("Event Route: PATCH /event/:id", () => {
     await request(app)
       .patch(`/event/${eventId}`)
       .set("Cookie", cookies)
-      .send({ ...eventData, beer: "yes" })
+      .send({ ...eventData, time: "" })
       .expect("Content-Type", /json/)
       .expect(400)
       .then(res => {
         expect(res.body.msg).to.equal("Failed to validate event data.");
         expect(res.body.errors).to.be.an("array");
-        expect(res.body.errors[0].msg).to.equal(
-          "A valid beer need is required.",
-        );
+        expect(res.body.errors[0].msg).to.equal("A valid time is required.");
       });
   });
 
