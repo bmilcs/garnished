@@ -12,7 +12,7 @@ type TUpdateUserResponse = {
   errors?: TExpressValidatorError[];
 };
 
-type TDeleteResponse = {
+type TDeleteUserResponse = {
   msg: string;
   deleted?: boolean;
 };
@@ -80,7 +80,7 @@ export const useUserUpdate = () => {
     try {
       const {
         data: { deleted, msg },
-      } = await apiService<TDeleteResponse>({
+      } = await apiService<TDeleteUserResponse>({
         method: "DELETE",
         path: `user`,
       });

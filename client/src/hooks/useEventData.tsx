@@ -12,28 +12,29 @@ type TEventGetApiResponse = {
 export const useEventData = (eventId: string) => {
   const { redirectUnauthorizedUser } = useContext(AuthContext);
   const [isPending, setIsPending] = useState(true);
-  const [eventData, setEventData] = useState<TEventWithId | null>(null);
+  const [eventData, setEventData] = useState<TEventWithId>();
   const [error, setError] = useState("");
 
-  // on initial render, retrieve event data from server
+  // on initial render, retrieve event data from server and
+  // set state variables accordingly
+
   useEffect(() => {
+    redirectUnauthorizedUser();
+
     const getEventData = async () => {
       if (!eventId) {
         setError("No event ID provided.");
         setIsPending(false);
         return;
       }
-
       setIsPending(true);
       setError("");
-
       try {
         const {
           data: { event },
         } = await apiService<TEventGetApiResponse>({
           path: `event/${eventId}`,
         });
-
         if (event) {
           const date = formatDateWithDashes(event.date);
           setEventData({ ...event, date: date });
@@ -47,7 +48,6 @@ export const useEventData = (eventId: string) => {
       }
     };
 
-    redirectUnauthorizedUser();
     void getEventData();
   }, [redirectUnauthorizedUser, eventId]);
 

@@ -23,9 +23,8 @@ const dummySignup = {
   phone: "413-413-4133",
 };
 
-// signup utilizes an array of express-validator errors, so
-// moving this to authContext would require refactoring.
-// for now, this custom hook will be the solution.
+// this hook is used by Signup page. it provides state variables for form data,
+// pending status, error messages, and a function to submit the form
 
 export const useUserSignup = () => {
   const { redirectAuthorizedUser, setIsLoggedIn, isProduction } =
@@ -36,15 +35,17 @@ export const useUserSignup = () => {
     isProduction ? ({} as TUserSignup) : dummySignup,
   );
 
-  // redirect user to /user when logged in
+  // redirect user to dashboard when the user is logged in
+
   useEffect(() => {
     redirectAuthorizedUser();
   }, [redirectAuthorizedUser]);
 
+  // signup user on server
+
   const signup = async () => {
     setErrors([]);
     setIsPending(true);
-
     // prevent api call if passwords don't match
     // for consistency, all errors are in express-validator format
     if (formData.password !== formData.confirmPassword) {
@@ -61,7 +62,6 @@ export const useUserSignup = () => {
       setIsPending(false);
       return;
     }
-
     try {
       const {
         data: { authenticated, errors },
@@ -70,7 +70,6 @@ export const useUserSignup = () => {
         path: `user/signup`,
         body: formData,
       });
-
       if (authenticated) {
         setIsLoggedIn(true);
       } else if (errors) {

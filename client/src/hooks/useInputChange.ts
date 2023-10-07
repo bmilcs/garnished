@@ -7,18 +7,19 @@ export type InputChangeEvent = ChangeEvent<
 >;
 
 //
-// custom hook to handle input changes and saving them to a single state object
+// custom hook to handle input changes when saving them to a single state object
 // accepts: setFormData useState function
 // returns: handleInputChange function
 //
 
 // custom hook: takes one argument: a function that can update state
+
 export const useInputChange = <T>(setFormData: SetStateFunction<T>) => {
   // this is the function that will be called every time an input changes
   // it takes one argument: an event object
+
   const handleInputChange = (e: InputChangeEvent) => {
     const { name, type } = e.target;
-
     // we'll use the event object to get the name and type of the input that changed
     if (type === "checkbox") {
       // if the input is a checkbox, we'll get the checked property
@@ -38,6 +39,6 @@ export const useInputChange = <T>(setFormData: SetStateFunction<T>) => {
     }
   };
 
-  // finally, we'll return the function that will update our state
+  // return the function that will update our state
   return handleInputChange;
 };
