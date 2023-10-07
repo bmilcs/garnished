@@ -28,17 +28,20 @@ export const UserUpdate: FC = () => {
   const navigate = useNavigate();
 
   // pending status: fetch user data, delete user or update user
+
   if (isUserDataPending || isUserActionPending) {
     return <HourglassSpinner />;
   }
 
   // error status: user data fetch error or
   // form data is missing after pending status is set to false
+
   if (userDataError || !formData) {
     return <ErrorPage title="404" subtitle="User not found." />;
   }
 
   // success status: no pending or error statuses present
+
   return (
     <section className={`content-spacer user-section`}>
       <AnimatedDiv type="SLIDE_DOWN" className="column user-section-wrapper">
@@ -133,7 +136,9 @@ export const UserUpdate: FC = () => {
         </form>
       </AnimatedDiv>
 
-      <AnimatedDiv type="SLIDE_UP" delay={0.4} className="button-wrapper">
+      {/* bottom buttons */}
+
+      <AnimatedDiv type="SLIDE_UP" delay={0.1} className="button-wrapper">
         <Button type="outline" onClick={() => navigate("/user")}>
           Return to Dashboard
         </Button>
@@ -150,19 +155,10 @@ export const UserUpdate: FC = () => {
           message="Are you sure you want to delete your account? This action cannot be undone."
         >
           <div className="button-wrapper">
-            <Button
-              type="outline"
-              onClick={deleteUser}
-              className="margin-right"
-            >
+            <Button type="outline" onClick={deleteUser}>
               Delete Account
             </Button>
-
-            <Button
-              type="primary"
-              onClick={() => setShowDeleteModal(false)}
-              className="margin-right"
-            >
+            <Button type="primary" onClick={() => setShowDeleteModal(false)}>
               Cancel
             </Button>
           </div>
