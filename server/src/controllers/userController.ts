@@ -11,7 +11,7 @@ import jwt from "jsonwebtoken";
 
 //
 // GET user auth status
-// checks if user is authenticated based on jwt cookies
+// checks if user is authenticated based on jwt cookies and returns an authenticated boolean
 //
 
 export const userAuthStatus = async (req: IAuthRequest, res: Response) => {
@@ -54,7 +54,14 @@ export const userGet = async (req: IAuthRequest, res: Response) => {
       password: 0,
     }).populate("events", { _id: 1, date: 1, eventType: 1 });
 
-    if (!user) return res.status(400).json({ msg: "User not found." });
+    // user not found. this should never happen, but if the user reaches this point
+    // without being authenticated, clear cookies and return an error
+    if (!user)
+      return respondWithLogout({
+        res,
+        statusCode: 400,
+        json: { msg: "User not found." },
+      });
 
     res.json({ msg: "Successful user get", user });
   } catch (e) {
@@ -68,11 +75,29 @@ export const userGet = async (req: IAuthRequest, res: Response) => {
 //
 
 export const userLogout = async (req: IAuthRequest, res: Response) => {
+  return respondWithLogout({
+    res,
+    json: { msg: "Successful user logout." },
+    statusCode: 200,
+  });
+};
+
+// helper function to logout user. this is used by both the standard logout
+// route, as well as the userDelete & userGet routes.
+const respondWithLogout = ({
+  res,
+  json,
+  statusCode,
+}: {
+  res: Response;
+  json: Object;
+  statusCode: number;
+}) => {
   return res
     .clearCookie("accessToken")
     .clearCookie("refreshToken")
-    .status(200)
-    .json({ msg: "Successful user logout." });
+    .status(statusCode)
+    .json(json);
 };
 
 //
@@ -132,7 +157,7 @@ export const userLogin = [
           userId: user._id.toString(),
         });
 
-        res
+        return res
           .status(200)
           .json({ msg: "Successful user login.", authenticated: true });
       });
@@ -386,7 +411,11 @@ export const userDelete = async (req: IAuthRequest, res: Response) => {
     });
 
     if (!user) {
-      return res.status(400).json({ msg: "User not found.", deleted: false });
+      return respondWithLogout({
+        res,
+        statusCode: 400,
+        json: { msg: "User not found.", deleted: false },
+      });
     }
 
     if (user.events.length > 0) {
@@ -397,7 +426,11 @@ export const userDelete = async (req: IAuthRequest, res: Response) => {
 
     await user.deleteOne();
 
-    res.json({ msg: "Successful user delete.", deleted: true });
+    return respondWithLogout({
+      res,
+      statusCode: 200,
+      json: { msg: "Successful user delete.", deleted: true },
+    });
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: "Internal server error." });
