@@ -1,6 +1,7 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TUser } from "@/types/userTypes";
 import { apiService } from "@/utils/apiService";
+import { formatPhoneNumber } from "@/utils/formatters";
 import { useContext, useEffect, useState } from "react";
 
 export type TUserApiResponse = {
@@ -32,8 +33,13 @@ export const useUserData = () => {
         // if no user data is returned, the server clears jwt cookies & logs the user out.
         // update the GUI accordingly by setting isLoggedIn to false, hiding user dashboard access.
         // the user dashboard page will then display the ErrorPage component.
-        if (user) setUserData(user);
-        else setIsLoggedIn(false);
+        if (user) {
+          const formattedUser = {
+            ...user,
+            phone: formatPhoneNumber(user.phone),
+          };
+          setUserData(formattedUser);
+        } else setIsLoggedIn(false);
       } catch {
         setError("Something went wrong while logging in. Try again later.");
         setIsLoggedIn(false);
