@@ -1,5 +1,5 @@
 import { AuthContext } from "@/hooks/useAuthContext";
-import { TUserApiResponse } from "@/hooks/useUserData";
+import { useUserData } from "@/hooks/useUserData";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
 import { TUser } from "@/types/userTypes";
 import { apiService } from "@/utils/apiService";
@@ -22,39 +22,27 @@ type TDeleteResponse = {
 // for now, this custom hook will be the solution.
 
 export const useUserUpdate = () => {
-  const { redirectUnauthorizedUser, setIsLoggedIn } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(AuthContext);
+  const {
+    userData,
+    isPending: isUserDataPending,
+    error: userDataError,
+  } = useUserData();
   const [isPending, setIsPending] = useState(false);
   const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
     [],
   );
   const [deleteError, setDeleteError] = useState("");
   const [formData, setFormData] = useState<TUser>();
+  const navigate = useNavigate();
 
+  // on initial render, retrieve fresh user data from server using useUserData hook.
+  // this hook (useUserUpdate) returns useUserData's isPending & error states
+  // as well, so we can use those to render a loading spinner or error page.
   useEffect(() => {
-    const getUserData = async () => {
-      setIsPending(true);
-
-      try {
-        const {
-          data: { user },
-        } = await apiService<TUserApiResponse>({
-          path: "user",
-        });
-
-        if (user) setFormData(user);
-      } catch {
-        console.error(
-          "Something went wrong while logging in. Try again later.",
-        );
-      } finally {
-        setIsPending(false);
-      }
-    };
-
-    redirectUnauthorizedUser();
-    void getUserData();
-  }, [redirectUnauthorizedUser]);
+    if (!userData) return;
+    setFormData(userData);
+  }, [userData]);
 
   const updateUser = async () => {
     setUpdateErrors([]);
@@ -115,6 +103,8 @@ export const useUserUpdate = () => {
   };
 
   return {
+    isUserDataPending,
+    userDataError,
     formData,
     setFormData,
     updateUser,
