@@ -1,15 +1,10 @@
 import { AuthContext } from "@/hooks/useAuthContext";
+import { useEventData } from "@/hooks/useEventData";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
-import { TEvent, TEventWithId } from "@/types/eventTypes";
+import { TEvent } from "@/types/eventTypes";
 import { apiService } from "@/utils/apiService";
-import { formatDateWithDashes } from "@/utils/formatters";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-type TEventGetResponse = {
-  msg: string;
-  event: TEventWithId;
-};
 
 type TEventUpdateResponse = {
   msg: string;
@@ -23,54 +18,38 @@ type TEventDeleteResponse = {
   deleted?: boolean;
 };
 
+// this hook is used by EventUpdate page. it provides state variables for form data,
+// pending status, error messages, and functions to submit the form and delete the event
+
 export const useEventUpdate = (eventId: string) => {
   const navigate = useNavigate();
   const { redirectUnauthorizedUser } = useContext(AuthContext);
-  const [isPending, setIsPending] = useState(true);
+  const [formData, setFormData] = useState<TEvent>();
+  const [isEventActionPending, setIsEventActionPending] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
   const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
     [],
   );
-  const [deleteError, setDeleteError] = useState("");
-  const [formData, setFormData] = useState<TEvent>();
+  const {
+    eventData,
+    isPending: isEventDataPending,
+    error: eventDataError,
+  } = useEventData(eventId);
 
-  // on initial render, retrieve event data from server
+  // on initial render, retrieve fresh event data from server using useEventData hook.
+  // this hook (useEventUpdate) returns useEventData's isEventDataPending & error states
+  // as well, so we can use those to render a loading spinner or error page.
+
   useEffect(() => {
-    const getEventData = async () => {
-      if (!eventId) {
-        setIsPending(false);
-        navigate("/user");
-        return;
-      }
+    if (!eventData) return;
+    setFormData(eventData);
+  }, [eventData]);
 
-      setIsPending(true);
-      setUpdateErrors([]);
-
-      try {
-        const {
-          data: { event },
-        } = await apiService<TEventGetResponse>({
-          path: `event/${eventId}`,
-        });
-
-        if (event) {
-          const date = formatDateWithDashes(event.date);
-          setFormData({ ...event, date: date });
-        }
-      } catch {
-        console.error("Something went wrong. Try again later.");
-      } finally {
-        setIsPending(false);
-      }
-    };
-
-    redirectUnauthorizedUser();
-    void getEventData();
-  }, [redirectUnauthorizedUser, eventId, navigate]);
+  // update event data on server
 
   const updateEvent = async () => {
     setUpdateErrors([]);
-    setIsPending(true);
-
+    setIsEventActionPending(true);
     try {
       const {
         data: { updated, errors },
@@ -79,31 +58,29 @@ export const useEventUpdate = (eventId: string) => {
         path: `event/${eventId}`,
         body: formData,
       });
-
       if (updated) {
         navigate(`/event/${eventId}`);
         return;
       }
-
       if (errors) setUpdateErrors(errors);
     } catch {
       console.error("Something went wrong. Try again later.");
     } finally {
-      setIsPending(false);
+      setIsEventActionPending(false);
     }
   };
+
+  // delete event from server
 
   const deleteEvent = async () => {
     redirectUnauthorizedUser();
     if (!eventId) {
-      setIsPending(false);
+      setIsEventActionPending(false);
       navigate("/user");
       return;
     }
-
     setDeleteError("");
-    setIsPending(true);
-
+    setIsEventActionPending(true);
     try {
       const {
         data: { deleted, msg },
@@ -111,17 +88,15 @@ export const useEventUpdate = (eventId: string) => {
         path: `event/${eventId}`,
         method: "DELETE",
       });
-
       if (deleted) {
         navigate("/user");
         return;
       }
-
       setDeleteError(msg);
     } catch {
       console.error("Something went wrong. Try again later.");
     } finally {
-      setIsPending(false);
+      setIsEventActionPending(false);
     }
   };
 
@@ -132,6 +107,8 @@ export const useEventUpdate = (eventId: string) => {
     deleteEvent,
     updateErrors,
     deleteError,
-    isPending,
+    isEventActionPending,
+    isEventDataPending,
+    eventDataError,
   };
 };
