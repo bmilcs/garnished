@@ -42,14 +42,16 @@
 }
 
 .outline {
-  border: 3px solid var(--clr-fg);
+  border: 3px solid var(--clr-fg-lighter);
   background: none;
   color: var(--clr-fg);
 
   &:hover,
   &:focus {
-    background: var(--clr-fg);
-    color: var(--clr-primary);
+    background: var(--clr-fg-light);
+    border: 3px solid var(--clr-fg-light);
+
+    color: var(--clr-bg);
   }
 }
 
