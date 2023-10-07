@@ -1,4 +1,4 @@
-export const formatPhoneNumber = (phoneNumber: number) => {
+export const formatPhoneNumber = (phoneNumber: string | number) => {
   const phoneNumberString = phoneNumber.toString();
   const areaCode = phoneNumberString.slice(0, 3);
   const firstThree = phoneNumberString.slice(3, 6);
