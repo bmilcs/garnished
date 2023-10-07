@@ -22,7 +22,7 @@ type TDeleteResponse = {
 // for now, this custom hook will be the solution.
 
 export const useUserUpdate = () => {
-  const { redirectUnauthorizedUser, logout } = useContext(AuthContext);
+  const { redirectUnauthorizedUser, setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
   const [updateErrors, setUpdateErrors] = useState<TExpressValidatorError[]>(
@@ -98,7 +98,9 @@ export const useUserUpdate = () => {
 
       if (deleted) {
         navigate("/");
-        await logout();
+        // the server logs user out & clears cookies upon deletion. this toggles
+        // user dashboard visibility, and shows get started elements instead.
+        setIsLoggedIn(false);
         return;
       }
 
