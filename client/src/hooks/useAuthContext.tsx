@@ -126,7 +126,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
 
       if (status === 200) {
         setIsLoggedIn(false);
-        navigate("/login");
+        navigate("/");
         return;
       }
 
