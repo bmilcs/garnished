@@ -23,9 +23,13 @@ export const EventForm: FC = () => {
   const handleInputChange = useInputChange(setFormData);
   const navigate = useNavigate();
 
+  // pending status: waiting on create event request to complete
+
   if (isPending) {
     return <HourglassSpinner />;
   }
+
+  // not pending: render form to create event & modal on success
 
   return (
     <section className="content-spacer user-section">
@@ -234,6 +238,21 @@ export const EventForm: FC = () => {
           <Button type="primary">Submit Estimate Request</Button>
         </form>
       </AnimatedDiv>
+
+      {/* bottom buttons */}
+
+      <AnimatedDiv
+        when="IN_VIEW"
+        type="SLIDE_UP"
+        delay={0.1}
+        className="button-wrapper"
+      >
+        <Button type="outline" onClick={() => navigate("/user")}>
+          Return to Dashboard
+        </Button>
+      </AnimatedDiv>
+
+      {/* modal: successfully created event */}
 
       {!isPending && createdEventId && (
         <Modal
