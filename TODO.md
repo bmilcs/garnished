@@ -15,14 +15,12 @@
     - [x] single h1 (NOT LOGO)
     - [x] don't skip levels: h1 > h3
     - [x] add classes for styling
-- [ ] Refactor fetch states into single variable
-  - [ ] `[status, setStatus]`
-    - [ ] idle, loading, error, success
 - [ ] Tests
   - [ ] Event tests
   - [ ] User tests
 - [ ] View Transitions: research polyfill support
 - [ ] Improve navigation
+  - [x] Bottom arrow navigation
   - [x] Mobile: better animation / styling
   - [ ] Desktop: improve hover state styling / colors
 
