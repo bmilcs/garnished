@@ -4,6 +4,7 @@ import springMenu from "@/assets/menus/garnished_events_spring_menu.pdf";
 import summerMenu from "@/assets/menus/garnished_events_summer_menu.pdf";
 import winterMenu from "@/assets/menus/garnished_events_winter_menu.pdf";
 import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
+import { ArrowNavigation } from "@/components/common/ArrowNavigation/ArrowNavigation";
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
@@ -122,6 +123,14 @@ export const SeasonalMenus: FC = () => {
           </Document>
         </AnimatedDiv>
       </section>
+
+      <ArrowNavigation
+        type="NEXT_AND_PREVIOUS_PAGES"
+        nextPageUrl="/gallery"
+        nextPageLabel="Gallery"
+        previousPageUrl="/services"
+        previousPageLabel="Services"
+      />
     </>
   );
 };

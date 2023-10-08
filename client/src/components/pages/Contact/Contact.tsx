@@ -1,6 +1,8 @@
 import { drinks } from "@/assets";
 import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
+import { ArrowNavigation } from "@/components/common/ArrowNavigation/ArrowNavigation";
 import { Button } from "@/components/common/Button/Button";
+import { GetStartedButton } from "@/components/common/GetStartedButton/GetStartedButton";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
@@ -51,7 +53,7 @@ export const Contact: FC = () => {
               delay={0.2}
               className={`${styles.contactLeftColumn}`}
             >
-              <div>
+              <div className={styles.waitContent}>
                 <h2 className={styles.contactHeader}>Wait...</h2>
                 <p className={styles.contactInstructions}>
                   Are you ready for your free estimate? If so, click to get
@@ -59,24 +61,12 @@ export const Contact: FC = () => {
                   contact form and we'll get back to you as soon as possible.
                 </p>
 
-                <AnimatedDiv
-                  type="SLIDE_UP"
-                  delay={0.5}
-                  className={styles.getStartedButtonWrapper}
-                >
-                  <Button
-                    type="hero"
-                    link="/get-started"
-                    className={styles.getStartedButton}
-                  >
-                    Get Started
-                  </Button>
-                </AnimatedDiv>
+                <GetStartedButton />
               </div>
             </AnimatedDiv>
 
             <AnimatedDiv type="SLIDE_UP" delay={0.4}>
-              <form onSubmit={handleSubmitForm} className={styles.form}>
+              <form onSubmit={handleSubmitForm}>
                 <div className="form-header">
                   <h3>Let's Chat</h3>
                   <p>Feedback? Questions? We want to hear from you.</p>
@@ -135,6 +125,14 @@ export const Contact: FC = () => {
             )}
           </div>
         )}
+
+        <ArrowNavigation
+          type="NEXT_AND_PREVIOUS_PAGES"
+          nextPageUrl="/get-started"
+          nextPageLabel="Get Started"
+          previousPageLabel="Gallery"
+          previousPageUrl="/gallery"
+        />
       </section>
     </>
   );

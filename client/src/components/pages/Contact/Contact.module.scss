@@ -13,15 +13,16 @@
 
 .contactLeftColumn {
   display: grid;
-  align-items: center;
-  justify-content: center;
-  // text-align: center;
-
+  place-items: center;
   margin-inline: auto;
 
   @media screen and (min-width: 960px) {
     text-align: left;
   }
+}
+
+.waitContent {
+  max-width: 600px;
 }
 
 .contactHeader {
@@ -30,17 +31,4 @@
 
 .contactInstructions {
   margin-bottom: calc(2 * var(--vertical-spacer-small));
-}
-
-.getStartedButtonWrapper {
-  margin-top: var(--vertical-spacer-medium);
-  display: grid;
-  place-items: center;
-}
-
-.getStartedButton {
-}
-
-.form {
-  min-width: 100%;
 }

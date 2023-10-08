@@ -1,5 +1,6 @@
 import { bar, drinks } from "@/assets";
 import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
+import { ArrowNavigation } from "@/components/common/ArrowNavigation/ArrowNavigation";
 import { Hero } from "@/components/common/Hero/Hero";
 import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { WavySeparator } from "@/components/common/WavySeparator/WavySeparator";
@@ -159,13 +160,13 @@ export const Services: FC = () => {
         </div>
       </section>
 
-      {/* cta
-      <CallToAction>
-        <h3 className={styles.ctaHeading}>View Our Gallery</h3>
-        <Button link="/gallery" type="primary" className={styles.ctaButton}>
-          Gallery
-        </Button>
-      </CallToAction> */}
+      <ArrowNavigation
+        type="NEXT_AND_PREVIOUS_PAGES"
+        previousPageUrl="/"
+        previousPageLabel="Home"
+        nextPageUrl="/seasonal-menus"
+        nextPageLabel="Menus"
+      />
     </>
   );
 };

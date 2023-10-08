@@ -1,5 +1,6 @@
 import { bar, drinks } from "@/assets";
 import AnimatedDiv from "@/components/common/AnimatedDiv/AnimatedDiv";
+import { ArrowNavigation } from "@/components/common/ArrowNavigation/ArrowNavigation";
 import { Button } from "@/components/common/Button/Button";
 import { CheckMarkIcon } from "@/components/common/CheckMarkIcon/CheckMarkIcon";
 import { Hero } from "@/components/common/Hero/Hero";
@@ -129,7 +130,7 @@ export const Home: FC = () => {
           <ResponsiveImage
             img={drinks.wine_01}
             className={styles.aboutImage}
-            alt="Drink"
+            alt="Wine Glasses"
           />
         </AnimatedDiv>
       </section>
@@ -187,12 +188,11 @@ export const Home: FC = () => {
         );
       })}
 
-      {/* <CallToAction>
-        <h2 className={styles.ctaHeading}>View Our Services</h2>
-        <Button link="/services" type="primary" className={styles.ctaButton}>
-          Services
-        </Button>
-      </CallToAction> */}
+      <ArrowNavigation
+        type="NEXT_PAGE"
+        nextPageLabel="Services"
+        nextPageUrl="/services"
+      />
     </>
   );
 };
