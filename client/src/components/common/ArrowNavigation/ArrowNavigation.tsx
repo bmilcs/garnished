@@ -19,6 +19,23 @@ type TProps =
   | ({ type: "PREVIOUS_PAGE" } & TPreviousPage)
   | ({ type: "NEXT_AND_PREVIOUS_PAGES" } & TNextPage & TPreviousPage);
 
+// when next page or previous page is the only supplied prop
+// the GetStartedColumn is used to fill in the empty column
+
+const GetStartedColumn = () => {
+  return (
+    <div className={styles.getStartedColumn}>
+      <h2 className={styles.getStartedHeading}>
+        Ready for your free estimate?
+      </h2>
+      <GetStartedButton />
+    </div>
+  );
+};
+
+// this component is used to navigate between pages using arrows at the
+// bottom of the page
+
 export const ArrowNavigation: FC<TProps> = (props: TProps) => {
   const nextPageOnly = props.type === "NEXT_PAGE";
   const previousPageOnly = props.type === "PREVIOUS_PAGE";
@@ -30,6 +47,8 @@ export const ArrowNavigation: FC<TProps> = (props: TProps) => {
       aria-label="Call To Action Navigation"
     >
       <div
+        // GetStartedColumn is too large for a 2 column layout on mobile
+        // singleColumn class is used to force the grid into a single column
         className={`column ${styles.ctaWrapper} ${
           nextPageOnly || previousPageOnly ? styles.singleColumn : ""
         }`}
@@ -63,20 +82,9 @@ export const ArrowNavigation: FC<TProps> = (props: TProps) => {
           </Button>
         )}
 
-        {/* fill in right column when nextPage is the only supplied prop */}
+        {/* fill in right column when previousPage is the only supplied prop */}
         {previousPageOnly && <GetStartedColumn />}
       </div>
     </section>
-  );
-};
-
-const GetStartedColumn = () => {
-  return (
-    <div className={styles.getStartedColumn}>
-      <h2 className={styles.getStartedHeading}>
-        Ready for your free estimate?
-      </h2>
-      <GetStartedButton />
-    </div>
   );
 };
