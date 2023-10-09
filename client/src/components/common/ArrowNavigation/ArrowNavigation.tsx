@@ -43,13 +43,13 @@ export const ArrowNavigation: FC<TProps> = (props: TProps) => {
 
   return (
     <section
-      className={styles.ctaSection}
-      aria-label="Call To Action Navigation"
+      className={`column ${styles.navSection}`}
+      aria-label="Arrow Page Navigation"
     >
       <div
         // GetStartedColumn is too large for a 2 column layout on mobile
         // singleColumn class is used to force the grid into a single column
-        className={`column ${styles.ctaWrapper} ${
+        className={`column ${styles.navWrapper} ${
           nextPageOnly || previousPageOnly ? styles.singleColumn : ""
         }`}
       >

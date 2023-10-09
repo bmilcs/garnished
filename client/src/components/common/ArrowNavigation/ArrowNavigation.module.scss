@@ -1,14 +1,16 @@
-.ctaSection {
-  padding-block: var(--vertical-spacer-medium);
-  background: var(--clr-bg-lighter);
-  border-radius: var(--border-radius-200-top);
+.navSection {
+  margin-bottom: var(--vertical-spacer-medium);
 }
 
-.ctaWrapper {
-  padding: var(--vertical-spacer-small);
+.navWrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
+
+  --nav-color: var(--clr-fg-light);
+  background: var(--clr-primary-lighter);
+  padding-block: calc(2 * var(--vertical-spacer-small));
+  border-radius: var(--border-radius-200);
 
   &.singleColumn {
     @media screen and (max-width: 768px) {
@@ -25,19 +27,19 @@
 .buttonContent {
   display: grid;
   place-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .navLabel {
-  color: var(--clr-fg);
+  color: var(--nav-color);
   font-family: var(--ff-title);
   font-weight: var(--fw-bold);
   line-height: 1;
 }
 
 .navArrow {
-  color: var(--clr-fg);
-  width: min(9vw, 48px);
+  color: var(--nav-color);
+  width: min(7vw, 26px);
   aspect-ratio: 1/1;
 }
 
@@ -54,5 +56,5 @@
 }
 
 .getStartedHeading {
-  margin-bottom: var(--vertical-spacer-small);
+  margin-bottom: calc(2 * var(--vertical-spacer-small));
 }
