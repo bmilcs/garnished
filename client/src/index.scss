@@ -167,7 +167,7 @@ a:focus {
   transition: color 0.15s ease-in-out;
 
   &:hover {
-    color: var(--clr-primary);
+    color: var(--clr-primary-darker);
     text-decoration: underline;
   }
 }
