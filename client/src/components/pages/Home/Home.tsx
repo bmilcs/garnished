@@ -151,7 +151,9 @@ export const Home: FC = () => {
               return (
                 <div className={styles.sellingPoint} key={title}>
                   <CheckMarkIcon className={styles.checkMark} />
-                  <h3 className={`h4 ${styles.subHeading}`}>{title}</h3>
+                  <h3 className={`h4 ${styles.sellingPointSubHeading}`}>
+                    {title}
+                  </h3>
                   <p className={styles.sellingPointDetails}>{description}</p>
                 </div>
               );
