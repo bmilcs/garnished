@@ -49,16 +49,15 @@
   &:hover,
   &:focus {
     background: var(--clr-fg-light);
-    border: 3px solid var(--clr-fg-light);
-
     color: var(--clr-bg);
+    border: 3px solid var(--clr-fg-light);
   }
 }
 
 .hero {
   font-size: var(--fs-base-large);
   text-transform: uppercase;
-  background: var(--clr-primary-dark);
+  background: var(--clr-primary);
   color: var(--clr-fg-dark);
   padding-inline: min(5vw, 3rem);
   padding-block: min(2vw, 0.75rem);
