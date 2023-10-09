@@ -75,7 +75,7 @@ export const Footer: FC = () => {
       {/* credits / copyright bottom bar */}
 
       <AnimatedDiv
-        type="SLIDE_DOWN"
+        type="FADE_IN"
         when="IN_VIEW"
         delay={0.6}
         className={styles.credits}
