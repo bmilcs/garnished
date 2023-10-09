@@ -8,6 +8,7 @@ import { ArrowNavigation } from "@/components/common/ArrowNavigation/ArrowNaviga
 import { Button } from "@/components/common/Button/Button";
 import { Hero } from "@/components/common/Hero/Hero";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
+import { getCurrentSeason } from "@/utils/currentSeason";
 import { Dispatch, FC, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -25,7 +26,8 @@ type TMenuSelector = {
 //
 
 export const SeasonalMenus: FC = () => {
-  const [menu, setMenu] = useState<TMenu>("winter");
+  const season = getCurrentSeason();
+  const [menu, setMenu] = useState<TMenu>(season);
   const [menuFile, setMenuFile] = useState<string>(winterMenu);
   const [numPages, setNumPages] = useState<number>(0);
 
