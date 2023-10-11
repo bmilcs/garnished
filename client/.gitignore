@@ -3,6 +3,9 @@
 .env.development
 .env
 
+# test files
+tests/authState.json
+
 # submodule
 dist/preview
 
