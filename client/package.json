@@ -15,6 +15,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "npx playwright test",
     "testui": "npx playwright test --ui",
+    "testgen": "npx playwright codegen localhost:3000",
     "generateAssets": "bash ./src/scripts/generateAssets.sh",
     "generateAssetsIndexFile": "bash ./src/scripts/writeAssetsIndex.sh",
     "assets": "npm run generateAssets && npm run generateAssetsIndexFile"
