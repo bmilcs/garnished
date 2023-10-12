@@ -1,8 +1,7 @@
 import { expect, test } from "@playwright/test";
-import { loginUser, signupUser } from "./setup";
+import { loginUser, signupUser } from "./utils/authentication";
 
-test("User Signup to Dashboard", async ({ page, context }) => {
-  context.clearCookies();
+test("User Signup to Dashboard", async ({ page }) => {
   await signupUser(page);
   await expect(
     page.getByRole("heading", { name: "User Dashboard" }),
@@ -12,10 +11,8 @@ test("User Signup to Dashboard", async ({ page, context }) => {
   ).toBeVisible();
 });
 
-test("User Login to Dashboard", async ({ page, context }) => {
-  context.clearCookies();
+test("User Login to Dashboard", async ({ page }) => {
   await loginUser(page);
-  // await page.goto("/user");
   await expect(
     page.getByRole("heading", { name: "User Dashboard" }),
   ).toBeVisible();
@@ -25,7 +22,7 @@ test("User Login to Dashboard", async ({ page, context }) => {
 });
 
 test("User Logout to Home", async ({ page }) => {
-  // await page.goto("/user");
+  await loginUser(page);
   await page.getByRole("button", { name: "Logout" }).click();
   await expect(
     page.getByRole("heading", { name: "Elevate Your Events With" }),
@@ -33,7 +30,7 @@ test("User Logout to Home", async ({ page }) => {
 });
 
 test("Delete User to Home", async ({ page }) => {
-  await page.goto("/user");
+  await loginUser(page);
   await page.getByRole("button", { name: "Update Personal Info" }).click();
   await page.getByRole("button", { name: "Delete Account" }).click();
   await expect(

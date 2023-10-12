@@ -1,18 +1,7 @@
 // x@ts-nocheck
 
 import { Page, expect } from "@playwright/test";
-
-export const MOCK_USER = {
-  firstName: "John",
-  lastName: "Doe",
-  email: "playwright@client-test.com",
-  password: "asdfasdf",
-  phone: "413-413-4133",
-  address: "123 Main St",
-  city: "Springfield",
-  state: "MA",
-  zip: "01103",
-};
+import { MOCK_USER } from "./mockData";
 
 export const signupUser = async (page: Page) => {
   await page.goto("/signup");
@@ -44,7 +33,6 @@ export const logoutUser = async (page: Page) => {
     page.getByRole("heading", { name: "User Dashboard" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Logout" }).click();
-  page.waitForLoadState("domcontentloaded");
 };
 
 export const deleteUser = async (page: Page) => {
