@@ -1,6 +1,8 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TUser } from "@/types/userTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { formatPhoneNumber } from "@/utils/formatters";
 import { useContext, useEffect, useState } from "react";
 
@@ -32,6 +34,7 @@ export const useUserData = () => {
         } = await apiService<TUserApiResponse>({
           path: "user",
         });
+        // successful retrieval
         if (user) {
           const formattedUser = {
             ...user,
@@ -41,12 +44,19 @@ export const useUserData = () => {
           return;
         }
         // if no user data is found, the server clears jwt cookies & logs the user out.
-        // update the GUI accordingly by setting isLoggedIn to false, hiding user dashboard access.
-        // the user dashboard page will then display the ErrorPage component.
+        // update the GUI accordingly by setting isLoggedIn to false (in the catch block),
+        // hiding user dashboard access.
+        throw new Error("No user data found. You have been logged out");
+      } catch (e) {
+        // all errors
+        const error = getErrorMessage(e);
+        setError(error);
         setIsLoggedIn(false);
-      } catch {
-        setError("Something went wrong while logging in. Try again later.");
-        setIsLoggedIn(false);
+        logEvent({
+          category: "user",
+          action: "get user data",
+          label: error,
+        });
       } finally {
         setIsPending(false);
       }
