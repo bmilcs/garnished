@@ -1,3 +1,4 @@
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
 import { clientMode } from "@/utils/clientMode";
 import { FC, createContext, useEffect, useState } from "react";
@@ -96,6 +97,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
         body: loginCredentials,
       });
       if (authenticated) {
+        logEvent({ action: "login", category: "auth", label: "success" });
         setIsLoggedIn(true);
         return;
       }
@@ -103,6 +105,11 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
       setError(msg);
     } catch {
       setError("Something went wrong. Try again later.");
+      logEvent({
+        action: "login",
+        category: "auth",
+        label: "bug: unknown error",
+      });
     } finally {
       setIsAuthPending(false);
     }
@@ -120,12 +127,22 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
       });
       if (status === 200) {
         setIsLoggedIn(false);
+        logEvent({
+          action: "logout",
+          category: "auth",
+          label: "success",
+        });
         navigate("/");
         return;
       }
       throw new Error();
     } catch {
       setError("Something went wrong. Try again later.");
+      logEvent({
+        action: "logout",
+        category: "auth",
+        label: "bug: unknown error",
+      });
     } finally {
       setIsAuthPending(false);
     }
