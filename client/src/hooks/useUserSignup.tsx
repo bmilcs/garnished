@@ -1,7 +1,9 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
 import { TUserSignup } from "@/types/userTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { useContext, useEffect, useState } from "react";
 
 type TSignupResponse = {
@@ -59,7 +61,6 @@ export const useUserSignup = () => {
           location: "body",
         },
       ]);
-      setIsPending(false);
       return;
     }
     try {
@@ -70,13 +71,31 @@ export const useUserSignup = () => {
         path: `user/signup`,
         body: formData,
       });
+      // successful signup
       if (authenticated) {
         setIsLoggedIn(true);
+        logEvent({
+          category: "user",
+          action: "signup",
+          label: "success",
+        });
       } else if (errors) {
+        // api validation errors
         setErrors(errors);
+        logEvent({
+          category: "user",
+          action: "signup",
+          label: "validation error",
+        });
       }
-    } catch {
-      console.error("Something went wrong. Try again later.");
+    } catch (e) {
+      // other errors
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "user",
+        action: "signup",
+        label: error,
+      });
     } finally {
       setIsPending(false);
     }
