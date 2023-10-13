@@ -1,6 +1,8 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TEventWithId } from "@/types/eventTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { formatDateWithDashes } from "@/utils/formatters";
 import { useContext, useEffect, useState } from "react";
 
@@ -35,14 +37,22 @@ export const useEventData = (eventId: string) => {
         } = await apiService<TEventGetApiResponse>({
           path: `event/${eventId}`,
         });
+        // successful retrieval
         if (event) {
           const date = formatDateWithDashes(event.date);
           setEventData({ ...event, date: date });
         }
-      } catch {
-        setError(
-          "Something went wrong while retrieving your event. Try again later.",
-        );
+        // no event found
+        throw new Error("No event found with that ID.");
+      } catch (e) {
+        // all errors
+        const error = getErrorMessage(e);
+        setError(error);
+        logEvent({
+          category: "event",
+          action: "get event data",
+          label: error,
+        });
       } finally {
         setIsPending(false);
       }
