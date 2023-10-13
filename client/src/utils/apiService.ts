@@ -1,7 +1,4 @@
-export const getApiEndpoint = () => import.meta.env.VITE_API_ENDPOINT;
-
-// by default, "npm run dev" loads ".env.development" and production loads ".env.production"
-const BASE_URL = import.meta.env.VITE_API_ENDPOINT;
+import { API_BASE_URL } from "@/utils/config";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -20,7 +17,7 @@ export const apiService = async <TApiResponse>({
   body,
   credentials = true,
 }: TProps) => {
-  const url = `${BASE_URL}/${path}`;
+  const url = `${API_BASE_URL}/${path}`;
 
   const options: RequestInit = {
     method,

@@ -1,17 +1,16 @@
-const productionDomain =
-  (import.meta.env.VITE_PRODUCTION_DOMAIN as string) || "garnished.events";
-const developmentDomain =
-  (import.meta.env.VITE_DEVELOPMENT_DOMAIN as string) || "localhost";
-const previewDomain =
-  (import.meta.env.VITE_PREVIEW_DOMAIN as string) || "test.garnished.events";
+import {
+  DEVELOPMENT_DOMAIN,
+  PREVIEW_DOMAIN,
+  PRODUCTION_DOMAIN,
+} from "@/utils/config";
 
 export const clientMode = () => {
   const domain = window.location.hostname;
-  return domain === productionDomain
+  return domain === PRODUCTION_DOMAIN
     ? "production"
-    : domain === developmentDomain
+    : domain === DEVELOPMENT_DOMAIN
     ? "development"
-    : domain === previewDomain
+    : domain === PREVIEW_DOMAIN
     ? "preview"
     : null;
 };
