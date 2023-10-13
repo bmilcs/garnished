@@ -15,11 +15,13 @@ import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
 import { UserUpdate } from "@/components/pages/UserUpdate/UserUpdate";
 import { AuthProvider } from "@/hooks/useAuthContext";
+import { initGoogleAnalytics } from "@/utils/analytics";
 import { FC } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 const App: FC = () => {
   const location = useLocation();
+  initGoogleAnalytics();
 
   return (
     <AuthProvider>
