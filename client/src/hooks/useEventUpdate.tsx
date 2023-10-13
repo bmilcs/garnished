@@ -2,7 +2,9 @@ import { AuthContext } from "@/hooks/useAuthContext";
 import { useEventData } from "@/hooks/useEventData";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
 import { TEvent } from "@/types/eventTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -58,13 +60,33 @@ export const useEventUpdate = (eventId: string) => {
         path: `event/${eventId}`,
         body: formData,
       });
+      // successful update
       if (updated) {
+        logEvent({
+          category: "event",
+          action: "update event",
+          label: "success",
+        });
         navigate(`/event/${eventId}`);
         return;
       }
-      if (errors) setUpdateErrors(errors);
-    } catch {
-      console.error("Something went wrong. Try again later.");
+      // api validation errors
+      if (errors) {
+        setUpdateErrors(errors);
+        logEvent({
+          category: "event",
+          action: "update event",
+          label: "validation error",
+        });
+      }
+    } catch (e) {
+      // other errors
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "event",
+        action: "update event",
+        label: error,
+      });
     } finally {
       setIsEventActionPending(false);
     }
@@ -75,6 +97,11 @@ export const useEventUpdate = (eventId: string) => {
   const deleteEvent = async () => {
     redirectUnauthorizedUser();
     if (!eventId) {
+      logEvent({
+        category: "event",
+        action: "delete event",
+        label: "no event ID provided",
+      });
       setIsEventActionPending(false);
       navigate("/user");
       return;
@@ -88,13 +115,31 @@ export const useEventUpdate = (eventId: string) => {
         path: `event/${eventId}`,
         method: "DELETE",
       });
+      // successful deletion
       if (deleted) {
         navigate("/user");
+        logEvent({
+          category: "event",
+          action: "delete event",
+          label: "success",
+        });
         return;
       }
+      // api error
       setDeleteError(msg);
-    } catch {
-      console.error("Something went wrong. Try again later.");
+      logEvent({
+        category: "event",
+        action: "delete event",
+        label: `api error: ${msg}`,
+      });
+    } catch (e) {
+      // other errors
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "event",
+        action: "delete event",
+        label: error,
+      });
     } finally {
       setIsEventActionPending(false);
     }
