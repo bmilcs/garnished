@@ -1,6 +1,7 @@
 import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
 import { clientMode } from "@/utils/clientMode";
+import { getErrorMessage } from "@/utils/errors";
 import { FC, createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -103,12 +104,19 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
       }
       // login failed: set error message from server
       setError(msg);
-    } catch {
-      setError("Something went wrong. Try again later.");
       logEvent({
         action: "login",
         category: "auth",
-        label: "bug: unknown error",
+        label: msg,
+      });
+    } catch (e) {
+      // other errors
+      const error = getErrorMessage(e);
+      setError(error);
+      logEvent({
+        action: "login",
+        category: "auth",
+        label: error,
       });
     } finally {
       setIsAuthPending(false);
@@ -135,13 +143,14 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
         navigate("/");
         return;
       }
-      throw new Error();
-    } catch {
-      setError("Something went wrong. Try again later.");
+      throw new Error("Logout failed due to a server error.");
+    } catch (e) {
+      const error = getErrorMessage(e);
+      setError(error);
       logEvent({
         action: "logout",
         category: "auth",
-        label: "bug: unknown error",
+        label: error,
       });
     } finally {
       setIsAuthPending(false);
