@@ -16,13 +16,13 @@ import { UserUpdate } from "@/components/pages/UserUpdate/UserUpdate";
 import { PageTracker } from "@/components/services/PageTracker/PageTracker";
 import { ScrollToTop } from "@/components/services/ScrollToTop/ScrollToTop";
 import { AuthProvider } from "@/hooks/useAuthContext";
-import { initGoogleAnalytics } from "@/utils/analytics";
+import { initAnalytics } from "@/utils/analytics";
 import { FC } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 const App: FC = () => {
   const location = useLocation();
-  initGoogleAnalytics();
+  initAnalytics();
 
   return (
     <AuthProvider>
