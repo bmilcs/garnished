@@ -2,7 +2,9 @@ import { AuthContext } from "@/hooks/useAuthContext";
 import { useUserData } from "@/hooks/useUserData";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
 import { TUser } from "@/types/userTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -60,13 +62,28 @@ export const useUserUpdate = () => {
       });
       if (updated) {
         navigate("/user");
+        logEvent({
+          category: "user",
+          action: "update user data",
+          label: "success",
+        });
         return;
       }
       if (errors) {
         setUpdateErrors(errors);
+        logEvent({
+          category: "user",
+          action: "update user data",
+          label: "validation error",
+        });
       }
-    } catch {
-      console.error("Something went wrong. Try again later.");
+    } catch (e) {
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "user",
+        action: "update user data",
+        label: error,
+      });
     } finally {
       setIsUserActionPending(false);
     }
@@ -84,18 +101,36 @@ export const useUserUpdate = () => {
         method: "DELETE",
         path: `user`,
       });
+      // successful deletion
       if (deleted) {
         // the server logs user out & clears cookies upon deletion. this toggles
         // user dashboard visibility, and shows get started elements instead
         setIsLoggedIn(false);
         navigate("/");
+        logEvent({
+          category: "user",
+          action: "delete user data",
+          label: "success",
+        });
         return;
       }
+      // api validation errors
       if (msg) {
         setDeleteError(msg);
+        logEvent({
+          category: "user",
+          action: "delete user data",
+          label: `api error: ${msg}`,
+        });
       }
-    } catch {
-      console.error("Something went wrong. Try again later.");
+    } catch (e) {
+      // other errors
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "user",
+        action: "delete user data",
+        label: error,
+      });
     } finally {
       setIsUserActionPending(false);
     }
