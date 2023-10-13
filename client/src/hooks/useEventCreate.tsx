@@ -1,7 +1,9 @@
 import { AuthContext } from "@/hooks/useAuthContext";
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
 import { TEvent } from "@/types/eventTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { useContext, useEffect, useState } from "react";
 
 type TCreateEventResponse = {
@@ -67,16 +69,37 @@ export const useCreateEvent = () => {
         method: "POST",
         body: formData,
       });
+      // api returns errors if validation fails
       if (errors) {
         setErrors(errors);
+        logEvent({
+          category: "event",
+          action: "create event",
+          label: "validation error",
+        });
         return;
       }
+      // this should never occur
       if (!eventId) {
-        throw new Error("Something went wrong. Try again later.");
+        throw new Error(
+          "No errors received from API and no eventId returned. Bug?",
+        );
       }
+      // successful event creation
       setCreatedEventId(eventId);
+      logEvent({
+        category: "event",
+        action: "create event",
+        label: "success",
+      });
     } catch (e) {
-      console.error(e);
+      // other errors
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "event",
+        action: "create event",
+        label: error,
+      });
     } finally {
       setIsPending(false);
     }
