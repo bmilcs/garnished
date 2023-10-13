@@ -1,5 +1,7 @@
 import { TExpressValidatorError } from "@/types/apiResponseTypes";
+import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
+import { getErrorMessage } from "@/utils/errors";
 import { useState } from "react";
 
 type TContactResponse = {
@@ -32,13 +34,31 @@ export const useContactForm = () => {
         method: "POST",
         body: formData,
       });
+      // api validation errors
       if (errors) {
         setErrors(errors);
+        logEvent({
+          category: "contact",
+          action: "submit contact form",
+          label: "validation error",
+        });
         return;
       }
+      // successful form submission
       setIsSent(true);
-    } catch {
-      console.error("Something went wrong while submitting the form.");
+      logEvent({
+        category: "contact",
+        action: "submit contact form",
+        label: "success",
+      });
+    } catch (e) {
+      // other errors
+      const error = getErrorMessage(e);
+      logEvent({
+        category: "contact",
+        action: "submit contact form",
+        label: error,
+      });
     } finally {
       setIsPending(false);
     }
