@@ -1,5 +1,4 @@
 import Layout from "@/Layout";
-import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
 import { Contact } from "@/components/pages/Contact/Contact";
 import { ErrorPage } from "@/components/pages/ErrorPage/ErrorPage";
 import { Event } from "@/components/pages/Event/Event";
@@ -14,6 +13,8 @@ import { Services } from "@/components/pages/Services/Services";
 import { Signup } from "@/components/pages/Signup/Signup";
 import { User } from "@/components/pages/User/User";
 import { UserUpdate } from "@/components/pages/UserUpdate/UserUpdate";
+import { PageTracker } from "@/components/services/PageTracker/PageTracker";
+import { ScrollToTop } from "@/components/services/ScrollToTop/ScrollToTop";
 import { AuthProvider } from "@/hooks/useAuthContext";
 import { initGoogleAnalytics } from "@/utils/analytics";
 import { FC } from "react";
@@ -27,6 +28,7 @@ const App: FC = () => {
     <AuthProvider>
       <Layout>
         <ScrollToTop />
+        <PageTracker />
         <Routes key={location.key} location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />

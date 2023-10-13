@@ -3,7 +3,7 @@ import { Button } from "@/components/common/Button/Button";
 import { HourglassSpinner } from "@/components/common/HourglassSpinner/HourglassSpinner";
 import { Input } from "@/components/common/Input/Input";
 import { Modal } from "@/components/common/Modal/Modal";
-import { ScrollToTop } from "@/components/common/ScrollToTop/ScrollToTop";
+import { ScrollToTop } from "@/components/services/ScrollToTop/ScrollToTop";
 import { useCreateEvent } from "@/hooks/useEventCreate";
 import { useInputChange } from "@/hooks/useInputChange";
 import { getExpressValidatorError, onFormSubmit } from "@/utils/forms";
