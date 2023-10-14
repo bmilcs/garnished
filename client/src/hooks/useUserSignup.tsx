@@ -4,25 +4,13 @@ import { TUserSignup } from "@/types/userTypes";
 import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
 import { getErrorMessage } from "@/utils/errors";
+import { MOCK_USER } from "@/utils/mockData";
 import { useContext, useEffect, useState } from "react";
 
 type TSignupResponse = {
   msg: string;
   authenticated?: boolean;
   errors?: TExpressValidatorError[];
-};
-
-const dummySignup = {
-  firstName: "Reggie",
-  lastName: "Miller",
-  username: "reggie@miller.com",
-  password: "asdfasdf",
-  confirmPassword: "asdfasdf",
-  address: "123 Reggie Lane.",
-  city: "Reggieland",
-  state: "MA",
-  zip: "12135",
-  phone: "413-413-4133",
 };
 
 // this hook is used by Signup page. it provides state variables for form data,
@@ -34,7 +22,7 @@ export const useUserSignup = () => {
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
   const [formData, setFormData] = useState<TUserSignup>(
-    isProduction ? ({} as TUserSignup) : dummySignup,
+    isProduction ? ({} as TUserSignup) : MOCK_USER,
   );
 
   // redirect user to dashboard when the user is logged in
@@ -79,15 +67,22 @@ export const useUserSignup = () => {
           action: "signup",
           label: "success",
         });
-      } else if (errors) {
-        // api validation errors
+        return;
+      }
+      // api validation errors
+      if (errors) {
         setErrors(errors);
         logEvent({
           category: "user",
           action: "signup",
           label: "validation error",
         });
+        return;
       }
+      // server error
+      throw new Error(
+        "Server Error: No validation errors or authenticated status returned from API.",
+      );
     } catch (e) {
       // other errors
       const error = getErrorMessage(e);

@@ -4,37 +4,12 @@ import { TEvent } from "@/types/eventTypes";
 import { logEvent } from "@/utils/analytics";
 import { apiService } from "@/utils/apiService";
 import { getErrorMessage } from "@/utils/errors";
+import { MOCK_EVENT } from "@/utils/mockData";
 import { useContext, useEffect, useState } from "react";
 
 type TCreateEventResponse = {
   errors?: TExpressValidatorError[];
   eventId?: string;
-};
-
-// this dummy data is used in development mode to pre-populate the event create form
-// so that it's easier to test the form validation and submission
-// (the form is otherwise blank on initial render)
-
-const dummyEvent = {
-  date: "2025-10-15",
-  time: "17:00",
-  locationDescription: "Around back",
-  address: "123 Circle Dr.",
-  city: "West Springfield",
-  state: "MA",
-  zip: "01089",
-  guests: 25,
-  hours: 4,
-  eventType: "Birthday",
-  needBar: true,
-  needTent: false,
-  needAlcohol: true,
-  needDrinkware: true,
-  beer: true,
-  wine: true,
-  specialtyDrinks: false,
-  liquorPreferences: "Premium liquors only.",
-  additionalInfo: "Great web site!",
 };
 
 // this hook is used by EventCreate page. it provides state variables for form data,
@@ -46,7 +21,7 @@ export const useCreateEvent = () => {
   const { redirectUnauthorizedUser, isProduction } = useContext(AuthContext);
   const [errors, setErrors] = useState<TExpressValidatorError[]>([]);
   const [formData, setFormData] = useState<TEvent>(
-    isProduction ? ({} as TEvent) : dummyEvent,
+    isProduction ? ({} as TEvent) : MOCK_EVENT,
   );
 
   // on initial render, redirect unauthorized users to login page
@@ -69,7 +44,17 @@ export const useCreateEvent = () => {
         method: "POST",
         body: formData,
       });
-      // api returns errors if validation fails
+      // successful event creation
+      if (eventId) {
+        setCreatedEventId(eventId);
+        logEvent({
+          category: "event",
+          action: "create event",
+          label: "success",
+        });
+        return;
+      }
+      // api validation errors
       if (errors) {
         setErrors(errors);
         logEvent({
@@ -79,19 +64,10 @@ export const useCreateEvent = () => {
         });
         return;
       }
-      // this should never occur
-      if (!eventId) {
-        throw new Error(
-          "No errors received from API and no eventId returned. Bug?",
-        );
-      }
-      // successful event creation
-      setCreatedEventId(eventId);
-      logEvent({
-        category: "event",
-        action: "create event",
-        label: "success",
-      });
+      // server error
+      throw new Error(
+        "Server error: No event or validation errors returned from API.",
+      );
     } catch (e) {
       // other errors
       const error = getErrorMessage(e);
