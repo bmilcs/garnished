@@ -108,22 +108,22 @@ export const Contact: FC = () => {
                 </Button>
               </form>
             </AnimatedDiv>
-
-            {/* modal: success status, contact form request was successful */}
-
-            {isSent && (
-              <Modal
-                type="standard"
-                title="Thank You!"
-                message="We'll review your message and get back to you as soon as possible."
-                onClickCloseOrOverlay={() => navigate("/")}
-              >
-                <Button type="primary" onClick={() => navigate("/")}>
-                  Back to Home
-                </Button>
-              </Modal>
-            )}
           </div>
+        )}
+
+        {/* modal: success status, contact form request was successful */}
+
+        {isSent && (
+          <Modal
+            type="standard"
+            title="Thank You!"
+            message="We'll review your message and get back to you as soon as possible."
+            onClickCloseOrOverlay={() => navigate("/")}
+          >
+            <Button type="primary" onClick={() => navigate("/")}>
+              Back to Home
+            </Button>
+          </Modal>
         )}
 
         <ArrowNavigation

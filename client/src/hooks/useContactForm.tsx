@@ -6,6 +6,7 @@ import { useState } from "react";
 
 type TContactResponse = {
   errors?: TExpressValidatorError[];
+  sent: boolean;
   msg: string;
 };
 
@@ -28,12 +29,22 @@ export const useContactForm = () => {
     setIsPending(true);
     try {
       const {
-        data: { errors },
+        data: { sent, errors },
       } = await apiService<TContactResponse>({
         path: "contact",
         method: "POST",
         body: formData,
       });
+      // successful send
+      if (sent) {
+        setIsSent(true);
+        logEvent({
+          category: "contact",
+          action: "submit contact form",
+          label: "success",
+        });
+        return;
+      }
       // api validation errors
       if (errors) {
         setErrors(errors);
@@ -44,13 +55,10 @@ export const useContactForm = () => {
         });
         return;
       }
-      // successful form submission
-      setIsSent(true);
-      logEvent({
-        category: "contact",
-        action: "submit contact form",
-        label: "success",
-      });
+      // server error
+      throw new Error(
+        "Server error: No send or validation errors returned from API.",
+      );
     } catch (e) {
       // other errors
       const error = getErrorMessage(e);

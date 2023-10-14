@@ -1,6 +1,4 @@
-import { OWNERS_EMAILS } from "@/config/env";
-import { sendEmail } from "@/services/emailService";
-import { baseEmailTemplate } from "@/services/templates/baseEmailTemplate";
+import sendContactFormEmail from "@/services/templates/contactFormEmail";
 import { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 
@@ -11,12 +9,10 @@ export const contactPost = [
     .withMessage("First name is required."),
   body("email")
     .trim()
+    .toLowerCase()
     .isEmail()
     .withMessage("Email address is invalid.")
-    .toLowerCase()
-    .normalizeEmail()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required."),
+    .normalizeEmail(),
   body("message")
     .trim()
     .isLength({ min: 1, max: 2000 })
@@ -24,36 +20,25 @@ export const contactPost = [
 
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
-
-    // signup data failed validation checks
+    // validation errors
     if (!errors.isEmpty()) {
       return res.status(400).json({
+        sent: false,
         msg: "Failed to validate contact form data.",
         errors: errors.array(),
       });
     }
-
+    // send email
     try {
       const { name, email, message } = req.body;
-
-      const subject = "Garnished Contact Form Submission";
-      const header = "Contact Form Submission";
-      const content = `
-      <p><strong>Name</strong>: ${name}</p>
-      <p><strong>Email</strong>: ${email}</p>
-      <p><strong>Message</strong>: ${message}</p>
-      `;
-
-      const html = baseEmailTemplate({ header, content });
-
-      // avoid sending emails in test mode
       if (!req.app.get("testMode"))
-        await sendEmail({ to: OWNERS_EMAILS, subject, html });
-
-      res.json({ msg: "successful contact form submission" });
+        await sendContactFormEmail({ name, email, message });
+      res.json({ msg: "Successful contact form submission", sent: true });
     } catch (err) {
-      console.error("contact form submission error:", err);
-      res.status(500).json({ msg: "Failed to submit contact form" });
+      console.error("Contact form submission error:", err);
+      res
+        .status(500)
+        .json({ msg: "Failed to submit contact form.", sent: false });
     }
   },
 ];
