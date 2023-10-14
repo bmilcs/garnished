@@ -41,6 +41,7 @@ export const useEventData = (eventId: string) => {
         if (event) {
           const date = formatDateWithDashes(event.date);
           setEventData({ ...event, date: date });
+          return;
         }
         // no event found
         throw new Error("No event found with that ID.");
