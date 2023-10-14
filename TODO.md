@@ -1,60 +1,30 @@
 # TODO
 
-- [ ] Fix express-validator's `escape()`
-  - [ ] Prevent ' to &amp from displaying on the client.
-- [x] Prepare for production
-  - [x] Dummy data on frontend: preview (yes) vs production (no)
-  - [x] MongoDB: 'development' vs 'production' databases
-  - [x] Add analytics
-- [x] Push site to production
+- [ ] Write up README summary
+- [ ] Improve test coverage on client
+  - [ ] Cross user event access
+  - [ ] Event Error validation
+- [ ] Improve server error handling on client
 
 ## Frontend
 
-- [ ] Accessibility
+- [x] Tests
+  - [x] Event tests
+  - [x] User tests
+  - [x] Protected routes
+- [x] Accessibility
   - [x] headers:
     - [x] single h1 (NOT LOGO)
     - [x] don't skip levels: h1 > h3
     - [x] add classes for styling
-- [ ] Tests
-  - [ ] Event tests
-  - [ ] User tests
 - [ ] View Transitions: research polyfill support
 - [ ] Improve navigation
   - [x] Bottom arrow navigation
   - [x] Mobile: better animation / styling
   - [ ] Desktop: improve hover state styling / colors
 
-### History
-
-- [x] Extend Create Event, Event Page, etc. to include a comment/note box
-  - [x] Add a note/comment box for generic info
-- [x] Refactor error handling to display toast/modal on server errors/generic catches
-- [x] Delete user error display when events exist
-- [x] Add 404 handling
-- [x] Contact Page: Success modal
-- [x] Create toast / modal component for display success/errors
-- [x] Login vs logout state: change header nav behavior
-- [x] Services Page
-  - [x] Explain process
-  - [ ] Add all services & details
-- [x] Setup meta tags for social media: Facebook, Twitter, Instagram
-- [x] Gallery
-  - [x] Image carousel / gallery
-- [x] Home
-  - [x] Animate / style
-- [x] Create layout
-  - [x] Add social media links & icons
-  - [x] Footer
-  - [x] Header/nav
-- [x] Define custom css vars
-  - [x] Color Scheme
-  - [x] Shadows
-  - [x] Border-radius
-
 ## Backend
 
-- [ ] Extend Event Model/Controller
-  - [ ] Add a note/comment box for generic info
 - [ ] Create roles: user vs owner/admin
 - [ ] Allow admin to access all events & their details
 - [ ] Admin routes:
@@ -63,6 +33,8 @@
 - [ ] Create email templates
   - [ ] Confirm event & reiterate the quote process
   - [ ] Reset password
+- [x] Extend Event Model/Controller
+  - [x] Add a note/comment box for generic info
 - [x] Error handling: Wrap database calls in try/catch blocks
 - [x] Prevent brute force pw attacks: limit invalid auth attempts
 - [x] Add Update event controller
@@ -74,6 +46,14 @@
 - [x] Add Delete user controller
 - [x] Add Delete event controller
 - [x] Add nodemailer
+
+## Misc
+
+- [x] Prepare for production
+  - [x] Dummy data on frontend: preview (yes) vs production (no)
+  - [x] MongoDB: 'development' vs 'production' databases
+  - [x] Add analytics
+- [x] Push site to production
 
 ## First Meeting
 
