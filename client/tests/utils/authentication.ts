@@ -3,32 +3,26 @@
 import { Page, expect } from "@playwright/test";
 import { AUTH_MOCK_USER } from "./mockData";
 
-export const signupUser = async (page: Page) => {
+export const signupUser = async (page: Page, user = AUTH_MOCK_USER) => {
   await page.goto("/signup");
   await expect(page.getByRole("heading", { name: "Signup" })).toBeVisible();
-  await page.getByLabel("First Name").fill(AUTH_MOCK_USER.firstName);
-  await page.getByLabel("Last Name").fill(AUTH_MOCK_USER.lastName);
-  await page.getByLabel("Email Address").fill(AUTH_MOCK_USER.email);
-  await page
-    .getByLabel("Password", { exact: true })
-    .fill(AUTH_MOCK_USER.password);
-  await page.getByLabel("Confirm Password").fill(AUTH_MOCK_USER.password);
-  await page.getByLabel("Phone").fill(AUTH_MOCK_USER.phone);
-  await page
-    .getByLabel("Address", { exact: true })
-    .fill(AUTH_MOCK_USER.address);
-  await page.getByLabel("City").fill(AUTH_MOCK_USER.city);
-  await page.getByLabel("State").fill(AUTH_MOCK_USER.state);
-  await page.getByLabel("Zip").fill(AUTH_MOCK_USER.zip);
+  await page.getByLabel("First Name").fill(user.firstName);
+  await page.getByLabel("Last Name").fill(user.lastName);
+  await page.getByLabel("Email Address").fill(user.email);
+  await page.getByLabel("Password", { exact: true }).fill(user.password);
+  await page.getByLabel("Confirm Password").fill(user.password);
+  await page.getByLabel("Phone").fill(user.phone);
+  await page.getByLabel("Address", { exact: true }).fill(user.address);
+  await page.getByLabel("City").fill(user.city);
+  await page.getByLabel("State").fill(user.state);
+  await page.getByLabel("Zip").fill(user.zip);
   await page.getByRole("button", { name: "Signup" }).click();
 };
 
-export const loginUser = async (page: Page) => {
+export const loginUser = async (page: Page, user = AUTH_MOCK_USER) => {
   await page.goto(`/login`);
-  await page.getByLabel("Email Address").fill(AUTH_MOCK_USER.email);
-  await page
-    .getByLabel("Password", { exact: true })
-    .fill(AUTH_MOCK_USER.password);
+  await page.getByLabel("Email Address").fill(user.email);
+  await page.getByLabel("Password", { exact: true }).fill(user.password);
   await page.getByRole("button", { name: "Login" }).click();
 };
 
