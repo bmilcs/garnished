@@ -24,16 +24,21 @@ export const useEventData = (eventId: string) => {
     redirectUnauthorizedUser();
 
     const getEventData = async () => {
+      setIsPending(true);
+      setError("");
       if (!eventId) {
         setError("No event ID provided.");
         setIsPending(false);
+        logEvent({
+          category: "event",
+          action: "get event data",
+          label: "no event ID provided",
+        });
         return;
       }
-      setIsPending(true);
-      setError("");
       try {
         const {
-          data: { event },
+          data: { event, msg },
         } = await apiService<TEventGetApiResponse>({
           path: `event/${eventId}`,
         });
@@ -44,11 +49,22 @@ export const useEventData = (eventId: string) => {
           return;
         }
         // no event found
-        throw new Error("No event found with that ID.");
+        if (msg) {
+          setError(msg);
+          logEvent({
+            category: "event",
+            action: "get event data",
+            label: msg,
+          });
+          return;
+        }
+        // server error
+        throw new Error(
+          "Server error: No event data or error received from API",
+        );
       } catch (e) {
         // all errors
         const error = getErrorMessage(e);
-        setError(error);
         logEvent({
           category: "event",
           action: "get event data",

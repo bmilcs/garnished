@@ -60,6 +60,7 @@ export const useUserUpdate = () => {
         path: `user`,
         body: formData,
       });
+      // successful update
       if (updated) {
         navigate("/user");
         logEvent({
@@ -69,6 +70,7 @@ export const useUserUpdate = () => {
         });
         return;
       }
+      // api validation errors
       if (errors) {
         setUpdateErrors(errors);
         logEvent({
@@ -76,7 +78,12 @@ export const useUserUpdate = () => {
           action: "update user data",
           label: "validation error",
         });
+        return;
       }
+      // server error
+      throw new Error(
+        "Server Error: No updated status or errors returned from API.",
+      );
     } catch (e) {
       const error = getErrorMessage(e);
       logEvent({
@@ -122,7 +129,12 @@ export const useUserUpdate = () => {
           action: "delete user data",
           label: `api error: ${msg}`,
         });
+        return;
       }
+      // server error
+      throw new Error(
+        "Server Error: No deleted status or errors returned from API.",
+      );
     } catch (e) {
       // other errors
       const error = getErrorMessage(e);

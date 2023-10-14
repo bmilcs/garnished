@@ -43,9 +43,10 @@ export const useEventUpdate = (eventId: string) => {
   // as well, so we can use those to render a loading spinner or error page.
 
   useEffect(() => {
+    redirectUnauthorizedUser();
     if (!eventData) return;
     setFormData(eventData);
-  }, [eventData]);
+  }, [eventData, redirectUnauthorizedUser]);
 
   // update event data on server
 
@@ -78,7 +79,12 @@ export const useEventUpdate = (eventId: string) => {
           action: "update event",
           label: "validation error",
         });
+        return;
       }
+      // server error
+      throw new Error(
+        "Server error: No updated status or errors returned from API.",
+      );
     } catch (e) {
       // other errors
       const error = getErrorMessage(e);
@@ -95,17 +101,6 @@ export const useEventUpdate = (eventId: string) => {
   // delete event from server
 
   const deleteEvent = async () => {
-    redirectUnauthorizedUser();
-    if (!eventId) {
-      logEvent({
-        category: "event",
-        action: "delete event",
-        label: "no event ID provided",
-      });
-      setIsEventActionPending(false);
-      navigate("/user");
-      return;
-    }
     setDeleteError("");
     setIsEventActionPending(true);
     try {
@@ -126,12 +121,19 @@ export const useEventUpdate = (eventId: string) => {
         return;
       }
       // api error
-      setDeleteError(msg);
-      logEvent({
-        category: "event",
-        action: "delete event",
-        label: `api error: ${msg}`,
-      });
+      if (msg) {
+        setDeleteError(msg);
+        logEvent({
+          category: "event",
+          action: "delete event",
+          label: `api error: ${msg}`,
+        });
+        return;
+      }
+      // server error
+      throw new Error(
+        "Server error: No deleted status or error message returned from API.",
+      );
     } catch (e) {
       // other errors
       const error = getErrorMessage(e);

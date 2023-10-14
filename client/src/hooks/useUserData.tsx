@@ -46,7 +46,9 @@ export const useUserData = () => {
         // if no user data is found, the server clears jwt cookies & logs the user out.
         // update the GUI accordingly by setting isLoggedIn to false (in the catch block),
         // hiding user dashboard access.
-        throw new Error("No user data found. You have been logged out");
+        throw new Error(
+          "Server error: No user data found. You have been logged out",
+        );
       } catch (e) {
         // all errors
         const error = getErrorMessage(e);

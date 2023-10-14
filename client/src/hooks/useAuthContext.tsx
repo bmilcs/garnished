@@ -72,7 +72,11 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
           path: "user/auth-status",
           method: "GET",
         });
-        setIsLoggedIn(authenticated);
+        if (authenticated) {
+          setIsLoggedIn(authenticated);
+          return;
+        }
+        setIsLoggedIn(false);
       } catch {
         setIsLoggedIn(false);
       } finally {
@@ -133,6 +137,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
         method: "DELETE",
         path: "user/logout",
       });
+      // successful logout
       if (status === 200) {
         setIsLoggedIn(false);
         logEvent({
@@ -143,6 +148,7 @@ export const AuthProvider: FC<TProps> = ({ children }) => {
         navigate("/");
         return;
       }
+      // server error
       throw new Error("Logout failed due to a server error.");
     } catch (e) {
       const error = getErrorMessage(e);
