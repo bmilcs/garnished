@@ -30,7 +30,7 @@ describe("Contact Route: POST /contact", () => {
       })
       .expect(200)
       .then(result => {
-        expect(result.body.msg).to.equal("successful contact form submission");
+        expect(result.body.msg).to.equal("Successful contact form submission");
       });
   });
 });
