@@ -1,10 +1,10 @@
 import { GOOGLE_ANALYTICS_ID } from "@/utils/config";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import { clientMode } from "./clientMode";
 
 export const initAnalytics = () => {
-  const isProduction = clientMode() === "production";
-  ReactGA.initialize(GOOGLE_ANALYTICS_ID, { debug: !isProduction });
+  const isDevelopment = clientMode() !== "production";
+  ReactGA.initialize(GOOGLE_ANALYTICS_ID, { testMode: Boolean(isDevelopment) });
 };
 
 export const logEvent = ({
