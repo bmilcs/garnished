@@ -108,9 +108,9 @@ export const userLogin = [
   // sanitize user input
   body("username")
     .trim()
+    .toLowerCase()
     .isEmail()
     .withMessage("Email address is invalid.")
-    .toLowerCase()
     .normalizeEmail(),
   body("password").trim(),
 
@@ -180,11 +180,9 @@ export const userLogin = [
 export const userPost = [
   body("username")
     .trim()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required.")
+    .toLowerCase()
     .isEmail()
     .withMessage("Email address is invalid.")
-    .toLowerCase()
     .normalizeEmail(),
   body("firstName")
     .trim()
@@ -194,14 +192,6 @@ export const userPost = [
     .trim()
     .isLength({ min: 1, max: 50 })
     .withMessage("Last name is required."),
-  body("username")
-    .trim()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required.")
-    .isEmail()
-    .withMessage("Email address is invalid.")
-    .toLowerCase()
-    .normalizeEmail(),
   body("city")
     .trim()
     .isLength({ min: 1, max: 100 })
@@ -298,11 +288,9 @@ export const userPost = [
 export const userSignup = [
   body("username")
     .trim()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required.")
+    .toLowerCase()
     .isEmail()
     .withMessage("Email address is invalid.")
-    .toLowerCase()
     .normalizeEmail()
     .custom(async (value: string) => {
       // check if email is already registered
@@ -324,14 +312,6 @@ export const userSignup = [
     .trim()
     .isLength({ min: 1, max: 50 })
     .withMessage("Last name is required."),
-  body("username")
-    .trim()
-    .isLength({ min: 1, max: 320 })
-    .withMessage("Email is required.")
-    .isEmail()
-    .withMessage("Email address is invalid.")
-    .toLowerCase()
-    .normalizeEmail(),
   body("city")
     .trim()
     .isLength({ min: 1, max: 100 })
