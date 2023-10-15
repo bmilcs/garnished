@@ -9,8 +9,8 @@
 #  bar: {
 #    bar_server_01: {
 #      small: bar_server_01_small,
-#      medium: bar_server_01_medium,
-#      large: bar_server_01_large,
+#      480w: bar_server_01_480w,
+#      600w: bar_server_01_600w,
 #      full: bar_server_01_full,
 #    }, ...
 
@@ -43,18 +43,20 @@ for subdir in "${subdirs[@]}"; do
       full_image_name=$(basename -- "$full_image_file")
       base_image_name="${full_image_name%_full.webp}"
 
-      # Generate import statements for -small, -medium, -large, and -full files with camelCase names
-      import_statements+="import ${base_image_name}_small from \"@/assets/${subdir}/responsive/${base_image_name}_small.webp\";\n"
-      import_statements+="import ${base_image_name}_medium from \"@/assets/${subdir}/responsive/${base_image_name}_medium.webp\";\n"
-      import_statements+="import ${base_image_name}_large from \"@/assets/${subdir}/responsive/${base_image_name}_large.webp\";\n"
+      # Generate import statements for all image sizes
+      import_statements+="import ${base_image_name}_80w from \"@/assets/${subdir}/responsive/${base_image_name}_80w.webp\";\n"
+      import_statements+="import ${base_image_name}_320w from \"@/assets/${subdir}/responsive/${base_image_name}_320w.webp\";\n"
+      import_statements+="import ${base_image_name}_480w from \"@/assets/${subdir}/responsive/${base_image_name}_480w.webp\";\n"
+      import_statements+="import ${base_image_name}_600w from \"@/assets/${subdir}/responsive/${base_image_name}_600w.webp\";\n"
       import_statements+="import ${base_image_name}_full from \"@/assets/${subdir}/responsive/${base_image_name}_full.webp\";\n"
 
       # Generate image objects for each image size within the subdirectory object
       image_objects+="  ${base_image_name}: {\n"
-      image_objects+="    small: ${base_image_name}_small,\n"
-      image_objects+="    medium: ${base_image_name}_medium,\n"
-      image_objects+="    large: ${base_image_name}_large,\n"
-      image_objects+="    full: ${base_image_name}_full,\n"
+      image_objects+="    '80w': ${base_image_name}_80w,\n"
+      image_objects+="    '320w': ${base_image_name}_320w,\n"
+      image_objects+="    '480w': ${base_image_name}_480w,\n"
+      image_objects+="    '600w': ${base_image_name}_600w,\n"
+      image_objects+="    'full': ${base_image_name}_full,\n"
       image_objects+="  },\n"
     done
 
