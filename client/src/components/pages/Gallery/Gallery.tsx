@@ -11,7 +11,7 @@ export const Gallery: FC = () => {
   return (
     <>
       <Hero
-        backgroundImage={drinks.specialty_drink_42.full}
+        backgroundImage={drinks.specialty_drink_42}
         title="Photo"
         titleSpan="Gallery"
         subtitle="Drink in the beauty"

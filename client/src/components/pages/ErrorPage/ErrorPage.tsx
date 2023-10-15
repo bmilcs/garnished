@@ -14,7 +14,7 @@ export const ErrorPage: FC<TProps> = ({
 }) => {
   return (
     <Hero
-      backgroundImage={drinks.specialty_drink_56.full}
+      backgroundImage={drinks.specialty_drink_56}
       title={title}
       subtitle={subtitle}
       heightInVH={75}

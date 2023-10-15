@@ -56,7 +56,7 @@ export const SeasonalMenus: FC = () => {
         title="Seasonal"
         titleSpan="Menus"
         subtitle="Your favorite drinks, all year round"
-        backgroundImage={drinks.specialty_drink_15.full}
+        backgroundImage={drinks.specialty_drink_57}
       />
 
       <section className={`column content-spacer`}>

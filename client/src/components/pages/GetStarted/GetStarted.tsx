@@ -18,7 +18,7 @@ export const GetStarted: FC = () => {
     return (
       <>
         <Hero
-          backgroundImage={drinks.specialty_drink_52.full}
+          backgroundImage={drinks.specialty_drink_52}
           title="Get"
           titleSpan="Started"
           subtitle="Ready to bring your event to the next level?"

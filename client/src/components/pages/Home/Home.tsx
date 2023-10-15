@@ -100,7 +100,7 @@ export const Home: FC = () => {
         title="Elevate Your Events With"
         titleSpan="Garnished"
         subtitle="The Premium Mobile Bar Service"
-        backgroundImage={drinks.specialty_drink_35.full}
+        backgroundImage={drinks.specialty_drink_35}
       >
         {isLoggedIn ? (
           <Button className={styles.heroButton} type="hero" link="/user">

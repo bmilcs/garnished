@@ -14,7 +14,7 @@ export const Services: FC = () => {
         title="Goods &"
         titleSpan="Services"
         subtitle="We bring the party to you"
-        backgroundImage={drinks.specialty_drink_13.full}
+        backgroundImage={drinks.specialty_drink_13}
       />
 
       <section className={`column ${styles.mobileBar}`}>

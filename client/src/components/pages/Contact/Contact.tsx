@@ -34,7 +34,7 @@ export const Contact: FC = () => {
   return (
     <>
       <Hero
-        backgroundImage={drinks.specialty_drink_30.full}
+        backgroundImage={drinks.specialty_drink_30}
         title="Get In"
         titleSpan="Touch"
         subtitle="We're excited to hear from you!"
