@@ -93,7 +93,7 @@
 //
 
 .navigationGrid {
-  --nav-slide-width: min(15vw, 80px);
+  --nav-slide-width: 80px;
 
   margin-top: var(--vertical-spacer-medium);
   padding-block: 0.5rem;
@@ -123,6 +123,7 @@
 }
 
 .navigationSlideImage {
+  width: var(--nav-slide-width);
   aspect-ratio: 1/1;
   object-fit: cover;
   opacity: 0.5;

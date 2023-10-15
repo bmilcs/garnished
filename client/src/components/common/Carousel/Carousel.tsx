@@ -1,19 +1,17 @@
 import { ArrowIcon } from "@/components/common/ArrowIcon/ArrowIcon";
 import { Button } from "@/components/common/Button/Button";
 import { Modal } from "@/components/common/Modal/Modal";
-import { ResponsiveImage } from "@/components/common/ResponsiveImage/ResponsiveImage";
+import {
+  ResponsiveImage,
+  TResponsiveImage,
+} from "@/components/common/ResponsiveImage/ResponsiveImage";
 import { useWindowResize } from "@/hooks/useWindowResize";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.scss";
 
 type TProps = {
   imageObject: {
-    [key: string]: {
-      full: string;
-      small: string;
-      medium: string;
-      large: string;
-    };
+    [key: string]: TResponsiveImage;
   };
 };
 
@@ -26,7 +24,7 @@ function Carousel({ imageObject }: TProps) {
   const navSlideRef = useRef<HTMLDivElement>(null);
   const [carouselSlideWidth, setCarouselSlideWidth] = useState(0);
   const [navSlideWidth, setNavSlideWidth] = useState(0);
-  const [modalImage, setModalImage] = useState<string | null>(null);
+  const [modalImage, setModalImage] = useState<TResponsiveImage | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [carouselScrollPosition, setCarouselScrollPosition] = useState(0);
   const DEBOUNCE_TIME = 100;
@@ -96,7 +94,7 @@ function Carousel({ imageObject }: TProps) {
       : setCurrentImageIndex(currentImageIndex - 1);
   };
 
-  const handleCarouselImageClick = (imageUrl: string) => {
+  const handleCarouselImageClick = (imageUrl: TResponsiveImage) => {
     setModalImage(imageUrl);
   };
 
@@ -127,8 +125,8 @@ function Carousel({ imageObject }: TProps) {
             >
               <ResponsiveImage
                 img={image}
-                onClick={() => handleCarouselImageClick(image.full)}
-                alt={`Carousel Image #${index}`}
+                onClick={() => handleCarouselImageClick(image)}
+                alt={`Carousel Image #${index + 1}`}
                 className={styles.carouselImage}
               />
             </div>
@@ -159,41 +157,43 @@ function Carousel({ imageObject }: TProps) {
 
       {/* image grid */}
 
-      <div>
-        <div className={styles.navigationGrid} ref={navRef}>
-          {imageObjectArray.map((image, index) => (
-            <div ref={navSlideRef} key={`${image.full}-${index}`}>
-              <Button
-                type="icon"
-                className={styles.navigationSlide}
-                ariaLabel={`Image ${index + 1}`}
-                key={image.full}
-                onClick={() => handleNavigationSlideClick(index)}
-              >
-                <ResponsiveImage
-                  img={image}
-                  alt={`Navigation Image ${index + 1}`}
-                  className={`${styles.navigationSlideImage}${
-                    index === currentImageIndex
-                      ? ` ${styles.navigationSlideImageActive}`
-                      : ""
-                  }`}
-                />
-              </Button>
-            </div>
-          ))}
-        </div>
+      <div className={styles.navigationGrid} ref={navRef}>
+        {imageObjectArray.map((image, index) => (
+          <div ref={navSlideRef} key={`${image.full}-${index}`}>
+            <Button
+              type="icon"
+              className={styles.navigationSlide}
+              ariaLabel={`Image ${index + 1}`}
+              key={image.full}
+              onClick={() => handleNavigationSlideClick(index)}
+            >
+              <img
+                src={image["80w"]}
+                alt={`Navigation Image ${index + 1}`}
+                className={`${styles.navigationSlideImage}${
+                  index === currentImageIndex
+                    ? ` ${styles.navigationSlideImageActive}`
+                    : ""
+                }`}
+              />
+            </Button>
+          </div>
+        ))}
       </div>
 
       {/* modal */}
 
-      {modalImage !== null && (
+      {modalImage && (
         <Modal
           onClickCloseOrOverlay={() => handleModalImageClick()}
           onClickModal={() => handleModalImageClick()}
           type="image"
         >
-          <img src={modalImage} alt="Modal Image" />
+          <ResponsiveImage
+            img={modalImage}
+            alt="Modal Image"
+            className={styles.modalImage}
+          />
         </Modal>
       )}
     </>
