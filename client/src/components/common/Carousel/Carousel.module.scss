@@ -105,7 +105,6 @@
   display: grid;
   grid-auto-columns: var(--nav-slide-width);
   grid-auto-flow: column;
-  gap: 4px;
 
   // force scroll to snap to images
   scroll-snap-type: x mandatory;
@@ -125,6 +124,7 @@
 .navigationSlideImage {
   width: var(--nav-slide-width);
   aspect-ratio: 1/1;
+  padding: 4px;
   object-fit: cover;
   opacity: 0.5;
   box-shadow: var(--box-shadow-100);
