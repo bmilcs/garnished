@@ -11,20 +11,24 @@ quality="80"
 cd $src_dir
 
 # Image conversion functions
+resizeThumbnail() {
+  convert "$1" -strip -resize 80x80 -quality "$quality" "$2_80w.$file_ext"
+}
+
 resizeSmall() {
-  convert "$1" -resize 320 -strip -quality "$quality" "$2_small.$file_ext"
+  convert "$1" -strip -resize 320 -quality "$quality" "$2_320w.$file_ext"
 }
 
 resizeMedium() {
-  convert "$1" -resize 480 -strip -quality "$quality" "$2_medium.$file_ext"
+  convert "$1" -strip -resize 480 -quality "$quality" "$2_480w.$file_ext"
 }
 
 resizeLarge() {
-  convert "$1" -resize 900 -strip -quality "$quality" "$2_large.$file_ext"
+  convert "$1" -strip -resize 600 -quality "$quality" "$2_600w.$file_ext"
 }
 
 fullSize() {
-  convert "$1" -strip -quality "$quality" "$2_full.$file_ext"
+  convert "$1" -strip -resize 1300 -quality "$quality" "$2_full.$file_ext"
 }
 
 # Delete all 'responsive' and 'full_size' folders
@@ -50,6 +54,7 @@ for file in $(find ${DIR} -iregex ".*\.\(jpg\|gif\|png\|jpeg\)"); do
   mkdir -p "$responsive_output_path"
 
   # Resize and convert the image to WebP format
+  resizeThumbnail "$file" "$responsive_output_path/$filename_noext"
   resizeSmall "$file" "$responsive_output_path/$filename_noext"
   resizeMedium "$file" "$responsive_output_path/$filename_noext"
   resizeLarge "$file" "$responsive_output_path/$filename_noext"
