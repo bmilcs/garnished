@@ -1,13 +1,16 @@
 import { TClassName } from "@/types/propTypes";
 import { FC } from "react";
 
+export type TResponsiveImage = {
+  full: string;
+  "80w": string;
+  "320w": string;
+  "480w": string;
+  "600w": string;
+};
+
 type TProps = TClassName & {
-  img: {
-    full: string;
-    small: string;
-    medium: string;
-    large: string;
-  };
+  img: TResponsiveImage;
   onClick?: () => void;
   alt: string;
   tabIndex?: number;
@@ -22,11 +25,11 @@ export const ResponsiveImage: FC<TProps> = ({
 }) => {
   return (
     <img
-      src={img.full}
       alt={alt}
       className={className ?? ""}
-      srcSet={`${img.small} 320w, ${img.medium} 480w, ${img.large} 600w`}
-      sizes="(max-width: 400px) 100vw, (max-width: 800px) 50vw, 35vw"
+      srcSet={`${img["320w"]} 320w, ${img["480w"]} 480w, ${img["600w"]} 600w`}
+      sizes="(max-width: 768px) 90vw, (max-width: 1300px) 40vw, 600px"
+      src={img["600w"]}
       onClick={onClick}
       tabIndex={tabIndex}
       loading="lazy"
