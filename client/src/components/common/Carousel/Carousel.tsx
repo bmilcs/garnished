@@ -17,7 +17,7 @@ type TProps = {
 
 function Carousel({ imageObject }: TProps) {
   const imageObjectArray = Object.values(imageObject);
-  const windowSize = useWindowResize();
+  const [windowWidth] = useWindowResize();
   const carouselRef = useRef<HTMLDivElement>(null);
   const carouselSlideRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
@@ -30,11 +30,23 @@ function Carousel({ imageObject }: TProps) {
   const DEBOUNCE_TIME = 100;
 
   useEffect(
-    function setSlideWidthsOnWindowSizeChange() {
+    function setSlideWidthsOnWindowWidthChange() {
       setCarouselSlideWidth(carouselSlideRef.current?.scrollWidth ?? 0);
       setNavSlideWidth(navSlideRef.current?.scrollWidth ?? 0);
     },
-    [windowSize],
+    [windowWidth],
+  );
+
+  useEffect(
+    function autoScrollImagesOnTimer() {
+      const autoScroll = setInterval(() => {
+        handleNextImage();
+      }, 2500);
+      // stop auto scroll when modal is open
+      if (modalImage) clearInterval(autoScroll);
+      return () => clearInterval(autoScroll);
+    },
+    [modalImage, currentImageIndex],
   );
 
   useEffect(
@@ -94,16 +106,16 @@ function Carousel({ imageObject }: TProps) {
       : setCurrentImageIndex(currentImageIndex - 1);
   };
 
-  const handleCarouselImageClick = (imageUrl: TResponsiveImage) => {
-    setModalImage(imageUrl);
+  const handleCarouselImageClick = (responsiveImage: TResponsiveImage) => {
+    setModalImage(responsiveImage);
   };
 
   const handleModalImageClick = () => {
     setModalImage(null);
   };
 
-  const handleNavigationSlideClick = (index: number) => {
-    setCurrentImageIndex(index);
+  const handleNavigationSlideClick = (imageIndex: number) => {
+    setCurrentImageIndex(imageIndex);
   };
 
   return (
@@ -155,7 +167,7 @@ function Carousel({ imageObject }: TProps) {
         </div>
       </div>
 
-      {/* image grid */}
+      {/* navigation image grid */}
 
       <div className={styles.navigationGrid} ref={navRef}>
         {imageObjectArray.map((image, index) => (
@@ -163,7 +175,7 @@ function Carousel({ imageObject }: TProps) {
             <Button
               type="icon"
               className={styles.navigationSlide}
-              ariaLabel={`Image ${index + 1}`}
+              ariaLabel={`View Full Image ${index + 1}`}
               key={image.full}
               onClick={() => handleNavigationSlideClick(index)}
             >
