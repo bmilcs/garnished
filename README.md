@@ -25,6 +25,7 @@ Client:
 - SCSS modules
 - ESLint
 - React PDF
+- Google Analytics
 - Framer Motion
 - ImageMagick
 - Bash Scripts
@@ -65,6 +66,7 @@ My general approach in web development is to get a working prototype up and runn
 9. Frontend: Built out baseline site layout & React routes
 10. Continued development on backend and frontend until a prototype was finished
 11. Reviewed, refactored and commented code to prevent repetitiveness and improve readability
+12. Added Google Analytics to track user behavior and unusual errors
 
 As with any project, there were inevitable hiccups and challenges that arose throughout development.
 
